@@ -38,6 +38,16 @@
 <div id="allparams" style="display:none" role="dialog" aria-label="全部筛选参数"><div id="allparamhead"><b>全部筛选参数</b><button id="allparamclose" type="button">关闭</button><div>同一属性多选为“或”，不同属性为“且”；完成选择后再查询。</div></div><div id="allparambody"></div><div id="allparamfoot"><span id="allparamcount"></span><button id="allparamdone" type="button">完成选择</button><button id="allparamquery" class="primary" type="button">应用并查询</button></div></div>
 <div id="facetpopup" style="display:none"><div class="pickerhead"><b id="pickertitle"></b><button id="pickerclose" type="button">完成</button></div><input id="pickersearch" type="text" title="查找当前属性选项" placeholder="查找选项"><div id="pickeroptions"></div><div class="pickerfooter"><button id="pickerclear" type="button">清除此属性</button><span id="pickercount"></span></div></div>
 <div id="largeview" style="display:none"><div id="largehead"><span id="largetitle">封装预览</span><button id="largeclose" type="button">关闭大图（Esc）</button></div><div id="largetools"><button id="largeout" type="button">− 缩小</button><span id="largezoomlabel">100%</span><button id="largein" type="button">＋ 放大</button><button id="largefit" type="button">适应窗口</button><span id="largeorbit" style="display:none"><button id="largeleft" type="button">↶</button><button id="largeright" type="button">↷</button><button id="largetop" type="button">俯仰</button></span><span id="largehint">滚轮缩放 · 按住鼠标拖动</span></div><div id="largeport" class="viewport"><div id="largecanvas" class="previewcanvas"><img id="largeimg" alt="元件大图预览"></div><div id="largeempty" class="previewempty" style="display:none"></div></div></div>
+<div id="pcbresultmask" style="display:none"></div>
+<div id="pcbresult" style="display:none" role="dialog" aria-modal="true" aria-labelledby="pcbresulttitle">
+  <div id="pcbresulthead"><b id="pcbresulttitle">PCB 封装生成结果</b><button id="pcbresultclose" type="button" title="关闭">关闭</button></div>
+  <div id="pcbresultbody">
+    <div id="pcbresultname"></div>
+    <label for="pcbdrawing">Drawing Name</label><textarea id="pcbdrawing" readonly="readonly" rows="3" spellcheck="false"></textarea><button id="pcbdrawingcopy" type="button">复制路径</button>
+    <label for="pcbcommand">Allegro Command</label><textarea id="pcbcommand" readonly="readonly" rows="4" spellcheck="false"></textarea><button id="pcbcommandcopy" type="button">复制指令</button>
+    <div id="pcbcopymsg" role="status"></div>
+  </div>
+</div>
 <script type="text/javascript" src="/static/embed.js"></script>
 </body>
 </html>
