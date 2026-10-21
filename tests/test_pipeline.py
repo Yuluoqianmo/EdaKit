@@ -151,7 +151,7 @@ def test_symbol_xml_is_capture_lib_dialect(tmp_path):
     # Package 名包含版本后缀（必须与 PlacePart 传的名字一致）；
     # 封装名落在 pcbFootprint 属性上
     assert f'name="{st.part_name}"' in txt
-    assert st.part_name == "RP2040_P5"
+    assert st.part_name == "RP2040_P6"
     assert 'pcbFootprint="LQFN-56_L7.0-W7.0-P0.4-EP"' in txt
     assert 'pcbFootprint="LQFN-56_L7.0-W7.0-P0.4-EP"' in txt
     # 57 个引脚
@@ -167,7 +167,7 @@ def test_staging_and_library_merge_keep_component_properties(tmp_path, capture_o
 
     component = _comp(cid)
     staged = stage_component(component, _cfg(tmp_path), capture_only=capture_only, download_step=False)
-    assert staged.part_name.endswith("_P5")
+    assert staged.part_name.endswith("_P6")
     assert staged.part_name != capture_part_name(component.symbol.name, cid, revision="P3")
     assert staged.part_name != capture_part_name(component.symbol.name, cid)
     assert staged.part_name != capture_part_name(component.symbol.name, cid, revision="G2")

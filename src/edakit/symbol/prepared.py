@@ -5,11 +5,11 @@ from pathlib import Path
 from ..storage import atomic_write
 
 # Bump when Capture XML generation semantics change.
-CAPTURE_FORMAT_VERSION = 5
+CAPTURE_FORMAT_VERSION = 6
 
 # Change the library identity as well as the disk cache key: Capture can retain
 # older definitions in an open design even after the source OLB is rebuilt.
-CAPTURE_PART_REVISION = "P5"
+CAPTURE_PART_REVISION = "P6"
 
 
 def prepare_xml(work: Path, cid: str, inputs: dict, generate):

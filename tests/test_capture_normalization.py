@@ -6,6 +6,7 @@ from conftest import DATA
 from edakit.easyeda.model import Pin, Symbol
 from edakit.easyeda.parse import parse_component
 from edakit.symbol.capture_lib import generate_lib_xml, normalize_capture_symbol, u
+import pytest
 
 
 def test_nonpower_names_unique_without_colliding_with_existing_names():
@@ -33,3 +34,21 @@ def test_c2040_unique_names_grid_no_collisions_and_source_untouched():
     assert normalize_capture_symbol(normalize_capture_symbol(source)) == normalize_capture_symbol(source)
     physical = xml.findall('.//PhysicalPart/PinNumber/Defn')
     assert {p.get('number') for p in physical} == {str(i) for i in range(1,58)}
+
+
+@pytest.mark.parametrize('angle', [0, 90, 180, 270])
+def test_short_source_lead_becomes_line_without_moving_body_end(angle):
+    source = Symbol(pins=[Pin(number='1', name='IN', x_mm=0.73,
+                             y_mm=-0.81, length_mm=0.5, orientation_deg=angle)])
+    old = source.pins[0]
+    prepared = normalize_capture_symbol(source)
+    pin = prepared.pins[0]
+    assert u(pin.x_mm) % 10 == u(pin.y_mm) % 10 == 0
+    assert pin.length_mm >= 2.54 - 1e-8
+    horizontal = angle in (0, 180)
+    direction = 1 if angle in (0, 90) else -1
+    assert ((pin.x_mm if horizontal else pin.y_mm) + direction * pin.length_mm
+            == pytest.approx((old.x_mm if horizontal else old.y_mm) + direction * old.length_mm))
+    assert normalize_capture_symbol(prepared) == prepared
+    root = ET.fromstring(generate_lib_xml(source, package_name='LINE'))
+    assert root.find('.//IsLong/Defn').get('val') == '1'

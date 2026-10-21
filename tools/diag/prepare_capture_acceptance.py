@@ -17,7 +17,7 @@ from edakit.symbol.capture_lib import generate_lib_xml, normalize_capture_symbol
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('output', type=Path)
-    parser.add_argument('--part', default='RP2040_P5R2')
+    parser.add_argument('--part', default='RP2040_P6')
     args = parser.parse_args()
     folder = args.output.resolve()
     folder.mkdir(parents=True, exist_ok=False)
@@ -27,7 +27,7 @@ def main():
     raw_xml = folder/'input.olb.xml'
     raw_olb = folder/'intermediate.olb'
     norm_xml = folder/'normalized.xml'
-    final_olb = folder/'C2040_P5R2.olb'
+    final_olb = folder/'C2040_P6.olb'
     final_xml = folder/'final.roundtrip.xml'
     raw_xml.write_text(generate_lib_xml(comp.symbol,
         lib_path=final_olb.as_posix(), package_name=args.part,

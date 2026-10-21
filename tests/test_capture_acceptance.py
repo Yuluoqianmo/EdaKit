@@ -2,7 +2,39 @@ import importlib.util
 import subprocess
 import shutil
 import pytest
+import json
+import xml.etree.ElementTree as ET
 from pathlib import Path
+
+
+def test_readback_contract_rejects_short_offgrid_and_fake_labels(tmp_path):
+    from conftest import DATA
+    from edakit.easyeda.parse import parse_component
+    from edakit.symbol.capture_lib import generate_lib_xml
+    root = Path(__file__).resolve().parents[1]
+    spec = importlib.util.spec_from_file_location('verify', root/'tools/diag/verify_capture_acceptance.py')
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    symbol = parse_component('C2040', json.loads((DATA/'C2040.json').read_text(encoding='utf-8'))).symbol
+    xml = generate_lib_xml(symbol, package_name='RP2040_P6')
+    path = tmp_path/'readback.xml'
+    path.write_text(xml, encoding='utf-8')
+    expected = module.contract(path)
+    assert len(expected) == 57
+    for change, message in [('short', 'not Line'), ('grid', 'Off-grid'),
+                            ('labels', 'Unexpected text'), ('hidden', 'disabled')]:
+        tree = ET.ElementTree(ET.fromstring(xml))
+        if change == 'short':
+            tree.find('.//IsLong/Defn').set('val', '0')
+        elif change == 'grid':
+            tree.find('.//SymbolPinScalar/Defn').set('hotptX', '1')
+        elif change == 'labels':
+            ET.SubElement(tree.find('.//NormalView'), 'CommentText')
+        else:
+            tree.find('.//IsPinNumbersVisible/Defn').set('val', '0')
+        tree.write(path, encoding='utf-8')
+        with pytest.raises(ValueError, match=message):
+            module.contract(path)
 
 
 def test_native_acceptance_uses_plugin_placement_sequence(tmp_path):

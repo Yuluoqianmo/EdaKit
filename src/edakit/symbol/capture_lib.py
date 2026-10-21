@@ -169,8 +169,11 @@ def normalize_capture_symbol(source: Symbol) -> Symbol:
             body = old_fixed + direction * pin.length_mm
             # Move the connection end outward so snapping cannot shorten the
             # visible lead or move it into the body.
-            new_fixed = (10 * (math.floor(fixed / 10) if direction == 1
-                               else math.ceil(fixed / 10))) * CAPTURE_UNIT_MM
+            # Keep at least 100 mil of visible Line lead, including on tiny
+            # source symbols. Snap the connection end outward from the body.
+            limit = (body - direction * 2.54) / CAPTURE_UNIT_MM
+            new_fixed = (10 * (math.floor(min(fixed, limit) / 10) if direction == 1
+                               else math.ceil(max(fixed, limit) / 10))) * CAPTURE_UNIT_MM
             new_length = direction * (body - new_fixed)
             if new_length < -1e-8:
                 raise ValueError(f'引脚 {pin.number} 长度不足以对齐 Capture 格点。')
@@ -353,17 +356,12 @@ def _pin_xml(
         f'visible="{1 if pin.visible else 0}"',
     ]
     out = [f"        <SymbolPinScalar>", f"          <Defn {' '.join(fields)}/>"]
-    # IsLong = 引脚图形是「长引脚(Line)」还是「短引脚(Short)」。
-    # OpenOrCadParser（真实 .OLB 解析）明确：IsLong=0 时 Capture 只画一半长度。
-    # 我们之前全写 0，所以 100 mil 的脚被画成 50 mil，名字/编号的默认位置也跟着乱。
-    # 规则与 arthur / kicad2orcad 一致：长度 ≥ 10 单位（2.54 mm）就是长引脚。
-    is_long = 1 if u(pin.length_mm or 0.0) >= 10 else 0
+    # Shape is a library policy, not inferred from the source lead length.
+    is_long = 1
     for b in _PIN_BOOLS:
         out.append(f'          <{b}><Defn val="0"/></{b}>')
     out[2] = f'          <IsLong><Defn val="{is_long}"/></IsLong>'
-    # 参考件里 IsNumberVisible = 1。每个引脚还有自己的编号开关：
-    # 竖直引脚（顶/底）上这个值设为 0，编号改由 CommentText 竖着自绘 ——
-    # Capture 画的横排编号在 100 mil 间距下会叠成一团（2026-10-19 v5 截图）。
+    # Use Capture's native number display so the visibility controls work.
     out[-1] = (
         '          <IsNumberVisible><Defn val="%d"/></IsNumberVisible>'
         % (1 if number_visible else 0)
@@ -407,21 +405,8 @@ def _ellipse_xml(g, *, y_sign=-1):
 
 
 # --------------------------------------------------------------------------- #
-# 引脚名「自己画」：CommentText + 旋转字体
-# --------------------------------------------------------------------------- #
-# 2026-10-19 真机结论：17.2 上 `IsPinNamesRotated=1` **不生效** —— 回读件里
-# 这个开关确实是 1，但顶/底引脚名仍被画成横排，互相压字。OLB XML 里也没有
-# "Pin Name Inside/Offset" 这类元素（olb.xsd 与 OpenOrCadParser 双重确认），
-# 所以「名字在框内 + 上下竖排」只剩一条路：
-#   隐藏 Capture 自己画的引脚名（IsPinNamesVisible=0），
-#   用 CommentText 图元自己画名字（TextFont 的 escapement/orientation 控制竖排）。
-# CommentText 在 NormalView 里位于 xs:choice 中、maxOccurs=unbounded，数量不限。
-PIN_LABEL_HEIGHT = 9      # 字高：9 单位 = 90 mil，与 Capture 引脚名字号一致
-PIN_LABEL_CHAR_W = 5      # 每字符宽度的保守估计（与旧 _text_xml 一致）
-PIN_LABEL_MARGIN = 5      # 名字离本体边线留的空隙
-PIN_LABEL_BASELINE = 4    # 横排文字：基线相对引脚线的下移量（让字垂直居中）
-PIN_NUM_GAP = 5           # 右侧编号离引脚端点的空隙（编号画在引脚外面）
-PIN_NUM_INSET = 1         # 顶/底编号离引脚端点的内侧空隙（编号画在引脚长度范围内）
+# CommentText is reserved for source graphics and diagnostic text probes.
+PIN_LABEL_CHAR_W = 5
 
 
 def _comment_text_xml(
@@ -475,30 +460,6 @@ def _text_xml(g, *, y_sign: int = -1) -> str:
     )
 
 
-def pin_side(pin) -> str | None:
-    """引脚在本体的哪条边：L/R/T/B（模型方向：0=左 180=右 90=底 270=顶）。"""
-    ang = round(pin.orientation_deg) % 360
-    return {0: "L", 180: "R", 90: "B", 270: "T"}.get(ang)
-
-
-def needs_manual_pin_names(sym: Symbol) -> bool:
-    """是否需要用 CommentText 自己画引脚名。
-
-    只有存在「顶/底边带名字的竖直引脚」时才需要 —— 左右两边 Capture 自己
-    画得对；没有竖直引脚的元件完全不动。
-    """
-    return any(
-        pin_side(p) in ("T", "B") and (p.name or "").strip()
-        for p in sym.pins
-        if p.visible
-    )
-
-
-def has_vertical_pins(sym: Symbol) -> bool:
-    """是否有可见的顶/底竖直引脚（决定是否需要自绘竖排编号）。"""
-    return any(pin_side(p) in ("T", "B") for p in sym.pins if p.visible)
-
-
 def _signed_body_edges(sym: Symbol, *, y_sign: int) -> tuple[int, int, int, int] | None:
     """以输出坐标（Y 已按 y_sign 翻转）返回本体矩形的 (x1, x2, y_top, y_bottom)。"""
     rect_i = _body_rect_index(sym)
@@ -509,123 +470,6 @@ def _signed_body_edges(sym: Symbol, *, y_sign: int) -> tuple[int, int, int, int]
     by1, by2 = sorted((float(g["y_mm"]), float(g["y2_mm"])))
     ys = sorted((u(by1) * y_sign, u(by2) * y_sign))
     return u(bx1), u(bx2), ys[0], ys[1]
-
-
-def _pin_name_labels(sym: Symbol, *, y_sign: int = -1) -> list[str]:
-    """为所有可见引脚生成「框内」名字的 CommentText。
-
-    * 左右引脚：横排，名字贴着框内边线；
-    * 顶/底引脚：竖排（escapement=900），沿引脚方向自下而上读，
-      起点放在框内、靠近边线的一端。
-
-    坐标全部是 Capture 单位（10 mil），Y 已翻转。
-    """
-    import math
-
-    edges = _signed_body_edges(sym, y_sign=y_sign)
-    if edges is None:
-        return []
-    _, _, body_top, body_bottom = edges
-
-    labels: list[str] = []
-    for p in sym.pins:
-        name = (p.name or "").strip()
-        if not p.visible or not name:
-            continue
-        side = pin_side(p)
-        if side is None:
-            continue
-        length = p.length_mm or 0.0
-        th = math.radians(p.orientation_deg)
-        start_x = p.x_mm + length * math.cos(th)
-        start_y = p.y_mm + length * math.sin(th)
-        sx = u(start_x)
-        sy = u(start_y) * y_sign
-        py = u(p.y_mm) * y_sign
-        px = u(p.x_mm)
-        w = len(name) * PIN_LABEL_CHAR_W
-
-        if side in ("L", "R"):
-            if side == "L":
-                x = sx + PIN_LABEL_MARGIN
-            else:
-                x = sx - PIN_LABEL_MARGIN - w
-            labels.append(_comment_text_xml(
-                name, x, py + PIN_LABEL_BASELINE,
-                x1=x, x2=x + w, y1=py - 8, y2=py + 2,
-            ))
-        else:
-            # 竖排：TextFont escapement=900 → 文字沿屏幕上方（-Y）延伸。
-            # 顶边名字的起点放在靠里的一端；底边名字的起点贴着边线。
-            if side == "T":
-                y = sy + PIN_LABEL_MARGIN + w
-            else:
-                y = sy - PIN_LABEL_MARGIN
-            x = px + 3
-            labels.append(_comment_text_xml(
-                name, x, y,
-                x1=x - 10, x2=x + 5, y1=y - w - 3, y2=y + 3,
-                escapement=900, orientation=900,
-            ))
-    return labels
-
-
-def _pin_number_labels(sym: Symbol, *, y_sign: int = -1) -> list[str]:
-    """为**所有**引脚生成自绘编号（CommentText），四边都画在引脚端点外侧。
-
-    背景：
-
-    * v5：顶/底竖直引脚彼此只隔 100 mil，Capture 把编号横着画在引脚端点上，
-      两位数、三位数直接叠成一串（顶边出现「40 43 32 10 48 43」这种糊字）。
-    * v6：顶/底编号改自绘后，右侧 32 个水平引脚的编号被 Capture 画在**框内**
-      边线处，正好压住自绘名字的尾巴。
-    * 2026-10-20（放置后截图）：库经过 `OLB2XML→XML2OLB` 规范化后，**per-pin
-      `IsNumberVisible` 在二进制里丢失**，放置时 Capture 又画出原生编号 →
-      每个引脚显示两个编号。per-pin 开关不可靠，改为**全局关闭**
-      （`IsPinNumbersVisible=0`）+ 四边全部自绘。
-    """
-    labels: list[str] = []
-    for p in sym.pins:
-        num = str(p.number or "").strip()
-        side = pin_side(p)
-        if not p.visible or not num:
-            continue
-        px = u(p.x_mm)
-        py = u(p.y_mm) * y_sign
-        w = len(num) * PIN_LABEL_CHAR_W
-        if side == "R":
-            # 端点再往右（+X）一个空隙，横排、与名字同一基线
-            x = px + PIN_NUM_GAP
-            labels.append(_comment_text_xml(
-                num, x, py + PIN_LABEL_BASELINE,
-                x1=x, x2=x + w, y1=py - 8, y2=py + 2,
-            ))
-            continue
-        if side == "L":
-            # 端点再往左（-X）：文字从左往右排，起点要减去字宽
-            x = px - PIN_NUM_GAP - w
-            labels.append(_comment_text_xml(
-                num, x, py + PIN_LABEL_BASELINE,
-                x1=x, x2=x + w, y1=py - 8, y2=py + 2,
-            ))
-            continue
-        # 顶/底：竖排（escapement=900），画在引脚长度范围内
-        x = px + 3
-        # v11 真机结论：零件编辑器的初始取景 = 「虚线框 ∪ 引脚」的包围盒、
-        # 零内边距；画在引脚端点之外的编号会被窗口裁掉，所以顶/底编号放在
-        # 引脚长度范围内侧，保证任何视图下都完整可见。
-        if side == "T":
-            # 端点在上（-Y），文字从锚点向上延伸：锚点放在端点内侧一个字的长度处
-            y = py + PIN_NUM_INSET + w
-        else:
-            # 端点在下（+Y），锚点贴着端点内侧，文字向上铺满引脚长度
-            y = py - PIN_NUM_INSET
-        labels.append(_comment_text_xml(
-            num, x, y,
-            x1=x - 10, x2=x + 5, y1=y - w - 1, y2=y + 1,
-            escapement=900, orientation=900,
-        ))
-    return labels
 
 
 def _augment_defaults_with_rotated_fonts(defaults: str, escapements: list[int]) -> str:
@@ -683,16 +527,8 @@ def generate_package_xml(
     # 否则 Capture 会把「1」和「1」并排画两遍。
     hide_pin_names = pin_names_hidden(sym)
 
-    # 有顶/底竖直引脚时必须自己画名字：17.2 的 IsPinNamesRotated 不生效，
-    # Capture 会把上下的名字全画成横排、互相压字（2026-10-19 真机截图）。
-    manual_names = needs_manual_pin_names(sym) and not hide_pin_names
-    label_xml = _pin_name_labels(sym, y_sign=y_sign) if manual_names else []
-
-    # 2026-10-20 真机：库经 OLB2XML→XML2OLB 规范化后，per-pin IsNumberVisible
-    # 在二进制里丢失 → 放置时 Capture 画出原生编号，与自绘编号重叠显示两遍。
-    # 所以编号一律**全局关闭 + 四边全部自绘**（per-pin 开关不再依赖）。
-    manual_numbers = True
-    number_label_xml = _pin_number_labels(sym, y_sign=y_sign)
+    # Names and numbers belong to SymbolPinScalar/PhysicalPart. Do not add
+    # CommentText substitutes: users must be able to toggle native visibility.
 
     xs: list[int] = []
     ys: list[int] = []
@@ -722,7 +558,7 @@ def generate_package_xml(
     passive_two_terminal = prefix.upper() in {"C", "R", "L"} and len(sym.pins) == 2
     for i, pin in enumerate(sym.pins):
         pins_xml.append(
-            _pin_xml(i, pin, y_sign=y_sign, number_visible=not manual_numbers, force_passive=passive_two_terminal)
+            _pin_xml(i, pin, y_sign=y_sign, force_passive=passive_two_terminal)
         )
         xs.append(u(pin.x_mm))
         ys.append(u(pin.y_mm) * y_sign)
@@ -775,17 +611,15 @@ def generate_package_xml(
         "        </SymbolDisplayProp>",
         '        <SymbolColor><Defn val="48"/></SymbolColor>',
         f'        <SymbolBBox><Defn x1="{x1}" x2="{x2}" y1="{y1}" y2="{y2}"/></SymbolBBox>',
-        '        <IsPinNumbersVisible><Defn val="0"/></IsPinNumbersVisible>',
+        '        <IsPinNumbersVisible><Defn val="1"/></IsPinNumbersVisible>',
         '        <IsPinNamesRotated><Defn val="1"/></IsPinNamesRotated>',
-        f'        <IsPinNamesVisible><Defn val="{0 if (hide_pin_names or manual_names) else 1}"/></IsPinNamesVisible>',
+        f'        <IsPinNamesVisible><Defn val="{0 if hide_pin_names else 1}"/></IsPinNamesVisible>',
         '        <ContentsLibName><Defn name=""/></ContentsLibName>',
         '        <ContentsViewName><Defn name=""/></ContentsViewName>',
         '        <ContentsViewType><Defn type="0"/></ContentsViewType>',
         f'        <PartValue><Defn name={quoteattr(sym.name)}/></PartValue>',
         f'        <Reference><Defn name={quoteattr(prefix)}/></Reference>',
     ]
-    body += label_xml
-    body += number_label_xml
     body += graphics
     body += pins_xml
     # Capture preserves PackageUserProp in the OLB, but does not inherit it
@@ -830,11 +664,6 @@ def generate_lib_xml(
     """生成完整的 `<Lib>` XML —— 可直接喂给 `XMATIC_XML2OLB`。"""
     pkg = package_name or sym.name or "PART"
     defaults = (defaults or default_values_block()).strip()
-
-    # 自己画竖排引脚名/编号时，字体表里必须有 escapement=900 的字体条目
-    # （有竖直引脚就一定会画竖排编号，名字是否隐藏不影响）。
-    if has_vertical_pins(sym):
-        defaults = _augment_defaults_with_rotated_fonts(defaults, [900])
 
     # ⚠ <Defn name> 绝不能空：实测空的 <Defn/> 会让 XMATIC_XML2OLB 什么都不写，
     # 只回一个 DboState 句柄。这里兜底给个名字。

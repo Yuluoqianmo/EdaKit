@@ -616,7 +616,7 @@ def cmd_selftest(args: argparse.Namespace) -> int:
             footprint=comp.footprint.name if comp.footprint else "",
             refdes_prefix=comp.symbol.prefix,  # type: ignore[union-attr]
         )
-        for marker in ("<SymbolPinScalar>", "<SymbolBBox>", "<CommentText>"):
+        for marker in ("<SymbolPinScalar>", "<SymbolBBox>", "<IsPinNamesVisible>", "<IsPinNumbersVisible>"):
             if marker not in xml:
                 raise ValueError(f"生成的 XML 里没有 {marker}")
         return f"{len(xml):,} 字节"

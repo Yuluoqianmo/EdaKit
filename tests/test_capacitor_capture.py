@@ -52,7 +52,7 @@ def test_fixed_capacitor_uses_new_cache_name_but_keeps_model(tmp_path, monkeypat
     component = parse_component("C23630", json.loads((DATA / "C23630.json").read_text(encoding="utf-8")))
     staged = stage_component(component, Config(footprint_lib=str(tmp_path / "lib")), capture_only=True)
     xml = ET.parse(staged.symbol_xml)
-    assert staged.part_name.endswith("_P5") and len(staged.part_name.encode("utf-8")) <= 31
+    assert staged.part_name.endswith("_P6") and len(staged.part_name.encode("utf-8")) <= 31
     assert xml.find("./Package/Defn").get("name") == staged.part_name
     assert xml.find(".//PartValue/Defn").get("name") == component.symbol.name
 

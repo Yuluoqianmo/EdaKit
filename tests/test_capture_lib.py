@@ -239,162 +239,14 @@ def test_refdes_prefix_strips_question_mark():
     assert root.find(".//Reference/Defn").get("name") == "R"
 
 
-def test_text_is_off_by_default():
-    """原理图自带文字图元默认不导出；引脚名/编号（CommentText）全部自绘。"""
-    comp = _comp("C2040")   # 这个元件带 2 个文字图元
-    root = ET.fromstring(generate_lib_xml(comp.symbol, package_name="RP2040"))
-    assert root.findall(".//Text") == []
-    # 57 个引脚名标签 + 57 个自绘编号标签（四边全画），
-    # 不带元件自带的 2 段文字；顶部留白从 v10 起改用矩形探针，不再用空白文字
-    assert len(root.findall(".//CommentText")) == 114
-    # 0603 没有竖直引脚，名字=编号被隐藏；编号仍然自绘（两脚各一个）
-    root2 = ET.fromstring(generate_lib_xml(_comp("C25804").symbol, package_name="R0603"))
-    texts2 = root2.findall(".//CommentText")
-    assert len(texts2) == 2
-    assert all(_is_number_label(t) for t in texts2)
-
-
-def _label_name(t):
-    return t.find("Defn").get("name")
-
-
-def _is_number_label(t):
-    return _label_name(t).isdigit()
-
-
-def test_pin_name_labels_are_rotated_per_side():
-    """顶/底引脚名必须竖排（escapement=900），左右引脚名保持横排。
-
-    回归背景（2026-10-19 真机）：IsPinNamesRotated=1 在 17.2 上不生效，
-    顶边 12 个名字横排叠成一片。改为隐藏 Capture 名字、用 CommentText 自绘。
-    """
-    comp = _comp("C2040")
-    root = ET.fromstring(generate_lib_xml(comp.symbol, package_name="RP2040"))
-    texts = [t for t in root.findall(".//CommentText") if not _is_number_label(t)]
-
-    def esc(t):
-        return t.find("TextFont/Defn").get("escapement")
-
-    rotated = [_label_name(t) for t in texts if esc(t) != "0"]
-    # 顶边 12 + 底边 2 = 14 个竖排名（DVDD/IOVDD 有重名，不能按名字去重）
-    assert len(rotated) == 14
-    for name in ("ADC_AVDD", "IOVDD1", "TESTEN", "GND"):
-        assert name in rotated
-    flat = {_label_name(t) for t in texts if esc(t) == "0"}
-    for name in ("GPIO7", "QSPI_SS", "USB_DP"):
-        assert name in flat and name not in rotated
-
-
-def test_pin_name_labels_sit_inside_body():
-    """自绘名字必须在框内：左右名字不越出本体边线，上下名字落在外框之间。
-
-    编号标签是画在框外的，这里按「纯数字」把它们排除。
-    """
-    comp = _comp("C2040")
-    root = ET.fromstring(generate_lib_xml(comp.symbol, package_name="RP2040"))
-    rect = root.find(".//Rect/Defn")
-    bx1, bx2 = int(rect.get("x1")), int(rect.get("x2"))
-    by1, by2 = int(rect.get("y1")), int(rect.get("y2"))
-    for t in root.findall(".//CommentText"):
-        if _is_number_label(t):
-            continue
-        d = t.find("Defn")
-        x, y = int(d.get("locX")), int(d.get("locY"))
-        assert bx1 < x < bx2, (d.get("name"), x)
-        assert by1 < y < by2, (d.get("name"), y)
-
-
-def test_vertical_pin_numbers_stay_within_pin_extent():
-    """顶/底编号竖排自绘，且必须落在引脚长度范围内（不被取景裁掉）。
-
-    回归背景：v5 截图顶边 12 个横排编号叠成一团 → 改自绘竖排；
-    v11 截图发现画在引脚端点**之外**的编号被零件编辑器裁掉（初始取景 =
-    虚线框 ∪ 引脚的包围盒、零内边距）。所以编号改为贴着端点内侧、沿引脚线。
-    """
-    comp = _comp("C2040")
-    root = ET.fromstring(generate_lib_xml(comp.symbol, package_name="RP2040"))
-
-    pins = {}
-    for sp in root.findall(".//SymbolPinScalar"):
-        d = sp.find("Defn")
-        pins[(int(d.get("hotptX")), int(d.get("hotptY")))] = d
-
-    nums = [t for t in root.findall(".//CommentText") if _is_number_label(t)]
-    vertical = [t for t in nums if t.find("TextFont/Defn").get("escapement") == "900"]
-    assert len(vertical) == 14  # 顶边 12 + 底边 2
-    for t in vertical:
-        d = t.find("Defn")
-        x = int(d.get("locX"))
-        px = x - 3                        # 编号锚点固定在引脚线右侧 3 单位
-        y1, y2 = int(d.get("y1")), int(d.get("y2"))
-        # 找到同一 x 列、端点离该编号最近的竖直引脚（顶边或底边）
-        # —— 顶/底引脚可能共用同一 x 列，必须按端点距离消歧
-        yloc = int(d.get("locY"))
-        match = [p for (hx, hy), p in pins.items() if hx == px]
-        assert match, ("找不到编号对应的引脚", _label_name(t), x)
-        pin = min(match, key=lambda p: abs(int(p.get("hotptY")) - yloc))
-        hotpt = int(pin.get("hotptY"))
-        start = int(pin.get("startY"))
-        lo, hi = sorted((hotpt, start))
-        if hotpt < start:   # 顶边：编号不能越过端点（向上超出）
-            assert y1 >= hotpt - 1, ("顶边编号超出引脚端点会被裁", _label_name(t), y1, hotpt)
-            assert y2 <= hi + 3, ("编号不应深入本体过多", _label_name(t), y2, hi)
-        else:               # 底边：编号不能越过端点（向下超出）
-            assert y2 <= hotpt + 1, ("底边编号超出引脚端点会被裁", _label_name(t), y2, hotpt)
-            assert y1 >= lo - 3, ("编号不应深入本体过多", _label_name(t), y1, lo)
-
-
-def test_all_pin_numbers_self_drawn_outside_body():
-    """四边编号全部自绘、画在框外；Capture 原生编号全局关闭。
-
-    回归背景：
-    * 2026-10-19 v6：右侧编号被 Capture 画在框内压住名字；
-    * 2026-10-20：库经 OLB2XML→XML2OLB 规范化后，per-pin IsNumberVisible
-      在二进制里丢失，放置时原生编号又冒出来 → 每个脚两个编号。
-    修法：`IsPinNumbersVisible=0` 全局关闭，57 个编号全部来自 CommentText。
-    """
-    comp = _comp("C2040")
-    root = ET.fromstring(generate_lib_xml(comp.symbol, package_name="RP2040"))
-    rect = root.find(".//Rect/Defn")
-    bx1, bx2 = int(rect.get("x1")), int(rect.get("x2"))
-
-    nums = [t for t in root.findall(".//CommentText") if _is_number_label(t)]
-    assert len(nums) == 57
-    horizontal = [t for t in nums if t.find("TextFont/Defn").get("escapement") == "0"]
-    assert len(horizontal) == 43           # 左 11 + 右 32
-    for t in horizontal:
-        d = t.find("Defn")
-        x1, x2 = int(d.get("x1")), int(d.get("x2"))
-        assert x2 <= bx1 or x1 >= bx2, ("水平编号必须落在框外", _label_name(t), x1, x2)
-
-    # 每个引脚自己的编号开关全部关闭（二进制不保存它，只是不想再冒险）
-    flags = [s.find("IsNumberVisible/Defn").get("val") for s in root.findall(".//SymbolPinScalar")]
-    assert set(flags) == {"0"}
-    # 全局开关也关闭 → 放置时不会再画出原生编号
-    assert root.find(".//IsPinNumbersVisible/Defn").get("val") == "0"
-
-
-def test_horizontal_only_parts_also_self_draw_numbers():
-    """纯水平引脚（排针、阻容）的编号同样自绘，原生编号全局关闭。"""
-    comp = _comp("C2337")  # 40P 排针，全部是左侧水平引脚
-    root = ET.fromstring(generate_lib_xml(comp.symbol, package_name="HEADER40"))
-    texts = root.findall(".//CommentText")
-    assert len(texts) == 40
-    assert all(_is_number_label(t) for t in texts)
-    assert root.find(".//IsPinNumbersVisible/Defn").get("val") == "0"
-    flags = [s.find("IsNumberVisible/Defn").get("val") for s in root.findall(".//SymbolPinScalar")]
-    assert flags and set(flags) == {"0"}
-
-
-def test_rotated_font_is_registered_in_defaults():
-    """CommentText 的竖排字体必须在 DefaultValues 字体表里有一席之地。"""
-    comp = _comp("C2040")
-    root = ET.fromstring(generate_lib_xml(comp.symbol, package_name="RP2040"))
-    escs = {f.find("Defn").get("escapement") for f in root.findall("DefaultValues/DefaultFont")}
-    assert "900" in escs
-    # 0603 不用竖排，字体表保持原样（24 个）
-    root2 = ET.fromstring(generate_lib_xml(_comp("C25804").symbol, package_name="R0603"))
-    assert len(root2.findall("DefaultValues/DefaultFont")) == 24
+def test_native_pin_labels_have_no_comment_text_substitutes():
+    for cid in ('C2040', 'C25804', 'C2337'):
+        root = ET.fromstring(generate_lib_xml(_comp(cid).symbol, package_name='NATIVE'))
+        assert root.findall('.//CommentText') == []
+        assert root.find('.//IsPinNumbersVisible/Defn').get('val') == '1'
+        for pin in root.findall('.//SymbolPinScalar'):
+            assert pin.find('IsNumberVisible/Defn').get('val') == '1'
+            assert pin.find('IsLong/Defn').get('val') == '1'
 
 
 def test_text_probe_generator_is_schema_shaped():
@@ -420,9 +272,9 @@ def test_text_can_be_enabled_as_comment_text():
         generate_lib_xml(comp.symbol, package_name="RP2040", include_text=True)
     )
     texts = root.findall(".//CommentText")
-    # 57 个引脚名标签 + 57 个自绘编号标签 + 2 个元件自带文字
+    # Only the two source text primitives; pin labels stay native.
     # （顶部留白自 v10 起是矩形探针，不再计入 CommentText）
-    assert len(texts) == 116
+    assert len(texts) == 2
     for t in texts:
         d = t.find("Defn")
         for k in ("locX", "locY", "name", "x1", "x2", "y1", "y2"):
@@ -486,8 +338,7 @@ def test_pin_names_visible_when_meaningful():
     comp = _comp("C2040")           # RP2040，引脚名是 GPIO7 之类
     root = ET.fromstring(generate_lib_xml(comp.symbol, package_name="RP2040"))
     flag = root.find(".//IsPinNamesVisible/Defn")
-    # 有竖直引脚 → 隐藏 Capture 自己画的名字，改由 CommentText 自绘（竖排）
-    assert flag.get("val") == "0"
+    assert flag.get("val") == "1"
 
 
 def test_generator_aligns_hotpoints_without_expanding_body():
