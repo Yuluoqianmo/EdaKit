@@ -336,8 +336,8 @@
   function showPcbResult(d) {
     pcbResultFocus = document.activeElement;
     text(el("pcbresultname"), d.footprint);
-    el("pcbdrawing").value = d.drawing;
-    el("pcbcommand").value = d.command;
+    el("pcbdrawing").value = d.directory;
+    el("pcbcommand").value = d.message + "\n" + d.footprint + ".dra\n" + d.footprint + ".psm";
     text(el("pcbcopymsg"), "");
     el("pcbresult").style.display = el("pcbresultmask").style.display = "";
     el("pcbdrawing").focus();
@@ -370,15 +370,29 @@
     var cid = state.selection.sel.cid;
     pcbBusy = true; pcbButton(); beginWait("pcb", "正在生成 PCB 封装", 90);
     jsonp("/api/es/footprint", { cid: cid }, function (d) {
-      pcbBusy = false; pcbButton(); endWait("pcb");
-      if (state.selection.sel && state.selection.sel.cid === cid) { text(el("pmsg"), "候选封装已生成，目录已打开。" + d.footprint); }
-      showPcbResult(d);
+      pollPcb(d.job, cid, 0);
     }, function (message) {
       pcbBusy = false; pcbButton(); endWait("pcb");
       if (state.selection.sel && state.selection.sel.cid === cid) { text(el("pmsg"), message || "封装生成失败"); }
       notice(message || "封装生成失败");
     });
   });
+  function pollPcb(job, cid, failures) {
+    jsonp("/api/es/footprint/status", { job: job }, function (d) {
+      if (d.status === "building") { window.setTimeout(function () { pollPcb(job, cid, 0); }, 900); return; }
+      pcbBusy = false; pcbButton(); endWait("pcb");
+      if (d.status === "compiled") {
+        if (state.selection.sel && state.selection.sel.cid === cid) { text(el("pmsg"), "PCB 封装已保存：" + d.footprint); }
+        showPcbResult(d);
+      } else {
+        if (state.selection.sel && state.selection.sel.cid === cid) { text(el("pmsg"), d.message || "构建失败"); }
+        notice(d.message || "构建失败");
+      }
+    }, function (message) {
+      if (failures < 3) { window.setTimeout(function () { pollPcb(job, cid, failures + 1); }, 1500); return; }
+      pcbBusy = false; pcbButton(); endWait("pcb"); notice(message || "构建状态查询失败");
+    });
+  }
 
 /* source: 09-placement.js */
   function placeBusy(busy) {
@@ -403,6 +417,41 @@
       if (same) { text(el("pmsg"), !r.ok ? "放置失败：" + r.message : (r.message || "").indexOf("armed:") === 0 ? "单击原理图落位，Esc 退出。" : r.message); }
     }, function () { placeBusy(false); if (state.selection.sel && state.selection.sel.cid === cid) { text(el("pmsg"), "放置状态查询失败，请查看原理图或服务日志确认状态。"); } });
   }
+
+/* source: 09-settings.js */
+  var librarySaving = false;
+  function closeLibrarySettings() {
+    if (librarySaving) { return; }
+    el("librarymask").style.display = el("librarydialog").style.display = "none";
+    el("librarysettings").focus();
+  }
+  bind("librarysettings", "click", function () {
+    if (librarySaving) { return; }
+    el("librarymask").style.display = el("librarydialog").style.display = "";
+    el("librarysave").disabled = true; text(el("librarymessage"), "正在读取…");
+    jsonp("/api/es/library/settings", {}, function (d) {
+      el("symbolpath").value = d.symbol_lib; el("footprintpath").value = d.footprint_lib; el("cadencepath").value = d.cadence_root;
+      el("librarysave").disabled = false; text(el("librarymessage"), ""); el("symbolpath").focus();
+    }, function (message) { text(el("librarymessage"), message); });
+  });
+  bind("libraryclose", "click", closeLibrarySettings);
+  bind("librarysave", "click", function () {
+    if (librarySaving) { return; }
+    librarySaving = true; el("librarysave").disabled = true; text(el("librarymessage"), "正在保存…");
+    jsonp("/api/es/library/settings/save", { symbol_lib: el("symbolpath").value, footprint_lib: el("footprintpath").value, cadence_root: el("cadencepath").value }, function (d) {
+      librarySaving = false; el("librarysave").disabled = false; text(el("librarymessage"), d.message);
+    }, function (message) { librarySaving = false; el("librarysave").disabled = false; text(el("librarymessage"), message); });
+  });
+  bind(document, "keydown", function (ev) {
+    ev = ev || window.event;
+    if (el("librarydialog").style.display === "none") { return; }
+    if (ev.keyCode === 27) { closeLibrarySettings(); }
+    if (ev.keyCode === 9) {
+      var first = el("libraryclose"), last = el("librarysave");
+      if (ev.shiftKey && document.activeElement === first) { last.focus(); if (ev.preventDefault) { ev.preventDefault(); } ev.returnValue = false; }
+      else if (!ev.shiftKey && document.activeElement === last) { first.focus(); if (ev.preventDefault) { ev.preventDefault(); } ev.returnValue = false; }
+    }
+  });
 
 /* source: 10-events.js */
   bind("btnsearch", "click", search); bind("btnclear", "click", resetFilters);

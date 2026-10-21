@@ -25,6 +25,7 @@ class Config:
     """用户配置。"""
 
     footprint_lib: str = ""      # 全局封装库目录 (.dra/.psm/.pad/.step)
+    symbol_lib: str = ""         # Explicit Capture library directory; empty preserves legacy project_olb.
     project_olb: str = ""        # Capture 累积工程库
     cadence_root: str = ""       # SPB 安装根，留空自动探测
     calib: str = "easyeda2kicad"  # 3D 校准口径
@@ -85,7 +86,7 @@ class Config:
         return cfg
 
     def validate(self):
-        for name in ("footprint_lib", "project_olb", "cadence_root", "calib", "schema_profile", "place_mode"):
+        for name in ("footprint_lib", "symbol_lib", "project_olb", "cadence_root", "calib", "schema_profile", "place_mode"):
             if not isinstance(getattr(self, name), str):
                 raise ValueError("Invalid configuration field: " + name)
         for name in ("auto_config_allegro", "switch_to_capture"):
@@ -108,6 +109,9 @@ class Config:
         atomic_write(app_dir() / "config.json", json.dumps(asdict(self), ensure_ascii=False, indent=2))
 
     def ensure_dirs(self) -> None:
+        if self.symbol_lib:
+            Path(self.symbol_lib).mkdir(parents=True, exist_ok=True)
+            self.project_olb = str(Path(self.symbol_lib) / 'EdaKit.olb')
         if self.footprint_lib:
             Path(self.footprint_lib).mkdir(parents=True, exist_ok=True)
         if self.project_olb:

@@ -29,7 +29,6 @@ from .footprint.validation import validate_pin_mapping
 from .fetch import Fetcher
 from .threed.mapping import build_3dcanvas_mapping_xml, build_map_xml, calibrate
 from .threed.step import StepFetcher
-from .symbol.naming import capture_part_name
 
 
 @dataclass
@@ -73,10 +72,13 @@ def fetch_component(cid: str) -> Component:
 
 def stage_component(comp: Component, cfg: Config, *, download_step: bool = True, capture_only: bool = False, output_dir: Path | None = None) -> Staged:
     """把元件落盘到配置好的目录。"""
+    from .library import library_names
+    identities = library_names(comp)
     # 所有模式均在写文件或复用 XML 缓存前校验，不能将错误的符号/封装配对交给用户。
     pin_map = (validate_pin_mapping(comp.symbol, comp.footprint)
                if comp.symbol is not None and comp.footprint is not None else None)
     if pin_map is not None:
+        pin_map.update(identities)
         from .symbol.capture_lib import normalize_capture_symbol
         prepared_symbol = normalize_capture_symbol(comp.symbol)
         capture_pins = {p.number: p for p in prepared_symbol.pins}
@@ -88,12 +90,13 @@ def stage_component(comp: Component, cfg: Config, *, download_step: bool = True,
     cfg.ensure_dirs()
     cid = comp.cid
     work = Path(output_dir) / cid if output_dir is not None else Path(cfg.footprint_lib).parent / "staging" / cid
+    if output_dir is None and cfg.symbol_lib:
+        work = Path(cfg.symbol_lib) / '.edakit-staging' / cid
     lib = work if output_dir is not None else Path(cfg.footprint_lib)
     work.mkdir(parents=True, exist_ok=True)
 
     out = Staged(cid=cid, workdir=work)
-    from .footprint.naming import footprint_name
-    fp_name = footprint_name(comp.footprint.name) if comp.footprint else f"{cid}_PKG"
+    fp_name = identities['footprint']
     out.footprint_name = fp_name
     if pin_map is not None:
         out.pin_map = work / f"{cid}.pinmap.json"
@@ -124,17 +127,9 @@ def stage_component(comp: Component, cfg: Config, *, download_step: bool = True,
         if not defaults:
             defaults = default_values_block()
 
-        # 零件名（Package name）必须与放置时 PlacePart 传的名字一致，
-        # 否则 Capture 报 ORCAP-1687 "Unable to place object"。
-        # 以前这里用封装名（如 LQFN-56_...），而放置请求传的是符号名
-        # （如 RP2040）→ 库里找不到 RP2040 → 放置失败（2026-10-19 真机）。
-        # 统一用符号名；没有符号名才退回封装名。
-        from .symbol.prepared import CAPTURE_PART_REVISION
-
         # Bypass definitions without the placement properties in Capture's
         # design cache. PartValue keeps the original full model.
-        pkg_name = capture_part_name(comp.symbol.name or fp_name, cid,
-                                     revision=CAPTURE_PART_REVISION)
+        pkg_name = identities['symbol']
         out.part_name = pkg_name
         def generate():
             return generate_lib_xml(

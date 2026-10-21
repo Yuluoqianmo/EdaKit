@@ -61,6 +61,8 @@ class ApplicationServices:
         self.tasks = TaskCoordinator()
         self.preview = PreviewService()
         self.placement = PlacementService(lambda *a, **kw: stage_component(*a, **kw))
+        from ..footprint.native import FootprintJobs
+        self.footprints = FootprintJobs()
 
 
 class MallHandler(BaseHTTPRequestHandler):
@@ -186,12 +188,14 @@ class MallHandler(BaseHTTPRequestHandler):
             if path == "/api/es/place":
                 return self._place_from_qs(qs)
             if path == "/api/es/footprint":
-                from ..services.footprint import prepare_footprint
-                result = prepare_footprint(self._component((qs.get('cid') or [''])[0]), Config.load().footprint_lib)
-                try:
-                    os.startfile(result['directory'])
-                except OSError:
-                    result['message'] += '\n无法自动打开目录，请按路径打开。'
+                result = self.server.services.footprints.submit(self._component((qs.get('cid') or [''])[0]), Config.load())
+                return self._jsonp(qs, result) or self._json(result)
+            if path == '/api/es/footprint/status':
+                result = self.server.services.footprints.status((qs.get('job') or [''])[0])
+                return self._jsonp(qs, result) or self._json(result)
+            if path in ('/api/es/library/settings', '/api/es/library/settings/save'):
+                from ..services.library_settings import read_settings, save_settings
+                result = save_settings({k: v[0] for k, v in qs.items()}) if path.endswith('/save') else read_settings()
                 return self._jsonp(qs, result) or self._json(result)
             if path == "/api/es/place/status":
                 seq = (qs.get("seq") or [""])[0]
@@ -565,6 +569,8 @@ class ApplicationServer(ThreadingHTTPServer):
     def server_close(self):
         if hasattr(self, "services"):
             self.services.tasks.close()
+            if hasattr(self.services, 'footprints'):
+                self.services.footprints.close()
         super().server_close()
 
 

@@ -129,6 +129,10 @@ def build_block(lib_dir: str) -> str:
     Allegro 的 env 语法: 直接写变量名赋值，多个路径用空格分隔，``$name`` 引用自身旧值。
     """
     lib = lib_dir.replace("\\", "/")
+    if any(c in lib for c in '\r\n\x00"$'):
+        raise DeployError('封装库路径含 Allegro 环境文件不支持的字符')
+    if any(c.isspace() for c in lib):
+        lib = '"' + lib + '"'
     lines = [BEGIN]
     lines.append("# 由 lcsc2cadence 自动生成，请勿手改；卸载/重新配置会覆盖本块。")
     lines.append(f"padpath = {lib} $padpath")

@@ -102,8 +102,8 @@ def test_skill_sets_extents_before_creating_negative_coordinate_pins():
     il = generate_skill(fp)
     assert il.index('axlDBChangeDesignUnits') < il.index('axlDBChangeDesignExtents')
     assert il.index('axlDBChangeDesignExtents') < il.index('axlDBCreatePin')
-    match = re.search(r'axlDBChangeDesignExtents \(list ([\d.-]+):([\d.-]+) ([\d.-]+):([\d.-]+)\)', il)
-    x1, y1, x2, y2 = map(float, match.groups())
+    assert '(bounds (axlGetParam "paramDesign")->bBox)' in il
+    x1, y1, x2, y2 = map(float, re.findall(r'\((?:min|max) \([xy]Coord \((?:car|cadr) bounds\)\) ([\d.-]+)\)', il))
     assert x1 < 0 < x2 and y1 < 0 < y2
     for ps in fp.padstacks:
         assert x1 < ps.x_mm < x2

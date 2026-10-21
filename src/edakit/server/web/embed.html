@@ -7,7 +7,7 @@
 <link rel="stylesheet" type="text/css" href="/static/embed.css">
 </head>
 <body>
-<div id="top"><span class="brand">EdaKit</span><span class="subtitle">元件工作台</span><span id="st">正在连接…</span></div>
+<div id="top"><span class="brand">EdaKit</span><span class="subtitle">元件工作台</span><button id="librarysettings" type="button">库设置</button><span id="st">正在连接…</span></div>
 <div id="searchbar"><label for="kw">搜索元件</label><input id="kw" type="text" value="" title="型号、厂家或 C 编号；阻值、容值、感值可与分类组合查询"><button id="btnsearch" class="primary" type="button">查询</button><button id="btnclear" type="button">重置</button><span id="searchhelp">选好条件，再查询 · 回车提交</span></div>
 <div id="sidebar"><div class="railtitle">电子器件分类 <button id="railclose" type="button" title="收起分类">‹</button></div><div id="navcats"></div><div class="railnote">同一属性多选为“或”<br>不同属性之间为“且”<br>结果与封装独立查看</div></div>
 <div id="filters">
@@ -43,10 +43,20 @@
   <div id="pcbresulthead"><b id="pcbresulttitle">PCB 封装生成结果</b><button id="pcbresultclose" type="button" title="关闭">关闭</button></div>
   <div id="pcbresultbody">
     <div id="pcbresultname"></div>
-    <label for="pcbdrawing">Drawing Name</label><textarea id="pcbdrawing" readonly="readonly" rows="3" spellcheck="false"></textarea><button id="pcbdrawingcopy" type="button">复制路径</button>
-    <label for="pcbcommand">Allegro Command</label><textarea id="pcbcommand" readonly="readonly" rows="4" spellcheck="false"></textarea><button id="pcbcommandcopy" type="button">复制指令</button>
+    <label for="pcbdrawing">封装库路径</label><textarea id="pcbdrawing" readonly="readonly" rows="3" spellcheck="false"></textarea><button id="pcbdrawingcopy" type="button">复制路径</button>
+    <label for="pcbcommand">生成结果</label><textarea id="pcbcommand" readonly="readonly" rows="4" spellcheck="false"></textarea><button id="pcbcommandcopy" type="button">复制结果</button>
     <div id="pcbcopymsg" role="status"></div>
   </div>
+</div>
+<div id="librarymask" style="display:none"></div>
+<div id="librarydialog" style="display:none" role="dialog" aria-modal="true" aria-labelledby="librarytitle">
+ <div id="libraryhead"><b id="librarytitle">库设置</b><button id="libraryclose" type="button">关闭</button></div>
+ <div id="librarybody">
+  <label for="symbolpath">原理图库目录</label><input id="symbolpath" type="text" spellcheck="false">
+  <label for="footprintpath">PCB 封装库目录</label><input id="footprintpath" type="text" spellcheck="false">
+  <label for="cadencepath">Cadence 安装目录</label><input id="cadencepath" type="text" placeholder="自动检测" spellcheck="false">
+  <div id="librarymessage" role="status"></div><button id="librarysave" class="primary" type="button">保存</button>
+ </div>
 </div>
 <script type="text/javascript" src="/static/embed.js"></script>
 </body>

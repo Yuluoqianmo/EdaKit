@@ -38,7 +38,7 @@ def test_paired_name_and_manual_build(tmp_path):
 def test_unsupported_geometry_creates_no_candidate(tmp_path):
     with pytest.raises(UnsupportedGeometryError, match='ARC'):
         prepare_footprint(component('C23630'), tmp_path / 'lib')
-    assert not (tmp_path / 'pcb-candidates').exists()
+    assert not (tmp_path / 'lib' / '.edakit-builds').exists()
 
 
 def test_simple_name_preserved():

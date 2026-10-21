@@ -163,9 +163,14 @@ def generate_skill(fp: Footprint, *, drill_plated: bool = True, output_dir: Path
     # geometry bounds in mm before creating any pin, including negative XY.
     ex1, ey1 = min(-10.0, x1-10.0), min(-10.0, y1-10.0)
     ex2, ey2 = max(10.0, x2+10.0), max(10.0, y2+10.0)
-    out.insert(extents_index, _check(
-        f'(axlDBChangeDesignExtents (list {_pt(ex1,ey1)} {_pt(ex2,ey2)}))',
-        'drawing extents'))
+    out.insert(extents_index,
+        '    (let ((bounds (axlGetParam "paramDesign")->bBox))\n'
+        f'      (unless (and (xCoord (car bounds)) <= {ex1:.4f} (yCoord (car bounds)) <= {ey1:.4f} '
+        f'(xCoord (cadr bounds)) >= {ex2:.4f} (yCoord (cadr bounds)) >= {ey2:.4f})\n'
+        + _check(f'(axlDBChangeDesignExtents (list '
+                 f'(list (min (xCoord (car bounds)) {ex1:.4f}) (min (yCoord (car bounds)) {ey1:.4f})) '
+                 f'(list (max (xCoord (cadr bounds)) {ex2:.4f}) (max (yCoord (cadr bounds)) {ey2:.4f}))))',
+                 'drawing extents') + '\n      )\n    )')
     out.append(_check(f'(axlDBCreateRectangle (list {_pt(x1,y1)} {_pt(x2,y2)}) t "PACKAGE GEOMETRY/PLACE_BOUND_TOP")', 'place bound'))
     # Package symbols require a reference designator on the dedicated class;
     # package-geometry text is not a substitute. Keep the Capture prefix.

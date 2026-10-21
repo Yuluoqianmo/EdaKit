@@ -272,7 +272,8 @@ def test_export_reuses_pipeline_and_keeps_name_consistent(tmp_path, monkeypatch)
     component = parse_component("C2040", payload)
     component.symbol.name = "HOARG0603-1/10W-5.1KR-0.1%-TCR25"
     staged = ExportService().bundle(component, tmp_path / "bundle")
-    alias = capture_part_name(component.symbol.name, component.cid, revision=CAPTURE_PART_REVISION)
+    from edakit.library import library_names
+    alias = library_names(component)['symbol']
     assert staged.part_name == alias
     assert alias in staged.symbol_xml.read_text(encoding="utf-8")
     assert alias in (staged.workdir / "capture_place.tcl").read_text(encoding="utf-8")

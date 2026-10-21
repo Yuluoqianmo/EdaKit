@@ -7,8 +7,8 @@
   function showPcbResult(d) {
     pcbResultFocus = document.activeElement;
     text(el("pcbresultname"), d.footprint);
-    el("pcbdrawing").value = d.drawing;
-    el("pcbcommand").value = d.command;
+    el("pcbdrawing").value = d.directory;
+    el("pcbcommand").value = d.message + "\n" + d.footprint + ".dra\n" + d.footprint + ".psm";
     text(el("pcbcopymsg"), "");
     el("pcbresult").style.display = el("pcbresultmask").style.display = "";
     el("pcbdrawing").focus();
@@ -41,12 +41,26 @@
     var cid = state.selection.sel.cid;
     pcbBusy = true; pcbButton(); beginWait("pcb", "正在生成 PCB 封装", 90);
     jsonp("/api/es/footprint", { cid: cid }, function (d) {
-      pcbBusy = false; pcbButton(); endWait("pcb");
-      if (state.selection.sel && state.selection.sel.cid === cid) { text(el("pmsg"), "候选封装已生成，目录已打开。" + d.footprint); }
-      showPcbResult(d);
+      pollPcb(d.job, cid, 0);
     }, function (message) {
       pcbBusy = false; pcbButton(); endWait("pcb");
       if (state.selection.sel && state.selection.sel.cid === cid) { text(el("pmsg"), message || "封装生成失败"); }
       notice(message || "封装生成失败");
     });
   });
+  function pollPcb(job, cid, failures) {
+    jsonp("/api/es/footprint/status", { job: job }, function (d) {
+      if (d.status === "building") { window.setTimeout(function () { pollPcb(job, cid, 0); }, 900); return; }
+      pcbBusy = false; pcbButton(); endWait("pcb");
+      if (d.status === "compiled") {
+        if (state.selection.sel && state.selection.sel.cid === cid) { text(el("pmsg"), "PCB 封装已保存：" + d.footprint); }
+        showPcbResult(d);
+      } else {
+        if (state.selection.sel && state.selection.sel.cid === cid) { text(el("pmsg"), d.message || "构建失败"); }
+        notice(d.message || "构建失败");
+      }
+    }, function (message) {
+      if (failures < 3) { window.setTimeout(function () { pollPcb(job, cid, failures + 1); }, 1500); return; }
+      pcbBusy = false; pcbButton(); endWait("pcb"); notice(message || "构建状态查询失败");
+    });
+  }
