@@ -1,2 +1,2 @@
 # Acceptance manifests hash exact bytes, including native XML line endings.
-samples/acceptance-20261021/** -text
+samples/acceptance-20261021/** -text whitespace=cr-at-eol
