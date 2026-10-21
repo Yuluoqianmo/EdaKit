@@ -1,0 +1,8425 @@
+{
+  "metadata": {
+    "date": "2026-10-20",
+    "stage": "术语草案，未接入运行代码",
+    "coverage": "37 个电子分支聚合样本及 1007 叶分类；不是所有叶分类参数全集",
+    "raw_keys": 315,
+    "audited_navigation_nodes": 619,
+    "category_proposals": 23,
+    "option_proposals": 40,
+    "requires_leaf_verification": 12
+  },
+  "sources": [
+    {
+      "id": "S1",
+      "title": "立创商城：商品目录",
+      "url": "https://www.szlcsc.com/catalog.html",
+      "use": "分类命名风格与同类目录参照；不代表与国际站 ID 一一对应。"
+    },
+    {
+      "id": "S2",
+      "title": "立创商城：TPS40303DRCT",
+      "url": "https://item.szlcsc.com/1971195.html",
+      "use": "DC-DC 电源芯片、静态电流(Iq)、开关频率的中文命名参照。"
+    },
+    {
+      "id": "S3",
+      "title": "立创商城：元器件参数过滤功能使用说明",
+      "url": "https://www.szlcsc.com/news/11594.html",
+      "use": "阻值、容值、精度、额定电压和介质温度特性；该说明发布较早，仅作术语参照，不推断现行接口。"
+    },
+    {
+      "id": "S4",
+      "title": "立创商城：0402 ±1% 3R",
+      "url": "https://item.szlcsc.com/3179246.html",
+      "use": "贴片电阻、精度和温度系数的实际商品字段。"
+    },
+    {
+      "id": "S5",
+      "title": "TI：LM5116 中文产品页",
+      "url": "https://www.ti.com.cn/product/cn/LM5116",
+      "use": "同步降压控制器等电源专业术语；本轮搜索摘要可检索，正文打开失败，不标记逐字段已核实。"
+    },
+    {
+      "id": "S6",
+      "title": "ADI：MAX5048 中文产品页",
+      "url": "https://www.analog.com/cn/products/max5048.html",
+      "use": "峰值拉/灌电流及独立拉电流、灌电流输出的方向区分。"
+    },
+    {
+      "id": "S7",
+      "title": "TI：TXS0204 中文数据手册",
+      "url": "https://www.ti.com.cn/cn/lit/gpn/TXS0204",
+      "use": "tPHL / tPLH 的高到低、低到高传播延迟术语。"
+    }
+  ],
+  "context_rules": [
+    {
+      "raw_keys": [
+        "Output Type",
+        "output type"
+      ],
+      "when": "电源叶分类且值集合是 Adjustable/Fixed 等",
+      "label": "输出电压类型",
+      "fallback": "输出类型",
+      "rule": "先看分类和枚举语义，不能仅凭父类 263 判定全部值。"
+    },
+    {
+      "raw_keys": [
+        "Output Type",
+        "output type"
+      ],
+      "when": "逻辑/接口且实际值为开漏、开集电极、推挽等",
+      "label": "输出形式",
+      "fallback": "输出类型",
+      "rule": "原始键与枚举原值保持。"
+    },
+    {
+      "raw_keys": [
+        "Function"
+      ],
+      "when": "电源转换类且值为 Buck/Boost 等",
+      "label": "转换功能",
+      "fallback": "功能",
+      "rule": "逻辑器件使用逻辑功能；无依据使用通用名。"
+    },
+    {
+      "raw_keys": [
+        "Temperature Coefficient"
+      ],
+      "when": "电阻且单位 ppm/℃",
+      "label": "温度系数（TCR）",
+      "fallback": "温度系数",
+      "rule": "X7R/C0G 等介质代码不得套此单位。"
+    },
+    {
+      "raw_keys": [
+        "Tolerance"
+      ],
+      "when": "电阻/电容/电感叶类已确定",
+      "label": "阻值精度 / 容量偏差 / 感量偏差",
+      "fallback": "精度",
+      "rule": "不得合并原始参数。"
+    }
+  ],
+  "fields": [
+    {
+      "raw_key": "-3dB Bandwidth",
+      "proposed_label": "-3 dB 带宽",
+      "current_labels": [
+        "-3dB Bandwidth"
+      ],
+      "scope": [
+        {
+          "category_id": 255,
+          "category_name": "音频专用芯片"
+        },
+        {
+          "category_id": 259,
+          "category_name": "通信接口芯片"
+        }
+      ],
+      "sample_values": [
+        "3MHz",
+        "150MHz",
+        "10MHz",
+        "14MHz"
+      ],
+      "distinct_values_in_sample": 97,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "0V Battery Charge",
+      "proposed_label": "零电压电池充电",
+      "current_labels": [
+        "0V Battery Charge"
+      ],
+      "scope": [
+        {
+          "category_id": 264,
+          "category_name": "其他专用集成电路"
+        }
+      ],
+      "sample_values": [
+        "Not supported"
+      ],
+      "distinct_values_in_sample": 1,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "ADC (Bit)",
+      "proposed_label": "ADC 分辨率（位）",
+      "current_labels": [
+        "ADC (Bit)"
+      ],
+      "scope": [
+        {
+          "category_id": 258,
+          "category_name": "单片机 / 微控制器 / 可编程逻辑"
+        }
+      ],
+      "sample_values": [
+        "8bit",
+        "10bit",
+        "12bit",
+        "14bit"
+      ],
+      "distinct_values_in_sample": 4,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "ADC architecture",
+      "proposed_label": "ADC 架构",
+      "current_labels": [
+        "ADC architecture"
+      ],
+      "scope": [
+        {
+          "category_id": 257,
+          "category_name": "ADC / DAC / 数据转换"
+        },
+        {
+          "category_id": 264,
+          "category_name": "其他专用集成电路"
+        }
+      ],
+      "sample_values": [
+        "Flash",
+        "Pipeline",
+        "SAR",
+        "Sigma-Delta"
+      ],
+      "distinct_values_in_sample": 4,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Algorithm",
+      "proposed_label": "算法",
+      "current_labels": [
+        "Algorithm"
+      ],
+      "scope": [
+        {
+          "category_id": 258,
+          "category_name": "单片机 / 微控制器 / 可编程逻辑"
+        },
+        {
+          "category_id": 264,
+          "category_name": "其他专用集成电路"
+        }
+      ],
+      "sample_values": [
+        "3DES",
+        "AES",
+        "ECC",
+        "ECC BN256"
+      ],
+      "distinct_values_in_sample": 35,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Antistatic Capacity",
+      "proposed_label": "抗静电能力",
+      "current_labels": [
+        "Antistatic Capacity"
+      ],
+      "scope": [
+        {
+          "category_id": 28,
+          "category_name": "光电器件 / 显示屏"
+        }
+      ],
+      "sample_values": [
+        "1000V",
+        "100V",
+        "2000V",
+        "8000V"
+      ],
+      "distinct_values_in_sample": 7,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "抗静电能力；即使样本为 V 也不能擅自补 HBM/CDM 等测试模式。"
+    },
+    {
+      "raw_key": "Applicable Cable Type",
+      "proposed_label": "适用线缆类型",
+      "current_labels": [
+        "Applicable Cable Type"
+      ],
+      "scope": [
+        {
+          "category_id": 497,
+          "category_name": "磁珠 / 滤波器 / EMI优化"
+        }
+      ],
+      "sample_values": [
+        "Round Cable",
+        "Round cable"
+      ],
+      "distinct_values_in_sample": 2,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Applicable to AC-DC Architecture",
+      "proposed_label": "适用 AC-DC 拓扑",
+      "current_labels": [
+        "Applicable to AC-DC Architecture"
+      ],
+      "scope": [
+        {
+          "category_id": 1007,
+          "category_name": "DC DC 开关式控制器"
+        }
+      ],
+      "sample_values": [
+        "Flyback"
+      ],
+      "distinct_values_in_sample": 1,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "样本 Flyback 对应反激拓扑；即使出现在 DC-DC 分支，也不能仅因分类名而隐藏该字段。"
+    },
+    {
+      "raw_key": "Applications",
+      "proposed_label": "应用领域",
+      "current_labels": [
+        "Applications"
+      ],
+      "scope": [
+        {
+          "category_id": 255,
+          "category_name": "音频专用芯片"
+        },
+        {
+          "category_id": 259,
+          "category_name": "通信接口芯片"
+        }
+      ],
+      "sample_values": [
+        "Audio",
+        "Computer",
+        "FM",
+        "Telephone"
+      ],
+      "distinct_values_in_sample": 28,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Applications Function",
+      "proposed_label": "应用功能",
+      "current_labels": [
+        "Applications Function"
+      ],
+      "scope": [
+        {
+          "category_id": 11,
+          "category_name": "开发板 / 开发工具"
+        }
+      ],
+      "sample_values": [
+        "USB to I2C"
+      ],
+      "distinct_values_in_sample": 1,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Attenuation Value",
+      "proposed_label": "衰减量",
+      "current_labels": [
+        "Attenuation Value"
+      ],
+      "scope": [
+        {
+          "category_id": 35,
+          "category_name": "射频芯片 / 无线模块"
+        }
+      ],
+      "sample_values": [
+        "0dB",
+        "0dB~31dB",
+        "0dB~30dB",
+        "0dB~31.5dB"
+      ],
+      "distinct_values_in_sample": 170,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Bandwidth",
+      "proposed_label": "带宽",
+      "current_labels": [
+        "Bandwidth"
+      ],
+      "scope": [
+        {
+          "category_id": 260,
+          "category_name": "放大器 / 比较器 / 线性器件"
+        }
+      ],
+      "sample_values": [
+        "20kHz",
+        "50kHz",
+        "60kHz",
+        "180kHz"
+      ],
+      "distinct_values_in_sample": 8,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Bias Current",
+      "proposed_label": "偏置电流",
+      "current_labels": [
+        "Bias Current"
+      ],
+      "scope": [
+        {
+          "category_id": 255,
+          "category_name": "音频专用芯片"
+        }
+      ],
+      "sample_values": [
+        "1uA",
+        "5mA~100mA",
+        "5mA~150mA",
+        "150mA"
+      ],
+      "distinct_values_in_sample": 4,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Breakover Current (Ibo)",
+      "proposed_label": "转折电流（Ibo）",
+      "current_labels": [
+        "Breakover Current (Ibo)"
+      ],
+      "scope": [
+        {
+          "category_id": 187,
+          "category_name": "晶闸管"
+        }
+      ],
+      "sample_values": [
+        "10uA",
+        "15uA",
+        "50uA",
+        "100uA"
+      ],
+      "distinct_values_in_sample": 7,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Breakover Voltage Symmetry",
+      "proposed_label": "转折电压对称性",
+      "current_labels": [
+        "Breakover Voltage Symmetry"
+      ],
+      "scope": [
+        {
+          "category_id": 187,
+          "category_name": "晶闸管"
+        }
+      ],
+      "sample_values": [
+        "3V",
+        "3.8V",
+        "10V"
+      ],
+      "distinct_values_in_sample": 3,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Breakover Voltage VBO(Range Value)",
+      "proposed_label": "转折电压范围（VBO）",
+      "current_labels": [
+        "Breakover Voltage VBO(Range Value)"
+      ],
+      "scope": [
+        {
+          "category_id": 187,
+          "category_name": "晶闸管"
+        }
+      ],
+      "sample_values": [
+        "28V~36V",
+        "28V~32V",
+        "30V~34V",
+        "35V~45V"
+      ],
+      "distinct_values_in_sample": 17,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Breakover Voltage VBO(Typ)",
+      "proposed_label": "典型转折电压（VBO）",
+      "current_labels": [
+        "Breakover Voltage VBO(Typ)"
+      ],
+      "scope": [
+        {
+          "category_id": 187,
+          "category_name": "晶闸管"
+        }
+      ],
+      "sample_values": [
+        "31V",
+        "32V",
+        "36V",
+        "40V"
+      ],
+      "distinct_values_in_sample": 11,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "CMTI(kV/us)",
+      "proposed_label": "共模瞬态抗扰度（CMTI）",
+      "current_labels": [
+        "CMTI(kV/us)"
+      ],
+      "scope": [
+        {
+          "category_id": 18,
+          "category_name": "光耦 / 信号隔离器件"
+        },
+        {
+          "category_id": 257,
+          "category_name": "ADC / DAC / 数据转换"
+        },
+        {
+          "category_id": 264,
+          "category_name": "其他专用集成电路"
+        }
+      ],
+      "sample_values": [
+        "1kV/us",
+        "1.5kV/us",
+        "1.6kV/us",
+        "3kV/us"
+      ],
+      "distinct_values_in_sample": 31,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "CPU Core",
+      "proposed_label": "CPU 内核",
+      "current_labels": [
+        "内核"
+      ],
+      "scope": [
+        {
+          "category_id": 258,
+          "category_name": "单片机 / 微控制器 / 可编程逻辑"
+        }
+      ],
+      "sample_values": [
+        "51 Series",
+        "ARM Cortex-M0",
+        "ARM Cortex-M0+",
+        "ARM Cortex-M3"
+      ],
+      "distinct_values_in_sample": 18,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "CPU Maximum Speed",
+      "proposed_label": "CPU 最高主频",
+      "current_labels": [
+        "最高主频"
+      ],
+      "scope": [
+        {
+          "category_id": 258,
+          "category_name": "单片机 / 微控制器 / 可编程逻辑"
+        },
+        {
+          "category_id": 264,
+          "category_name": "其他专用集成电路"
+        }
+      ],
+      "sample_values": [
+        "8MHz",
+        "16MHz",
+        "20MHz",
+        "24MHz"
+      ],
+      "distinct_values_in_sample": 15,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Capacitance",
+      "proposed_label": "容值",
+      "current_labels": [
+        "容值"
+      ],
+      "scope": [
+        {
+          "category_id": 495,
+          "category_name": "电容"
+        }
+      ],
+      "sample_values": [
+        "2.2uF",
+        "3.3uF",
+        "4.7uF",
+        "5.6uF"
+      ],
+      "distinct_values_in_sample": 60,
+      "status": "来源用词核对",
+      "references": [
+        "S3"
+      ],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Capacitive Load(Max)",
+      "proposed_label": "最大容性负载",
+      "current_labels": [
+        "Capacitive Load(Max)"
+      ],
+      "scope": [
+        {
+          "category_id": 32,
+          "category_name": "电源模块"
+        }
+      ],
+      "sample_values": [
+        "100uF",
+        "120uF",
+        "150uF",
+        "160uF"
+      ],
+      "distinct_values_in_sample": 100,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Channel Type",
+      "proposed_label": "通道方向",
+      "current_labels": [
+        "Channel Type"
+      ],
+      "scope": [
+        {
+          "category_id": 261,
+          "category_name": "逻辑器件"
+        }
+      ],
+      "sample_values": [
+        "Bidirectional",
+        "Unidirectional"
+      ],
+      "distinct_values_in_sample": 2,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "261 的枚举为 Bidirectional/Unidirectional，表示通道传输方向，不能译为 MOSFET 的沟道类型。遇到其他类别要按实际枚举再核对。"
+    },
+    {
+      "raw_key": "Charge Current - Max",
+      "proposed_label": "最大充电电流",
+      "current_labels": [
+        "Charge Current - Max"
+      ],
+      "scope": [
+        {
+          "category_id": 264,
+          "category_name": "其他专用集成电路"
+        }
+      ],
+      "sample_values": [
+        "2A"
+      ],
+      "distinct_values_in_sample": 1,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "ChipType",
+      "proposed_label": "芯片类型",
+      "current_labels": [
+        "ChipType"
+      ],
+      "scope": [
+        {
+          "category_id": 257,
+          "category_name": "ADC / DAC / 数据转换"
+        }
+      ],
+      "sample_values": [
+        "Angle-to-digital converter",
+        "Audio Analog-to-Digital Converter",
+        "Audio Decoder",
+        "Capacitive Transducer"
+      ],
+      "distinct_values_in_sample": 12,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Circluar Pins/Square Pins",
+      "proposed_label": "圆针/方针",
+      "current_labels": [
+        "Circluar Pins/Square Pins"
+      ],
+      "scope": [
+        {
+          "category_id": 11,
+          "category_name": "开发板 / 开发工具"
+        }
+      ],
+      "sample_values": [
+        "Square pin"
+      ],
+      "distinct_values_in_sample": 1,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Ciss-Input Capacitance",
+      "proposed_label": "输入电容（Ciss）",
+      "current_labels": [
+        "Ciss-Input Capacitance"
+      ],
+      "scope": [
+        {
+          "category_id": 186,
+          "category_name": "功率驱动模块"
+        },
+        {
+          "category_id": 191,
+          "category_name": "结型场效应管（JFET）"
+        }
+      ],
+      "sample_values": [
+        "14nF",
+        "0.7pF",
+        "0.8pF",
+        "1.7pF"
+      ],
+      "distinct_values_in_sample": 49,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Class",
+      "proposed_label": "类别",
+      "current_labels": [
+        "Class"
+      ],
+      "scope": [
+        {
+          "category_id": 257,
+          "category_name": "ADC / DAC / 数据转换"
+        }
+      ],
+      "sample_values": [
+        "Class D",
+        "Inductance-to-Digital Converter"
+      ],
+      "distinct_values_in_sample": 2,
+      "status": "待查叶分类/手册",
+      "references": [],
+      "note": "257 的聚合值同时有 Class D 和 Inductance-to-Digital Converter，语义不统一；必须下钻叶分类核对。"
+    },
+    {
+      "raw_key": "Clock Direction",
+      "proposed_label": "时钟传输方向",
+      "current_labels": [
+        "Clock Direction"
+      ],
+      "scope": [
+        {
+          "category_id": 18,
+          "category_name": "光耦 / 信号隔离器件"
+        }
+      ],
+      "sample_values": [
+        "Bidirectional",
+        "Unidirectional"
+      ],
+      "distinct_values_in_sample": 2,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Clock Frequency",
+      "proposed_label": "时钟频率",
+      "current_labels": [
+        "Clock Frequency"
+      ],
+      "scope": [
+        {
+          "category_id": 257,
+          "category_name": "ADC / DAC / 数据转换"
+        },
+        {
+          "category_id": 264,
+          "category_name": "其他专用集成电路"
+        }
+      ],
+      "sample_values": [
+        "5MHz~21MHz",
+        "4MHz",
+        "20MHz",
+        "66kHz"
+      ],
+      "distinct_values_in_sample": 38,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Clock/Oscillator",
+      "proposed_label": "时钟/振荡器",
+      "current_labels": [
+        "Clock/Oscillator"
+      ],
+      "scope": [
+        {
+          "category_id": 256,
+          "category_name": "时钟和定时"
+        },
+        {
+          "category_id": 257,
+          "category_name": "ADC / DAC / 数据转换"
+        },
+        {
+          "category_id": 264,
+          "category_name": "其他专用集成电路"
+        }
+      ],
+      "sample_values": [
+        "Built-in",
+        "External",
+        "Internal or external"
+      ],
+      "distinct_values_in_sample": 3,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Color",
+      "proposed_label": "颜色",
+      "current_labels": [
+        "Color"
+      ],
+      "scope": [
+        {
+          "category_id": 11,
+          "category_name": "开发板 / 开发工具"
+        },
+        {
+          "category_id": 38,
+          "category_name": "按键 / 开关"
+        }
+      ],
+      "sample_values": [
+        "Black",
+        "Beige",
+        "Blue",
+        "Colorless"
+      ],
+      "distinct_values_in_sample": 15,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Color Temperature",
+      "proposed_label": "色温",
+      "current_labels": [
+        "Color Temperature"
+      ],
+      "scope": [
+        {
+          "category_id": 28,
+          "category_name": "光电器件 / 显示屏"
+        }
+      ],
+      "sample_values": [
+        "4500K~7500K",
+        "6000K",
+        "6000K~6500K"
+      ],
+      "distinct_values_in_sample": 3,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Combining Form",
+      "proposed_label": "组合形式",
+      "current_labels": [
+        "Combining Form"
+      ],
+      "scope": [
+        {
+          "category_id": 497,
+          "category_name": "磁珠 / 滤波器 / EMI优化"
+        }
+      ],
+      "sample_values": [
+        "Combination"
+      ],
+      "distinct_values_in_sample": 1,
+      "status": "待查叶分类/手册",
+      "references": [],
+      "note": "聚合样本只有 Combination，暂拟组合形式；需要叶分类和具体器件核对。"
+    },
+    {
+      "raw_key": "Common Mode Rejection Ratio(CMRR)",
+      "proposed_label": "共模抑制比（CMRR）",
+      "current_labels": [
+        "Common Mode Rejection Ratio(CMRR)"
+      ],
+      "scope": [
+        {
+          "category_id": 260,
+          "category_name": "放大器 / 比较器 / 线性器件"
+        },
+        {
+          "category_id": 264,
+          "category_name": "其他专用集成电路"
+        }
+      ],
+      "sample_values": [
+        "-100dB",
+        "-85dB",
+        "70dB",
+        "80dB"
+      ],
+      "distinct_values_in_sample": 21,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Communication Mode",
+      "proposed_label": "通信方式",
+      "current_labels": [
+        "Communication Mode"
+      ],
+      "scope": [
+        {
+          "category_id": 18,
+          "category_name": "光耦 / 信号隔离器件"
+        }
+      ],
+      "sample_values": [
+        "Full-Duplex",
+        "Half-Duplex"
+      ],
+      "distinct_values_in_sample": 2,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Con",
+      "proposed_label": "导通电容（Con）",
+      "current_labels": [
+        "Con"
+      ],
+      "scope": [
+        {
+          "category_id": 259,
+          "category_name": "通信接口芯片"
+        },
+        {
+          "category_id": 264,
+          "category_name": "其他专用集成电路"
+        }
+      ],
+      "sample_values": [
+        "0.5pF",
+        "0.6pF",
+        "0.8pF",
+        "0.9pF"
+      ],
+      "distinct_values_in_sample": 70,
+      "status": "待查叶分类/手册",
+      "references": [],
+      "note": "接口/专用 IC 样本单位为 pF，暂拟导通电容；需要叶分类和对应手册确认 Con 定义后启用。"
+    },
+    {
+      "raw_key": "Configuration",
+      "proposed_label": "配置",
+      "current_labels": [
+        "Configuration"
+      ],
+      "scope": [
+        {
+          "category_id": 186,
+          "category_name": "功率驱动模块"
+        },
+        {
+          "category_id": 191,
+          "category_name": "结型场效应管（JFET）"
+        }
+      ],
+      "sample_values": [
+        "Full bridge",
+        "Half Bridge",
+        "Three-phase bridge",
+        "Common source"
+      ],
+      "distinct_values_in_sample": 5,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Contact Material",
+      "proposed_label": "触点材料",
+      "current_labels": [
+        "Contact Material"
+      ],
+      "scope": [
+        {
+          "category_id": 11,
+          "category_name": "开发板 / 开发工具"
+        }
+      ],
+      "sample_values": [
+        "Brass",
+        "Phosphor Bronze",
+        "Phosphor bronze"
+      ],
+      "distinct_values_in_sample": 3,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Contact Plating",
+      "proposed_label": "触点镀层",
+      "current_labels": [
+        "Contact Plating"
+      ],
+      "scope": [
+        {
+          "category_id": 11,
+          "category_name": "开发板 / 开发工具"
+        }
+      ],
+      "sample_values": [
+        "Gold",
+        "Tin"
+      ],
+      "distinct_values_in_sample": 2,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Control Input Logic",
+      "proposed_label": "控制输入逻辑",
+      "current_labels": [
+        "Control Input Logic"
+      ],
+      "scope": [
+        {
+          "category_id": 186,
+          "category_name": "功率驱动模块"
+        },
+        {
+          "category_id": 261,
+          "category_name": "逻辑器件"
+        },
+        {
+          "category_id": 263,
+          "category_name": "电源管理"
+        },
+        {
+          "category_id": 264,
+          "category_name": "其他专用集成电路"
+        }
+      ],
+      "sample_values": [
+        "Active High"
+      ],
+      "distinct_values_in_sample": 1,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Conversion Efficiency",
+      "proposed_label": "转换效率",
+      "current_labels": [
+        "Conversion Efficiency"
+      ],
+      "scope": [
+        {
+          "category_id": 186,
+          "category_name": "功率驱动模块"
+        },
+        {
+          "category_id": 32,
+          "category_name": "电源模块"
+        }
+      ],
+      "sample_values": [
+        "73%",
+        "81%",
+        "45%",
+        "58%"
+      ],
+      "distinct_values_in_sample": 70,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Conversion Type",
+      "proposed_label": "转换类型",
+      "current_labels": [
+        "Conversion Type"
+      ],
+      "scope": [
+        {
+          "category_id": 32,
+          "category_name": "电源模块"
+        }
+      ],
+      "sample_values": [
+        "AC-DC",
+        "AC/DC-DC"
+      ],
+      "distinct_values_in_sample": 2,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Core Size",
+      "proposed_label": "内核位宽",
+      "current_labels": [
+        "内核位数"
+      ],
+      "scope": [
+        {
+          "category_id": 258,
+          "category_name": "单片机 / 微控制器 / 可编程逻辑"
+        }
+      ],
+      "sample_values": [
+        "16 Bit",
+        "32 Bit",
+        "8 Bit"
+      ],
+      "distinct_values_in_sample": 3,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "258 MCU 分支拟内核位宽；不能将任意类别的 Core Size 都解释为位宽。"
+    },
+    {
+      "raw_key": "Current - Continuous Drain(Id)",
+      "proposed_label": "连续漏极电流（Id）",
+      "current_labels": [
+        "Current - Continuous Drain(Id)"
+      ],
+      "scope": [
+        {
+          "category_id": 186,
+          "category_name": "功率驱动模块"
+        },
+        {
+          "category_id": 191,
+          "category_name": "结型场效应管（JFET）"
+        }
+      ],
+      "sample_values": [
+        "1A",
+        "1.1A",
+        "1.2A",
+        "1.5A"
+      ],
+      "distinct_values_in_sample": 58,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Current - Leakage",
+      "proposed_label": "漏电流",
+      "current_labels": [
+        "Current - Leakage"
+      ],
+      "scope": [
+        {
+          "category_id": 187,
+          "category_name": "晶闸管"
+        }
+      ],
+      "sample_values": [
+        "5uA",
+        "10uA"
+      ],
+      "distinct_values_in_sample": 2,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Current - Output High(IOH)",
+      "proposed_label": "高电平输出电流（IOH）",
+      "current_labels": [
+        "Current - Output High(IOH)"
+      ],
+      "scope": [
+        {
+          "category_id": 261,
+          "category_name": "逻辑器件"
+        },
+        {
+          "category_id": 263,
+          "category_name": "电源管理"
+        },
+        {
+          "category_id": 264,
+          "category_name": "其他专用集成电路"
+        }
+      ],
+      "sample_values": [
+        "-12mA",
+        "2.5uA",
+        "10uA",
+        "20uA"
+      ],
+      "distinct_values_in_sample": 79,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "保留电流符号与正负号，不将所有 IOH 都无条件改写成正值拉电流。"
+    },
+    {
+      "raw_key": "Current - Output Low(IOL)",
+      "proposed_label": "低电平输出电流（IOL）",
+      "current_labels": [
+        "Current - Output Low(IOL)"
+      ],
+      "scope": [
+        {
+          "category_id": 261,
+          "category_name": "逻辑器件"
+        },
+        {
+          "category_id": 263,
+          "category_name": "电源管理"
+        },
+        {
+          "category_id": 264,
+          "category_name": "其他专用集成电路"
+        }
+      ],
+      "sample_values": [
+        "20uA",
+        "1mA",
+        "1.6mA",
+        "2mA"
+      ],
+      "distinct_values_in_sample": 71,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "保留电流符号与正负号，不将所有 IOL 都无条件改写成正值灌电流。"
+    },
+    {
+      "raw_key": "Current - Rectified",
+      "proposed_label": "整流电流",
+      "current_labels": [
+        "Current - Rectified"
+      ],
+      "scope": [
+        {
+          "category_id": 185,
+          "category_name": "二极管"
+        }
+      ],
+      "sample_values": [
+        "25mA",
+        "160mA",
+        "200mA",
+        "215mA"
+      ],
+      "distinct_values_in_sample": 117,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Current - Supply",
+      "proposed_label": "电源电流",
+      "current_labels": [
+        "Current - Supply"
+      ],
+      "scope": [
+        {
+          "category_id": 255,
+          "category_name": "音频专用芯片"
+        },
+        {
+          "category_id": 256,
+          "category_name": "时钟和定时"
+        },
+        {
+          "category_id": 257,
+          "category_name": "ADC / DAC / 数据转换"
+        },
+        {
+          "category_id": 258,
+          "category_name": "单片机 / 微控制器 / 可编程逻辑"
+        },
+        {
+          "category_id": 259,
+          "category_name": "通信接口芯片"
+        },
+        {
+          "category_id": 261,
+          "category_name": "逻辑器件"
+        },
+        {
+          "category_id": 264,
+          "category_name": "其他专用集成电路"
+        },
+        {
+          "category_id": 28,
+          "category_name": "光电器件 / 显示屏"
+        }
+      ],
+      "sample_values": [
+        "158mA",
+        "30uA",
+        "240uA",
+        "1.5mA"
+      ],
+      "distinct_values_in_sample": 128,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Current Consumption",
+      "proposed_label": "消耗电流",
+      "current_labels": [
+        "Current Consumption"
+      ],
+      "scope": [
+        {
+          "category_id": 3,
+          "category_name": "音频器件"
+        },
+        {
+          "category_id": 38,
+          "category_name": "按键 / 开关"
+        }
+      ],
+      "sample_values": [
+        "00mA",
+        "0mA",
+        "800uA",
+        "1mA"
+      ],
+      "distinct_values_in_sample": 80,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Current Rating",
+      "proposed_label": "额定电流",
+      "current_labels": [
+        "额定电流"
+      ],
+      "scope": [
+        {
+          "category_id": 10,
+          "category_name": "连接器"
+        },
+        {
+          "category_id": 11,
+          "category_name": "开发板 / 开发工具"
+        },
+        {
+          "category_id": 501,
+          "category_name": "电阻"
+        }
+      ],
+      "sample_values": [
+        "1A",
+        "2A",
+        "2.5A",
+        "4A"
+      ],
+      "distinct_values_in_sample": 21,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "DAC (Bit)",
+      "proposed_label": "DAC 分辨率（位）",
+      "current_labels": [
+        "DAC (Bit)"
+      ],
+      "scope": [
+        {
+          "category_id": 258,
+          "category_name": "单片机 / 微控制器 / 可编程逻辑"
+        }
+      ],
+      "sample_values": [
+        "1bit",
+        "5bit",
+        "8bit",
+        "10bit"
+      ],
+      "distinct_values_in_sample": 4,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "DNL (LSB)",
+      "proposed_label": "微分非线性（DNL，LSB）",
+      "current_labels": [
+        "DNL (LSB)"
+      ],
+      "scope": [
+        {
+          "category_id": 257,
+          "category_name": "ADC / DAC / 数据转换"
+        }
+      ],
+      "sample_values": [
+        "0.5LSB",
+        "0.99LSB",
+        "0.9LSB",
+        "0.75LSB"
+      ],
+      "distinct_values_in_sample": 19,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Data Rate",
+      "proposed_label": "数据速率",
+      "current_labels": [
+        "数据速率"
+      ],
+      "scope": [
+        {
+          "category_id": 18,
+          "category_name": "光耦 / 信号隔离器件"
+        },
+        {
+          "category_id": 256,
+          "category_name": "时钟和定时"
+        },
+        {
+          "category_id": 257,
+          "category_name": "ADC / DAC / 数据转换"
+        },
+        {
+          "category_id": 258,
+          "category_name": "单片机 / 微控制器 / 可编程逻辑"
+        },
+        {
+          "category_id": 259,
+          "category_name": "通信接口芯片"
+        },
+        {
+          "category_id": 261,
+          "category_name": "逻辑器件"
+        },
+        {
+          "category_id": 263,
+          "category_name": "电源管理"
+        },
+        {
+          "category_id": 264,
+          "category_name": "其他专用集成电路"
+        }
+      ],
+      "sample_values": [
+        "110Mbps",
+        "140Mbps",
+        "100Mbps",
+        "2.5Gbps"
+      ],
+      "distinct_values_in_sample": 84,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Data Rate(Max)",
+      "proposed_label": "最高数据速率",
+      "current_labels": [
+        "Data Rate(Max)"
+      ],
+      "scope": [
+        {
+          "category_id": 18,
+          "category_name": "光耦 / 信号隔离器件"
+        },
+        {
+          "category_id": 264,
+          "category_name": "其他专用集成电路"
+        }
+      ],
+      "sample_values": [
+        "115.2Kbps",
+        "150Kbps",
+        "200Kbps",
+        "500Kbps"
+      ],
+      "distinct_values_in_sample": 29,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Data Retention - TDR (Year)",
+      "proposed_label": "数据保持时间（年）",
+      "current_labels": [
+        "Data Retention - TDR (Year)"
+      ],
+      "scope": [
+        {
+          "category_id": 264,
+          "category_name": "其他专用集成电路"
+        }
+      ],
+      "sample_values": [
+        "10 years"
+      ],
+      "distinct_values_in_sample": 1,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Default Output",
+      "proposed_label": "默认输出状态",
+      "current_labels": [
+        "Default Output"
+      ],
+      "scope": [
+        {
+          "category_id": 18,
+          "category_name": "光耦 / 信号隔离器件"
+        }
+      ],
+      "sample_values": [
+        "High Level",
+        "Low Level"
+      ],
+      "distinct_values_in_sample": 2,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Delay Time",
+      "proposed_label": "延迟时间",
+      "current_labels": [
+        "Delay Time"
+      ],
+      "scope": [
+        {
+          "category_id": 259,
+          "category_name": "通信接口芯片"
+        }
+      ],
+      "sample_values": [
+        "35ps",
+        "39ps",
+        "60ps",
+        "80ps"
+      ],
+      "distinct_values_in_sample": 11,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Detection color",
+      "proposed_label": "检测颜色",
+      "current_labels": [
+        "Detection color"
+      ],
+      "scope": [
+        {
+          "category_id": 37,
+          "category_name": "传感器"
+        }
+      ],
+      "sample_values": [
+        "Blue,cyan,green",
+        "RGB",
+        "Red, Green, Blue, IR",
+        "Red, Green, Blue, Transparent, Infrared"
+      ],
+      "distinct_values_in_sample": 6,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Diameter",
+      "proposed_label": "直径",
+      "current_labels": [
+        "Diameter"
+      ],
+      "scope": [
+        {
+          "category_id": 495,
+          "category_name": "电容"
+        },
+        {
+          "category_id": 498,
+          "category_name": "电感 / 线圈"
+        }
+      ],
+      "sample_values": [
+        "1.4mm",
+        "1.9mm",
+        "2.7mm",
+        "2.9mm"
+      ],
+      "distinct_values_in_sample": 31,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Diameter (φD)",
+      "proposed_label": "直径（φD）",
+      "current_labels": [
+        "Diameter (φD)"
+      ],
+      "scope": [
+        {
+          "category_id": 497,
+          "category_name": "磁珠 / 滤波器 / EMI优化"
+        }
+      ],
+      "sample_values": [
+        "16.5mm",
+        "20mm"
+      ],
+      "distinct_values_in_sample": 2,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Diameter(φD)",
+      "proposed_label": "直径（φD）",
+      "current_labels": [
+        "Diameter(φD)"
+      ],
+      "scope": [
+        {
+          "category_id": 3,
+          "category_name": "音频器件"
+        },
+        {
+          "category_id": 38,
+          "category_name": "按键 / 开关"
+        }
+      ],
+      "sample_values": [
+        "5mm",
+        "5.5mm",
+        "6mm",
+        "6.6mm"
+      ],
+      "distinct_values_in_sample": 152,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Differential Input Voltage",
+      "proposed_label": "差分输入电压",
+      "current_labels": [
+        "Differential Input Voltage"
+      ],
+      "scope": [
+        {
+          "category_id": 257,
+          "category_name": "ADC / DAC / 数据转换"
+        }
+      ],
+      "sample_values": [
+        "±320mV",
+        "±250mV",
+        "±200mV",
+        "±31.25mV"
+      ],
+      "distinct_values_in_sample": 5,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Differential Non - linearity",
+      "proposed_label": "微分非线性（DNL）",
+      "current_labels": [
+        "Differential Non - linearity"
+      ],
+      "scope": [
+        {
+          "category_id": 264,
+          "category_name": "其他专用集成电路"
+        }
+      ],
+      "sample_values": [
+        "1LSB"
+      ],
+      "distinct_values_in_sample": 1,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Dimming",
+      "proposed_label": "调光方式",
+      "current_labels": [
+        "Dimming"
+      ],
+      "scope": [
+        {
+          "category_id": 1007,
+          "category_name": "DC DC 开关式控制器"
+        }
+      ],
+      "sample_values": [
+        "PWM"
+      ],
+      "distinct_values_in_sample": 1,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Diode Configuration",
+      "proposed_label": "二极管配置",
+      "current_labels": [
+        "Diode Configuration"
+      ],
+      "scope": [
+        {
+          "category_id": 185,
+          "category_name": "二极管"
+        },
+        {
+          "category_id": 28,
+          "category_name": "光电器件 / 显示屏"
+        }
+      ],
+      "sample_values": [
+        "1 Independent",
+        "1 Pair Common Anode and 1 Pair Common Cathode",
+        "Bidirectional",
+        "Common Anode"
+      ],
+      "distinct_values_in_sample": 6,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Display Configurations(Segment)",
+      "proposed_label": "显示配置（段）",
+      "current_labels": [
+        "Display Configurations(Segment)"
+      ],
+      "scope": [
+        {
+          "category_id": 257,
+          "category_name": "ADC / DAC / 数据转换"
+        }
+      ],
+      "sample_values": [
+        "7 Segment",
+        "7 Segment × 4 Digit"
+      ],
+      "distinct_values_in_sample": 2,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Drain Current (Idss)",
+      "proposed_label": "漏极电流（Idss，待按器件核对）",
+      "current_labels": [
+        "Drain Current (Idss)"
+      ],
+      "scope": [
+        {
+          "category_id": 191,
+          "category_name": "结型场效应管（JFET）"
+        }
+      ],
+      "sample_values": [
+        "100nA",
+        "1uA",
+        "30uA",
+        "60uA"
+      ],
+      "distinct_values_in_sample": 67,
+      "status": "待查叶分类/手册",
+      "references": [],
+      "note": "191 为 JFET 聚合分支却返回 nA/μA，须查具体型号区分零栅压漏极电流与漏电流；不能直接套用任一解释。"
+    },
+    {
+      "raw_key": "Drain to Source Voltage",
+      "proposed_label": "漏源电压",
+      "current_labels": [
+        "Drain to Source Voltage"
+      ],
+      "scope": [
+        {
+          "category_id": 186,
+          "category_name": "功率驱动模块"
+        },
+        {
+          "category_id": 191,
+          "category_name": "结型场效应管（JFET）"
+        }
+      ],
+      "sample_values": [
+        "50V",
+        "60V",
+        "80V",
+        "100V"
+      ],
+      "distinct_values_in_sample": 16,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Driven Configuration",
+      "proposed_label": "驱动配置",
+      "current_labels": [
+        "Driven Configuration"
+      ],
+      "scope": [
+        {
+          "category_id": 1007,
+          "category_name": "DC DC 开关式控制器"
+        },
+        {
+          "category_id": 18,
+          "category_name": "光耦 / 信号隔离器件"
+        },
+        {
+          "category_id": 264,
+          "category_name": "其他专用集成电路"
+        }
+      ],
+      "sample_values": [
+        "High Side",
+        "Low Side",
+        "Full bridge",
+        "Half-Bridge"
+      ],
+      "distinct_values_in_sample": 4,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Driver Circuitry",
+      "proposed_label": "驱动电路",
+      "current_labels": [
+        "Driver Circuitry"
+      ],
+      "scope": [
+        {
+          "category_id": 3,
+          "category_name": "音频器件"
+        }
+      ],
+      "sample_values": [
+        "Active Buzzer (Built-in Driving Circuit)",
+        "Passive",
+        "Passive (Externally Driven)"
+      ],
+      "distinct_values_in_sample": 3,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Dual Supply",
+      "proposed_label": "双电源供电电压",
+      "current_labels": [
+        "Dual Supply"
+      ],
+      "scope": [
+        {
+          "category_id": 260,
+          "category_name": "放大器 / 比较器 / 线性器件"
+        }
+      ],
+      "sample_values": [
+        "-24V~-2.25V",
+        "-20V~20V",
+        "-18V~-2V",
+        "-18V~-3V"
+      ],
+      "distinct_values_in_sample": 22,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "保留正负供电范围原值，不能省略负号。"
+    },
+    {
+      "raw_key": "Duty Cycle(Max)",
+      "proposed_label": "最大占空比",
+      "current_labels": [
+        "Duty Cycle(Max)"
+      ],
+      "scope": [
+        {
+          "category_id": 1007,
+          "category_name": "DC DC 开关式控制器"
+        },
+        {
+          "category_id": 263,
+          "category_name": "电源管理"
+        }
+      ],
+      "sample_values": [
+        "45%",
+        "47%",
+        "48%",
+        "48.2%"
+      ],
+      "distinct_values_in_sample": 72,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Dynamic Breakover Voltage",
+      "proposed_label": "动态转折电压",
+      "current_labels": [
+        "Dynamic Breakover Voltage"
+      ],
+      "scope": [
+        {
+          "category_id": 187,
+          "category_name": "晶闸管"
+        }
+      ],
+      "sample_values": [
+        "5V",
+        "9V"
+      ],
+      "distinct_values_in_sample": 2,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "EEPROM",
+      "proposed_label": "EEPROM 容量",
+      "current_labels": [
+        "EEPROM 容量"
+      ],
+      "scope": [
+        {
+          "category_id": 258,
+          "category_name": "单片机 / 微控制器 / 可编程逻辑"
+        }
+      ],
+      "sample_values": [
+        "380Byte",
+        "384Byte",
+        "512Byte",
+        "2KB"
+      ],
+      "distinct_values_in_sample": 7,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "按当前 MCU 容量样本拟名；遇到布尔枚举需改用是否集成 EEPROM。"
+    },
+    {
+      "raw_key": "ESD Protect",
+      "proposed_label": "ESD 防护",
+      "current_labels": [
+        "ESD Protect"
+      ],
+      "scope": [
+        {
+          "category_id": 18,
+          "category_name": "光耦 / 信号隔离器件"
+        },
+        {
+          "category_id": 264,
+          "category_name": "其他专用集成电路"
+        }
+      ],
+      "sample_values": [
+        "±35kV",
+        "±30kV",
+        "±16kV",
+        "±15kV"
+      ],
+      "distinct_values_in_sample": 9,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "ESD Protection Voltage",
+      "proposed_label": "ESD 防护电压",
+      "current_labels": [
+        "ESD Protection Voltage"
+      ],
+      "scope": [
+        {
+          "category_id": 257,
+          "category_name": "ADC / DAC / 数据转换"
+        },
+        {
+          "category_id": 264,
+          "category_name": "其他专用集成电路"
+        }
+      ],
+      "sample_values": [
+        "2.5kV",
+        "2kV"
+      ],
+      "distinct_values_in_sample": 2,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Efficiency",
+      "proposed_label": "效率",
+      "current_labels": [
+        "Efficiency"
+      ],
+      "scope": [
+        {
+          "category_id": 255,
+          "category_name": "音频专用芯片"
+        }
+      ],
+      "sample_values": [
+        "86%",
+        "87%",
+        "90%"
+      ],
+      "distinct_values_in_sample": 3,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Energy Efficiency",
+      "proposed_label": "转换效率",
+      "current_labels": [
+        "Energy Efficiency"
+      ],
+      "scope": [
+        {
+          "category_id": 1007,
+          "category_name": "DC DC 开关式控制器"
+        }
+      ],
+      "sample_values": [
+        "94%",
+        "99%"
+      ],
+      "distinct_values_in_sample": 2,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "1007 的示例值为 94%、99%，建议“转换效率”，不译为“能效等级”；与 Conversion Efficiency 即使同名显示也不合并筛选键。"
+    },
+    {
+      "raw_key": "Equivalent Series Resistance(ESR)",
+      "proposed_label": "等效串联电阻（ESR）",
+      "current_labels": [
+        "Equivalent Series Resistance(ESR)"
+      ],
+      "scope": [
+        {
+          "category_id": 495,
+          "category_name": "电容"
+        }
+      ],
+      "sample_values": [
+        "3mΩ@100kHz",
+        "3mΩ",
+        "4mΩ",
+        "4.5mΩ"
+      ],
+      "distinct_values_in_sample": 196,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Ethernet Speed Standards",
+      "proposed_label": "以太网速率标准",
+      "current_labels": [
+        "Ethernet Speed Standards"
+      ],
+      "scope": [
+        {
+          "category_id": 264,
+          "category_name": "其他专用集成电路"
+        }
+      ],
+      "sample_values": [
+        "100BASE-FX",
+        "100BASE-TX",
+        "10BASE-T"
+      ],
+      "distinct_values_in_sample": 3,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "FET Type",
+      "proposed_label": "场效应管类型",
+      "current_labels": [
+        "FET Type"
+      ],
+      "scope": [
+        {
+          "category_id": 191,
+          "category_name": "结型场效应管（JFET）"
+        }
+      ],
+      "sample_values": [
+        "N-Channel",
+        "P-Channel"
+      ],
+      "distinct_values_in_sample": 2,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Fall Time",
+      "proposed_label": "下降时间",
+      "current_labels": [
+        "Fall Time"
+      ],
+      "scope": [
+        {
+          "category_id": 18,
+          "category_name": "光耦 / 信号隔离器件"
+        }
+      ],
+      "sample_values": [
+        "8.5ns",
+        "25ns",
+        "1.9us",
+        "1900ns"
+      ],
+      "distinct_values_in_sample": 4,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Features",
+      "proposed_label": "特性",
+      "current_labels": [
+        "Features"
+      ],
+      "scope": [
+        {
+          "category_id": 1007,
+          "category_name": "DC DC 开关式控制器"
+        },
+        {
+          "category_id": 11,
+          "category_name": "开发板 / 开发工具"
+        },
+        {
+          "category_id": 18,
+          "category_name": "光耦 / 信号隔离器件"
+        },
+        {
+          "category_id": 186,
+          "category_name": "功率驱动模块"
+        },
+        {
+          "category_id": 255,
+          "category_name": "音频专用芯片"
+        },
+        {
+          "category_id": 256,
+          "category_name": "时钟和定时"
+        },
+        {
+          "category_id": 257,
+          "category_name": "ADC / DAC / 数据转换"
+        },
+        {
+          "category_id": 258,
+          "category_name": "单片机 / 微控制器 / 可编程逻辑"
+        },
+        {
+          "category_id": 259,
+          "category_name": "通信接口芯片"
+        },
+        {
+          "category_id": 260,
+          "category_name": "放大器 / 比较器 / 线性器件"
+        },
+        {
+          "category_id": 263,
+          "category_name": "电源管理"
+        },
+        {
+          "category_id": 32,
+          "category_name": "电源模块"
+        },
+        {
+          "category_id": 37,
+          "category_name": "传感器"
+        }
+      ],
+      "sample_values": [
+        "Abnormal state protection",
+        "Adaptive switching frequency",
+        "Adaptive synchronous rectification control",
+        "Adjustable current limiting"
+      ],
+      "distinct_values_in_sample": 380,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Feedback System",
+      "proposed_label": "反馈方式",
+      "current_labels": [
+        "Feedback System"
+      ],
+      "scope": [
+        {
+          "category_id": 1007,
+          "category_name": "DC DC 开关式控制器"
+        },
+        {
+          "category_id": 263,
+          "category_name": "电源管理"
+        },
+        {
+          "category_id": 264,
+          "category_name": "其他专用集成电路"
+        }
+      ],
+      "sample_values": [
+        "Primary-side feedback",
+        "Secondary-Side Feedback"
+      ],
+      "distinct_values_in_sample": 2,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Filter Type",
+      "proposed_label": "滤波器类型",
+      "current_labels": [
+        "Filter Type"
+      ],
+      "scope": [
+        {
+          "category_id": 35,
+          "category_name": "射频芯片 / 无线模块"
+        }
+      ],
+      "sample_values": [
+        "Low Pass"
+      ],
+      "distinct_values_in_sample": 1,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Flame Retardant Rating",
+      "proposed_label": "阻燃等级",
+      "current_labels": [
+        "Flame Retardant Rating"
+      ],
+      "scope": [
+        {
+          "category_id": 11,
+          "category_name": "开发板 / 开发工具"
+        }
+      ],
+      "sample_values": [
+        "UL94V-0"
+      ],
+      "distinct_values_in_sample": 1,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Frame Rate(fps)",
+      "proposed_label": "帧率（fps）",
+      "current_labels": [
+        "Frame Rate(fps)"
+      ],
+      "scope": [
+        {
+          "category_id": 264,
+          "category_name": "其他专用集成电路"
+        }
+      ],
+      "sample_values": [
+        "30",
+        "90"
+      ],
+      "distinct_values_in_sample": 2,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Frequency",
+      "proposed_label": "频率",
+      "current_labels": [
+        "Frequency"
+      ],
+      "scope": [
+        {
+          "category_id": 256,
+          "category_name": "时钟和定时"
+        },
+        {
+          "category_id": 257,
+          "category_name": "ADC / DAC / 数据转换"
+        },
+        {
+          "category_id": 38,
+          "category_name": "按键 / 开关"
+        }
+      ],
+      "sample_values": [
+        "500kHz",
+        "2MHz",
+        "6.16791MHz",
+        "10MHz"
+      ],
+      "distinct_values_in_sample": 47,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Frequency - Output",
+      "proposed_label": "输出频率",
+      "current_labels": [
+        "Frequency - Output"
+      ],
+      "scope": [
+        {
+          "category_id": 186,
+          "category_name": "功率驱动模块"
+        }
+      ],
+      "sample_values": [
+        "25Hz"
+      ],
+      "distinct_values_in_sample": 1,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Frequency - Switching",
+      "proposed_label": "开关频率",
+      "current_labels": [
+        "Frequency - Switching"
+      ],
+      "scope": [
+        {
+          "category_id": 1007,
+          "category_name": "DC DC 开关式控制器"
+        },
+        {
+          "category_id": 186,
+          "category_name": "功率驱动模块"
+        },
+        {
+          "category_id": 263,
+          "category_name": "电源管理"
+        },
+        {
+          "category_id": 264,
+          "category_name": "其他专用集成电路"
+        }
+      ],
+      "sample_values": [
+        "1.8MHz",
+        "195kHz",
+        "1Hz~400kHz",
+        "1Hz~600kHz"
+      ],
+      "distinct_values_in_sample": 673,
+      "status": "来源用词核对",
+      "references": [
+        "S2"
+      ],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Frequency Range",
+      "proposed_label": "频率范围",
+      "current_labels": [
+        "频率范围"
+      ],
+      "scope": [
+        {
+          "category_id": 35,
+          "category_name": "射频芯片 / 无线模块"
+        }
+      ],
+      "sample_values": [
+        "0Hz~18GHz",
+        "0Hz~3GHz",
+        "0Hz~6GHz",
+        "0Hz~2GHz"
+      ],
+      "distinct_values_in_sample": 151,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Function",
+      "proposed_label": "功能",
+      "current_labels": [
+        "Function"
+      ],
+      "scope": [
+        {
+          "category_id": 1007,
+          "category_name": "DC DC 开关式控制器"
+        },
+        {
+          "category_id": 261,
+          "category_name": "逻辑器件"
+        },
+        {
+          "category_id": 264,
+          "category_name": "其他专用集成电路"
+        }
+      ],
+      "sample_values": [
+        "Boost",
+        "Buck-Boost",
+        "Inverted",
+        "Step-down"
+      ],
+      "distinct_values_in_sample": 180,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "按类别细化为转换功能/逻辑功能/功能，禁止全局替换为“转换功能”。"
+    },
+    {
+      "raw_key": "Gain",
+      "proposed_label": "增益",
+      "current_labels": [
+        "Gain"
+      ],
+      "scope": [
+        {
+          "category_id": 260,
+          "category_name": "放大器 / 比较器 / 线性器件"
+        }
+      ],
+      "sample_values": [
+        "8",
+        "41",
+        "20V/V",
+        "50V/V"
+      ],
+      "distinct_values_in_sample": 7,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Gain Bandwidth Product",
+      "proposed_label": "增益带宽积（GBW）",
+      "current_labels": [
+        "Gain Bandwidth Product"
+      ],
+      "scope": [
+        {
+          "category_id": 260,
+          "category_name": "放大器 / 比较器 / 线性器件"
+        },
+        {
+          "category_id": 264,
+          "category_name": "其他专用集成电路"
+        }
+      ],
+      "sample_values": [
+        "150kHz",
+        "700kHz",
+        "1.1MHz",
+        "1.5MHz"
+      ],
+      "distinct_values_in_sample": 18,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Gate Charge(Qg)",
+      "proposed_label": "栅极电荷（Qg）",
+      "current_labels": [
+        "Gate Charge(Qg)"
+      ],
+      "scope": [
+        {
+          "category_id": 186,
+          "category_name": "功率驱动模块"
+        },
+        {
+          "category_id": 191,
+          "category_name": "结型场效应管（JFET）"
+        }
+      ],
+      "sample_values": [
+        "1.9uC@400V",
+        "37.8nC",
+        "75nC",
+        "114nC"
+      ],
+      "distinct_values_in_sample": 7,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Gate Threshold Voltage (Vgs(th))",
+      "proposed_label": "栅源阈值电压（Vgs(th)）",
+      "current_labels": [
+        "Gate Threshold Voltage (Vgs(th))"
+      ],
+      "scope": [
+        {
+          "category_id": 186,
+          "category_name": "功率驱动模块"
+        },
+        {
+          "category_id": 191,
+          "category_name": "结型场效应管（JFET）"
+        }
+      ],
+      "sample_values": [
+        "4V",
+        "1V",
+        "6V",
+        "11.5V"
+      ],
+      "distinct_values_in_sample": 4,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Gate-Source Breakdown Voltage (Vgss)",
+      "proposed_label": "栅源击穿电压（Vgss）",
+      "current_labels": [
+        "Gate-Source Breakdown Voltage (Vgss)"
+      ],
+      "scope": [
+        {
+          "category_id": 191,
+          "category_name": "结型场效应管（JFET）"
+        }
+      ],
+      "sample_values": [
+        "15V",
+        "20V",
+        "25V",
+        "30V"
+      ],
+      "distinct_values_in_sample": 11,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Gate-Source Cutoff Voltage (VGS(off))",
+      "proposed_label": "栅源截止电压（VGS(off)）",
+      "current_labels": [
+        "Gate-Source Cutoff Voltage (VGS(off))"
+      ],
+      "scope": [
+        {
+          "category_id": 191,
+          "category_name": "结型场效应管（JFET）"
+        }
+      ],
+      "sample_values": [
+        "150mV",
+        "200mV",
+        "250mV",
+        "300mV"
+      ],
+      "distinct_values_in_sample": 36,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Gender",
+      "proposed_label": "公母类型",
+      "current_labels": [
+        "Gender"
+      ],
+      "scope": [
+        {
+          "category_id": 10,
+          "category_name": "连接器"
+        }
+      ],
+      "sample_values": [
+        "Female",
+        "Male"
+      ],
+      "distinct_values_in_sample": 2,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Height",
+      "proposed_label": "高度",
+      "current_labels": [
+        "Height"
+      ],
+      "scope": [
+        {
+          "category_id": 186,
+          "category_name": "功率驱动模块"
+        },
+        {
+          "category_id": 264,
+          "category_name": "其他专用集成电路"
+        },
+        {
+          "category_id": 28,
+          "category_name": "光电器件 / 显示屏"
+        },
+        {
+          "category_id": 3,
+          "category_name": "音频器件"
+        },
+        {
+          "category_id": 32,
+          "category_name": "电源模块"
+        },
+        {
+          "category_id": 37,
+          "category_name": "传感器"
+        },
+        {
+          "category_id": 38,
+          "category_name": "按键 / 开关"
+        },
+        {
+          "category_id": 498,
+          "category_name": "电感 / 线圈"
+        }
+      ],
+      "sample_values": [
+        "8mm",
+        "12.7mm",
+        "0.75mm",
+        "1mm"
+      ],
+      "distinct_values_in_sample": 370,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Height - Seated (Max)",
+      "proposed_label": "安装后最大高度",
+      "current_labels": [
+        "Height - Seated (Max)"
+      ],
+      "scope": [
+        {
+          "category_id": 495,
+          "category_name": "电容"
+        }
+      ],
+      "sample_values": [
+        "1mm",
+        "1.1mm",
+        "1.2mm",
+        "1.4mm"
+      ],
+      "distinct_values_in_sample": 108,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "High level Delay Time",
+      "proposed_label": "高电平延迟时间（待核对定义）",
+      "current_labels": [
+        "High level Delay Time"
+      ],
+      "scope": [
+        {
+          "category_id": 18,
+          "category_name": "光耦 / 信号隔离器件"
+        }
+      ],
+      "sample_values": [
+        "15ns",
+        "18ns",
+        "40ns",
+        "105ns"
+      ],
+      "distinct_values_in_sample": 5,
+      "status": "待查叶分类/手册",
+      "references": [],
+      "note": "不能仅凭 High level 断定 tPLH 或 tPHL，须看测量定义。"
+    },
+    {
+      "raw_key": "High-side Bias Voltage(Vbs)",
+      "proposed_label": "高侧偏置电压（Vbs）",
+      "current_labels": [
+        "High-side Bias Voltage(Vbs)"
+      ],
+      "scope": [
+        {
+          "category_id": 186,
+          "category_name": "功率驱动模块"
+        }
+      ],
+      "sample_values": [
+        "4.5V~5.5V",
+        "4.5V~60V",
+        "10V~18.5V",
+        "11.5V~17V"
+      ],
+      "distinct_values_in_sample": 17,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Hold Current(Ih)",
+      "proposed_label": "维持电流（Ih）",
+      "current_labels": [
+        "Hold Current(Ih)"
+      ],
+      "scope": [
+        {
+          "category_id": 187,
+          "category_name": "晶闸管"
+        }
+      ],
+      "sample_values": [
+        "1.5mA",
+        "10mA",
+        "60mA",
+        "80mA"
+      ],
+      "distinct_values_in_sample": 6,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Hold Time",
+      "proposed_label": "保持时间",
+      "current_labels": [
+        "Hold Time"
+      ],
+      "scope": [
+        {
+          "category_id": 261,
+          "category_name": "逻辑器件"
+        }
+      ],
+      "sample_values": [
+        "0ns",
+        "0.3ns",
+        "0.5ns",
+        "0.9ns"
+      ],
+      "distinct_values_in_sample": 4,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Ib - Input Bias Current",
+      "proposed_label": "输入偏置电流（Ib）",
+      "current_labels": [
+        "Ib - Input Bias Current"
+      ],
+      "scope": [
+        {
+          "category_id": 260,
+          "category_name": "放大器 / 比较器 / 线性器件"
+        },
+        {
+          "category_id": 264,
+          "category_name": "其他专用集成电路"
+        }
+      ],
+      "sample_values": [
+        "1pA",
+        "3pA",
+        "10pA",
+        "20pA"
+      ],
+      "distinct_values_in_sample": 20,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Illumination Color",
+      "proposed_label": "发光颜色",
+      "current_labels": [
+        "Illumination Color"
+      ],
+      "scope": [
+        {
+          "category_id": 28,
+          "category_name": "光电器件 / 显示屏"
+        }
+      ],
+      "sample_values": [
+        "Amber",
+        "Blue",
+        "Blue, White",
+        "Deep red"
+      ],
+      "distinct_values_in_sample": 53,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Impedance",
+      "proposed_label": "阻抗",
+      "current_labels": [
+        "Impedance"
+      ],
+      "scope": [
+        {
+          "category_id": 35,
+          "category_name": "射频芯片 / 无线模块"
+        }
+      ],
+      "sample_values": [
+        "25Ω",
+        "50Ω",
+        "75Ω",
+        "100Ω"
+      ],
+      "distinct_values_in_sample": 7,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Impedance @ Frequency",
+      "proposed_label": "指定频率下的阻抗",
+      "current_labels": [
+        "阻抗及频率"
+      ],
+      "scope": [
+        {
+          "category_id": 497,
+          "category_name": "磁珠 / 滤波器 / EMI优化"
+        }
+      ],
+      "sample_values": [
+        "35Ω@500MHz",
+        "50Ω@100MHz",
+        "310Ω@100MHz"
+      ],
+      "distinct_values_in_sample": 3,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Inductance",
+      "proposed_label": "感值",
+      "current_labels": [
+        "感值"
+      ],
+      "scope": [
+        {
+          "category_id": 498,
+          "category_name": "电感 / 线圈"
+        }
+      ],
+      "sample_values": [
+        "16.9nH",
+        "18.5nH",
+        "28.3nH",
+        "30nH"
+      ],
+      "distinct_values_in_sample": 108,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Inner Diameter φ/ Inner Width D",
+      "proposed_label": "内径 φ / 内宽 D",
+      "current_labels": [
+        "Inner Diameter φ/ Inner Width D"
+      ],
+      "scope": [
+        {
+          "category_id": 497,
+          "category_name": "磁珠 / 滤波器 / EMI优化"
+        }
+      ],
+      "sample_values": [
+        "6.6mm",
+        "7mm@φ",
+        "9mm@φ"
+      ],
+      "distinct_values_in_sample": 3,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Input",
+      "proposed_label": "输入类型",
+      "current_labels": [
+        "Input"
+      ],
+      "scope": [
+        {
+          "category_id": 256,
+          "category_name": "时钟和定时"
+        }
+      ],
+      "sample_values": [
+        "CML",
+        "CMOS",
+        "HCSL",
+        "HSTL"
+      ],
+      "distinct_values_in_sample": 9,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Input Capacitance",
+      "proposed_label": "输入电容",
+      "current_labels": [
+        "Input Capacitance"
+      ],
+      "scope": [
+        {
+          "category_id": 259,
+          "category_name": "通信接口芯片"
+        }
+      ],
+      "sample_values": [
+        "0.622pF",
+        "1.5pF",
+        "2pF",
+        "2.1pF"
+      ],
+      "distinct_values_in_sample": 5,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Input Capacitiance(Ci)",
+      "proposed_label": "输入电容（Ci）",
+      "current_labels": [
+        "Input Capacitiance(Ci)"
+      ],
+      "scope": [
+        {
+          "category_id": 261,
+          "category_name": "逻辑器件"
+        }
+      ],
+      "sample_values": [
+        "15pF"
+      ],
+      "distinct_values_in_sample": 1,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Input Current(off)",
+      "proposed_label": "关断时输入电流",
+      "current_labels": [
+        "Input Current(off)"
+      ],
+      "scope": [
+        {
+          "category_id": 261,
+          "category_name": "逻辑器件"
+        }
+      ],
+      "sample_values": [
+        "100uA"
+      ],
+      "distinct_values_in_sample": 1,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Input Current(on)",
+      "proposed_label": "导通时输入电流",
+      "current_labels": [
+        "Input Current(on)"
+      ],
+      "scope": [
+        {
+          "category_id": 261,
+          "category_name": "逻辑器件"
+        }
+      ],
+      "sample_values": [
+        "0.93mA"
+      ],
+      "distinct_values_in_sample": 1,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Input Hysteresis Voltage (Vhys)",
+      "proposed_label": "输入迟滞电压（Vhys）",
+      "current_labels": [
+        "Input Hysteresis Voltage (Vhys)"
+      ],
+      "scope": [
+        {
+          "category_id": 264,
+          "category_name": "其他专用集成电路"
+        }
+      ],
+      "sample_values": [
+        "100mV"
+      ],
+      "distinct_values_in_sample": 1,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Input Logic Level - High",
+      "proposed_label": "高电平输入电压",
+      "current_labels": [
+        "Input Logic Level - High"
+      ],
+      "scope": [
+        {
+          "category_id": 261,
+          "category_name": "逻辑器件"
+        },
+        {
+          "category_id": 264,
+          "category_name": "其他专用集成电路"
+        }
+      ],
+      "sample_values": [
+        "1.5V",
+        "1.6V",
+        "1.7V",
+        "1.7V~2V"
+      ],
+      "distinct_values_in_sample": 15,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "当前样本为 V，拟高电平输入电压；需看手册区分 VIH 阈值与其他测试电压，不直接补典型/最大/最小限定。若出现 CMOS/TTL 等值，按上下文显示逻辑标准。"
+    },
+    {
+      "raw_key": "Input Logic Level - Low",
+      "proposed_label": "低电平输入电压",
+      "current_labels": [
+        "Input Logic Level - Low"
+      ],
+      "scope": [
+        {
+          "category_id": 264,
+          "category_name": "其他专用集成电路"
+        }
+      ],
+      "sample_values": [
+        "0.8V"
+      ],
+      "distinct_values_in_sample": 1,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "当前样本为 V，拟低电平输入电压；需要手册确认 VIL 阈值，不能混作逻辑标准。"
+    },
+    {
+      "raw_key": "Input Logic Level -Low",
+      "proposed_label": "低电平输入电压",
+      "current_labels": [
+        "Input Logic Level -Low"
+      ],
+      "scope": [
+        {
+          "category_id": 261,
+          "category_name": "逻辑器件"
+        }
+      ],
+      "sample_values": [
+        "500mV",
+        "600mV",
+        "700mV",
+        "700mV~800mV"
+      ],
+      "distinct_values_in_sample": 16,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "上游缺空格的独立原始键；仅显示别名可共用。"
+    },
+    {
+      "raw_key": "Input Low Voltage",
+      "proposed_label": "低电平输入电压",
+      "current_labels": [
+        "Input Low Voltage"
+      ],
+      "scope": [
+        {
+          "category_id": 256,
+          "category_name": "时钟和定时"
+        }
+      ],
+      "sample_values": [
+        "-0.3V~0.8V",
+        "-0.3V~0.35V",
+        "-0.3V~0.3V",
+        "-0.1V~0.4V"
+      ],
+      "distinct_values_in_sample": 17,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Input Offset Current(Ios)",
+      "proposed_label": "输入失调电流（Ios）",
+      "current_labels": [
+        "Input Offset Current(Ios)"
+      ],
+      "scope": [
+        {
+          "category_id": 260,
+          "category_name": "放大器 / 比较器 / 线性器件"
+        }
+      ],
+      "sample_values": [
+        "1pA",
+        "2.5pA",
+        "5pA",
+        "10pA"
+      ],
+      "distinct_values_in_sample": 10,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Input Offset Voltage Drift(Vos TC)",
+      "proposed_label": "输入失调电压温漂（Vos TC）",
+      "current_labels": [
+        "Input Offset Voltage Drift(Vos TC)"
+      ],
+      "scope": [
+        {
+          "category_id": 260,
+          "category_name": "放大器 / 比较器 / 线性器件"
+        }
+      ],
+      "sample_values": [
+        "100nV/℃",
+        "200nV/℃",
+        "1.8uV/℃",
+        "30nV/℃"
+      ],
+      "distinct_values_in_sample": 13,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Input Signal",
+      "proposed_label": "输入信号",
+      "current_labels": [
+        "Input Signal"
+      ],
+      "scope": [
+        {
+          "category_id": 261,
+          "category_name": "逻辑器件"
+        }
+      ],
+      "sample_values": [
+        "CMOS",
+        "TTL"
+      ],
+      "distinct_values_in_sample": 2,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Input Voltage",
+      "proposed_label": "输入电压",
+      "current_labels": [
+        "Input Voltage"
+      ],
+      "scope": [
+        {
+          "category_id": 1007,
+          "category_name": "DC DC 开关式控制器"
+        },
+        {
+          "category_id": 264,
+          "category_name": "其他专用集成电路"
+        }
+      ],
+      "sample_values": [
+        "0.8V~42V",
+        "2V~25V",
+        "2.1V~42V",
+        "3V~38V"
+      ],
+      "distinct_values_in_sample": 30,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Input Voltage Noise Density",
+      "proposed_label": "输入电压噪声密度",
+      "current_labels": [
+        "Input Voltage Noise Density"
+      ],
+      "scope": [
+        {
+          "category_id": 255,
+          "category_name": "音频专用芯片"
+        },
+        {
+          "category_id": 260,
+          "category_name": "放大器 / 比较器 / 线性器件"
+        }
+      ],
+      "sample_values": [
+        "2.5nV/√Hz@20kHz",
+        "3.2nV/√Hz@1kHz",
+        "3.5nV/√Hz@1kHz",
+        "8nV/√Hz@1kHz"
+      ],
+      "distinct_values_in_sample": 19,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Input type",
+      "proposed_label": "输入类型",
+      "current_labels": [
+        "Input type"
+      ],
+      "scope": [
+        {
+          "category_id": 257,
+          "category_name": "ADC / DAC / 数据转换"
+        },
+        {
+          "category_id": 261,
+          "category_name": "逻辑器件"
+        },
+        {
+          "category_id": 264,
+          "category_name": "其他专用集成电路"
+        }
+      ],
+      "sample_values": [
+        "DC",
+        "Schmitt trigger",
+        "StandardCMOS",
+        "TL compatible CMOS"
+      ],
+      "distinct_values_in_sample": 6,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Inputs per Gates",
+      "proposed_label": "每门输入数",
+      "current_labels": [
+        "Inputs per Gates"
+      ],
+      "scope": [
+        {
+          "category_id": 261,
+          "category_name": "逻辑器件"
+        }
+      ],
+      "sample_values": [
+        "1",
+        "2"
+      ],
+      "distinct_values_in_sample": 2,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Insertion Loss",
+      "proposed_label": "插入损耗",
+      "current_labels": [
+        "Insertion Loss"
+      ],
+      "scope": [
+        {
+          "category_id": 35,
+          "category_name": "射频芯片 / 无线模块"
+        }
+      ],
+      "sample_values": [
+        "-3.5dB",
+        "0.2dB",
+        "0.25dB",
+        "0.3dB"
+      ],
+      "distinct_values_in_sample": 86,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Insulation Height",
+      "proposed_label": "绝缘体高度",
+      "current_labels": [
+        "Insulation Height"
+      ],
+      "scope": [
+        {
+          "category_id": 11,
+          "category_name": "开发板 / 开发工具"
+        }
+      ],
+      "sample_values": [
+        "8.5mm"
+      ],
+      "distinct_values_in_sample": 1,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Integral non - linearity",
+      "proposed_label": "积分非线性（INL）",
+      "current_labels": [
+        "Integral non - linearity"
+      ],
+      "scope": [
+        {
+          "category_id": 257,
+          "category_name": "ADC / DAC / 数据转换"
+        },
+        {
+          "category_id": 264,
+          "category_name": "其他专用集成电路"
+        }
+      ],
+      "sample_values": [
+        "±6LSB",
+        "±5LSB",
+        "±3LSB",
+        "±2LSB"
+      ],
+      "distinct_values_in_sample": 41,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Integrated Power Output Voltage",
+      "proposed_label": "集成电源输出电压",
+      "current_labels": [
+        "Integrated Power Output Voltage"
+      ],
+      "scope": [
+        {
+          "category_id": 264,
+          "category_name": "其他专用集成电路"
+        }
+      ],
+      "sample_values": [
+        "3V~3.5V",
+        "4.75V~5.25V"
+      ],
+      "distinct_values_in_sample": 2,
+      "status": "待查叶分类/手册",
+      "references": [],
+      "note": "专用 IC 样本有 3~3.5V 等，拟集成电源输出电压，需要具体器件确认是否隔离电源。"
+    },
+    {
+      "raw_key": "Interface",
+      "proposed_label": "接口",
+      "current_labels": [
+        "接口"
+      ],
+      "scope": [
+        {
+          "category_id": 1007,
+          "category_name": "DC DC 开关式控制器"
+        },
+        {
+          "category_id": 255,
+          "category_name": "音频专用芯片"
+        },
+        {
+          "category_id": 256,
+          "category_name": "时钟和定时"
+        },
+        {
+          "category_id": 257,
+          "category_name": "ADC / DAC / 数据转换"
+        },
+        {
+          "category_id": 258,
+          "category_name": "单片机 / 微控制器 / 可编程逻辑"
+        },
+        {
+          "category_id": 259,
+          "category_name": "通信接口芯片"
+        },
+        {
+          "category_id": 261,
+          "category_name": "逻辑器件"
+        },
+        {
+          "category_id": 264,
+          "category_name": "其他专用集成电路"
+        },
+        {
+          "category_id": 37,
+          "category_name": "传感器"
+        }
+      ],
+      "sample_values": [
+        "AVSBus",
+        "I2C",
+        "IMVP7",
+        "PMBus"
+      ],
+      "distinct_values_in_sample": 45,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Intput High Voltage",
+      "proposed_label": "高电平输入电压",
+      "current_labels": [
+        "Intput High Voltage"
+      ],
+      "scope": [
+        {
+          "category_id": 256,
+          "category_name": "时钟和定时"
+        }
+      ],
+      "sample_values": [
+        "600mV~1150mV",
+        "0.6V~1.15V",
+        "660mV~850mV",
+        "0.7V~1.5V"
+      ],
+      "distinct_values_in_sample": 23,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Isolation Voltage(Vrms)",
+      "proposed_label": "隔离耐压（Vrms）",
+      "current_labels": [
+        "隔离电压"
+      ],
+      "scope": [
+        {
+          "category_id": 18,
+          "category_name": "光耦 / 信号隔离器件"
+        },
+        {
+          "category_id": 257,
+          "category_name": "ADC / DAC / 数据转换"
+        },
+        {
+          "category_id": 264,
+          "category_name": "其他专用集成电路"
+        },
+        {
+          "category_id": 32,
+          "category_name": "电源模块"
+        }
+      ],
+      "sample_values": [
+        "200",
+        "400",
+        "500",
+        "560"
+      ],
+      "distinct_values_in_sample": 52,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "保留 Vrms；不等同持续工作隔离电压或浪涌隔离电压。"
+    },
+    {
+      "raw_key": "Leak Current",
+      "proposed_label": "漏电流",
+      "current_labels": [
+        "Leak Current"
+      ],
+      "scope": [
+        {
+          "category_id": 187,
+          "category_name": "晶闸管"
+        }
+      ],
+      "sample_values": [
+        "1uA",
+        "5uA",
+        "10uA",
+        "1mA"
+      ],
+      "distinct_values_in_sample": 4,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Length",
+      "proposed_label": "长度",
+      "current_labels": [
+        "Length"
+      ],
+      "scope": [
+        {
+          "category_id": 10,
+          "category_name": "连接器"
+        },
+        {
+          "category_id": 186,
+          "category_name": "功率驱动模块"
+        },
+        {
+          "category_id": 264,
+          "category_name": "其他专用集成电路"
+        },
+        {
+          "category_id": 28,
+          "category_name": "光电器件 / 显示屏"
+        },
+        {
+          "category_id": 3,
+          "category_name": "音频器件"
+        },
+        {
+          "category_id": 32,
+          "category_name": "电源模块"
+        },
+        {
+          "category_id": 37,
+          "category_name": "传感器"
+        },
+        {
+          "category_id": 497,
+          "category_name": "磁珠 / 滤波器 / EMI优化"
+        },
+        {
+          "category_id": 498,
+          "category_name": "电感 / 线圈"
+        }
+      ],
+      "sample_values": [
+        "11.5mm",
+        "27mm",
+        "30.2mm",
+        "30.3mm"
+      ],
+      "distinct_values_in_sample": 259,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Length of End Connection Pin",
+      "proposed_label": "端接引脚长度",
+      "current_labels": [
+        "Length of End Connection Pin"
+      ],
+      "scope": [
+        {
+          "category_id": 11,
+          "category_name": "开发板 / 开发工具"
+        }
+      ],
+      "sample_values": [
+        "5.5mm",
+        "10.5mm"
+      ],
+      "distinct_values_in_sample": 2,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Lens Color",
+      "proposed_label": "透镜颜色",
+      "current_labels": [
+        "Lens Color"
+      ],
+      "scope": [
+        {
+          "category_id": 28,
+          "category_name": "光电器件 / 显示屏"
+        }
+      ],
+      "sample_values": [
+        "Amber Lens",
+        "Blue Lens",
+        "Diffused Lens",
+        "Diffused blue lens, diffused green lens, diffused orange lens"
+      ],
+      "distinct_values_in_sample": 44,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Lifetime",
+      "proposed_label": "寿命",
+      "current_labels": [
+        "Lifetime"
+      ],
+      "scope": [
+        {
+          "category_id": 495,
+          "category_name": "电容"
+        }
+      ],
+      "sample_values": [
+        "1000hrs@105℃",
+        "1000hrs@125℃",
+        "1000hrs@150℃",
+        "1500hrs@125℃"
+      ],
+      "distinct_values_in_sample": 33,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Load Type",
+      "proposed_label": "负载类型",
+      "current_labels": [
+        "Load Type"
+      ],
+      "scope": [
+        {
+          "category_id": 1007,
+          "category_name": "DC DC 开关式控制器"
+        }
+      ],
+      "sample_values": [
+        "MOSFET"
+      ],
+      "distinct_values_in_sample": 1,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Logic Family",
+      "proposed_label": "逻辑系列",
+      "current_labels": [
+        "Logic Family"
+      ],
+      "scope": [
+        {
+          "category_id": 264,
+          "category_name": "其他专用集成电路"
+        }
+      ],
+      "sample_values": [
+        "ADATE304"
+      ],
+      "distinct_values_in_sample": 1,
+      "status": "待查叶分类/手册",
+      "references": [],
+      "note": "264 的样本 ADATE304 看似型号，不是通常逻辑系列；需要型号核对与上游数据核查。"
+    },
+    {
+      "raw_key": "Low level Delay Time",
+      "proposed_label": "低电平延迟时间（待核对定义）",
+      "current_labels": [
+        "Low level Delay Time"
+      ],
+      "scope": [
+        {
+          "category_id": 18,
+          "category_name": "光耦 / 信号隔离器件"
+        }
+      ],
+      "sample_values": [
+        "15ns",
+        "18ns",
+        "30ns",
+        "105ns"
+      ],
+      "distinct_values_in_sample": 5,
+      "status": "待查叶分类/手册",
+      "references": [],
+      "note": "不能仅凭 Low level 断定 tPLH 或 tPHL，须看测量定义。"
+    },
+    {
+      "raw_key": "Luminous Intensity",
+      "proposed_label": "发光强度",
+      "current_labels": [
+        "Luminous Intensity"
+      ],
+      "scope": [
+        {
+          "category_id": 28,
+          "category_name": "光电器件 / 显示屏"
+        }
+      ],
+      "sample_values": [
+        "0.3mcd",
+        "0.4mcd~0.6mcd",
+        "0.4mcd",
+        "0.5mcd"
+      ],
+      "distinct_values_in_sample": 324,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "MAC Interface",
+      "proposed_label": "MAC 接口",
+      "current_labels": [
+        "MAC Interface"
+      ],
+      "scope": [
+        {
+          "category_id": 261,
+          "category_name": "逻辑器件"
+        },
+        {
+          "category_id": 264,
+          "category_name": "其他专用集成电路"
+        }
+      ],
+      "sample_values": [
+        "RGMII",
+        "SGMII",
+        "MII",
+        "SNI"
+      ],
+      "distinct_values_in_sample": 4,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Manufacturer",
+      "proposed_label": "品牌",
+      "current_labels": [
+        "品牌"
+      ],
+      "scope": [
+        {
+          "category_id": 10,
+          "category_name": "连接器"
+        },
+        {
+          "category_id": 1007,
+          "category_name": "DC DC 开关式控制器"
+        },
+        {
+          "category_id": 11,
+          "category_name": "开发板 / 开发工具"
+        },
+        {
+          "category_id": 13,
+          "category_name": "嵌入式计算机 / 功能板卡"
+        },
+        {
+          "category_id": 18,
+          "category_name": "光耦 / 信号隔离器件"
+        },
+        {
+          "category_id": 184,
+          "category_name": "电流调节二极管 / 晶体管"
+        },
+        {
+          "category_id": 185,
+          "category_name": "二极管"
+        },
+        {
+          "category_id": 186,
+          "category_name": "功率驱动模块"
+        },
+        {
+          "category_id": 187,
+          "category_name": "晶闸管"
+        },
+        {
+          "category_id": 191,
+          "category_name": "结型场效应管（JFET）"
+        },
+        {
+          "category_id": 255,
+          "category_name": "音频专用芯片"
+        },
+        {
+          "category_id": 256,
+          "category_name": "时钟和定时"
+        },
+        {
+          "category_id": 257,
+          "category_name": "ADC / DAC / 数据转换"
+        },
+        {
+          "category_id": 258,
+          "category_name": "单片机 / 微控制器 / 可编程逻辑"
+        },
+        {
+          "category_id": 259,
+          "category_name": "通信接口芯片"
+        },
+        {
+          "category_id": 260,
+          "category_name": "放大器 / 比较器 / 线性器件"
+        },
+        {
+          "category_id": 261,
+          "category_name": "逻辑器件"
+        },
+        {
+          "category_id": 262,
+          "category_name": "存储器"
+        },
+        {
+          "category_id": 263,
+          "category_name": "电源管理"
+        },
+        {
+          "category_id": 264,
+          "category_name": "其他专用集成电路"
+        },
+        {
+          "category_id": 28,
+          "category_name": "光电器件 / 显示屏"
+        },
+        {
+          "category_id": 3,
+          "category_name": "音频器件"
+        },
+        {
+          "category_id": 32,
+          "category_name": "电源模块"
+        },
+        {
+          "category_id": 34,
+          "category_name": "继电器"
+        },
+        {
+          "category_id": 35,
+          "category_name": "射频芯片 / 无线模块"
+        },
+        {
+          "category_id": 37,
+          "category_name": "传感器"
+        },
+        {
+          "category_id": 38,
+          "category_name": "按键 / 开关"
+        },
+        {
+          "category_id": 4,
+          "category_name": "电池 / 电池配件"
+        },
+        {
+          "category_id": 40,
+          "category_name": "变压器"
+        },
+        {
+          "category_id": 495,
+          "category_name": "电容"
+        },
+        {
+          "category_id": 496,
+          "category_name": "晶体 / 振荡器 / 谐振器"
+        },
+        {
+          "category_id": 497,
+          "category_name": "磁珠 / 滤波器 / EMI优化"
+        },
+        {
+          "category_id": 498,
+          "category_name": "电感 / 线圈"
+        },
+        {
+          "category_id": 5,
+          "category_name": "连接线 / 线缆组件"
+        },
+        {
+          "category_id": 501,
+          "category_name": "电阻"
+        },
+        {
+          "category_id": 6,
+          "category_name": "电线电缆"
+        },
+        {
+          "category_id": 8,
+          "category_name": "TVS / 保险丝 / 板级保护"
+        }
+      ],
+      "sample_values": [
+        "12275",
+        "1045",
+        "12784",
+        "815"
+      ],
+      "distinct_values_in_sample": 584,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Maximum Continuous Current",
+      "proposed_label": "最大连续电流",
+      "current_labels": [
+        "Maximum Continuous Current"
+      ],
+      "scope": [
+        {
+          "category_id": 186,
+          "category_name": "功率驱动模块"
+        },
+        {
+          "category_id": 263,
+          "category_name": "电源管理"
+        },
+        {
+          "category_id": 264,
+          "category_name": "其他专用集成电路"
+        }
+      ],
+      "sample_values": [
+        "4A",
+        "5A",
+        "8A",
+        "10A"
+      ],
+      "distinct_values_in_sample": 13,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Maximum I2C Clock",
+      "proposed_label": "最高 I²C 时钟频率",
+      "current_labels": [
+        "Maximum I2C Clock"
+      ],
+      "scope": [
+        {
+          "category_id": 18,
+          "category_name": "光耦 / 信号隔离器件"
+        }
+      ],
+      "sample_values": [
+        "400kHz",
+        "1MHz",
+        "1.7MHz",
+        "2MHz"
+      ],
+      "distinct_values_in_sample": 4,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Measurement Type",
+      "proposed_label": "测量类型",
+      "current_labels": [
+        "Measurement Type"
+      ],
+      "scope": [
+        {
+          "category_id": 37,
+          "category_name": "传感器"
+        }
+      ],
+      "sample_values": [
+        "Color Recognition",
+        "Color Recognition, Light Intensity"
+      ],
+      "distinct_values_in_sample": 2,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Memory Size",
+      "proposed_label": "存储容量",
+      "current_labels": [
+        "Memory Size"
+      ],
+      "scope": [
+        {
+          "category_id": 264,
+          "category_name": "其他专用集成电路"
+        }
+      ],
+      "sample_values": [
+        "32Kbit",
+        "256Kbit"
+      ],
+      "distinct_values_in_sample": 2,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Mounting Type",
+      "proposed_label": "安装方式",
+      "current_labels": [
+        "Mounting Type"
+      ],
+      "scope": [
+        {
+          "category_id": 10,
+          "category_name": "连接器"
+        },
+        {
+          "category_id": 11,
+          "category_name": "开发板 / 开发工具"
+        },
+        {
+          "category_id": 3,
+          "category_name": "音频器件"
+        },
+        {
+          "category_id": 38,
+          "category_name": "按键 / 开关"
+        },
+        {
+          "category_id": 495,
+          "category_name": "电容"
+        },
+        {
+          "category_id": 497,
+          "category_name": "磁珠 / 滤波器 / EMI优化"
+        }
+      ],
+      "sample_values": [
+        "Panel Mount",
+        "Right Angle",
+        "Straight",
+        "Through Hole"
+      ],
+      "distinct_values_in_sample": 11,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Non-Repetitive Peak Forward Surge Current",
+      "proposed_label": "非重复峰值正向浪涌电流",
+      "current_labels": [
+        "Non-Repetitive Peak Forward Surge Current"
+      ],
+      "scope": [
+        {
+          "category_id": 185,
+          "category_name": "二极管"
+        }
+      ],
+      "sample_values": [
+        "2A",
+        "2.5A",
+        "3A",
+        "3.2A"
+      ],
+      "distinct_values_in_sample": 142,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Number",
+      "proposed_label": "器件数量/沟道配置（待核对）",
+      "current_labels": [
+        "Number"
+      ],
+      "scope": [
+        {
+          "category_id": 186,
+          "category_name": "功率驱动模块"
+        },
+        {
+          "category_id": 191,
+          "category_name": "结型场效应管（JFET）"
+        }
+      ],
+      "sample_values": [
+        "2 N-Channel",
+        "1 N-channel",
+        "1 P-Channel",
+        "4 N-Channel"
+      ],
+      "distinct_values_in_sample": 4,
+      "status": "待查叶分类/手册",
+      "references": [],
+      "note": "191/186 的值为 1 N-channel、2 N-Channel 等，不能只显示“数量”而丢失沟道含义。"
+    },
+    {
+      "raw_key": "Number of Bits per Element",
+      "proposed_label": "每单元位数",
+      "current_labels": [
+        "Number of Bits per Element"
+      ],
+      "scope": [
+        {
+          "category_id": 261,
+          "category_name": "逻辑器件"
+        }
+      ],
+      "sample_values": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ],
+      "distinct_values_in_sample": 16,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Number of Channels",
+      "proposed_label": "通道数",
+      "current_labels": [
+        "Number of Channels"
+      ],
+      "scope": [
+        {
+          "category_id": 1007,
+          "category_name": "DC DC 开关式控制器"
+        },
+        {
+          "category_id": 18,
+          "category_name": "光耦 / 信号隔离器件"
+        },
+        {
+          "category_id": 186,
+          "category_name": "功率驱动模块"
+        },
+        {
+          "category_id": 255,
+          "category_name": "音频专用芯片"
+        },
+        {
+          "category_id": 256,
+          "category_name": "时钟和定时"
+        },
+        {
+          "category_id": 257,
+          "category_name": "ADC / DAC / 数据转换"
+        },
+        {
+          "category_id": 259,
+          "category_name": "通信接口芯片"
+        },
+        {
+          "category_id": 260,
+          "category_name": "放大器 / 比较器 / 线性器件"
+        },
+        {
+          "category_id": 263,
+          "category_name": "电源管理"
+        },
+        {
+          "category_id": 264,
+          "category_name": "其他专用集成电路"
+        }
+      ],
+      "sample_values": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ],
+      "distinct_values_in_sample": 29,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Number of Differential Input Channels",
+      "proposed_label": "差分输入通道数",
+      "current_labels": [
+        "Number of Differential Input Channels"
+      ],
+      "scope": [
+        {
+          "category_id": 257,
+          "category_name": "ADC / DAC / 数据转换"
+        }
+      ],
+      "sample_values": [
+        "0",
+        "2"
+      ],
+      "distinct_values_in_sample": 2,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Number of Drivers",
+      "proposed_label": "驱动器数量",
+      "current_labels": [
+        "Number of Drivers"
+      ],
+      "scope": [
+        {
+          "category_id": 1007,
+          "category_name": "DC DC 开关式控制器"
+        },
+        {
+          "category_id": 18,
+          "category_name": "光耦 / 信号隔离器件"
+        },
+        {
+          "category_id": 261,
+          "category_name": "逻辑器件"
+        },
+        {
+          "category_id": 264,
+          "category_name": "其他专用集成电路"
+        }
+      ],
+      "sample_values": [
+        "2",
+        "1",
+        "4",
+        "6"
+      ],
+      "distinct_values_in_sample": 4,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Number of Elements",
+      "proposed_label": "单元数",
+      "current_labels": [
+        "Number of Elements"
+      ],
+      "scope": [
+        {
+          "category_id": 261,
+          "category_name": "逻辑器件"
+        }
+      ],
+      "sample_values": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ],
+      "distinct_values_in_sample": 10,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Number of Forward Channels",
+      "proposed_label": "正向通道数",
+      "current_labels": [
+        "Number of Forward Channels"
+      ],
+      "scope": [
+        {
+          "category_id": 18,
+          "category_name": "光耦 / 信号隔离器件"
+        }
+      ],
+      "sample_values": [
+        "0",
+        "1",
+        "2",
+        "3"
+      ],
+      "distinct_values_in_sample": 9,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Number of Forward Channels Groups",
+      "proposed_label": "正向通道组数",
+      "current_labels": [
+        "Number of Forward Channels Groups"
+      ],
+      "scope": [
+        {
+          "category_id": 18,
+          "category_name": "光耦 / 信号隔离器件"
+        }
+      ],
+      "sample_values": [
+        "1",
+        "2",
+        "4"
+      ],
+      "distinct_values_in_sample": 3,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Number of Gates",
+      "proposed_label": "逻辑门数量",
+      "current_labels": [
+        "Number of Gates"
+      ],
+      "scope": [
+        {
+          "category_id": 261,
+          "category_name": "逻辑器件"
+        }
+      ],
+      "sample_values": [
+        "Seven channels",
+        "1",
+        "2",
+        "3"
+      ],
+      "distinct_values_in_sample": 12,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Number of Half Bridges",
+      "proposed_label": "半桥数量",
+      "current_labels": [
+        "Number of Half Bridges"
+      ],
+      "scope": [
+        {
+          "category_id": 258,
+          "category_name": "单片机 / 微控制器 / 可编程逻辑"
+        }
+      ],
+      "sample_values": [
+        "3"
+      ],
+      "distinct_values_in_sample": 1,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Number of Input Channels",
+      "proposed_label": "输入通道数",
+      "current_labels": [
+        "Number of Input Channels"
+      ],
+      "scope": [
+        {
+          "category_id": 264,
+          "category_name": "其他专用集成电路"
+        }
+      ],
+      "sample_values": [
+        "1"
+      ],
+      "distinct_values_in_sample": 1,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Number of Nodes",
+      "proposed_label": "节点数",
+      "current_labels": [
+        "Number of Nodes"
+      ],
+      "scope": [
+        {
+          "category_id": 18,
+          "category_name": "光耦 / 信号隔离器件"
+        }
+      ],
+      "sample_values": [
+        "32",
+        "50",
+        "128",
+        "160"
+      ],
+      "distinct_values_in_sample": 6,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Number of Outputs",
+      "proposed_label": "输出数量",
+      "current_labels": [
+        "Number of Outputs"
+      ],
+      "scope": [
+        {
+          "category_id": 186,
+          "category_name": "功率驱动模块"
+        },
+        {
+          "category_id": 32,
+          "category_name": "电源模块"
+        }
+      ],
+      "sample_values": [
+        "3",
+        "1",
+        "2",
+        "4"
+      ],
+      "distinct_values_in_sample": 4,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Number of PINs Per Row",
+      "proposed_label": "每排引脚数",
+      "current_labels": [
+        "Number of PINs Per Row"
+      ],
+      "scope": [
+        {
+          "category_id": 11,
+          "category_name": "开发板 / 开发工具"
+        }
+      ],
+      "sample_values": [
+        "4",
+        "20"
+      ],
+      "distinct_values_in_sample": 2,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Number of Pins",
+      "proposed_label": "引脚数",
+      "current_labels": [
+        "Number of Pins"
+      ],
+      "scope": [
+        {
+          "category_id": 10,
+          "category_name": "连接器"
+        },
+        {
+          "category_id": 11,
+          "category_name": "开发板 / 开发工具"
+        }
+      ],
+      "sample_values": [
+        "1P",
+        "2P",
+        "28P",
+        "40P"
+      ],
+      "distinct_values_in_sample": 5,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Number of Ports",
+      "proposed_label": "端口数",
+      "current_labels": [
+        "Number of Ports"
+      ],
+      "scope": [
+        {
+          "category_id": 10,
+          "category_name": "连接器"
+        }
+      ],
+      "sample_values": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ],
+      "distinct_values_in_sample": 4,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Number of Receivers",
+      "proposed_label": "接收器数量",
+      "current_labels": [
+        "Number of Receivers"
+      ],
+      "scope": [
+        {
+          "category_id": 18,
+          "category_name": "光耦 / 信号隔离器件"
+        },
+        {
+          "category_id": 261,
+          "category_name": "逻辑器件"
+        }
+      ],
+      "sample_values": [
+        "0",
+        "1",
+        "2"
+      ],
+      "distinct_values_in_sample": 3,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Number of Reverse Channels",
+      "proposed_label": "反向通道数",
+      "current_labels": [
+        "Number of Reverse Channels"
+      ],
+      "scope": [
+        {
+          "category_id": 18,
+          "category_name": "光耦 / 信号隔离器件"
+        }
+      ],
+      "sample_values": [
+        "0",
+        "1",
+        "2",
+        "3"
+      ],
+      "distinct_values_in_sample": 6,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Number of Reverse Channels Groups",
+      "proposed_label": "反向通道组数",
+      "current_labels": [
+        "Number of Reverse Channels Groups"
+      ],
+      "scope": [
+        {
+          "category_id": 18,
+          "category_name": "光耦 / 信号隔离器件"
+        }
+      ],
+      "sample_values": [
+        "0",
+        "1"
+      ],
+      "distinct_values_in_sample": 2,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Number of Rows",
+      "proposed_label": "排数",
+      "current_labels": [
+        "Number of Rows"
+      ],
+      "scope": [
+        {
+          "category_id": 11,
+          "category_name": "开发板 / 开发工具"
+        }
+      ],
+      "sample_values": [
+        "1",
+        "2"
+      ],
+      "distinct_values_in_sample": 2,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Number of outputs",
+      "proposed_label": "输出数量",
+      "current_labels": [
+        "Number of outputs"
+      ],
+      "scope": [
+        {
+          "category_id": 256,
+          "category_name": "时钟和定时"
+        }
+      ],
+      "sample_values": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ],
+      "distinct_values_in_sample": 15,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "On - State Voltage(VT)",
+      "proposed_label": "通态电压（VT）",
+      "current_labels": [
+        "On - State Voltage(VT)"
+      ],
+      "scope": [
+        {
+          "category_id": 187,
+          "category_name": "晶闸管"
+        }
+      ],
+      "sample_values": [
+        "1.2V",
+        "1.4V",
+        "1.5V"
+      ],
+      "distinct_values_in_sample": 3,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Operating Junction Temperature Range",
+      "proposed_label": "工作结温范围",
+      "current_labels": [
+        "Operating Junction Temperature Range"
+      ],
+      "scope": [
+        {
+          "category_id": 185,
+          "category_name": "二极管"
+        }
+      ],
+      "sample_values": [
+        "-65℃~+150℃",
+        "-65℃~+125℃",
+        "-65℃~+160℃",
+        "-65℃~+175℃"
+      ],
+      "distinct_values_in_sample": 23,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Operating Temperature",
+      "proposed_label": "工作温度",
+      "current_labels": [
+        "工作温度"
+      ],
+      "scope": [
+        {
+          "category_id": 10,
+          "category_name": "连接器"
+        },
+        {
+          "category_id": 1007,
+          "category_name": "DC DC 开关式控制器"
+        },
+        {
+          "category_id": 11,
+          "category_name": "开发板 / 开发工具"
+        },
+        {
+          "category_id": 18,
+          "category_name": "光耦 / 信号隔离器件"
+        },
+        {
+          "category_id": 185,
+          "category_name": "二极管"
+        },
+        {
+          "category_id": 255,
+          "category_name": "音频专用芯片"
+        },
+        {
+          "category_id": 256,
+          "category_name": "时钟和定时"
+        },
+        {
+          "category_id": 257,
+          "category_name": "ADC / DAC / 数据转换"
+        },
+        {
+          "category_id": 258,
+          "category_name": "单片机 / 微控制器 / 可编程逻辑"
+        },
+        {
+          "category_id": 259,
+          "category_name": "通信接口芯片"
+        },
+        {
+          "category_id": 260,
+          "category_name": "放大器 / 比较器 / 线性器件"
+        },
+        {
+          "category_id": 261,
+          "category_name": "逻辑器件"
+        },
+        {
+          "category_id": 263,
+          "category_name": "电源管理"
+        },
+        {
+          "category_id": 264,
+          "category_name": "其他专用集成电路"
+        },
+        {
+          "category_id": 28,
+          "category_name": "光电器件 / 显示屏"
+        },
+        {
+          "category_id": 3,
+          "category_name": "音频器件"
+        },
+        {
+          "category_id": 35,
+          "category_name": "射频芯片 / 无线模块"
+        },
+        {
+          "category_id": 37,
+          "category_name": "传感器"
+        },
+        {
+          "category_id": 38,
+          "category_name": "按键 / 开关"
+        },
+        {
+          "category_id": 495,
+          "category_name": "电容"
+        },
+        {
+          "category_id": 501,
+          "category_name": "电阻"
+        }
+      ],
+      "sample_values": [
+        "-55℃~+125℃",
+        "-55℃~+85℃",
+        "-45℃~+80℃",
+        "-40℃~+70℃"
+      ],
+      "distinct_values_in_sample": 189,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Operating Temperature\t-",
+      "proposed_label": "工作温度",
+      "current_labels": [
+        "Operating Temperature\t-"
+      ],
+      "scope": [
+        {
+          "category_id": 186,
+          "category_name": "功率驱动模块"
+        }
+      ],
+      "sample_values": [
+        "-55℃~+150℃",
+        "-55℃~+125℃",
+        "-40℃~+150℃",
+        "-40℃~+125℃"
+      ],
+      "distinct_values_in_sample": 13,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Operating Temperature Range",
+      "proposed_label": "工作温度范围",
+      "current_labels": [
+        "Operating Temperature Range"
+      ],
+      "scope": [
+        {
+          "category_id": 187,
+          "category_name": "晶闸管"
+        },
+        {
+          "category_id": 32,
+          "category_name": "电源模块"
+        }
+      ],
+      "sample_values": [
+        "-55℃~+125℃",
+        "-40℃~+125℃",
+        "-40℃~+100℃",
+        "-40℃~+150℃"
+      ],
+      "distinct_values_in_sample": 44,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Operating Voltage",
+      "proposed_label": "工作电压",
+      "current_labels": [
+        "Operating Voltage"
+      ],
+      "scope": [
+        {
+          "category_id": 1007,
+          "category_name": "DC DC 开关式控制器"
+        }
+      ],
+      "sample_values": [
+        "-80V~-4.5V",
+        "2.8V",
+        "3.1V",
+        "0V~5.5V"
+      ],
+      "distinct_values_in_sample": 462,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Oscillator Type",
+      "proposed_label": "振荡器类型",
+      "current_labels": [
+        "振荡器类型"
+      ],
+      "scope": [
+        {
+          "category_id": 258,
+          "category_name": "单片机 / 微控制器 / 可编程逻辑"
+        }
+      ],
+      "sample_values": [
+        "Built-in",
+        "Built-in+External",
+        "External"
+      ],
+      "distinct_values_in_sample": 3,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Output Capacitance(Coss)",
+      "proposed_label": "输出电容（Coss）",
+      "current_labels": [
+        "Output Capacitance(Coss)"
+      ],
+      "scope": [
+        {
+          "category_id": 191,
+          "category_name": "结型场效应管（JFET）"
+        }
+      ],
+      "sample_values": [
+        "1pF",
+        "1.5pF",
+        "4.5pF",
+        "8pF"
+      ],
+      "distinct_values_in_sample": 16,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Output Configuration",
+      "proposed_label": "输出配置",
+      "current_labels": [
+        "Output Configuration"
+      ],
+      "scope": [
+        {
+          "category_id": 263,
+          "category_name": "电源管理"
+        }
+      ],
+      "sample_values": [
+        "Positive"
+      ],
+      "distinct_values_in_sample": 1,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Output Current",
+      "proposed_label": "输出电流",
+      "current_labels": [
+        "输出电流"
+      ],
+      "scope": [
+        {
+          "category_id": 1007,
+          "category_name": "DC DC 开关式控制器"
+        },
+        {
+          "category_id": 184,
+          "category_name": "电流调节二极管 / 晶体管"
+        },
+        {
+          "category_id": 186,
+          "category_name": "功率驱动模块"
+        },
+        {
+          "category_id": 255,
+          "category_name": "音频专用芯片"
+        },
+        {
+          "category_id": 256,
+          "category_name": "时钟和定时"
+        },
+        {
+          "category_id": 257,
+          "category_name": "ADC / DAC / 数据转换"
+        },
+        {
+          "category_id": 258,
+          "category_name": "单片机 / 微控制器 / 可编程逻辑"
+        },
+        {
+          "category_id": 260,
+          "category_name": "放大器 / 比较器 / 线性器件"
+        },
+        {
+          "category_id": 263,
+          "category_name": "电源管理"
+        }
+      ],
+      "sample_values": [
+        "200uA",
+        "10mA",
+        "13mA",
+        "20mA"
+      ],
+      "distinct_values_in_sample": 164,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Output Current(Max)",
+      "proposed_label": "最大输出电流",
+      "current_labels": [
+        "Output Current(Max)"
+      ],
+      "scope": [
+        {
+          "category_id": 186,
+          "category_name": "功率驱动模块"
+        },
+        {
+          "category_id": 32,
+          "category_name": "电源模块"
+        }
+      ],
+      "sample_values": [
+        "50A",
+        "130mA",
+        "400mA",
+        "-5A"
+      ],
+      "distinct_values_in_sample": 318,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Output Frequency(Max)",
+      "proposed_label": "最高输出频率",
+      "current_labels": [
+        "Output Frequency(Max)"
+      ],
+      "scope": [
+        {
+          "category_id": 256,
+          "category_name": "时钟和定时"
+        }
+      ],
+      "sample_values": [
+        "100MHz",
+        "125MHz",
+        "130MHz",
+        "140MHz"
+      ],
+      "distinct_values_in_sample": 31,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Output High Voltage",
+      "proposed_label": "高电平输出电压",
+      "current_labels": [
+        "Output High Voltage"
+      ],
+      "scope": [
+        {
+          "category_id": 256,
+          "category_name": "时钟和定时"
+        }
+      ],
+      "sample_values": [
+        "550mV~850mV",
+        "600mV~850mV",
+        "0.6V~0.85V",
+        "630mV~850mV"
+      ],
+      "distinct_values_in_sample": 23,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Output Leakage Current(Icex)",
+      "proposed_label": "输出漏电流（Icex）",
+      "current_labels": [
+        "Output Leakage Current(Icex)"
+      ],
+      "scope": [
+        {
+          "category_id": 261,
+          "category_name": "逻辑器件"
+        }
+      ],
+      "sample_values": [
+        "20uA"
+      ],
+      "distinct_values_in_sample": 1,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Output Logic Level - High",
+      "proposed_label": "高电平输出电压",
+      "current_labels": [
+        "Output Logic Level - High"
+      ],
+      "scope": [
+        {
+          "category_id": 261,
+          "category_name": "逻辑器件"
+        }
+      ],
+      "sample_values": [
+        "1.2V",
+        "1.8V",
+        "1.9V",
+        "2V"
+      ],
+      "distinct_values_in_sample": 34,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "当前样本为 V，拟高电平输出电压；需核对 VOH 与负载/供电条件，不与 CMOS/TTL 逻辑标准混同。"
+    },
+    {
+      "raw_key": "Output Logic Level - Low",
+      "proposed_label": "低电平输出电压",
+      "current_labels": [
+        "Output Logic Level - Low"
+      ],
+      "scope": [
+        {
+          "category_id": 261,
+          "category_name": "逻辑器件"
+        }
+      ],
+      "sample_values": [
+        "50mV",
+        "100mV",
+        "110mV~310mV",
+        "160mV~440mV"
+      ],
+      "distinct_values_in_sample": 20,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "当前样本为 mV，拟低电平输出电压；需核对 VOL 与负载/供电条件。"
+    },
+    {
+      "raw_key": "Output Low Voltage",
+      "proposed_label": "低电平输出电压",
+      "current_labels": [
+        "Output Low Voltage"
+      ],
+      "scope": [
+        {
+          "category_id": 256,
+          "category_name": "时钟和定时"
+        }
+      ],
+      "sample_values": [
+        "-0.3V",
+        "-150mV~27mV",
+        "-0.15V~0.15V",
+        "0V~0.5V"
+      ],
+      "distinct_values_in_sample": 20,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Output Power",
+      "proposed_label": "输出功率",
+      "current_labels": [
+        "Output Power"
+      ],
+      "scope": [
+        {
+          "category_id": 255,
+          "category_name": "音频专用芯片"
+        },
+        {
+          "category_id": 257,
+          "category_name": "ADC / DAC / 数据转换"
+        },
+        {
+          "category_id": 32,
+          "category_name": "电源模块"
+        }
+      ],
+      "sample_values": [
+        "15Wx2@4Ω",
+        "18Wx2@4Ω",
+        "20Wx1@8Ω",
+        "20Wx2@8Ω"
+      ],
+      "distinct_values_in_sample": 193,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Output Signal",
+      "proposed_label": "输出信号",
+      "current_labels": [
+        "Output Signal"
+      ],
+      "scope": [
+        {
+          "category_id": 261,
+          "category_name": "逻辑器件"
+        }
+      ],
+      "sample_values": [
+        "CMOS",
+        "TTL"
+      ],
+      "distinct_values_in_sample": 2,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Output Type",
+      "proposed_label": "输出类型",
+      "current_labels": [
+        "Output Type"
+      ],
+      "scope": [
+        {
+          "category_id": 1007,
+          "category_name": "DC DC 开关式控制器"
+        },
+        {
+          "category_id": 255,
+          "category_name": "音频专用芯片"
+        },
+        {
+          "category_id": 257,
+          "category_name": "ADC / DAC / 数据转换"
+        },
+        {
+          "category_id": 261,
+          "category_name": "逻辑器件"
+        },
+        {
+          "category_id": 263,
+          "category_name": "电源管理"
+        }
+      ],
+      "sample_values": [
+        "Adjustable",
+        "Adjustable and Fixed",
+        "Fixed",
+        "CMOS"
+      ],
+      "distinct_values_in_sample": 13,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "必须按类别和实际枚举值选显示名：可调/固定属于输出电压类型；开漏/推挽属于输出形式。没有判定依据时显示“输出类型”，保留原文。"
+    },
+    {
+      "raw_key": "Output Voltage",
+      "proposed_label": "输出电压",
+      "current_labels": [
+        "Output Voltage"
+      ],
+      "scope": [
+        {
+          "category_id": 1007,
+          "category_name": "DC DC 开关式控制器"
+        },
+        {
+          "category_id": 18,
+          "category_name": "光耦 / 信号隔离器件"
+        },
+        {
+          "category_id": 186,
+          "category_name": "功率驱动模块"
+        },
+        {
+          "category_id": 263,
+          "category_name": "电源管理"
+        },
+        {
+          "category_id": 264,
+          "category_name": "其他专用集成电路"
+        },
+        {
+          "category_id": 32,
+          "category_name": "电源模块"
+        }
+      ],
+      "sample_values": [
+        "-200V~-500mV",
+        "-150V~-400mV",
+        "-60V~-800mV",
+        "-15V"
+      ],
+      "distinct_values_in_sample": 458,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Output Voltage Accuracy",
+      "proposed_label": "输出电压精度",
+      "current_labels": [
+        "Output Voltage Accuracy"
+      ],
+      "scope": [
+        {
+          "category_id": 32,
+          "category_name": "电源模块"
+        }
+      ],
+      "sample_values": [
+        "±7%",
+        "±6%",
+        "±5%",
+        "±4%"
+      ],
+      "distinct_values_in_sample": 20,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Output Waveform",
+      "proposed_label": "输出波形",
+      "current_labels": [
+        "Output Waveform"
+      ],
+      "scope": [
+        {
+          "category_id": 186,
+          "category_name": "功率驱动模块"
+        }
+      ],
+      "sample_values": [
+        "Sine Wave"
+      ],
+      "distinct_values_in_sample": 1,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Output current",
+      "proposed_label": "输出电流",
+      "current_labels": [
+        "Output current"
+      ],
+      "scope": [
+        {
+          "category_id": 18,
+          "category_name": "光耦 / 信号隔离器件"
+        }
+      ],
+      "sample_values": [
+        "10mA",
+        "60mA",
+        "110mA",
+        "140mA"
+      ],
+      "distinct_values_in_sample": 4,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "PIN Number Per Port",
+      "proposed_label": "每端口引脚数",
+      "current_labels": [
+        "PIN Number Per Port"
+      ],
+      "scope": [
+        {
+          "category_id": 10,
+          "category_name": "连接器"
+        }
+      ],
+      "sample_values": [
+        "2",
+        "3",
+        "4",
+        "5"
+      ],
+      "distinct_values_in_sample": 4,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Package",
+      "proposed_label": "封装",
+      "current_labels": [
+        "封装"
+      ],
+      "scope": [
+        {
+          "category_id": 10,
+          "category_name": "连接器"
+        },
+        {
+          "category_id": 1007,
+          "category_name": "DC DC 开关式控制器"
+        },
+        {
+          "category_id": 11,
+          "category_name": "开发板 / 开发工具"
+        },
+        {
+          "category_id": 18,
+          "category_name": "光耦 / 信号隔离器件"
+        },
+        {
+          "category_id": 184,
+          "category_name": "电流调节二极管 / 晶体管"
+        },
+        {
+          "category_id": 185,
+          "category_name": "二极管"
+        },
+        {
+          "category_id": 186,
+          "category_name": "功率驱动模块"
+        },
+        {
+          "category_id": 187,
+          "category_name": "晶闸管"
+        },
+        {
+          "category_id": 191,
+          "category_name": "结型场效应管（JFET）"
+        },
+        {
+          "category_id": 255,
+          "category_name": "音频专用芯片"
+        },
+        {
+          "category_id": 256,
+          "category_name": "时钟和定时"
+        },
+        {
+          "category_id": 257,
+          "category_name": "ADC / DAC / 数据转换"
+        },
+        {
+          "category_id": 258,
+          "category_name": "单片机 / 微控制器 / 可编程逻辑"
+        },
+        {
+          "category_id": 259,
+          "category_name": "通信接口芯片"
+        },
+        {
+          "category_id": 260,
+          "category_name": "放大器 / 比较器 / 线性器件"
+        },
+        {
+          "category_id": 261,
+          "category_name": "逻辑器件"
+        },
+        {
+          "category_id": 263,
+          "category_name": "电源管理"
+        },
+        {
+          "category_id": 264,
+          "category_name": "其他专用集成电路"
+        },
+        {
+          "category_id": 28,
+          "category_name": "光电器件 / 显示屏"
+        },
+        {
+          "category_id": 3,
+          "category_name": "音频器件"
+        },
+        {
+          "category_id": 32,
+          "category_name": "电源模块"
+        },
+        {
+          "category_id": 35,
+          "category_name": "射频芯片 / 无线模块"
+        },
+        {
+          "category_id": 37,
+          "category_name": "传感器"
+        },
+        {
+          "category_id": 38,
+          "category_name": "按键 / 开关"
+        },
+        {
+          "category_id": 40,
+          "category_name": "变压器"
+        },
+        {
+          "category_id": 495,
+          "category_name": "电容"
+        },
+        {
+          "category_id": 498,
+          "category_name": "电感 / 线圈"
+        },
+        {
+          "category_id": 501,
+          "category_name": "电阻"
+        }
+      ],
+      "sample_values": [
+        "Through Hole",
+        "Through Hole,50x58mm",
+        "Through Hole,P=10.5mm",
+        "Through Hole,P=7.7mm"
+      ],
+      "distinct_values_in_sample": 3377,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Pd - Power Dissipation",
+      "proposed_label": "耗散功率（Pd）",
+      "current_labels": [
+        "Pd - Power Dissipation"
+      ],
+      "scope": [
+        {
+          "category_id": 185,
+          "category_name": "二极管"
+        },
+        {
+          "category_id": 186,
+          "category_name": "功率驱动模块"
+        },
+        {
+          "category_id": 191,
+          "category_name": "结型场效应管（JFET）"
+        },
+        {
+          "category_id": 263,
+          "category_name": "电源管理"
+        },
+        {
+          "category_id": 264,
+          "category_name": "其他专用集成电路"
+        }
+      ],
+      "sample_values": [
+        "80mW",
+        "65W",
+        "3W",
+        "3.57W"
+      ],
+      "distinct_values_in_sample": 276,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Peak Output Current(Sink)",
+      "proposed_label": "峰值灌电流",
+      "current_labels": [
+        "Peak Output Current(Sink)"
+      ],
+      "scope": [
+        {
+          "category_id": 1007,
+          "category_name": "DC DC 开关式控制器"
+        }
+      ],
+      "sample_values": [
+        "1.7A",
+        "2A",
+        "6A"
+      ],
+      "distinct_values_in_sample": 3,
+      "status": "来源用词核对",
+      "references": [
+        "S6"
+      ],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Peak Output Current(Source)",
+      "proposed_label": "峰值拉电流",
+      "current_labels": [
+        "Peak Output Current(Source)"
+      ],
+      "scope": [
+        {
+          "category_id": 1007,
+          "category_name": "DC DC 开关式控制器"
+        }
+      ],
+      "sample_values": [
+        "600mA",
+        "6A"
+      ],
+      "distinct_values_in_sample": 2,
+      "status": "来源用词核对",
+      "references": [
+        "S6"
+      ],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Peak Output Current(sink)",
+      "proposed_label": "峰值灌电流",
+      "current_labels": [
+        "Peak Output Current(sink)"
+      ],
+      "scope": [
+        {
+          "category_id": 18,
+          "category_name": "光耦 / 信号隔离器件"
+        }
+      ],
+      "sample_values": [
+        "3mA",
+        "3.5mA",
+        "4mA",
+        "5mA"
+      ],
+      "distinct_values_in_sample": 10,
+      "status": "来源用词核对",
+      "references": [
+        "S6"
+      ],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Peak Pulse Current-Ipp (10/1000us)",
+      "proposed_label": "峰值脉冲电流（Ipp，10/1000 μs）",
+      "current_labels": [
+        "Peak Pulse Current-Ipp (10/1000us)"
+      ],
+      "scope": [
+        {
+          "category_id": 187,
+          "category_name": "晶闸管"
+        }
+      ],
+      "sample_values": [
+        "2A",
+        "80A"
+      ],
+      "distinct_values_in_sample": 2,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Peak off - state voltage(Vdrm)",
+      "proposed_label": "重复峰值断态电压（Vdrm）",
+      "current_labels": [
+        "Peak off - state voltage(Vdrm)"
+      ],
+      "scope": [
+        {
+          "category_id": 187,
+          "category_name": "晶闸管"
+        }
+      ],
+      "sample_values": [
+        "90V",
+        "120V",
+        "150V",
+        "170V"
+      ],
+      "distinct_values_in_sample": 8,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Phase Offset",
+      "proposed_label": "相位偏移",
+      "current_labels": [
+        "Phase Offset"
+      ],
+      "scope": [
+        {
+          "category_id": 256,
+          "category_name": "时钟和定时"
+        }
+      ],
+      "sample_values": [
+        "Not supported",
+        "Support"
+      ],
+      "distinct_values_in_sample": 2,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Photoperceptivity",
+      "proposed_label": "照度检测范围（待核对）",
+      "current_labels": [
+        "Photoperceptivity"
+      ],
+      "scope": [
+        {
+          "category_id": 37,
+          "category_name": "传感器"
+        }
+      ],
+      "sample_values": [
+        "16.496klx",
+        "50klx",
+        "144.284klx"
+      ],
+      "distinct_values_in_sample": 3,
+      "status": "待查叶分类/手册",
+      "references": [],
+      "note": "样本为 klx，暂拟照度检测范围；不能直接译成单位 A/W 的光响应度，需要对应器件手册确认。"
+    },
+    {
+      "raw_key": "Pin Spacing",
+      "proposed_label": "引脚间距",
+      "current_labels": [
+        "引脚间距"
+      ],
+      "scope": [
+        {
+          "category_id": 495,
+          "category_name": "电容"
+        }
+      ],
+      "sample_values": [
+        "1.3mm",
+        "1.4mm",
+        "1.5mm",
+        "1.9mm"
+      ],
+      "distinct_values_in_sample": 25,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Pins Structure",
+      "proposed_label": "引脚结构",
+      "current_labels": [
+        "Pins Structure"
+      ],
+      "scope": [
+        {
+          "category_id": 11,
+          "category_name": "开发板 / 开发工具"
+        }
+      ],
+      "sample_values": [
+        "1x4P",
+        "2x14P",
+        "2x20P"
+      ],
+      "distinct_values_in_sample": 3,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Pitch",
+      "proposed_label": "间距",
+      "current_labels": [
+        "Pitch"
+      ],
+      "scope": [
+        {
+          "category_id": 11,
+          "category_name": "开发板 / 开发工具"
+        }
+      ],
+      "sample_values": [
+        "2mm",
+        "2.54mm"
+      ],
+      "distinct_values_in_sample": 2,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Plastic Material",
+      "proposed_label": "塑胶材料",
+      "current_labels": [
+        "Plastic Material"
+      ],
+      "scope": [
+        {
+          "category_id": 11,
+          "category_name": "开发板 / 开发工具"
+        }
+      ],
+      "sample_values": [
+        "LCP",
+        "PA6T"
+      ],
+      "distinct_values_in_sample": 2,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Polarity type",
+      "proposed_label": "极性类型",
+      "current_labels": [
+        "Polarity type"
+      ],
+      "scope": [
+        {
+          "category_id": 495,
+          "category_name": "电容"
+        }
+      ],
+      "sample_values": [
+        "Polarized"
+      ],
+      "distinct_values_in_sample": 1,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Power Supply Rejection Ratio (PSRR)",
+      "proposed_label": "电源抑制比（PSRR）",
+      "current_labels": [
+        "Power Supply Rejection Ratio (PSRR)"
+      ],
+      "scope": [
+        {
+          "category_id": 263,
+          "category_name": "电源管理"
+        }
+      ],
+      "sample_values": [
+        "70dB@(100Hz)"
+      ],
+      "distinct_values_in_sample": 1,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Power(Watts)",
+      "proposed_label": "额定功率",
+      "current_labels": [
+        "功率"
+      ],
+      "scope": [
+        {
+          "category_id": 28,
+          "category_name": "光电器件 / 显示屏"
+        },
+        {
+          "category_id": 35,
+          "category_name": "射频芯片 / 无线模块"
+        },
+        {
+          "category_id": 501,
+          "category_name": "电阻"
+        }
+      ],
+      "sample_values": [
+        "14mW",
+        "15.4mW",
+        "17.5mW",
+        "20mW"
+      ],
+      "distinct_values_in_sample": 200,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Program Storage Size",
+      "proposed_label": "程序存储容量",
+      "current_labels": [
+        "程序容量"
+      ],
+      "scope": [
+        {
+          "category_id": 258,
+          "category_name": "单片机 / 微控制器 / 可编程逻辑"
+        },
+        {
+          "category_id": 264,
+          "category_name": "其他专用集成电路"
+        }
+      ],
+      "sample_values": [
+        "1KB",
+        "2KB",
+        "4KB",
+        "8KB"
+      ],
+      "distinct_values_in_sample": 24,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Programmable Gain",
+      "proposed_label": "可编程增益",
+      "current_labels": [
+        "Programmable Gain"
+      ],
+      "scope": [
+        {
+          "category_id": 257,
+          "category_name": "ADC / DAC / 数据转换"
+        }
+      ],
+      "sample_values": [
+        "Not supported",
+        "Support"
+      ],
+      "distinct_values_in_sample": 2,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Propagation Delay",
+      "proposed_label": "传播延迟",
+      "current_labels": [
+        "Propagation Delay"
+      ],
+      "scope": [
+        {
+          "category_id": 261,
+          "category_name": "逻辑器件"
+        },
+        {
+          "category_id": 264,
+          "category_name": "其他专用集成电路"
+        }
+      ],
+      "sample_values": [
+        "35ps@3.3V,2pF",
+        "130ps",
+        "0.2ns@5V,50pF",
+        "240ps"
+      ],
+      "distinct_values_in_sample": 910,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Propagation Delay (tpd)",
+      "proposed_label": "传播延迟（tpd）",
+      "current_labels": [
+        "Propagation Delay (tpd)"
+      ],
+      "scope": [
+        {
+          "category_id": 259,
+          "category_name": "通信接口芯片"
+        }
+      ],
+      "sample_values": [
+        "30ps",
+        "40ps",
+        "43ps",
+        "45ps"
+      ],
+      "distinct_values_in_sample": 60,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Propagation Delay Time",
+      "proposed_label": "传播延迟时间",
+      "current_labels": [
+        "Propagation Delay Time"
+      ],
+      "scope": [
+        {
+          "category_id": 255,
+          "category_name": "音频专用芯片"
+        }
+      ],
+      "sample_values": [
+        "480ns"
+      ],
+      "distinct_values_in_sample": 1,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Propagation Delay tpHL",
+      "proposed_label": "高到低传播延迟（tPHL）",
+      "current_labels": [
+        "Propagation Delay tpHL"
+      ],
+      "scope": [
+        {
+          "category_id": 1007,
+          "category_name": "DC DC 开关式控制器"
+        }
+      ],
+      "sample_values": [
+        "8ns",
+        "46ns"
+      ],
+      "distinct_values_in_sample": 2,
+      "status": "来源用词核对",
+      "references": [
+        "S7"
+      ],
+      "note": "方向按输出波形由高到低定义，不按输入方向猜测；缩写保留。"
+    },
+    {
+      "raw_key": "Propagation Delay tpLH",
+      "proposed_label": "低到高传播延迟（tPLH）",
+      "current_labels": [
+        "Propagation Delay tpLH"
+      ],
+      "scope": [
+        {
+          "category_id": 1007,
+          "category_name": "DC DC 开关式控制器"
+        }
+      ],
+      "sample_values": [
+        "50ns",
+        "60ns"
+      ],
+      "distinct_values_in_sample": 2,
+      "status": "来源用词核对",
+      "references": [
+        "S7"
+      ],
+      "note": "方向按输出波形由低到高定义，不按输入方向猜测；缩写保留。"
+    },
+    {
+      "raw_key": "Propagation Delay(tpd)",
+      "proposed_label": "传播延迟（tpd）",
+      "current_labels": [
+        "Propagation Delay(tpd)"
+      ],
+      "scope": [
+        {
+          "category_id": 18,
+          "category_name": "光耦 / 信号隔离器件"
+        }
+      ],
+      "sample_values": [
+        "2.3ns",
+        "3.5ns",
+        "5ns",
+        "5.4ns"
+      ],
+      "distinct_values_in_sample": 91,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Protocol",
+      "proposed_label": "协议",
+      "current_labels": [
+        "Protocol"
+      ],
+      "scope": [
+        {
+          "category_id": 18,
+          "category_name": "光耦 / 信号隔离器件"
+        }
+      ],
+      "sample_values": [
+        "USB 2.0"
+      ],
+      "distinct_values_in_sample": 1,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Q @ Frequency",
+      "proposed_label": "指定频率下的品质因数（Q）",
+      "current_labels": [
+        "Q 值及频率"
+      ],
+      "scope": [
+        {
+          "category_id": 498,
+          "category_name": "电感 / 线圈"
+        }
+      ],
+      "sample_values": [
+        "38@250kHz",
+        "40@100MHz",
+        "40@250kHz",
+        "40@200MHz"
+      ],
+      "distinct_values_in_sample": 49,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Quiescent Current",
+      "proposed_label": "静态电流",
+      "current_labels": [
+        "Quiescent Current"
+      ],
+      "scope": [
+        {
+          "category_id": 1007,
+          "category_name": "DC DC 开关式控制器"
+        },
+        {
+          "category_id": 191,
+          "category_name": "结型场效应管（JFET）"
+        },
+        {
+          "category_id": 255,
+          "category_name": "音频专用芯片"
+        },
+        {
+          "category_id": 257,
+          "category_name": "ADC / DAC / 数据转换"
+        },
+        {
+          "category_id": 260,
+          "category_name": "放大器 / 比较器 / 线性器件"
+        },
+        {
+          "category_id": 263,
+          "category_name": "电源管理"
+        },
+        {
+          "category_id": 37,
+          "category_name": "传感器"
+        }
+      ],
+      "sample_values": [
+        "0uA",
+        "500nA",
+        "1uA",
+        "1.5uA"
+      ],
+      "distinct_values_in_sample": 247,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Quiescent Current (Iq)",
+      "proposed_label": "静态电流（Iq）",
+      "current_labels": [
+        "Quiescent Current (Iq)"
+      ],
+      "scope": [
+        {
+          "category_id": 259,
+          "category_name": "通信接口芯片"
+        }
+      ],
+      "sample_values": [
+        "0.01uA"
+      ],
+      "distinct_values_in_sample": 1,
+      "status": "来源用词核对",
+      "references": [
+        "S2"
+      ],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Quiescent Current(Iq)",
+      "proposed_label": "静态电流（Iq）",
+      "current_labels": [
+        "Quiescent Current(Iq)"
+      ],
+      "scope": [
+        {
+          "category_id": 18,
+          "category_name": "光耦 / 信号隔离器件"
+        },
+        {
+          "category_id": 186,
+          "category_name": "功率驱动模块"
+        }
+      ],
+      "sample_values": [
+        "1.4mA",
+        "15mA",
+        "20mA",
+        "21mA"
+      ],
+      "distinct_values_in_sample": 66,
+      "status": "来源用词核对",
+      "references": [
+        "S2"
+      ],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Quiescent Dissipation",
+      "proposed_label": "静态功耗",
+      "current_labels": [
+        "Quiescent Dissipation"
+      ],
+      "scope": [
+        {
+          "category_id": 32,
+          "category_name": "电源模块"
+        }
+      ],
+      "sample_values": [
+        "20mW",
+        "0.05W",
+        "61mW",
+        "75mW"
+      ],
+      "distinct_values_in_sample": 31,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Quiescent Supply Current",
+      "proposed_label": "静态电源电流",
+      "current_labels": [
+        "Quiescent Supply Current"
+      ],
+      "scope": [
+        {
+          "category_id": 18,
+          "category_name": "光耦 / 信号隔离器件"
+        },
+        {
+          "category_id": 259,
+          "category_name": "通信接口芯片"
+        },
+        {
+          "category_id": 261,
+          "category_name": "逻辑器件"
+        },
+        {
+          "category_id": 263,
+          "category_name": "电源管理"
+        },
+        {
+          "category_id": 264,
+          "category_name": "其他专用集成电路"
+        }
+      ],
+      "sample_values": [
+        "8uA",
+        "1.2mA",
+        "2.5mA",
+        "8mA"
+      ],
+      "distinct_values_in_sample": 180,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "RDS(on)",
+      "proposed_label": "漏源导通电阻（RDS(on)）",
+      "current_labels": [
+        "RDS(on)"
+      ],
+      "scope": [
+        {
+          "category_id": 186,
+          "category_name": "功率驱动模块"
+        },
+        {
+          "category_id": 191,
+          "category_name": "结型场效应管（JFET）"
+        },
+        {
+          "category_id": 255,
+          "category_name": "音频专用芯片"
+        },
+        {
+          "category_id": 263,
+          "category_name": "电源管理"
+        },
+        {
+          "category_id": 264,
+          "category_name": "其他专用集成电路"
+        }
+      ],
+      "sample_values": [
+        "1.2mΩ@10V",
+        "1.9mΩ@10V",
+        "2.1mΩ@10V",
+        "2.4mΩ@10V"
+      ],
+      "distinct_values_in_sample": 108,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Rail to Rail",
+      "proposed_label": "轨到轨",
+      "current_labels": [
+        "Rail to Rail"
+      ],
+      "scope": [
+        {
+          "category_id": 260,
+          "category_name": "放大器 / 比较器 / 线性器件"
+        }
+      ],
+      "sample_values": [
+        "Rail-to-Rail Input, Rail-to-Rail Output",
+        "Rail-to-rail output"
+      ],
+      "distinct_values_in_sample": 2,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Receive  Current",
+      "proposed_label": "接收电流",
+      "current_labels": [
+        "Receive  Current"
+      ],
+      "scope": [
+        {
+          "category_id": 255,
+          "category_name": "音频专用芯片"
+        }
+      ],
+      "sample_values": [
+        "56.6mA"
+      ],
+      "distinct_values_in_sample": 1,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Repetitive Peak On-state Current (Itrm)",
+      "proposed_label": "重复峰值通态电流（Itrm）",
+      "current_labels": [
+        "Repetitive Peak On-state Current (Itrm)"
+      ],
+      "scope": [
+        {
+          "category_id": 187,
+          "category_name": "晶闸管"
+        }
+      ],
+      "sample_values": [
+        "200uA",
+        "175mA",
+        "1A",
+        "1.5A"
+      ],
+      "distinct_values_in_sample": 9,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Resistance",
+      "proposed_label": "阻值",
+      "current_labels": [
+        "阻值"
+      ],
+      "scope": [
+        {
+          "category_id": 501,
+          "category_name": "电阻"
+        }
+      ],
+      "sample_values": [
+        "0.025mΩ",
+        "0.033mΩ",
+        "0.0417mΩ",
+        "0.042mΩ"
+      ],
+      "distinct_values_in_sample": 990,
+      "status": "来源用词核对",
+      "references": [
+        "S3"
+      ],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Resolution",
+      "proposed_label": "分辨率",
+      "current_labels": [
+        "Resolution"
+      ],
+      "scope": [
+        {
+          "category_id": 261,
+          "category_name": "逻辑器件"
+        }
+      ],
+      "sample_values": [
+        "8"
+      ],
+      "distinct_values_in_sample": 1,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Resolution (Bits)",
+      "proposed_label": "分辨率（位，需检查数值单位）",
+      "current_labels": [
+        "Resolution (Bits)"
+      ],
+      "scope": [
+        {
+          "category_id": 255,
+          "category_name": "音频专用芯片"
+        },
+        {
+          "category_id": 257,
+          "category_name": "ADC / DAC / 数据转换"
+        },
+        {
+          "category_id": 264,
+          "category_name": "其他专用集成电路"
+        }
+      ],
+      "sample_values": [
+        "32kHz~192kHz",
+        "4kHz~12kHz",
+        "8kHz",
+        "8kHz~192kHz"
+      ],
+      "distinct_values_in_sample": 172,
+      "status": "待查叶分类/手册",
+      "references": [],
+      "note": "255/257/264 样本混入 kHz/MHz；保留原值并标注上游数据异常，不擅自改成采样率或改写单位。"
+    },
+    {
+      "raw_key": "Resolution(Bits)",
+      "proposed_label": "分辨率（位）",
+      "current_labels": [
+        "Resolution(Bits)"
+      ],
+      "scope": [
+        {
+          "category_id": 37,
+          "category_name": "传感器"
+        }
+      ],
+      "sample_values": [
+        "16bit",
+        "20bit"
+      ],
+      "distinct_values_in_sample": 2,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Resonant Frequency",
+      "proposed_label": "谐振频率",
+      "current_labels": [
+        "Resonant Frequency"
+      ],
+      "scope": [
+        {
+          "category_id": 3,
+          "category_name": "音频器件"
+        }
+      ],
+      "sample_values": [
+        "50Hz",
+        "60Hz",
+        "200Hz",
+        "250Hz"
+      ],
+      "distinct_values_in_sample": 87,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Reverse Leakage Current (Ir)",
+      "proposed_label": "反向漏电流（Ir）",
+      "current_labels": [
+        "Reverse Leakage Current (Ir)"
+      ],
+      "scope": [
+        {
+          "category_id": 185,
+          "category_name": "二极管"
+        }
+      ],
+      "sample_values": [
+        "10pA",
+        "100pA@40V",
+        "5nA@75V",
+        "8nA"
+      ],
+      "distinct_values_in_sample": 298,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Reverse Recovery Time (trr)",
+      "proposed_label": "反向恢复时间（trr）",
+      "current_labels": [
+        "Reverse Recovery Time (trr)"
+      ],
+      "scope": [
+        {
+          "category_id": 185,
+          "category_name": "二极管"
+        }
+      ],
+      "sample_values": [
+        "30ns",
+        "50ns",
+        "75ns"
+      ],
+      "distinct_values_in_sample": 3,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Reverse Transfer Capacitance (Crss)",
+      "proposed_label": "反向传输电容（Crss）",
+      "current_labels": [
+        "Reverse Transfer Capacitance (Crss)"
+      ],
+      "scope": [
+        {
+          "category_id": 191,
+          "category_name": "结型场效应管（JFET）"
+        }
+      ],
+      "sample_values": [
+        "0.3pF",
+        "0.65pF",
+        "0.7pF",
+        "0.85pF"
+      ],
+      "distinct_values_in_sample": 41,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Reverse Voltage",
+      "proposed_label": "反向电压",
+      "current_labels": [
+        "Reverse Voltage"
+      ],
+      "scope": [
+        {
+          "category_id": 257,
+          "category_name": "ADC / DAC / 数据转换"
+        }
+      ],
+      "sample_values": [
+        "2V"
+      ],
+      "distinct_values_in_sample": 1,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Ripple Current",
+      "proposed_label": "纹波电流",
+      "current_labels": [
+        "Ripple Current"
+      ],
+      "scope": [
+        {
+          "category_id": 495,
+          "category_name": "电容"
+        }
+      ],
+      "sample_values": [
+        "10.5mA@120Hz",
+        "17mA@120Hz",
+        "19mA@120Hz",
+        "22.5mA@120Hz"
+      ],
+      "distinct_values_in_sample": 841,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Ripple Noise",
+      "proposed_label": "纹波与噪声",
+      "current_labels": [
+        "Ripple Noise"
+      ],
+      "scope": [
+        {
+          "category_id": 32,
+          "category_name": "电源模块"
+        }
+      ],
+      "sample_values": [
+        "0.5mVp-p",
+        "1mVp-p",
+        "3mVp-p",
+        "5mVp-p"
+      ],
+      "distinct_values_in_sample": 41,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Rise Time",
+      "proposed_label": "上升时间",
+      "current_labels": [
+        "Rise Time"
+      ],
+      "scope": [
+        {
+          "category_id": 18,
+          "category_name": "光耦 / 信号隔离器件"
+        }
+      ],
+      "sample_values": [
+        "5.5ns",
+        "28ns",
+        "8us",
+        "8000ns"
+      ],
+      "distinct_values_in_sample": 4,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Rise Time(tr)",
+      "proposed_label": "上升时间（tr）",
+      "current_labels": [
+        "Rise Time(tr)"
+      ],
+      "scope": [
+        {
+          "category_id": 187,
+          "category_name": "晶闸管"
+        }
+      ],
+      "sample_values": [
+        "1.5us",
+        "2us"
+      ],
+      "distinct_values_in_sample": 2,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Ron",
+      "proposed_label": "导通电阻（Ron）",
+      "current_labels": [
+        "Ron"
+      ],
+      "scope": [
+        {
+          "category_id": 255,
+          "category_name": "音频专用芯片"
+        },
+        {
+          "category_id": 259,
+          "category_name": "通信接口芯片"
+        },
+        {
+          "category_id": 264,
+          "category_name": "其他专用集成电路"
+        }
+      ],
+      "sample_values": [
+        "40mΩ",
+        "60mΩ",
+        "15Ω",
+        "22mΩ"
+      ],
+      "distinct_values_in_sample": 89,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Row Spacing",
+      "proposed_label": "排距",
+      "current_labels": [
+        "Row Spacing"
+      ],
+      "scope": [
+        {
+          "category_id": 11,
+          "category_name": "开发板 / 开发工具"
+        }
+      ],
+      "sample_values": [
+        "2.54mm"
+      ],
+      "distinct_values_in_sample": 1,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "S/N Ratio",
+      "proposed_label": "信噪比（SNR）",
+      "current_labels": [
+        "S/N Ratio"
+      ],
+      "scope": [
+        {
+          "category_id": 257,
+          "category_name": "ADC / DAC / 数据转换"
+        },
+        {
+          "category_id": 264,
+          "category_name": "其他专用集成电路"
+        }
+      ],
+      "sample_values": [
+        "60dB",
+        "60.5dB",
+        "66dB",
+        "70dB"
+      ],
+      "distinct_values_in_sample": 33,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Segment Drive Current",
+      "proposed_label": "段驱动电流",
+      "current_labels": [
+        "Segment Drive Current"
+      ],
+      "scope": [
+        {
+          "category_id": 257,
+          "category_name": "ADC / DAC / 数据转换"
+        }
+      ],
+      "sample_values": [
+        "4mA",
+        "5mA",
+        "8mA",
+        "10mA"
+      ],
+      "distinct_values_in_sample": 6,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Series",
+      "proposed_label": "系列",
+      "current_labels": [
+        "Series"
+      ],
+      "scope": [
+        {
+          "category_id": 261,
+          "category_name": "逻辑器件"
+        }
+      ],
+      "sample_values": [
+        "100313",
+        "100E",
+        "100EL",
+        "100EP"
+      ],
+      "distinct_values_in_sample": 366,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Settling Time",
+      "proposed_label": "建立时间",
+      "current_labels": [
+        "Settling Time"
+      ],
+      "scope": [
+        {
+          "category_id": 257,
+          "category_name": "ADC / DAC / 数据转换"
+        },
+        {
+          "category_id": 264,
+          "category_name": "其他专用集成电路"
+        }
+      ],
+      "sample_values": [
+        "15ns",
+        "30ns",
+        "10us",
+        "30us"
+      ],
+      "distinct_values_in_sample": 7,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "模拟量稳定到精度范围的建立时间，与数字时序 Setup Time 含义不同；可在提示中解释。"
+    },
+    {
+      "raw_key": "Setup Time",
+      "proposed_label": "建立时间（时序）",
+      "current_labels": [
+        "Setup Time"
+      ],
+      "scope": [
+        {
+          "category_id": 259,
+          "category_name": "通信接口芯片"
+        },
+        {
+          "category_id": 261,
+          "category_name": "逻辑器件"
+        }
+      ],
+      "sample_values": [
+        "45ns",
+        "70ns",
+        "0.9ns",
+        "1.2ns"
+      ],
+      "distinct_values_in_sample": 8,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "数字时序建立时间；不得与 Settling Time 合并筛选。"
+    },
+    {
+      "raw_key": "Shape",
+      "proposed_label": "外形",
+      "current_labels": [
+        "Shape"
+      ],
+      "scope": [
+        {
+          "category_id": 38,
+          "category_name": "按键 / 开关"
+        }
+      ],
+      "sample_values": [
+        "Cylinder",
+        "Rectangular"
+      ],
+      "distinct_values_in_sample": 2,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Single Supply",
+      "proposed_label": "单电源供电电压",
+      "current_labels": [
+        "Single Supply"
+      ],
+      "scope": [
+        {
+          "category_id": 255,
+          "category_name": "音频专用芯片"
+        },
+        {
+          "category_id": 264,
+          "category_name": "其他专用集成电路"
+        }
+      ],
+      "sample_values": [
+        "1.6V~5V",
+        "3V~7V",
+        "2.7V~3.6V",
+        "2.7V~5.5V"
+      ],
+      "distinct_values_in_sample": 4,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "样本与单位核对后使用单电源供电电压；不是“只支持单电源”的布尔判断。"
+    },
+    {
+      "raw_key": "Single supply",
+      "proposed_label": "单电源供电电压",
+      "current_labels": [
+        "Single supply"
+      ],
+      "scope": [
+        {
+          "category_id": 260,
+          "category_name": "放大器 / 比较器 / 线性器件"
+        }
+      ],
+      "sample_values": [
+        "1.8V~5.5V",
+        "2V~5.5V",
+        "2.1V~5.5V",
+        "2.5V~5.5V"
+      ],
+      "distinct_values_in_sample": 13,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "大小写变体保留独立原始键。"
+    },
+    {
+      "raw_key": "Slew Rate",
+      "proposed_label": "压摆率（SR）",
+      "current_labels": [
+        "Slew Rate"
+      ],
+      "scope": [
+        {
+          "category_id": 255,
+          "category_name": "音频专用芯片"
+        },
+        {
+          "category_id": 260,
+          "category_name": "放大器 / 比较器 / 线性器件"
+        }
+      ],
+      "sample_values": [
+        "1V/us",
+        "70V/ms",
+        "0.2V/us",
+        "0.3V/us"
+      ],
+      "distinct_values_in_sample": 25,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Sound Pressure Level(SPL)",
+      "proposed_label": "声压级（SPL）",
+      "current_labels": [
+        "Sound Pressure Level(SPL)"
+      ],
+      "scope": [
+        {
+          "category_id": 3,
+          "category_name": "音频器件"
+        },
+        {
+          "category_id": 38,
+          "category_name": "按键 / 开关"
+        }
+      ],
+      "sample_values": [
+        "50dB",
+        "50.5dB",
+        "52dB",
+        "55dB"
+      ],
+      "distinct_values_in_sample": 65,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Standard",
+      "proposed_label": "标准",
+      "current_labels": [
+        "Standard"
+      ],
+      "scope": [
+        {
+          "category_id": 10,
+          "category_name": "连接器"
+        }
+      ],
+      "sample_values": [
+        "IEC 320-C13",
+        "IEC 320-C14",
+        "IEC 320-C16",
+        "IEC 320-C19"
+      ],
+      "distinct_values_in_sample": 8,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Standby Current (Max)",
+      "proposed_label": "最大待机电流",
+      "current_labels": [
+        "Standby Current (Max)"
+      ],
+      "scope": [
+        {
+          "category_id": 258,
+          "category_name": "单片机 / 微控制器 / 可编程逻辑"
+        },
+        {
+          "category_id": 264,
+          "category_name": "其他专用集成电路"
+        }
+      ],
+      "sample_values": [
+        "60uA",
+        "110uA",
+        "120uA",
+        "150uA"
+      ],
+      "distinct_values_in_sample": 28,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Supplementary Features",
+      "proposed_label": "附加特性",
+      "current_labels": [
+        "Supplementary Features"
+      ],
+      "scope": [
+        {
+          "category_id": 10,
+          "category_name": "连接器"
+        }
+      ],
+      "sample_values": [
+        "Fuse Holder",
+        "With Switch Position",
+        "With switch"
+      ],
+      "distinct_values_in_sample": 3,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Supply Current",
+      "proposed_label": "电源电流",
+      "current_labels": [
+        "Supply Current"
+      ],
+      "scope": [
+        {
+          "category_id": 263,
+          "category_name": "电源管理"
+        }
+      ],
+      "sample_values": [
+        "4mA"
+      ],
+      "distinct_values_in_sample": 1,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Support PoE standard",
+      "proposed_label": "支持的 PoE 标准",
+      "current_labels": [
+        "Support PoE standard"
+      ],
+      "scope": [
+        {
+          "category_id": 263,
+          "category_name": "电源管理"
+        }
+      ],
+      "sample_values": [
+        "802.3af Type 1",
+        "IEEE 802.3 af(PoE)",
+        "IEEE 802.3 at(PoE+)"
+      ],
+      "distinct_values_in_sample": 3,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Switch Circuit",
+      "proposed_label": "开关电路配置",
+      "current_labels": [
+        "Switch Circuit"
+      ],
+      "scope": [
+        {
+          "category_id": 259,
+          "category_name": "通信接口芯片"
+        }
+      ],
+      "sample_values": [
+        "16:1",
+        "1:1",
+        "1:2",
+        "2:1"
+      ],
+      "distinct_values_in_sample": 17,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Switch tube (built-in/external)",
+      "proposed_label": "功率开关管配置",
+      "current_labels": [
+        "Switch tube (built-in/external)"
+      ],
+      "scope": [
+        {
+          "category_id": 1007,
+          "category_name": "DC DC 开关式控制器"
+        },
+        {
+          "category_id": 263,
+          "category_name": "电源管理"
+        }
+      ],
+      "sample_values": [
+        "Built-in",
+        "External",
+        "Non Built-In"
+      ],
+      "distinct_values_in_sample": 3,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Switching Frequency",
+      "proposed_label": "开关频率",
+      "current_labels": [
+        "Switching Frequency"
+      ],
+      "scope": [
+        {
+          "category_id": 32,
+          "category_name": "电源模块"
+        }
+      ],
+      "sample_values": [
+        "85kHz",
+        "2MHz",
+        "25kHz",
+        "35kHz"
+      ],
+      "distinct_values_in_sample": 33,
+      "status": "来源用词核对",
+      "references": [
+        "S2"
+      ],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Switching Voltage(Vs)",
+      "proposed_label": "开关电压（Vs，待核对）",
+      "current_labels": [
+        "Switching Voltage(Vs)"
+      ],
+      "scope": [
+        {
+          "category_id": 187,
+          "category_name": "晶闸管"
+        }
+      ],
+      "sample_values": [
+        "8V",
+        "36V",
+        "37V",
+        "97V"
+      ],
+      "distinct_values_in_sample": 15,
+      "status": "待查叶分类/手册",
+      "references": [],
+      "note": "187 的晶闸管分支须确认 Vs 的转折/开关定义，暂保留符号，不等同额定工作电压。"
+    },
+    {
+      "raw_key": "Synchronous Rectifier",
+      "proposed_label": "同步整流",
+      "current_labels": [
+        "Synchronous Rectifier"
+      ],
+      "scope": [
+        {
+          "category_id": 1007,
+          "category_name": "DC DC 开关式控制器"
+        },
+        {
+          "category_id": 263,
+          "category_name": "电源管理"
+        }
+      ],
+      "sample_values": [
+        "No",
+        "Yes"
+      ],
+      "distinct_values_in_sample": 2,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Technology",
+      "proposed_label": "技术类型",
+      "current_labels": [
+        "Technology"
+      ],
+      "scope": [
+        {
+          "category_id": 3,
+          "category_name": "音频器件"
+        }
+      ],
+      "sample_values": [
+        "Electromagnetic",
+        "Piezoelectric"
+      ],
+      "distinct_values_in_sample": 2,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Temperature Coefficient",
+      "proposed_label": "温度系数",
+      "current_labels": [
+        "温度系数 / 介质"
+      ],
+      "scope": [
+        {
+          "category_id": 501,
+          "category_name": "电阻"
+        }
+      ],
+      "sample_values": [
+        "-2000ppm/℃~0ppm/℃",
+        "-800ppm/℃~0ppm/℃",
+        "-800ppm/℃~+2000ppm/℃",
+        "±500ppm/℃"
+      ],
+      "distinct_values_in_sample": 31,
+      "status": "来源用词核对",
+      "references": [
+        "S4"
+      ],
+      "note": "电阻 ppm/℃ 显示温度系数；若电容出现 X7R/C0G 等，应单独核对为介质/温度特性，不按 ppm/℃ 理解。"
+    },
+    {
+      "raw_key": "Test Current",
+      "proposed_label": "测试电流",
+      "current_labels": [
+        "Test Current"
+      ],
+      "scope": [
+        {
+          "category_id": 28,
+          "category_name": "光电器件 / 显示屏"
+        }
+      ],
+      "sample_values": [
+        "1mA",
+        "2mA",
+        "2.6mA",
+        "3mA"
+      ],
+      "distinct_values_in_sample": 37,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "The Chip Type",
+      "proposed_label": "芯片类型",
+      "current_labels": [
+        "The Chip Type"
+      ],
+      "scope": [
+        {
+          "category_id": 264,
+          "category_name": "其他专用集成电路"
+        }
+      ],
+      "sample_values": [
+        "Monitoring IC"
+      ],
+      "distinct_values_in_sample": 1,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Timer Number",
+      "proposed_label": "定时器数量",
+      "current_labels": [
+        "Timer Number"
+      ],
+      "scope": [
+        {
+          "category_id": 256,
+          "category_name": "时钟和定时"
+        }
+      ],
+      "sample_values": [
+        "1",
+        "2"
+      ],
+      "distinct_values_in_sample": 2,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Tolerance",
+      "proposed_label": "精度",
+      "current_labels": [
+        "精度"
+      ],
+      "scope": [
+        {
+          "category_id": 184,
+          "category_name": "电流调节二极管 / 晶体管"
+        },
+        {
+          "category_id": 495,
+          "category_name": "电容"
+        },
+        {
+          "category_id": 498,
+          "category_name": "电感 / 线圈"
+        },
+        {
+          "category_id": 501,
+          "category_name": "电阻"
+        }
+      ],
+      "sample_values": [
+        "±10%",
+        "±3%",
+        "±0.5%",
+        "-35%~+10%"
+      ],
+      "distinct_values_in_sample": 19,
+      "status": "来源用词核对",
+      "references": [
+        "S3",
+        "S4"
+      ],
+      "note": "商城通用入口可用“精度”；细分类可显示阻值精度、容量偏差、感量偏差。维持数值和正负号。"
+    },
+    {
+      "raw_key": "Topology",
+      "proposed_label": "拓扑结构",
+      "current_labels": [
+        "Topology"
+      ],
+      "scope": [
+        {
+          "category_id": 1007,
+          "category_name": "DC DC 开关式控制器"
+        },
+        {
+          "category_id": 263,
+          "category_name": "电源管理"
+        },
+        {
+          "category_id": 264,
+          "category_name": "其他专用集成电路"
+        }
+      ],
+      "sample_values": [
+        "Boost",
+        "Buck",
+        "Buck-Boost",
+        "Cuk"
+      ],
+      "distinct_values_in_sample": 14,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Total Harmonic Distortion + Noise (THD+N)",
+      "proposed_label": "总谐波失真加噪声（THD+N）",
+      "current_labels": [
+        "Total Harmonic Distortion + Noise (THD+N)"
+      ],
+      "scope": [
+        {
+          "category_id": 255,
+          "category_name": "音频专用芯片"
+        }
+      ],
+      "sample_values": [
+        "0.0002%",
+        "0.00024%",
+        "0.0003%",
+        "0.0004%"
+      ],
+      "distinct_values_in_sample": 14,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Turn-Off Delay",
+      "proposed_label": "关断延迟",
+      "current_labels": [
+        "Turn-Off Delay"
+      ],
+      "scope": [
+        {
+          "category_id": 1007,
+          "category_name": "DC DC 开关式控制器"
+        }
+      ],
+      "sample_values": [
+        "25ns"
+      ],
+      "distinct_values_in_sample": 1,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Turn-Off Time",
+      "proposed_label": "关断时间",
+      "current_labels": [
+        "Turn-Off Time"
+      ],
+      "scope": [
+        {
+          "category_id": 1007,
+          "category_name": "DC DC 开关式控制器"
+        }
+      ],
+      "sample_values": [
+        "270ns"
+      ],
+      "distinct_values_in_sample": 1,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Turn-On Time",
+      "proposed_label": "导通时间",
+      "current_labels": [
+        "Turn-On Time"
+      ],
+      "scope": [
+        {
+          "category_id": 1007,
+          "category_name": "DC DC 开关式控制器"
+        }
+      ],
+      "sample_values": [
+        "530ns"
+      ],
+      "distinct_values_in_sample": 1,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Turn-off time",
+      "proposed_label": "关断时间",
+      "current_labels": [
+        "Turn-off time"
+      ],
+      "scope": [
+        {
+          "category_id": 255,
+          "category_name": "音频专用芯片"
+        },
+        {
+          "category_id": 259,
+          "category_name": "通信接口芯片"
+        }
+      ],
+      "sample_values": [
+        "5us",
+        "175ps",
+        "750ps",
+        "1.1ns"
+      ],
+      "distinct_values_in_sample": 92,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Turn-on time",
+      "proposed_label": "导通时间",
+      "current_labels": [
+        "Turn-on time"
+      ],
+      "scope": [
+        {
+          "category_id": 255,
+          "category_name": "音频专用芯片"
+        },
+        {
+          "category_id": 259,
+          "category_name": "通信接口芯片"
+        }
+      ],
+      "sample_values": [
+        "1us",
+        "35us",
+        "175ps",
+        "300ps"
+      ],
+      "distinct_values_in_sample": 106,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Type",
+      "proposed_label": "类型",
+      "current_labels": [
+        "类型"
+      ],
+      "scope": [
+        {
+          "category_id": 18,
+          "category_name": "光耦 / 信号隔离器件"
+        },
+        {
+          "category_id": 184,
+          "category_name": "电流调节二极管 / 晶体管"
+        },
+        {
+          "category_id": 186,
+          "category_name": "功率驱动模块"
+        },
+        {
+          "category_id": 191,
+          "category_name": "结型场效应管（JFET）"
+        },
+        {
+          "category_id": 255,
+          "category_name": "音频专用芯片"
+        },
+        {
+          "category_id": 256,
+          "category_name": "时钟和定时"
+        },
+        {
+          "category_id": 257,
+          "category_name": "ADC / DAC / 数据转换"
+        },
+        {
+          "category_id": 258,
+          "category_name": "单片机 / 微控制器 / 可编程逻辑"
+        },
+        {
+          "category_id": 263,
+          "category_name": "电源管理"
+        },
+        {
+          "category_id": 264,
+          "category_name": "其他专用集成电路"
+        },
+        {
+          "category_id": 32,
+          "category_name": "电源模块"
+        },
+        {
+          "category_id": 38,
+          "category_name": "按键 / 开关"
+        },
+        {
+          "category_id": 501,
+          "category_name": "电阻"
+        }
+      ],
+      "sample_values": [
+        "Buffer",
+        "Driver",
+        "Constant Current Diode",
+        "High Side Switch"
+      ],
+      "distinct_values_in_sample": 45,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Type of Battery",
+      "proposed_label": "电池类型",
+      "current_labels": [
+        "Type of Battery"
+      ],
+      "scope": [
+        {
+          "category_id": 264,
+          "category_name": "其他专用集成电路"
+        }
+      ],
+      "sample_values": [
+        "LiFePO4 Battery",
+        "Lithium Battery"
+      ],
+      "distinct_values_in_sample": 2,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "USB Protocol",
+      "proposed_label": "USB 协议",
+      "current_labels": [
+        "USB Protocol"
+      ],
+      "scope": [
+        {
+          "category_id": 258,
+          "category_name": "单片机 / 微控制器 / 可编程逻辑"
+        },
+        {
+          "category_id": 259,
+          "category_name": "通信接口芯片"
+        }
+      ],
+      "sample_values": [
+        "USB 2.0",
+        "USB 3.0",
+        "USB 3.1",
+        "USB 3.2"
+      ],
+      "distinct_values_in_sample": 6,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Versions",
+      "proposed_label": "版本",
+      "current_labels": [
+        "Versions"
+      ],
+      "scope": [
+        {
+          "category_id": 256,
+          "category_name": "时钟和定时"
+        },
+        {
+          "category_id": 259,
+          "category_name": "通信接口芯片"
+        }
+      ],
+      "sample_values": [
+        "PCI-E 5.0",
+        "PCI-E 2.0",
+        "PCI-E 3.0",
+        "PCI-E 4.0"
+      ],
+      "distinct_values_in_sample": 4,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Viewing Angle",
+      "proposed_label": "视角",
+      "current_labels": [
+        "Viewing Angle"
+      ],
+      "scope": [
+        {
+          "category_id": 28,
+          "category_name": "光电器件 / 显示屏"
+        }
+      ],
+      "sample_values": [
+        "15°",
+        "20°",
+        "24°",
+        "25°"
+      ],
+      "distinct_values_in_sample": 29,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Voltage - Breakdown",
+      "proposed_label": "击穿电压",
+      "current_labels": [
+        "Voltage - Breakdown"
+      ],
+      "scope": [
+        {
+          "category_id": 263,
+          "category_name": "电源管理"
+        }
+      ],
+      "sample_values": [
+        "16.5V",
+        "20V",
+        "34V",
+        "39V"
+      ],
+      "distinct_values_in_sample": 49,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Voltage - DC Reverse(Vr)",
+      "proposed_label": "直流反向电压（Vr）",
+      "current_labels": [
+        "Voltage - DC Reverse(Vr)"
+      ],
+      "scope": [
+        {
+          "category_id": 185,
+          "category_name": "二极管"
+        }
+      ],
+      "sample_values": [
+        "20V",
+        "30V",
+        "40V",
+        "45V"
+      ],
+      "distinct_values_in_sample": 36,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Voltage - Forward(Vf)",
+      "proposed_label": "正向电压（Vf）",
+      "current_labels": [
+        "Voltage - Forward(Vf)"
+      ],
+      "scope": [
+        {
+          "category_id": 28,
+          "category_name": "光电器件 / 显示屏"
+        }
+      ],
+      "sample_values": [
+        "1.5V~2.6V",
+        "1.5V~3V",
+        "1.6V",
+        "1.6V~2.6V"
+      ],
+      "distinct_values_in_sample": 74,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Voltage - Forward(Vf@If)",
+      "proposed_label": "指定正向电流下的正向电压（Vf@If）",
+      "current_labels": [
+        "Voltage - Forward(Vf@If)"
+      ],
+      "scope": [
+        {
+          "category_id": 185,
+          "category_name": "二极管"
+        }
+      ],
+      "sample_values": [
+        "110mV@2A",
+        "400mV@100mA",
+        "400mV@500mA",
+        "410mV@2A"
+      ],
+      "distinct_values_in_sample": 480,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Voltage - Input(AC)",
+      "proposed_label": "交流输入电压",
+      "current_labels": [
+        "Voltage - Input(AC)"
+      ],
+      "scope": [
+        {
+          "category_id": 263,
+          "category_name": "电源管理"
+        }
+      ],
+      "sample_values": [
+        "85VAC~265VAC",
+        "90VAC~305VAC",
+        "90VAC~308VAC",
+        "120VAC"
+      ],
+      "distinct_values_in_sample": 5,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Voltage - Input(DC)",
+      "proposed_label": "直流输入电压",
+      "current_labels": [
+        "Voltage - Input(DC)"
+      ],
+      "scope": [
+        {
+          "category_id": 264,
+          "category_name": "其他专用集成电路"
+        },
+        {
+          "category_id": 32,
+          "category_name": "电源模块"
+        }
+      ],
+      "sample_values": [
+        "2.3V~6V",
+        "2.7V~6V",
+        "3V~3.6V",
+        "6V~20V"
+      ],
+      "distinct_values_in_sample": 103,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Voltage - Isolation",
+      "proposed_label": "隔离电压",
+      "current_labels": [
+        "Voltage - Isolation"
+      ],
+      "scope": [
+        {
+          "category_id": 186,
+          "category_name": "功率驱动模块"
+        }
+      ],
+      "sample_values": [
+        "1000Vrms",
+        "1500Vrms",
+        "1600Vrms",
+        "1800Vrms"
+      ],
+      "distinct_values_in_sample": 10,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Voltage - Supply",
+      "proposed_label": "供电电压",
+      "current_labels": [
+        "供电电压"
+      ],
+      "scope": [
+        {
+          "category_id": 11,
+          "category_name": "开发板 / 开发工具"
+        },
+        {
+          "category_id": 18,
+          "category_name": "光耦 / 信号隔离器件"
+        },
+        {
+          "category_id": 184,
+          "category_name": "电流调节二极管 / 晶体管"
+        },
+        {
+          "category_id": 186,
+          "category_name": "功率驱动模块"
+        },
+        {
+          "category_id": 255,
+          "category_name": "音频专用芯片"
+        },
+        {
+          "category_id": 256,
+          "category_name": "时钟和定时"
+        },
+        {
+          "category_id": 257,
+          "category_name": "ADC / DAC / 数据转换"
+        },
+        {
+          "category_id": 258,
+          "category_name": "单片机 / 微控制器 / 可编程逻辑"
+        },
+        {
+          "category_id": 259,
+          "category_name": "通信接口芯片"
+        },
+        {
+          "category_id": 261,
+          "category_name": "逻辑器件"
+        },
+        {
+          "category_id": 263,
+          "category_name": "电源管理"
+        },
+        {
+          "category_id": 264,
+          "category_name": "其他专用集成电路"
+        },
+        {
+          "category_id": 32,
+          "category_name": "电源模块"
+        },
+        {
+          "category_id": 37,
+          "category_name": "传感器"
+        },
+        {
+          "category_id": 38,
+          "category_name": "按键 / 开关"
+        }
+      ],
+      "sample_values": [
+        "3V",
+        "5V",
+        "1.7V~5.5V",
+        "1.7V~1.9V"
+      ],
+      "distinct_values_in_sample": 1062,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Voltage - Supply (Driver)",
+      "proposed_label": "驱动器供电电压",
+      "current_labels": [
+        "Voltage - Supply (Driver)"
+      ],
+      "scope": [
+        {
+          "category_id": 18,
+          "category_name": "光耦 / 信号隔离器件"
+        }
+      ],
+      "sample_values": [
+        "6.5V~30V",
+        "14V~30V",
+        "20V"
+      ],
+      "distinct_values_in_sample": 3,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Voltage - Supply (IC)",
+      "proposed_label": "芯片供电电压",
+      "current_labels": [
+        "Voltage - Supply (IC)"
+      ],
+      "scope": [
+        {
+          "category_id": 263,
+          "category_name": "电源管理"
+        }
+      ],
+      "sample_values": [
+        "9.5V~20V"
+      ],
+      "distinct_values_in_sample": 1,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Voltage - Supply (Input)",
+      "proposed_label": "输入侧供电电压",
+      "current_labels": [
+        "Voltage - Supply (Input)"
+      ],
+      "scope": [
+        {
+          "category_id": 18,
+          "category_name": "光耦 / 信号隔离器件"
+        }
+      ],
+      "sample_values": [
+        "2.85V~3.5V"
+      ],
+      "distinct_values_in_sample": 1,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Voltage - Supply (POWER)",
+      "proposed_label": "功率侧供电电压",
+      "current_labels": [
+        "Voltage - Supply (POWER)"
+      ],
+      "scope": [
+        {
+          "category_id": 263,
+          "category_name": "电源管理"
+        }
+      ],
+      "sample_values": [
+        "4.5V~80V",
+        "10V~32V",
+        "36V~57V",
+        "85V~265V"
+      ],
+      "distinct_values_in_sample": 5,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Voltage Rating",
+      "proposed_label": "额定电压",
+      "current_labels": [
+        "额定电压"
+      ],
+      "scope": [
+        {
+          "category_id": 10,
+          "category_name": "连接器"
+        },
+        {
+          "category_id": 11,
+          "category_name": "开发板 / 开发工具"
+        },
+        {
+          "category_id": 3,
+          "category_name": "音频器件"
+        },
+        {
+          "category_id": 495,
+          "category_name": "电容"
+        },
+        {
+          "category_id": 501,
+          "category_name": "电阻"
+        }
+      ],
+      "sample_values": [
+        "100V",
+        "120V",
+        "125V",
+        "250V"
+      ],
+      "distinct_values_in_sample": 56,
+      "status": "来源用词核对",
+      "references": [
+        "S3"
+      ],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Voltage Reference",
+      "proposed_label": "基准电压来源",
+      "current_labels": [
+        "Voltage Reference"
+      ],
+      "scope": [
+        {
+          "category_id": 257,
+          "category_name": "ADC / DAC / 数据转换"
+        }
+      ],
+      "sample_values": [
+        "Built-in",
+        "External",
+        "Internal or external"
+      ],
+      "distinct_values_in_sample": 3,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "当前枚举 Built-in/External/Internal or external 指基准电压来源，区别于 Voltage Reference Value 的基准电压数值。"
+    },
+    {
+      "raw_key": "Voltage Reference Value",
+      "proposed_label": "基准电压值",
+      "current_labels": [
+        "Voltage Reference Value"
+      ],
+      "scope": [
+        {
+          "category_id": 257,
+          "category_name": "ADC / DAC / 数据转换"
+        },
+        {
+          "category_id": 264,
+          "category_name": "其他专用集成电路"
+        }
+      ],
+      "sample_values": [
+        "1.65V",
+        "2.5V",
+        "3.3V",
+        "1V"
+      ],
+      "distinct_values_in_sample": 6,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Voltage-Supply(Max)",
+      "proposed_label": "最高供电电压",
+      "current_labels": [
+        "Voltage-Supply(Max)"
+      ],
+      "scope": [
+        {
+          "category_id": 501,
+          "category_name": "电阻"
+        }
+      ],
+      "sample_values": [
+        "1kV"
+      ],
+      "distinct_values_in_sample": 1,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Vos - Input Offset Voltage",
+      "proposed_label": "输入失调电压（Vos）",
+      "current_labels": [
+        "Vos - Input Offset Voltage"
+      ],
+      "scope": [
+        {
+          "category_id": 260,
+          "category_name": "放大器 / 比较器 / 线性器件"
+        },
+        {
+          "category_id": 264,
+          "category_name": "其他专用集成电路"
+        }
+      ],
+      "sample_values": [
+        "500nV",
+        "1uV",
+        "10uV",
+        "18uV"
+      ],
+      "distinct_values_in_sample": 20,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Wavelength - Dominant",
+      "proposed_label": "主波长",
+      "current_labels": [
+        "Wavelength - Dominant"
+      ],
+      "scope": [
+        {
+          "category_id": 28,
+          "category_name": "光电器件 / 显示屏"
+        }
+      ],
+      "sample_values": [
+        "460nm~475nm",
+        "460nm~470nm",
+        "460nm~480nm",
+        "462nm~468nm"
+      ],
+      "distinct_values_in_sample": 104,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Width",
+      "proposed_label": "宽度",
+      "current_labels": [
+        "Width"
+      ],
+      "scope": [
+        {
+          "category_id": 10,
+          "category_name": "连接器"
+        },
+        {
+          "category_id": 186,
+          "category_name": "功率驱动模块"
+        },
+        {
+          "category_id": 264,
+          "category_name": "其他专用集成电路"
+        },
+        {
+          "category_id": 28,
+          "category_name": "光电器件 / 显示屏"
+        },
+        {
+          "category_id": 3,
+          "category_name": "音频器件"
+        },
+        {
+          "category_id": 32,
+          "category_name": "电源模块"
+        },
+        {
+          "category_id": 37,
+          "category_name": "传感器"
+        },
+        {
+          "category_id": 498,
+          "category_name": "电感 / 线圈"
+        }
+      ],
+      "sample_values": [
+        "11.5mm",
+        "24mm",
+        "26.9mm",
+        "27mm"
+      ],
+      "distinct_values_in_sample": 221,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Working Mode",
+      "proposed_label": "工作模式",
+      "current_labels": [
+        "Working Mode"
+      ],
+      "scope": [
+        {
+          "category_id": 1007,
+          "category_name": "DC DC 开关式控制器"
+        },
+        {
+          "category_id": 263,
+          "category_name": "电源管理"
+        },
+        {
+          "category_id": 264,
+          "category_name": "其他专用集成电路"
+        }
+      ],
+      "sample_values": [
+        "CCM",
+        "CRM",
+        "DCM",
+        "PFM Modulation"
+      ],
+      "distinct_values_in_sample": 6,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Write Cycle Endurance",
+      "proposed_label": "写入耐久次数",
+      "current_labels": [
+        "Write Cycle Endurance"
+      ],
+      "scope": [
+        {
+          "category_id": 264,
+          "category_name": "其他专用集成电路"
+        }
+      ],
+      "sample_values": [
+        "100,000 cycles"
+      ],
+      "distinct_values_in_sample": 1,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "Write Cycle Time(Tw)",
+      "proposed_label": "写周期时间（Tw）",
+      "current_labels": [
+        "Write Cycle Time(Tw)"
+      ],
+      "scope": [
+        {
+          "category_id": 264,
+          "category_name": "其他专用集成电路"
+        }
+      ],
+      "sample_values": [
+        "6ms"
+      ],
+      "distinct_values_in_sample": 1,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "operating temperature",
+      "proposed_label": "工作温度",
+      "current_labels": [
+        "operating temperature"
+      ],
+      "scope": [
+        {
+          "category_id": 191,
+          "category_name": "结型场效应管（JFET）"
+        }
+      ],
+      "sample_values": [
+        "-65℃~+200℃",
+        "-65℃~+175℃",
+        "-65℃~+150℃",
+        "-65℃~+135℃"
+      ],
+      "distinct_values_in_sample": 12,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "output type",
+      "proposed_label": "输出类型",
+      "current_labels": [
+        "output type"
+      ],
+      "scope": [
+        {
+          "category_id": 264,
+          "category_name": "其他专用集成电路"
+        }
+      ],
+      "sample_values": [
+        "Open-drain",
+        "Push-Pull",
+        "Single-Ended",
+        "Tri-State"
+      ],
+      "distinct_values_in_sample": 5,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "与 Output Type 共享显示词库候选，但原始键独立保存，不能合并请求参数。"
+    },
+    {
+      "raw_key": "power dissipation",
+      "proposed_label": "耗散功率",
+      "current_labels": [
+        "power dissipation"
+      ],
+      "scope": [
+        {
+          "category_id": 18,
+          "category_name": "光耦 / 信号隔离器件"
+        },
+        {
+          "category_id": 257,
+          "category_name": "ADC / DAC / 数据转换"
+        }
+      ],
+      "sample_values": [
+        "150mW",
+        "1.48W",
+        "1480mW",
+        "0.5mW"
+      ],
+      "distinct_values_in_sample": 8,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "size",
+      "proposed_label": "尺寸",
+      "current_labels": [
+        "size"
+      ],
+      "scope": [
+        {
+          "category_id": 38,
+          "category_name": "按键 / 开关"
+        }
+      ],
+      "sample_values": [
+        "28.45*55.6mm",
+        "34*35.3mm"
+      ],
+      "distinct_values_in_sample": 2,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    },
+    {
+      "raw_key": "type",
+      "proposed_label": "类型",
+      "current_labels": [
+        "type"
+      ],
+      "scope": [
+        {
+          "category_id": 259,
+          "category_name": "通信接口芯片"
+        }
+      ],
+      "sample_values": [
+        "Extender",
+        "Hub"
+      ],
+      "distinct_values_in_sample": 2,
+      "status": "专业术语建议，待上线验证",
+      "references": [],
+      "note": "仅改显示名；原始键、原值、单位与请求参数保持。"
+    }
+  ]
+}

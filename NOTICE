@@ -1,0 +1,35 @@
+edakit
+============
+
+本项目的解析器与生成器均为净室实现 (clean-room)，只依据 EasyEDA 格式与 Cadence
+API 的行为，未逐行翻译任何 AGPL 项目源码。EasyEDA 的几何格式本身不受版权保护，
+可自由按格式重写。
+
+下列开源项目在开发过程中作为格式/接口参考，或作为可选借鉴目标:
+
+  参考 (未拷贝代码):
+    - uPesy/easyeda2kicad.py            许可: AGPL-3.0
+    - arthur-zyl/lcsc-library-converter 许可: AGPL-3.0
+      仅参考其 README 中公开的硬限制清单与流程描述。
+
+  可直接借鉴 (许可相容，落地前请逐个再核 LICENSE):
+    - Yuluoqianmo/easy2alg              许可: MIT
+    - 1xeina/eext-format-converter      许可: Apache-2.0
+
+  待核实许可 (未确认前按「不得拷贝」处理):
+    - fpm/fpm, Meekdai/FPM-ME
+    - korbin/easyeda2altium
+
+  随本工具分发的预览渲染依赖：
+    - resvg_py 0.5.0：MIT，Copyright (C) 2024 baseplate-admin。
+      许可全文：licenses/resvg_py-MIT.txt。
+    - resvg 渲染引擎：MIT / Apache-2.0，采用 MIT；许可全文：licenses/resvg-MIT.txt。
+      用途：将内部生成的 SVG 渲染为 Capture 内嵌页可显示的 PNG。
+    - 原 three.js 与外部商城资源已移除，本版本不再分发。
+
+若日后需要从上述 MIT/Apache 项目 vendor 具体代码，请在引入处单独标注来源与许可，
+并把对应许可全文放入 licenses/ 目录。
+
+上游数据版权:
+  EasyEDA / 嘉立创EDA 官方库 (器件参数、原理图符号、PCB封装、3D模型等) 的版权
+  及相关权利归嘉立创EDA所有。本工具只做格式转换，不主张对这些数据的权利。

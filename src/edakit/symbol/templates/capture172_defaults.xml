@@ -1,0 +1,108 @@
+<DefaultValues>
+    <Defn/>
+    <DefaultFont>
+      <Defn charset="0" escapement="0" height="-9" index="0" italic="0" name="Arial" orientation="0" weight="400" width="4"/>
+    </DefaultFont>
+    <DefaultFont>
+      <Defn charset="0" escapement="0" height="-9" index="1" italic="0" name="Arial" orientation="0" weight="400" width="4"/>
+    </DefaultFont>
+    <DefaultFont>
+      <Defn charset="0" escapement="0" height="-9" index="2" italic="0" name="Arial" orientation="0" weight="400" width="4"/>
+    </DefaultFont>
+    <DefaultFont>
+      <Defn charset="0" escapement="0" height="8" index="3" italic="0" name="Arial" orientation="0" weight="400" width="0"/>
+    </DefaultFont>
+    <DefaultFont>
+      <Defn charset="0" escapement="0" height="8" index="4" italic="0" name="Arial" orientation="0" weight="400" width="0"/>
+    </DefaultFont>
+    <DefaultFont>
+      <Defn charset="0" escapement="0" height="-9" index="5" italic="0" name="Arial" orientation="0" weight="400" width="4"/>
+    </DefaultFont>
+    <DefaultFont>
+      <Defn charset="0" escapement="0" height="-9" index="6" italic="0" name="Arial" orientation="0" weight="400" width="4"/>
+    </DefaultFont>
+    <DefaultFont>
+      <Defn charset="0" escapement="0" height="-9" index="7" italic="0" name="Arial" orientation="0" weight="400" width="4"/>
+    </DefaultFont>
+    <DefaultFont>
+      <Defn charset="0" escapement="0" height="-9" index="8" italic="0" name="Arial" orientation="0" weight="400" width="4"/>
+    </DefaultFont>
+    <DefaultFont>
+      <Defn charset="0" escapement="0" height="-9" index="9" italic="0" name="Arial" orientation="0" weight="400" width="4"/>
+    </DefaultFont>
+    <DefaultFont>
+      <Defn charset="0" escapement="0" height="-9" index="10" italic="0" name="Arial" orientation="0" weight="400" width="4"/>
+    </DefaultFont>
+    <DefaultFont>
+      <Defn charset="0" escapement="0" height="-9" index="11" italic="0" name="Arial" orientation="0" weight="400" width="4"/>
+    </DefaultFont>
+    <DefaultFont>
+      <Defn charset="0" escapement="0" height="-9" index="12" italic="0" name="Arial" orientation="0" weight="400" width="4"/>
+    </DefaultFont>
+    <DefaultFont>
+      <Defn charset="0" escapement="0" height="-9" index="13" italic="0" name="Courier New" orientation="0" weight="400" width="5"/>
+    </DefaultFont>
+    <DefaultFont>
+      <Defn charset="0" escapement="0" height="-9" index="14" italic="0" name="Arial" orientation="0" weight="400" width="4"/>
+    </DefaultFont>
+    <DefaultFont>
+      <Defn charset="0" escapement="0" height="-9" index="15" italic="0" name="Arial" orientation="0" weight="400" width="4"/>
+    </DefaultFont>
+    <DefaultFont>
+      <Defn charset="0" escapement="0" height="-9" index="16" italic="0" name="Arial" orientation="0" weight="400" width="4"/>
+    </DefaultFont>
+    <DefaultFont>
+      <Defn charset="0" escapement="0" height="8" index="17" italic="0" name="Arial" orientation="0" weight="400" width="0"/>
+    </DefaultFont>
+    <DefaultFont>
+      <Defn charset="0" escapement="0" height="8" index="18" italic="0" name="Arial" orientation="0" weight="400" width="0"/>
+    </DefaultFont>
+    <DefaultFont>
+      <Defn charset="0" escapement="0" height="8" index="19" italic="0" name="Arial" orientation="0" weight="400" width="0"/>
+    </DefaultFont>
+    <DefaultFont>
+      <Defn charset="0" escapement="0" height="8" index="20" italic="0" name="Arial" orientation="0" weight="400" width="0"/>
+    </DefaultFont>
+    <DefaultFont>
+      <Defn charset="0" escapement="0" height="8" index="21" italic="0" name="Arial" orientation="0" weight="400" width="0"/>
+    </DefaultFont>
+    <DefaultFont>
+      <Defn charset="0" escapement="0" height="8" index="22" italic="0" name="Arial" orientation="0" weight="400" width="0"/>
+    </DefaultFont>
+    <DefaultFont>
+      <Defn charset="0" escapement="0" height="8" index="23" italic="0" name="Arial" orientation="0" weight="400" width="0"/>
+    </DefaultFont>
+    <DefaultPageRec>
+      <Defn ANSIGridRefs="1" BorderDisplayed="1" BorderPrinted="1" GridRefDisplayed="1" GridRefPrinted="1" HorizontalLabelCount="5" HorizontalLabelIsAscending="0" HorizontalLabelIsChar="0" HorizontalLabelWidth="100" IsMetric="0" PinToPin="100" TitleBlockDisplayed="1" TitleBlockPrinted="1" VerticalLabelCount="4" VerticalLabelIsAscending="0" VerticalLabelIsChar="1" VerticalLabelWidth="100"/>
+    </DefaultPageRec>
+    <DefaultPlacedInstIsPrimitive>
+      <Defn val="0"/>
+    </DefaultPlacedInstIsPrimitive>
+    <DefaultDrawnInstIsPrimitive>
+      <Defn val="0"/>
+    </DefaultDrawnInstIsPrimitive>
+    <DefaultPartFieldMapping>
+      <Defn index="1" val="1ST PART FIELD"/>
+    </DefaultPartFieldMapping>
+    <DefaultPartFieldMapping>
+      <Defn index="2" val="2ND PART FIELD"/>
+    </DefaultPartFieldMapping>
+    <DefaultPartFieldMapping>
+      <Defn index="3" val="3RD PART FIELD"/>
+    </DefaultPartFieldMapping>
+    <DefaultPartFieldMapping>
+      <Defn index="4" val="4TH PART FIELD"/>
+    </DefaultPartFieldMapping>
+    <DefaultPartFieldMapping>
+      <Defn index="5" val="5TH PART FIELD"/>
+    </DefaultPartFieldMapping>
+    <DefaultPartFieldMapping>
+      <Defn index="6" val="6TH PART FIELD"/>
+    </DefaultPartFieldMapping>
+    <DefaultPartFieldMapping>
+      <Defn index="7" val="7TH PART FIELD"/>
+    </DefaultPartFieldMapping>
+    <DefaultPartFieldMapping>
+      <Defn index="8" val="PCB Footprint"/>
+    </DefaultPartFieldMapping>
+  </DefaultValues>

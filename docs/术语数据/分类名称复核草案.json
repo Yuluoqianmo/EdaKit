@@ -1,0 +1,236 @@
+{
+  "metadata": {
+    "date": "2026-10-20",
+    "stage": "术语草案，未接入运行代码",
+    "coverage": "37 个电子分支聚合样本及 1007 叶分类；不是所有叶分类参数全集",
+    "raw_keys": 315,
+    "audited_navigation_nodes": 619,
+    "category_proposals": 23,
+    "option_proposals": 40,
+    "requires_leaf_verification": 12
+  },
+  "categories": [
+    {
+      "category_id": 1139,
+      "raw_name": "Aluminum - Polymer Capacitors",
+      "current_label": "铝 · 聚合物电容器",
+      "proposed_label": "铝聚合物电容",
+      "status": "命名建议，待叶分类商品核对",
+      "references": [
+        "S1"
+      ],
+      "note": "去除直译分隔符，不等同所有铝电解电容。"
+    },
+    {
+      "category_id": 1141,
+      "raw_name": "Capacitor Networks, Arrays",
+      "current_label": "电容器网络、阵列",
+      "proposed_label": "电容网络/阵列",
+      "status": "命名建议，待叶分类商品核对",
+      "references": [
+        "S1"
+      ],
+      "note": "保留网络和阵列两种含义。"
+    },
+    {
+      "category_id": 1142,
+      "raw_name": "Ceramic Capacitors",
+      "current_label": "陶瓷电容",
+      "proposed_label": "陶瓷电容",
+      "status": "命名建议，待叶分类商品核对",
+      "references": [
+        "S1"
+      ],
+      "note": "保留宽分类，不全部改成贴片电容。"
+    },
+    {
+      "category_id": 1199,
+      "raw_name": "Chip Resistor - Surface Mount",
+      "current_label": "贴片电阻",
+      "proposed_label": "贴片电阻",
+      "status": "命名建议，待叶分类商品核对",
+      "references": [
+        "S1"
+      ],
+      "note": "沿用商城常用类名。"
+    },
+    {
+      "category_id": 1336,
+      "raw_name": "Current Sense Resistors",
+      "current_label": "电流采样电阻",
+      "proposed_label": "电流采样电阻",
+      "status": "命名建议，待叶分类商品核对",
+      "references": [
+        "S1"
+      ],
+      "note": "保留用途，不并入全部贴片电阻。"
+    },
+    {
+      "category_id": 1200,
+      "raw_name": "Resistor Networks, Arrays",
+      "current_label": "排阻与电阻网络",
+      "proposed_label": "排阻/电阻网络",
+      "status": "命名建议，待叶分类商品核对",
+      "references": [
+        "S1"
+      ],
+      "note": "与商城术语一致的组合显示建议。"
+    },
+    {
+      "category_id": 1203,
+      "raw_name": "Through Hole Resistors",
+      "current_label": "直插电阻",
+      "proposed_label": "插件电阻",
+      "status": "命名建议，待叶分类商品核对",
+      "references": [
+        "S1"
+      ],
+      "note": "参考商城“插件电阻”，不改安装方式筛选原值。"
+    },
+    {
+      "category_id": 1007,
+      "raw_name": "DC DC Switching Controllers",
+      "current_label": "DC DC 开关式控制器",
+      "proposed_label": "DC-DC 开关控制器",
+      "status": "命名建议，待叶分类商品核对",
+      "references": [],
+      "note": "区别于集成功率开关的稳压器；商城 DC-DC 电源芯片只是上位类参考。"
+    },
+    {
+      "category_id": 1011,
+      "raw_name": "Gate Drivers",
+      "current_label": "门极驱动器",
+      "proposed_label": "栅极驱动芯片",
+      "status": "命名建议，待叶分类商品核对",
+      "references": [],
+      "note": "采用电子电路专业常用名。"
+    },
+    {
+      "category_id": 1029,
+      "raw_name": "Voltage Regulators - DC DC Switching Regulators",
+      "current_label": "电压稳压器 · DC DC 开关式稳压器",
+      "proposed_label": "DC-DC 开关稳压器",
+      "status": "命名建议，待叶分类商品核对",
+      "references": [],
+      "note": "与开关控制器保持独立查询分类。"
+    },
+    {
+      "category_id": 1181,
+      "raw_name": "Fixed Inductors",
+      "current_label": "固定电感",
+      "proposed_label": "固定电感",
+      "status": "命名建议，待叶分类商品核对",
+      "references": [],
+      "note": "保留宽分类，不能全部改成功率电感。"
+    },
+    {
+      "category_id": 845,
+      "raw_name": "DC/DC & AC/DC (Off-Line) SMPS Evaluation Boards",
+      "current_label": "DC/DC & AC/DC (离线-线路) SMPS 评估板",
+      "proposed_label": "DC-DC/AC-DC 开关电源评估板（含离线式）",
+      "status": "命名建议，待叶分类商品核对",
+      "references": [],
+      "note": "Off-Line 与 Off-Board 不同；需结合该叶的商品范围进一步定稿。"
+    },
+    {
+      "category_id": 940,
+      "raw_name": "FPGAs (Field Programmable Gate Array) with Microcontrollers",
+      "current_label": "FPGAs (现场可编程门极阵列) 带有微控制器",
+      "proposed_label": "带微控制器的 FPGA",
+      "status": "命名建议，待叶分类商品核对",
+      "references": [],
+      "note": "修正 gate array 被译成门极阵列；FPGA 为现场可编程门阵列。"
+    },
+    {
+      "category_id": 941,
+      "raw_name": "Microcontrollers",
+      "current_label": "微控制器",
+      "proposed_label": "微控制器（MCU）",
+      "status": "命名建议，待叶分类商品核对",
+      "references": [],
+      "note": "保留行业缩写，便于搜索。"
+    },
+    {
+      "category_id": 942,
+      "raw_name": "Microcontrollers, Microprocessor, FPGA Modules",
+      "current_label": "微控制器、微处理器、FPGA 模块",
+      "proposed_label": "MCU/微处理器/FPGA 模块",
+      "status": "命名建议，待叶分类商品核对",
+      "references": [],
+      "note": "保留三类模块的覆盖范围。"
+    },
+    {
+      "category_id": 1383,
+      "raw_name": "AC DC Converters (Off-Board)",
+      "current_label": "AC DC 转换器 (离线-板)",
+      "proposed_label": "非板载 AC-DC 电源",
+      "status": "命名建议，待叶分类商品核对",
+      "references": [],
+      "note": "Off-Board 不是“离线-板”。"
+    },
+    {
+      "category_id": 1385,
+      "raw_name": "DC DC Converters (Off-Board)",
+      "current_label": "DC DC 转换器 (离线-板)",
+      "proposed_label": "非板载 DC-DC 电源",
+      "status": "命名建议，待叶分类商品核对",
+      "references": [],
+      "note": "同上，不与板载转换模块合并。"
+    },
+    {
+      "category_id": 1388,
+      "raw_name": "LED Drivers (Off-Board)",
+      "current_label": "LED 驱动器 (离线-板)",
+      "proposed_label": "非板载 LED 驱动电源",
+      "status": "命名建议，待叶分类商品核对",
+      "references": [],
+      "note": "同上，保留非板载范围。"
+    },
+    {
+      "category_id": 266,
+      "raw_name": "Isolators - Gate Drivers",
+      "current_label": "隔离器 · 门极驱动器",
+      "proposed_label": "隔离式栅极驱动器",
+      "status": "命名建议，待叶分类商品核对",
+      "references": [],
+      "note": "保留隔离特性；不与全部栅极驱动芯片合并。"
+    },
+    {
+      "category_id": 267,
+      "raw_name": "Optocouplers, Optoisolators",
+      "current_label": "光耦、光耦隔离器",
+      "proposed_label": "光耦/光电隔离器",
+      "status": "命名建议，待叶分类商品核对",
+      "references": [],
+      "note": "维持现有父子层级。"
+    },
+    {
+      "category_id": 1033,
+      "raw_name": "Logic Output Optoisolators",
+      "current_label": "逻辑输出光耦隔离器",
+      "proposed_label": "逻辑输出光耦",
+      "status": "命名建议，待叶分类商品核对",
+      "references": [],
+      "note": "保留输出形式。"
+    },
+    {
+      "category_id": 1034,
+      "raw_name": "Transistor, Photovoltaic Output Optoisolators",
+      "current_label": "晶体管、光伏输出光耦隔离器",
+      "proposed_label": "晶体管/光伏输出光耦",
+      "status": "命名建议，待叶分类商品核对",
+      "references": [],
+      "note": "不能把光伏输出误称晶体管输出。"
+    },
+    {
+      "category_id": 1035,
+      "raw_name": "Triac, SCR Output Optoisolators",
+      "current_label": "双向晶闸管、SCR 输出光耦隔离器",
+      "proposed_label": "双向晶闸管/SCR 输出光耦",
+      "status": "命名建议，待叶分类商品核对",
+      "references": [],
+      "note": "保留双向与单向器件差异。"
+    }
+  ],
+  "other_nodes": "未列出的导航节点未逐项定稿；不能据此认定剩余名称均准确。"
+}

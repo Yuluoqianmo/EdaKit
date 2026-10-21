@@ -1,0 +1,334 @@
+{
+  "metadata": {
+    "date": "2026-10-20",
+    "stage": "术语草案，未接入运行代码",
+    "coverage": "37 个电子分支聚合样本及 1007 叶分类；不是所有叶分类参数全集",
+    "raw_keys": 315,
+    "audited_navigation_nodes": 619,
+    "category_proposals": 23,
+    "option_proposals": 40,
+    "requires_leaf_verification": 12
+  },
+  "options": [
+    {
+      "raw_key": "Output Type",
+      "raw_value": "Adjustable",
+      "proposed_label": "可调",
+      "observed_in_sample": true,
+      "status": "已观测枚举，建议译名",
+      "note": "按字段和类别上下文匹配；绝不改 value。大小写/连字符变体须显式增列；禁止全局字符串替换。"
+    },
+    {
+      "raw_key": "Output Type",
+      "raw_value": "Fixed",
+      "proposed_label": "固定",
+      "observed_in_sample": true,
+      "status": "已观测枚举，建议译名",
+      "note": "按字段和类别上下文匹配；绝不改 value。大小写/连字符变体须显式增列；禁止全局字符串替换。"
+    },
+    {
+      "raw_key": "Output Type",
+      "raw_value": "Adjustable and Fixed",
+      "proposed_label": "可调/固定",
+      "observed_in_sample": true,
+      "status": "已观测枚举，建议译名",
+      "note": "按字段和类别上下文匹配；绝不改 value。大小写/连字符变体须显式增列；禁止全局字符串替换。"
+    },
+    {
+      "raw_key": "Output Type",
+      "raw_value": "Open-drain",
+      "proposed_label": "开漏",
+      "observed_in_sample": true,
+      "status": "已观测枚举，建议译名",
+      "note": "按字段和类别上下文匹配；绝不改 value。大小写/连字符变体须显式增列；禁止全局字符串替换。"
+    },
+    {
+      "raw_key": "Output Type",
+      "raw_value": "Open Collector",
+      "proposed_label": "开集电极",
+      "observed_in_sample": true,
+      "status": "已观测枚举，建议译名",
+      "note": "按字段和类别上下文匹配；绝不改 value。大小写/连字符变体须显式增列；禁止全局字符串替换。"
+    },
+    {
+      "raw_key": "Output Type",
+      "raw_value": "Push-Pull",
+      "proposed_label": "推挽",
+      "observed_in_sample": true,
+      "status": "已观测枚举，建议译名",
+      "note": "按字段和类别上下文匹配；绝不改 value。大小写/连字符变体须显式增列；禁止全局字符串替换。"
+    },
+    {
+      "raw_key": "Output Type",
+      "raw_value": "Complementary",
+      "proposed_label": "互补",
+      "observed_in_sample": true,
+      "status": "已观测枚举，建议译名",
+      "note": "按字段和类别上下文匹配；绝不改 value。大小写/连字符变体须显式增列；禁止全局字符串替换。"
+    },
+    {
+      "raw_key": "Driven Configuration",
+      "raw_value": "High Side",
+      "proposed_label": "高侧",
+      "observed_in_sample": true,
+      "status": "已观测枚举，建议译名",
+      "note": "按字段和类别上下文匹配；绝不改 value。大小写/连字符变体须显式增列；禁止全局字符串替换。"
+    },
+    {
+      "raw_key": "Driven Configuration",
+      "raw_value": "Low Side",
+      "proposed_label": "低侧",
+      "observed_in_sample": true,
+      "status": "已观测枚举，建议译名",
+      "note": "按字段和类别上下文匹配；绝不改 value。大小写/连字符变体须显式增列；禁止全局字符串替换。"
+    },
+    {
+      "raw_key": "Driven Configuration",
+      "raw_value": "Full bridge",
+      "proposed_label": "全桥",
+      "observed_in_sample": true,
+      "status": "已观测枚举，建议译名",
+      "note": "按字段和类别上下文匹配；绝不改 value。大小写/连字符变体须显式增列；禁止全局字符串替换。"
+    },
+    {
+      "raw_key": "Driven Configuration",
+      "raw_value": "Half-Bridge",
+      "proposed_label": "半桥",
+      "observed_in_sample": true,
+      "status": "已观测枚举，建议译名",
+      "note": "按字段和类别上下文匹配；绝不改 value。大小写/连字符变体须显式增列；禁止全局字符串替换。"
+    },
+    {
+      "raw_key": "Dimming",
+      "raw_value": "Analog",
+      "proposed_label": "模拟调光",
+      "observed_in_sample": false,
+      "status": "候选枚举；遇到完全相同原值才匹配",
+      "note": "按字段和类别上下文匹配；绝不改 value。大小写/连字符变体须显式增列；禁止全局字符串替换。"
+    },
+    {
+      "raw_key": "Dimming",
+      "raw_value": "PWM",
+      "proposed_label": "PWM 调光",
+      "observed_in_sample": true,
+      "status": "已观测枚举，建议译名",
+      "note": "按字段和类别上下文匹配；绝不改 value。大小写/连字符变体须显式增列；禁止全局字符串替换。"
+    },
+    {
+      "raw_key": "Dimming",
+      "raw_value": "Analog, PWM",
+      "proposed_label": "模拟/PWM 调光",
+      "observed_in_sample": false,
+      "status": "候选枚举；遇到完全相同原值才匹配",
+      "note": "按字段和类别上下文匹配；绝不改 value。大小写/连字符变体须显式增列；禁止全局字符串替换。"
+    },
+    {
+      "raw_key": "Applicable to AC-DC Architecture",
+      "raw_value": "Flyback",
+      "proposed_label": "反激",
+      "observed_in_sample": true,
+      "status": "已观测枚举，建议译名",
+      "note": "按字段和类别上下文匹配；绝不改 value。大小写/连字符变体须显式增列；禁止全局字符串替换。"
+    },
+    {
+      "raw_key": "Applicable to AC-DC Architecture",
+      "raw_value": "Forward",
+      "proposed_label": "正激",
+      "observed_in_sample": false,
+      "status": "候选枚举；遇到完全相同原值才匹配",
+      "note": "按字段和类别上下文匹配；绝不改 value。大小写/连字符变体须显式增列；禁止全局字符串替换。"
+    },
+    {
+      "raw_key": "Function",
+      "raw_value": "Buck",
+      "proposed_label": "降压",
+      "observed_in_sample": false,
+      "status": "候选枚举；遇到完全相同原值才匹配",
+      "note": "按字段和类别上下文匹配；绝不改 value。大小写/连字符变体须显式增列；禁止全局字符串替换。"
+    },
+    {
+      "raw_key": "Function",
+      "raw_value": "Boost",
+      "proposed_label": "升压",
+      "observed_in_sample": true,
+      "status": "已观测枚举，建议译名",
+      "note": "按字段和类别上下文匹配；绝不改 value。大小写/连字符变体须显式增列；禁止全局字符串替换。"
+    },
+    {
+      "raw_key": "Function",
+      "raw_value": "Buck-Boost",
+      "proposed_label": "升降压",
+      "observed_in_sample": true,
+      "status": "已观测枚举，建议译名",
+      "note": "按字段和类别上下文匹配；绝不改 value。大小写/连字符变体须显式增列；禁止全局字符串替换。"
+    },
+    {
+      "raw_key": "Function",
+      "raw_value": "Step-Up",
+      "proposed_label": "升压",
+      "observed_in_sample": false,
+      "status": "候选枚举；遇到完全相同原值才匹配",
+      "note": "按字段和类别上下文匹配；绝不改 value。大小写/连字符变体须显式增列；禁止全局字符串替换。"
+    },
+    {
+      "raw_key": "Function",
+      "raw_value": "Step-Down",
+      "proposed_label": "降压",
+      "observed_in_sample": false,
+      "status": "候选枚举；遇到完全相同原值才匹配",
+      "note": "按字段和类别上下文匹配；绝不改 value。大小写/连字符变体须显式增列；禁止全局字符串替换。"
+    },
+    {
+      "raw_key": "Mounting Type",
+      "raw_value": "Surface Mount",
+      "proposed_label": "表面贴装",
+      "observed_in_sample": true,
+      "status": "已观测枚举，建议译名",
+      "note": "按字段和类别上下文匹配；绝不改 value。大小写/连字符变体须显式增列；禁止全局字符串替换。"
+    },
+    {
+      "raw_key": "Mounting Type",
+      "raw_value": "Through Hole",
+      "proposed_label": "通孔安装",
+      "observed_in_sample": true,
+      "status": "已观测枚举，建议译名",
+      "note": "按字段和类别上下文匹配；绝不改 value。大小写/连字符变体须显式增列；禁止全局字符串替换。"
+    },
+    {
+      "raw_key": "Mounting Type",
+      "raw_value": "Chassis Mount",
+      "proposed_label": "底盘安装",
+      "observed_in_sample": false,
+      "status": "候选枚举；遇到完全相同原值才匹配",
+      "note": "按字段和类别上下文匹配；绝不改 value。大小写/连字符变体须显式增列；禁止全局字符串替换。"
+    },
+    {
+      "raw_key": "Mounting Type",
+      "raw_value": "Panel Mount",
+      "proposed_label": "面板安装",
+      "observed_in_sample": true,
+      "status": "已观测枚举，建议译名",
+      "note": "按字段和类别上下文匹配；绝不改 value。大小写/连字符变体须显式增列；禁止全局字符串替换。"
+    },
+    {
+      "raw_key": "Synchronous Rectifier",
+      "raw_value": "Yes",
+      "proposed_label": "是",
+      "observed_in_sample": true,
+      "status": "已观测枚举，建议译名",
+      "note": "按字段和类别上下文匹配；绝不改 value。大小写/连字符变体须显式增列；禁止全局字符串替换。"
+    },
+    {
+      "raw_key": "Synchronous Rectifier",
+      "raw_value": "No",
+      "proposed_label": "否",
+      "observed_in_sample": true,
+      "status": "已观测枚举，建议译名",
+      "note": "按字段和类别上下文匹配；绝不改 value。大小写/连字符变体须显式增列；禁止全局字符串替换。"
+    },
+    {
+      "raw_key": "Clock Direction",
+      "raw_value": "Bidirectional",
+      "proposed_label": "双向",
+      "observed_in_sample": true,
+      "status": "已观测枚举，建议译名",
+      "note": "按字段和类别上下文匹配；绝不改 value。大小写/连字符变体须显式增列；禁止全局字符串替换。"
+    },
+    {
+      "raw_key": "Clock Direction",
+      "raw_value": "Unidirectional",
+      "proposed_label": "单向",
+      "observed_in_sample": true,
+      "status": "已观测枚举，建议译名",
+      "note": "按字段和类别上下文匹配；绝不改 value。大小写/连字符变体须显式增列；禁止全局字符串替换。"
+    },
+    {
+      "raw_key": "FET Type",
+      "raw_value": "N-Channel",
+      "proposed_label": "N 沟道",
+      "observed_in_sample": true,
+      "status": "已观测枚举，建议译名",
+      "note": "按字段和类别上下文匹配；绝不改 value。大小写/连字符变体须显式增列；禁止全局字符串替换。"
+    },
+    {
+      "raw_key": "FET Type",
+      "raw_value": "P-Channel",
+      "proposed_label": "P 沟道",
+      "observed_in_sample": true,
+      "status": "已观测枚举，建议译名",
+      "note": "按字段和类别上下文匹配；绝不改 value。大小写/连字符变体须显式增列；禁止全局字符串替换。"
+    },
+    {
+      "raw_key": "Switch tube (built-in/external)",
+      "raw_value": "Built-in",
+      "proposed_label": "内置",
+      "observed_in_sample": true,
+      "status": "已观测枚举，建议译名",
+      "note": "按字段和类别上下文匹配；绝不改 value。大小写/连字符变体须显式增列；禁止全局字符串替换。"
+    },
+    {
+      "raw_key": "Switch tube (built-in/external)",
+      "raw_value": "External",
+      "proposed_label": "外置",
+      "observed_in_sample": true,
+      "status": "已观测枚举，建议译名",
+      "note": "按字段和类别上下文匹配；绝不改 value。大小写/连字符变体须显式增列；禁止全局字符串替换。"
+    },
+    {
+      "raw_key": "Gender",
+      "raw_value": "Male",
+      "proposed_label": "公头",
+      "observed_in_sample": true,
+      "status": "已观测枚举，建议译名",
+      "note": "按字段和类别上下文匹配；绝不改 value。大小写/连字符变体须显式增列；禁止全局字符串替换。"
+    },
+    {
+      "raw_key": "Gender",
+      "raw_value": "Female",
+      "proposed_label": "母座",
+      "observed_in_sample": true,
+      "status": "已观测枚举，建议译名",
+      "note": "按字段和类别上下文匹配；绝不改 value。大小写/连字符变体须显式增列；禁止全局字符串替换。"
+    },
+    {
+      "raw_key": "Feedback System",
+      "raw_value": "Voltage Mode",
+      "proposed_label": "电压模式",
+      "observed_in_sample": false,
+      "status": "候选枚举；遇到完全相同原值才匹配",
+      "note": "按字段和类别上下文匹配；绝不改 value。大小写/连字符变体须显式增列；禁止全局字符串替换。"
+    },
+    {
+      "raw_key": "Feedback System",
+      "raw_value": "Current Mode",
+      "proposed_label": "电流模式",
+      "observed_in_sample": false,
+      "status": "候选枚举；遇到完全相同原值才匹配",
+      "note": "按字段和类别上下文匹配；绝不改 value。大小写/连字符变体须显式增列；禁止全局字符串替换。"
+    },
+    {
+      "raw_key": "Rail to Rail",
+      "raw_value": "Input",
+      "proposed_label": "输入轨到轨",
+      "observed_in_sample": false,
+      "status": "候选枚举；遇到完全相同原值才匹配",
+      "note": "按字段和类别上下文匹配；绝不改 value。大小写/连字符变体须显式增列；禁止全局字符串替换。"
+    },
+    {
+      "raw_key": "Rail to Rail",
+      "raw_value": "Output",
+      "proposed_label": "输出轨到轨",
+      "observed_in_sample": false,
+      "status": "候选枚举；遇到完全相同原值才匹配",
+      "note": "按字段和类别上下文匹配；绝不改 value。大小写/连字符变体须显式增列；禁止全局字符串替换。"
+    },
+    {
+      "raw_key": "Rail to Rail",
+      "raw_value": "Input and Output",
+      "proposed_label": "输入/输出轨到轨",
+      "observed_in_sample": false,
+      "status": "候选枚举；遇到完全相同原值才匹配",
+      "note": "按字段和类别上下文匹配；绝不改 value。大小写/连字符变体须显式增列；禁止全局字符串替换。"
+    }
+  ]
+}

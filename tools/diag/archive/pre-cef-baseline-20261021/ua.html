@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>UA INFO</title>
+</head>
+<body style="font:16px 'Microsoft YaHei',Arial; padding:20px">
+<h3>Embedded browser info</h3>
+<div id="out">checking...</div>
+<script>
+var ua = navigator.userAgent;
+var dmode = "n/a";
+try { if (document.documentMode) dmode = document.documentMode; } catch (e) {}
+var feats = [];
+feats.push("fetch=" + (typeof fetch !== "undefined"));
+feats.push("Promise=" + (typeof Promise !== "undefined"));
+feats.push("JSON=" + (typeof JSON !== "undefined"));
+feats.push("XMLHttpRequest=" + (typeof XMLHttpRequest !== "undefined"));
+feats.push("ActiveXObject=" + (typeof ActiveXObject !== "undefined"));
+feats.push("querySelectorAll=" + (!!document.querySelectorAll));
+feats.push("addEventListener=" + (!!window.addEventListener));
+feats.push("SVG=" + (!!document.createElementNS && !!document.createElementNS("http://www.w3.org/2000/svg","svg").createSVGRect));
+feats.push("WebGL=" + (!!window.WebGLRenderingContext));
+feats.push("canvas=" + (!!document.createElement("canvas").getContext));
+feats.push("dialog=" + (typeof document.createElement("dialog").showModal === "function"));
+feats.push("flex=" + (typeof document.createElement("div").style.flex !== "undefined"));
+var html = "UserAgent: " + ua + "<br>documentMode: " + dmode + "<br><br>" + feats.join("<br>");
+document.getElementById("out").innerHTML = html;
+</script>
+</body>
+</html>

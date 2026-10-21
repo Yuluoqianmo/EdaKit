@@ -1,0 +1,58 @@
+/* Workbench v2 design tokens: white, cool gray, navy text, restrained teal. */
+html,body{font:13px "Microsoft YaHei UI","Microsoft YaHei","Segoe UI",Arial,sans-serif;color:#24384a;background:#f4f6f8}
+button,input,select{font:13px "Microsoft YaHei UI","Microsoft YaHei","Segoe UI",Arial,sans-serif;border-radius:3px}
+#top{height:32px;line-height:32px;padding:0 14px;background:#fff;color:#183348;border-bottom:1px solid #dce3e9}.brand{font-size:18px;font-weight:600}.subtitle{font-size:12px;color:#607385;margin-left:12px}#st{font-size:12px;color:#33766e}
+#searchbar{top:33px;height:45px;border:0;background:#fff}#searchbar label{display:none}#kw{left:12px;top:5px;height:31px;line-height:31px;font-size:13px}#btnsearch,#btnclear{top:5px;height:33px}
+#filters{border:0;border-bottom:1px solid #dce3e9;border-radius:0;padding:0;background:#fff;overflow:visible;z-index:40}#categories{height:34px}.filterrow{height:34px}#categories button{top:2px;height:30px}#railtoggle{left:0;width:64px}#categorypath{left:72px;border:0;text-align:left;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;background:none;padding:0 5px}#morefilters{right:0;width:104px;border:1px solid #becbd5;font-size:12px;color:#30475b;background:#fff}
+#categorychooser{position:absolute;left:0;top:37px;width:290px;padding:12px;background:#fff;border:1px solid #bacbd4;border-radius:3px;box-shadow:0 4px 10px #d5dfe4;z-index:80}#categories #categorychooser select{display:block;position:static;width:100%;height:31px;margin-bottom:8px}
+#facetarea{overflow:hidden}#facetfields,#facetextra{position:relative}.facetfield{height:62px}.facetbutton{height:29px;font-size:12px}#filters .facetlabel{display:none}#filters .facetfield{height:32px}#facetempty{font-size:11px;padding:7px 0;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+#selectionbar{height:27px;line-height:26px;padding:0;overflow:hidden;font-size:11px}#chipslabel{font-size:11px;color:#637789}.filterchip{font-size:11px;height:22px;background:#e8f3f4;border:1px solid #b5d5d8;color:#176971}#filterstatus{position:absolute;left:0;right:0;bottom:-12px;height:12px;line-height:12px;font-size:11px;overflow:hidden;background:#f4f6f8}#filtermsg{font-size:11px;color:#667b8c}
+#workspace{right:12px;bottom:38px}.panel{border:1px solid #dce3e9;border-radius:2px}.panelhead{height:30px;line-height:30px;font-weight:normal;font-size:12px;background:#fff}#resultscope{top:31px;height:23px;line-height:23px;font-size:12px;color:#637789}#listhead{top:55px;height:30px}#listbox{top:85px;bottom:40px}.list th{height:29px;font-size:11px;padding:0 10px}.list td{height:42px;padding:4px 10px;font-size:12px;color:#31485b}.list td b{font-size:12px;font-weight:600}.list td .cid{font-size:10px;line-height:17px}.list td:nth-child(6),.list th:nth-child(6),.descriptioncol{display:none}.list td.packagecell{font-size:11px}#searchwait,#queryerror{top:85px;bottom:40px}#pg{height:28px;padding:5px 8px}#pinfo{font-size:11px}#empty{padding:35px 12px}
+#detail>.panelhead{display:none}#detailinfo{top:18px;left:18px;right:18px;bottom:360px;overflow:auto}#dname{font-size:18px;line-height:25px}#selectedcid{font-size:12px;color:#64788a;line-height:21px}#prop{font-size:12px;line-height:23px;margin:10px 0}.paramsummary{display:block;font-size:11px;color:#5d7485;margin-top:8px}.paramsummary span{display:block;line-height:21px}
+#detailactions{position:absolute;left:18px;right:18px;bottom:12px;min-height:54px}#btnplace{width:145px;height:34px;font-size:13px}#pmsg{font-size:12px;color:#637789;line-height:18px;margin-top:6px}.datalink{font-size:12px;margin-left:12px}.muted{display:block;margin:5px 0 0}#previewbar{left:14px;right:14px;top:auto;bottom:310px;height:32px}.tab{height:31px;font-size:12px;padding:0 9px}#previewport{left:14px;right:14px;top:auto;bottom:110px;height:192px}#zoomtools{left:14px;right:14px;bottom:75px;height:27px;border:0}#previewhint{display:none}.viewport{background:#f8fafc}.previewempty{font-size:11px}#geometry{display:none}
+.dock #detailinfo{left:18px;top:20px;width:43%;right:auto;bottom:82px}.dock #detailactions{left:18px;width:43%;right:auto;bottom:10px}.dock #previewbar{left:48%;right:14px;top:12px;bottom:auto}.dock #previewport{left:48%;right:14px;top:50px;bottom:47px;height:auto}.dock #zoomtools{left:48%;right:14px;bottom:10px}.dock #dname{font-size:17px;line-height:24px}.dock #detailinfo{border-right:1px solid #e3e9ee;padding-right:12px;box-sizing:border-box}.dock #prop{margin-top:8px;line-height:22px}.dock .datalink{margin-left:10px;font-size:12px}
+#splitter{position:absolute;z-index:30;cursor:row-resize;background:#eef2f5;border-top:1px solid #dce3e9;border-bottom:1px solid #dce3e9;box-sizing:border-box}#splitter:after{content:"";position:absolute;left:48%;top:3px;width:28px;height:2px;background:#9baebc}#splitter:focus{outline:1px solid #80b5b8}
+#backresults{display:none}.phone #detail>.panelhead{display:block}.phone #backresults{display:block;float:right;height:25px;margin-top:2px;font-size:11px}.phone #detailinfo{top:44px;left:14px;right:14px;width:auto;bottom:60%;border:0}.phone #previewbar{top:42%;left:14px;right:14px;bottom:auto}.phone #previewport{top:calc(42% + 38px);left:14px;right:14px;bottom:112px;height:auto}.phone #zoomtools{left:14px;right:14px;bottom:78px}.phone #detailactions{left:14px;right:14px;width:auto;bottom:10px}.phone #categorypath{width:150px!important}.phone #statusbar .statushint{display:none}.phone #msg{margin-right:0}
+/* Shared control states; explicit selectors preserve feedback on transparent tools. */
+#categorypath,#clearparams,#facetretry,#columnbutton,#zoomtools button,.pickerhead button,.pickerfooter button{color:#296d78}
+#categorypath:hover,#clearparams:hover,#facetretry:hover,#columnbutton:hover,#zoomtools button:hover,.pickerhead button:hover,.pickerfooter button:hover{background:#eaf4f5;color:#12646d}
+#categorypath:active,#clearparams:active,#facetretry:active,#columnbutton:active,#zoomtools button:active,.pickerhead button:active,.pickerfooter button:active{background:#d5e9ec;color:#114f59}
+#morefilters:hover{background:#edf6f6;border-color:#4a9499;color:#12676e}
+#morefilters:active{background:#d8ecee;border-color:#176d75;color:#124f58}
+.facetbutton.chosen{background:#e8f3f4;color:#14676e;border-color:#75afb5}
+.facetbutton.chosen:hover{background:#daedef;border-color:#3d8b93;color:#12565f}
+.facetbutton.chosen:active{background:#c9e3e6;border-color:#176d75;color:#124f58}
+.tab{background:#fff;color:#526d80;border-bottom:2px solid transparent;font-weight:400}
+.tab:hover{background:#edf6f6;color:#12676e;border-bottom-color:#9bc8cd}
+.tab:active{background:#d8ecee;color:#124f58;border-bottom-color:#176d75}
+.tab.active{background:#e8f3f4;color:#086b73;border-bottom:2px solid #087f83;font-weight:600}
+.tab.active:hover{background:#daedef;color:#075c65;border-bottom-color:#066c73}
+.tab.active:active{background:#c9e3e6;color:#064c55;border-bottom-color:#05565e}
+#morefilters:disabled,#morefilters:disabled:hover,#morefilters:disabled:active,#zoomtools button:disabled,#zoomtools button:disabled:hover,#zoomtools button:disabled:active,.tab:disabled,.tab:disabled:hover,.tab:disabled:active{background:#f3f5f7;color:#7b8794;border-color:#e0e6eb;cursor:default}
+.tab:disabled,.tab:disabled:hover,.tab:disabled:active{border-bottom-color:transparent;font-weight:400}
+#clearparams,#facetretry,#pg button,#pagesize,#zoomtools button,#zoomlabel,#largezoomlabel,.pickerhead button,#pickersearch,.pickoption,.pickerfooter,.pickerfooter button{font-size:12px}
+.pickerfooter{color:#637789}
+#allparamcount,#allparamhead div,.panelhead span,#columnmenu b{font-size:12px;color:#637789}
+.facetlabel{font-size:12px;color:#5d7385}
+.facetbutton .arrow{color:inherit}
+.list th{color:#5c7284}
+.list td .cid{color:#677c8e}
+.list tr:hover td{background:#f0f6f8}
+.list tr.sel td{background:#e5f1f3;color:#245c67}
+.list tr.sel:hover td{background:#daedef}
+.list tr.sel td b{color:#173f50}
+.datalink{color:#126e79}
+.datalink:hover{color:#07545f;text-decoration:underline}
+.datalink:active{color:#043f49}
+.datalink:focus{outline:1px solid #6b9fae}
+#datasheet.opening{color:#6b7e8d}
+#allparams{box-shadow:0 6px 20px #bfcdd5}#allparamhead{height:68px}#allparambody{top:72px;padding:8px 20px}#allparambody .facetlabel{font-size:12px;height:22px;line-height:20px}#allparambody .facetfield{height:62px}#allparambody .facetbutton{font-size:12px;height:31px}#allparambody #facetarea{overflow-y:auto}#allparambody #facetempty{padding:12px}
+#statusbar{height:26px;line-height:26px;color:#7d8e9b;font-size:10px}#statusbar.working #msg{color:#607988}#workstate{height:16px;line-height:16px;margin-top:4px}
+@media(max-height:650px){.dock #dname{font-size:15px}.dock #prop{font-size:12px;line-height:19px;margin-top:4px}.dock .paramsummary{margin-top:3px}.dock #detailinfo{top:10px}.dock #btnplace{height:29px}.dock #pmsg{font-size:11px;line-height:17px}}
+/* Keep native-size typography legible at dock width. */
+.list td{font-size:13px}.list td b{font-size:13px}.list th{font-size:12px}.list td.packagecell{font-size:12px}.list td .cid{font-size:11px}#prop{color:#506779}.paramsummary{font-size:12px}#statusbar{font-size:11px;color:#65798a}#msg{font-size:11px}
+#columnbutton{float:right;height:24px;line-height:21px;margin-top:3px;border:0;background:none;color:#506d7e;font-size:12px;padding:0 3px}#columnmenu{position:absolute;right:8px;top:30px;z-index:50;width:140px;padding:10px;background:#fff;border:1px solid #bfd0da;box-shadow:0 3px 9px #d8e1e7;font-size:12px}#columnmenu b{display:block;margin-bottom:5px;font-size:12px;color:#637789}#columnmenu label{display:block;line-height:28px}#columnmenu input{height:14px;width:14px;margin-right:10px;vertical-align:middle}
+#results .list td:nth-child(6),#results .list th:nth-child(6){display:table-cell}#results.hide-column-1 .list td:nth-child(2),#results.hide-column-1 .list th:nth-child(2),#results.hide-column-2 .list td:nth-child(3),#results.hide-column-2 .list th:nth-child(3),#results.hide-column-3 .list td:nth-child(4),#results.hide-column-3 .list th:nth-child(4),#results.hide-column-4 .list td:nth-child(5),#results.hide-column-4 .list th:nth-child(5),#results.hide-column-5 .list td:nth-child(6),#results.hide-column-5 .list th:nth-child(6){display:none}#results .descriptioncol{display:table-column}
+#allparambody .facetlabel{height:34px;line-height:17px;white-space:normal}#allparambody .facetfield{height:76px}
+.previewempty.updating{top:auto;bottom:6px;left:12px;right:12px;padding:3px 6px;background:#eef4f7;color:#617f8d;border:1px solid #dde7ed;border-radius:2px;font-size:10px;line-height:17px}
+@media(max-height:650px){.list td{height:30px;padding:3px 9px;font-size:12px}.list td b{font-size:12px}.list td .cid{line-height:16px;font-size:11px}}

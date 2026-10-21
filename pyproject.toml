@@ -1,0 +1,31 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "edakit"
+version = "0.1.0"
+description = "立创(EasyEDA/LCSC) 元件库 → Cadence 一键放置工具"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "edakit" }]
+dependencies = ["requests>=2.28", "resvg_py==0.5.0"]
+
+[project.optional-dependencies]
+dev = ["pytest>=7", "pyinstaller>=6"]
+
+[project.scripts]
+edakit = "edakit.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+edakit = [
+    "install/templates/*.tcl",
+    "server/web/*.html",
+    "server/web/*.css",
+    "server/web/*.js",
+    "symbol/templates/*.xml",
+]

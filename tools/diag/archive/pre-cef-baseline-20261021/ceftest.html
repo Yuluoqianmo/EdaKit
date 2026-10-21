@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>CEF reach test</title>
+</head>
+<body>
+<h3>CEF reach test</h3>
+<p>Loaded from a local file. Tries to reach the mall server at the port given in
+<code>?port=</code> (default 62619) — cross-origin.</p>
+<div id="out" style="font:14px Consolas,monospace; border:1px solid #999; padding:10px">running...</div>
+<img id="svgimg" alt="SVG from mall" width="200" height="120" style="border:1px solid #ccc">
+
+<script>
+var m = /[?&]port=(\d+)/.exec(location.search);
+var port = m ? m[1] : "62619";
+var base = "http://127.0.0.1:" + port;
+var results = [];
+var pending = 2;
+
+function report() {
+  document.getElementById("out").innerHTML = results.join("<br>");
+}
+
+function checkCss() {
+  var link = document.createElement("link");
+  link.rel = "stylesheet";
+  link.href = base + "/static/style.css";
+  link.onload = function () {
+    var bg = "";
+    try { bg = getComputedStyle(document.body).backgroundColor; } catch (e) { bg = "ERR " + e; }
+    results.push("stylesheet LOADED; body background = " + bg +
+      (bg !== "rgba(0, 0, 0, 0)" && bg !== "transparent" ? " (CSS APPLIED)" : " (NOT applied)"));
+    done();
+  };
+  link.onerror = function () { results.push("stylesheet FAILED to load"); done(); };
+  document.head.appendChild(link);
+}
+
+var img = document.getElementById("svgimg");
+img.onload = function () {
+  results.push("SVG image LOADED (" + img.naturalWidth + "x" + img.naturalHeight + ")");
+  done();
+};
+img.onerror = function () { results.push("SVG image FAILED"); done(); };
+img.src = base + "/api/svg/symbol/C2040.svg";
+
+function done() {
+  pending--;
+  if (pending <= 0) { report(); }
+}
+
+checkCss();
+setTimeout(function () {
+  if (pending > 0) { results.push("timeout: " + pending + " check(s) never finished"); pending = 0; report(); }
+}, 8000);
+</script>
+</body>
+</html>

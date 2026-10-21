@@ -1,0 +1,13 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><title>EdaKit CEF 能力验证</title>
+<link rel="stylesheet" href="/probe.css"></head><body>
+<h1>EdaKit · Capture 内嵌能力验证</h1>
+<p>独立试验页面。先验证普通视图，再验证停靠面板；当前页面不放置器件。</p>
+<div id="stylecheck">CSS 加载检查：本框应为浅绿色，左侧有绿色边线。</div>
+<div class="flexcheck" id="flexcheck"><span>Flex 左侧</span><span>Flex 右侧</span></div>
+<p><label>中文输入与焦点检查：<input id="ime" type="text" placeholder="请用输入法输入：电阻 4.7kΩ"></label></p>
+<p><button id="run" type="button">重新检测并保存日志</button> <a href="/reports" target="_blank">查看原始日志</a></p>
+<p id="state">脚本尚未运行。如果一直停留在此处，请记录截图和服务端日志。</p>
+<p><img id="svgcheck" src="/sample.svg" width="160" height="64" alt="SVG 图片测试：应显示电阻图案"></p>
+<pre id="results">等待能力检测……</pre>
+<script src="/probe.js"></script></body></html>

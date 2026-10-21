@@ -1,0 +1,1014 @@
+{
+  "date": "2026-10-21",
+  "method": "move, verify SHA256; no deletions",
+  "moves": [
+    {
+      "from": "dist/catalog-3d",
+      "to": "dist/archive/pre-cef-baseline-20261021/catalog-3d",
+      "files": [
+        {
+          "path": "edakit.exe",
+          "size": 13420355,
+          "sha256": "23b64428d7e44a402b114f3f081e609766a1ed484936fc5cf678fa7099b6fd98"
+        }
+      ]
+    },
+    {
+      "from": "dist/cef-integration",
+      "to": "dist/archive/pre-cef-baseline-20261021/cef-integration",
+      "files": [
+        {
+          "path": "edakit.exe",
+          "size": 13461640,
+          "sha256": "ff82f9ab8d1f494eb5590be21a6f7b5d63f507e50ef235358559a9eaf94a53e1"
+        }
+      ]
+    },
+    {
+      "from": "dist/cursor-fix",
+      "to": "dist/archive/pre-cef-baseline-20261021/cursor-fix",
+      "files": [
+        {
+          "path": "edakit.exe",
+          "size": 12336976,
+          "sha256": "8849c3cd5912cbc0d9f8c8fed83da74123deb846a5683ce0acb3e664c07a3a88"
+        }
+      ]
+    },
+    {
+      "from": "dist/edakit.before-catalog-3d.exe",
+      "to": "dist/archive/pre-cef-baseline-20261021/edakit.before-catalog-3d.exe",
+      "files": [
+        {
+          "path": "edakit.before-catalog-3d.exe",
+          "size": 13402733,
+          "sha256": "f56c3c239f2b145dd2bdcdeb60d113358df3dbc37eb91a23c9aca2b88e7d4990"
+        }
+      ]
+    },
+    {
+      "from": "dist/edakit.before-localization-20261020.exe",
+      "to": "dist/archive/pre-cef-baseline-20261021/edakit.before-localization-20261020.exe",
+      "files": [
+        {
+          "path": "edakit.before-localization-20261020.exe",
+          "size": 13439072,
+          "sha256": "c9de7acb8f8e1b37c461905dc51c61c5bbc76df651c52e234b69a69a10a70aa8"
+        }
+      ]
+    },
+    {
+      "from": "dist/edakit.before-parameter-panel-20261020.exe",
+      "to": "dist/archive/pre-cef-baseline-20261021/edakit.before-parameter-panel-20261020.exe",
+      "files": [
+        {
+          "path": "edakit.before-parameter-panel-20261020.exe",
+          "size": 13438825,
+          "sha256": "869e66b9bab3fc0fa4b4bd4a2529256a594c16e23f698cb22230fc27363ec87d"
+        }
+      ]
+    },
+    {
+      "from": "dist/edakit.before-query-feedback.exe",
+      "to": "dist/archive/pre-cef-baseline-20261021/edakit.before-query-feedback.exe",
+      "files": [
+        {
+          "path": "edakit.before-query-feedback.exe",
+          "size": 13422475,
+          "sha256": "6289da1591658da40955e3c480ea823880ca4390d5984d02e9bc418535e1cc69"
+        }
+      ]
+    },
+    {
+      "from": "dist/edakit.before-value-filter.exe",
+      "to": "dist/archive/pre-cef-baseline-20261021/edakit.before-value-filter.exe",
+      "files": [
+        {
+          "path": "edakit.before-value-filter.exe",
+          "size": 13422475,
+          "sha256": "6289da1591658da40955e3c480ea823880ca4390d5984d02e9bc418535e1cc69"
+        }
+      ]
+    },
+    {
+      "from": "dist/edakit.before-workbench-20261020.exe",
+      "to": "dist/archive/pre-cef-baseline-20261021/edakit.before-workbench-20261020.exe",
+      "files": [
+        {
+          "path": "edakit.before-workbench-20261020.exe",
+          "size": 13426214,
+          "sha256": "4cd883c977e8bf0566624865ae718f06046f9f215674d5888087c5bcf0c353c1"
+        }
+      ]
+    },
+    {
+      "from": "dist/embedded-ui",
+      "to": "dist/archive/pre-cef-baseline-20261021/embedded-ui",
+      "files": [
+        {
+          "path": "edakit.exe",
+          "size": 13402733,
+          "sha256": "f56c3c239f2b145dd2bdcdeb60d113358df3dbc37eb91a23c9aca2b88e7d4990"
+        }
+      ]
+    },
+    {
+      "from": "dist/localization",
+      "to": "dist/archive/pre-cef-baseline-20261021/localization",
+      "files": [
+        {
+          "path": "edakit.exe",
+          "size": 13460639,
+          "sha256": "f9a50b596805c4861478cc8e8c7a0ea05401088f97d2b41b4310998c5a42591e"
+        }
+      ]
+    },
+    {
+      "from": "dist/parameter-panel",
+      "to": "dist/archive/pre-cef-baseline-20261021/parameter-panel",
+      "files": [
+        {
+          "path": "edakit.exe",
+          "size": 13439072,
+          "sha256": "c9de7acb8f8e1b37c461905dc51c61c5bbc76df651c52e234b69a69a10a70aa8"
+        }
+      ]
+    },
+    {
+      "from": "dist/query-feedback",
+      "to": "dist/archive/pre-cef-baseline-20261021/query-feedback",
+      "files": [
+        {
+          "path": "edakit.exe",
+          "size": 13422475,
+          "sha256": "6289da1591658da40955e3c480ea823880ca4390d5984d02e9bc418535e1cc69"
+        }
+      ]
+    },
+    {
+      "from": "dist/table-category",
+      "to": "dist/archive/pre-cef-baseline-20261021/table-category",
+      "files": [
+        {
+          "path": "edakit.exe",
+          "size": 13404346,
+          "sha256": "ea6fb488556b17af78a5ae0eab409a2bbadd628a452c74a87a4877f784775f65"
+        }
+      ]
+    },
+    {
+      "from": "dist/value-filter",
+      "to": "dist/archive/pre-cef-baseline-20261021/value-filter",
+      "files": [
+        {
+          "path": "edakit.exe",
+          "size": 13426214,
+          "sha256": "4cd883c977e8bf0566624865ae718f06046f9f215674d5888087c5bcf0c353c1"
+        }
+      ]
+    },
+    {
+      "from": "dist/workbench",
+      "to": "dist/archive/pre-cef-baseline-20261021/workbench",
+      "files": [
+        {
+          "path": "edakit.exe",
+          "size": 13438825,
+          "sha256": "869e66b9bab3fc0fa4b4bd4a2529256a594c16e23f698cb22230fc27363ec87d"
+        }
+      ]
+    },
+    {
+      "from": "build/catalog-3d",
+      "to": "build/archive/pre-cef-baseline-20261021/catalog-3d",
+      "files": [
+        {
+          "path": "edakit\\Analysis-00.toc",
+          "size": 106707,
+          "sha256": "ce43fec9b34288afab0abc014d55aaa181f6548a799be84ca6adfc93d739408e"
+        },
+        {
+          "path": "edakit\\base_library.zip",
+          "size": 1409168,
+          "sha256": "6f771735f42a00db6c508cf2ee4b8d1e62db0a0aa18dbfd742728fabf6cb6106"
+        },
+        {
+          "path": "edakit\\edakit.pkg",
+          "size": 13047107,
+          "sha256": "d5953dfd5291bc945e649c6a65592427c469e2d1e57c3ecb38a3770814195cae"
+        },
+        {
+          "path": "edakit\\EXE-00.toc",
+          "size": 17986,
+          "sha256": "fbe73c03538e42a441656616564ccd22aac4b0109d29da2136b67c78b4b7e32e"
+        },
+        {
+          "path": "edakit\\PKG-00.toc",
+          "size": 16264,
+          "sha256": "293dd06780d561f8a9716b4890bc0d205da8f47ac0007ad08f46345bf4be4ae8"
+        },
+        {
+          "path": "edakit\\PYZ-00.pyz",
+          "size": 4185265,
+          "sha256": "7206e3daf07bda2d225ca03aaf731292bbbbdd4a6e11e7ba9fb716c20cfb728d"
+        },
+        {
+          "path": "edakit\\PYZ-00.toc",
+          "size": 68583,
+          "sha256": "494c45f98bfe130b21adcd5a8e6aef74d26573b3b6f7133678079040e2416c84"
+        },
+        {
+          "path": "edakit\\warn-edakit.txt",
+          "size": 10539,
+          "sha256": "fdaa0244017c2d29ff3f15dad66a5ef2489bf79b3b684c6b27b7b5d66cf3b7c2"
+        },
+        {
+          "path": "edakit\\xref-edakit.html",
+          "size": 836924,
+          "sha256": "70805daf17a726e086bcf93c31a19d077f56851642d93e9a70caff13a237672e"
+        },
+        {
+          "path": "edakit\\localpycs\\pyimod01_archive.pyc",
+          "size": 4930,
+          "sha256": "95bc75fb1815443c6a51c4470dc254f44e2de2b66bb7dfd0c13541ff789c69e1"
+        },
+        {
+          "path": "edakit\\localpycs\\pyimod02_importers.pyc",
+          "size": 31802,
+          "sha256": "cc024a23c19a0ec13491f67cc7bf4a33c6947439f965d3154b03d46708da0801"
+        },
+        {
+          "path": "edakit\\localpycs\\pyimod03_ctypes.pyc",
+          "size": 6450,
+          "sha256": "e6017d5cef7ecb021c243170082978de1d699d1d0c27d2bd1ef221a9a169c69e"
+        },
+        {
+          "path": "edakit\\localpycs\\pyimod04_pywin32.pyc",
+          "size": 1679,
+          "sha256": "8956b968293913eaeb67654b56b65a955a4fa06e6179579738c6a460b6e6debb"
+        },
+        {
+          "path": "edakit\\localpycs\\struct.pyc",
+          "size": 305,
+          "sha256": "dc46cdfab7ea5bfd78e20ce81838a7a17666060827028564b0a2de0198aca964"
+        }
+      ]
+    },
+    {
+      "from": "build/edakit",
+      "to": "build/archive/pre-cef-baseline-20261021/edakit",
+      "files": [
+        {
+          "path": "Analysis-00.toc",
+          "size": 106485,
+          "sha256": "01dfbd2722c533e4047aaaa53d69b890e29493fa7d234559cbdf76f5174bfbe2"
+        },
+        {
+          "path": "base_library.zip",
+          "size": 1409168,
+          "sha256": "3a8e91e363b31f53351038100c54870564c49d138f0d10385791055dd3251d94"
+        },
+        {
+          "path": "edakit.pkg",
+          "size": 13029485,
+          "sha256": "15dbacf4c01f39048208ca70108511485042f24ddf65a5c9333b790a122aefe0"
+        },
+        {
+          "path": "EXE-00.toc",
+          "size": 17883,
+          "sha256": "115ddd491fe8d087732559ddf8b6cf885dc5540b18ce87c27481223abe1dfc9f"
+        },
+        {
+          "path": "PKG-00.toc",
+          "size": 16160,
+          "sha256": "b17eff0eaa4112bc951cfa21cd7bdf428c812f1a6b18a86d9d91e1f3acd8e5d9"
+        },
+        {
+          "path": "PYZ-00.pyz",
+          "size": 4170195,
+          "sha256": "aae0d866251896a5ac0fc1ea8feb43fef280dbaaf842d7e4f5ab6374b36fc605"
+        },
+        {
+          "path": "PYZ-00.toc",
+          "size": 68361,
+          "sha256": "30da7c2937846c829a057f5dfaecac93fef67fcb6e3fcce840488410df40fe7d"
+        },
+        {
+          "path": "warn-edakit.txt",
+          "size": 10539,
+          "sha256": "db820da934796b339c8f83d6aa932e00299a9386704b05600c5719503b521dd8"
+        },
+        {
+          "path": "xref-edakit.html",
+          "size": 834073,
+          "sha256": "dde3be1d925600584b5b006cb69790ca3228002e301d2d6f7fefb1138089aa8f"
+        },
+        {
+          "path": "localpycs\\pyimod01_archive.pyc",
+          "size": 4930,
+          "sha256": "95bc75fb1815443c6a51c4470dc254f44e2de2b66bb7dfd0c13541ff789c69e1"
+        },
+        {
+          "path": "localpycs\\pyimod02_importers.pyc",
+          "size": 31802,
+          "sha256": "cc024a23c19a0ec13491f67cc7bf4a33c6947439f965d3154b03d46708da0801"
+        },
+        {
+          "path": "localpycs\\pyimod03_ctypes.pyc",
+          "size": 6450,
+          "sha256": "e6017d5cef7ecb021c243170082978de1d699d1d0c27d2bd1ef221a9a169c69e"
+        },
+        {
+          "path": "localpycs\\pyimod04_pywin32.pyc",
+          "size": 1679,
+          "sha256": "8956b968293913eaeb67654b56b65a955a4fa06e6179579738c6a460b6e6debb"
+        },
+        {
+          "path": "localpycs\\struct.pyc",
+          "size": 305,
+          "sha256": "dc46cdfab7ea5bfd78e20ce81838a7a17666060827028564b0a2de0198aca964"
+        }
+      ]
+    },
+    {
+      "from": "build/edakit-cursor-fix-build.log",
+      "to": "build/archive/pre-cef-baseline-20261021/edakit-cursor-fix-build.log",
+      "files": [
+        {
+          "path": "edakit-cursor-fix-build.log",
+          "size": 8696,
+          "sha256": "6c61dd6b20d74378d1219553224ec8de6f87eef879b4ba3be8bfb8153287e3bd"
+        }
+      ]
+    },
+    {
+      "from": "build/edakit-embedded-ui-build.log",
+      "to": "build/archive/pre-cef-baseline-20261021/edakit-embedded-ui-build.log",
+      "files": [
+        {
+          "path": "edakit-embedded-ui-build.log",
+          "size": 8947,
+          "sha256": "037c839f4be8339c6b9159ff5f4a2deb23b8aa838347022c083ce31a03cd7a24"
+        }
+      ]
+    },
+    {
+      "from": "build/edakit-release-build.log",
+      "to": "build/archive/pre-cef-baseline-20261021/edakit-release-build.log",
+      "files": [
+        {
+          "path": "edakit-release-build.log",
+          "size": 8916,
+          "sha256": "f59b4c0661ae00d722f0e58a5f289694c61c1b82a7162a14163b455636c4ad63"
+        }
+      ]
+    },
+    {
+      "from": "build/localization",
+      "to": "build/archive/pre-cef-baseline-20261021/localization",
+      "files": [
+        {
+          "path": "edakit\\Analysis-00.toc",
+          "size": 107031,
+          "sha256": "ed08725828787a14df43a9066d61feb5a22f7ce7cece03b6c0d433015b221ec3"
+        },
+        {
+          "path": "edakit\\base_library.zip",
+          "size": 1409168,
+          "sha256": "59c2e60ed17ed71b87b7ef609c1c376c71fb0e802e1322c835cc2bc02f743d8c"
+        },
+        {
+          "path": "edakit\\edakit.pkg",
+          "size": 13087391,
+          "sha256": "fd062956dec9cd3513de997d8b42f40dd8c08e410f7f9dfaa4c9c59bee6686cb"
+        },
+        {
+          "path": "edakit\\EXE-00.toc",
+          "size": 18004,
+          "sha256": "28b950de2b309234ef482df5546cb4374ee19db732887139d747d143ce3329cb"
+        },
+        {
+          "path": "edakit\\PKG-00.toc",
+          "size": 16280,
+          "sha256": "10d33e5f15759b409fcf01fa9995a053bb7950ab9218a90258587b09cfefe408"
+        },
+        {
+          "path": "edakit\\PYZ-00.pyz",
+          "size": 4216691,
+          "sha256": "e39de783d4389f1b5c6718b11932821f44b26788c179a6e210756561d65e7cbb"
+        },
+        {
+          "path": "edakit\\PYZ-00.toc",
+          "size": 68907,
+          "sha256": "a29bbbdb7cdef9de6bae9e66e883af83e3d995d5e0b1ba72c95a75a70fd33b1e"
+        },
+        {
+          "path": "edakit\\warn-edakit.txt",
+          "size": 10539,
+          "sha256": "db820da934796b339c8f83d6aa932e00299a9386704b05600c5719503b521dd8"
+        },
+        {
+          "path": "edakit\\xref-edakit.html",
+          "size": 839928,
+          "sha256": "fe0174d04e8499dbf0bca3de6a710fb122037cdbf4c387abd14206379f99cb11"
+        },
+        {
+          "path": "edakit\\localpycs\\pyimod01_archive.pyc",
+          "size": 4930,
+          "sha256": "95bc75fb1815443c6a51c4470dc254f44e2de2b66bb7dfd0c13541ff789c69e1"
+        },
+        {
+          "path": "edakit\\localpycs\\pyimod02_importers.pyc",
+          "size": 31802,
+          "sha256": "cc024a23c19a0ec13491f67cc7bf4a33c6947439f965d3154b03d46708da0801"
+        },
+        {
+          "path": "edakit\\localpycs\\pyimod03_ctypes.pyc",
+          "size": 6450,
+          "sha256": "e6017d5cef7ecb021c243170082978de1d699d1d0c27d2bd1ef221a9a169c69e"
+        },
+        {
+          "path": "edakit\\localpycs\\pyimod04_pywin32.pyc",
+          "size": 1679,
+          "sha256": "8956b968293913eaeb67654b56b65a955a4fa06e6179579738c6a460b6e6debb"
+        },
+        {
+          "path": "edakit\\localpycs\\struct.pyc",
+          "size": 305,
+          "sha256": "dc46cdfab7ea5bfd78e20ce81838a7a17666060827028564b0a2de0198aca964"
+        }
+      ]
+    },
+    {
+      "from": "build/parameter-panel",
+      "to": "build/archive/pre-cef-baseline-20261021/parameter-panel",
+      "files": [
+        {
+          "path": "edakit\\Analysis-00.toc",
+          "size": 106924,
+          "sha256": "5dba53325cac5796eb9a90ca1d77e01233b0ac685c245ec29f9ec737fdc84ee6"
+        },
+        {
+          "path": "edakit\\base_library.zip",
+          "size": 1409168,
+          "sha256": "d9ea119840026ac588bd48aff9d664c995eb4cd85b5ba757cbaa1e6f5cc9aaa0"
+        },
+        {
+          "path": "edakit\\edakit.pkg",
+          "size": 13065824,
+          "sha256": "896b1a5c2837edae117f7d202c3bede99139926994f9039c74ffe7cc27d3b7a3"
+        },
+        {
+          "path": "edakit\\EXE-00.toc",
+          "size": 18031,
+          "sha256": "d7df99ea8be0d185077f269d1e34b6abe2f8ce8c7125da651661758533bfb04d"
+        },
+        {
+          "path": "edakit\\PKG-00.toc",
+          "size": 16304,
+          "sha256": "c4c6e3b6dd73ce41439cc0e1563e52378657e63801e927d2e5654921e642d8fd"
+        },
+        {
+          "path": "edakit\\PYZ-00.pyz",
+          "size": 4195414,
+          "sha256": "6fdebe1676659f4107b05ea4dd762de41162faacfcecb4a02a47a95e0d3c5d37"
+        },
+        {
+          "path": "edakit\\PYZ-00.toc",
+          "size": 68800,
+          "sha256": "d117fb5454552b6d9bd11cdbcf2bb4f018cecf9160bd929ddcb06d26ed0e9f11"
+        },
+        {
+          "path": "edakit\\warn-edakit.txt",
+          "size": 10539,
+          "sha256": "200a54e6082ee1869b3f8bfc0c73fefec02964baa41fe413090f088c839aa00d"
+        },
+        {
+          "path": "edakit\\xref-edakit.html",
+          "size": 838692,
+          "sha256": "573ab3d4468de9fd92ff188d0a05792d12ce28b10d10e93ae75fa35847bc8545"
+        },
+        {
+          "path": "edakit\\localpycs\\pyimod01_archive.pyc",
+          "size": 4930,
+          "sha256": "95bc75fb1815443c6a51c4470dc254f44e2de2b66bb7dfd0c13541ff789c69e1"
+        },
+        {
+          "path": "edakit\\localpycs\\pyimod02_importers.pyc",
+          "size": 31802,
+          "sha256": "cc024a23c19a0ec13491f67cc7bf4a33c6947439f965d3154b03d46708da0801"
+        },
+        {
+          "path": "edakit\\localpycs\\pyimod03_ctypes.pyc",
+          "size": 6450,
+          "sha256": "e6017d5cef7ecb021c243170082978de1d699d1d0c27d2bd1ef221a9a169c69e"
+        },
+        {
+          "path": "edakit\\localpycs\\pyimod04_pywin32.pyc",
+          "size": 1679,
+          "sha256": "8956b968293913eaeb67654b56b65a955a4fa06e6179579738c6a460b6e6debb"
+        },
+        {
+          "path": "edakit\\localpycs\\struct.pyc",
+          "size": 305,
+          "sha256": "dc46cdfab7ea5bfd78e20ce81838a7a17666060827028564b0a2de0198aca964"
+        }
+      ]
+    },
+    {
+      "from": "build/query-feedback",
+      "to": "build/archive/pre-cef-baseline-20261021/query-feedback",
+      "files": [
+        {
+          "path": "edakit\\Analysis-00.toc",
+          "size": 106711,
+          "sha256": "6127cc0bf6ae8904a49f17138bfd6e45a3584c679c23749ecfe2e8f8752741b7"
+        },
+        {
+          "path": "edakit\\base_library.zip",
+          "size": 1409168,
+          "sha256": "48f01dfc8a6fb38ff8e6130020ed81b9c2dd65a4c9f2f1644193093487146d2c"
+        },
+        {
+          "path": "edakit\\edakit.pkg",
+          "size": 13049227,
+          "sha256": "66a6378c1de972a9c6570ffd0352b640171400b2581c90e0a25cf5ca3f93f846"
+        },
+        {
+          "path": "edakit\\EXE-00.toc",
+          "size": 18022,
+          "sha256": "d964863d6fdd1caea4403a545e834a79eeb2e0563671d8a512260ec6a2761cc3"
+        },
+        {
+          "path": "edakit\\PKG-00.toc",
+          "size": 16296,
+          "sha256": "1261f006a95769f88be78e12bf1feaf6fd5980a9bd00b1c814ed9d72310118b1"
+        },
+        {
+          "path": "edakit\\PYZ-00.pyz",
+          "size": 4185265,
+          "sha256": "7206e3daf07bda2d225ca03aaf731292bbbbdd4a6e11e7ba9fb716c20cfb728d"
+        },
+        {
+          "path": "edakit\\PYZ-00.toc",
+          "size": 68587,
+          "sha256": "2262f69111ac58f3c76a7578ecae18e460e0d145fb9ed3bc332b98b71f032fbe"
+        },
+        {
+          "path": "edakit\\warn-edakit.txt",
+          "size": 10539,
+          "sha256": "db820da934796b339c8f83d6aa932e00299a9386704b05600c5719503b521dd8"
+        },
+        {
+          "path": "edakit\\xref-edakit.html",
+          "size": 836924,
+          "sha256": "70805daf17a726e086bcf93c31a19d077f56851642d93e9a70caff13a237672e"
+        },
+        {
+          "path": "edakit\\localpycs\\pyimod01_archive.pyc",
+          "size": 4930,
+          "sha256": "95bc75fb1815443c6a51c4470dc254f44e2de2b66bb7dfd0c13541ff789c69e1"
+        },
+        {
+          "path": "edakit\\localpycs\\pyimod02_importers.pyc",
+          "size": 31802,
+          "sha256": "cc024a23c19a0ec13491f67cc7bf4a33c6947439f965d3154b03d46708da0801"
+        },
+        {
+          "path": "edakit\\localpycs\\pyimod03_ctypes.pyc",
+          "size": 6450,
+          "sha256": "e6017d5cef7ecb021c243170082978de1d699d1d0c27d2bd1ef221a9a169c69e"
+        },
+        {
+          "path": "edakit\\localpycs\\pyimod04_pywin32.pyc",
+          "size": 1679,
+          "sha256": "8956b968293913eaeb67654b56b65a955a4fa06e6179579738c6a460b6e6debb"
+        },
+        {
+          "path": "edakit\\localpycs\\struct.pyc",
+          "size": 305,
+          "sha256": "dc46cdfab7ea5bfd78e20ce81838a7a17666060827028564b0a2de0198aca964"
+        }
+      ]
+    },
+    {
+      "from": "build/table-category",
+      "to": "build/archive/pre-cef-baseline-20261021/table-category",
+      "files": [
+        {
+          "path": "edakit\\Analysis-00.toc",
+          "size": 106605,
+          "sha256": "ddca112e629b23c940a406a122b14ab4ff08b5fc0d837dbda2adcf2c3150fd83"
+        },
+        {
+          "path": "edakit\\base_library.zip",
+          "size": 1409168,
+          "sha256": "94bcf7020b211b479a8a964880a90d6b85d62961751565d67afc219c3bbef727"
+        },
+        {
+          "path": "edakit\\edakit.pkg",
+          "size": 13031098,
+          "sha256": "e5801039d62437e5e7f0f322a882faf89fc23dda0a7587e2f9d39fddfa625e2f"
+        },
+        {
+          "path": "edakit\\EXE-00.toc",
+          "size": 18022,
+          "sha256": "f3d6efd914be061fabc2efb67a6c03108be3a572c6ce183ab094ca8d6cb95cc3"
+        },
+        {
+          "path": "edakit\\PKG-00.toc",
+          "size": 16296,
+          "sha256": "f348affa6d1e89ec36e606e59a8e96566e0267dc083cbc758aab77a97a1a8c93"
+        },
+        {
+          "path": "edakit\\PYZ-00.pyz",
+          "size": 4171101,
+          "sha256": "0ca73e51c7382f14849b2fa6609f6cf023f8c29e57e87e22579368a12d3621a9"
+        },
+        {
+          "path": "edakit\\PYZ-00.toc",
+          "size": 68481,
+          "sha256": "34140c4819784cfc06cbe0d729ec731f13950dacb379b40843ca106a3a5e12ce"
+        },
+        {
+          "path": "edakit\\warn-edakit.txt",
+          "size": 10539,
+          "sha256": "5b4d4c439fe72b9bbf4e8185d7f0cb92f99f1e180d9e19cbe91d30586ba6387b"
+        },
+        {
+          "path": "edakit\\xref-edakit.html",
+          "size": 834796,
+          "sha256": "b77970f0b7e269aa22ae1ad70b56e2b11d1e1cf2feca608745dbc707300b11b8"
+        },
+        {
+          "path": "edakit\\localpycs\\pyimod01_archive.pyc",
+          "size": 4930,
+          "sha256": "95bc75fb1815443c6a51c4470dc254f44e2de2b66bb7dfd0c13541ff789c69e1"
+        },
+        {
+          "path": "edakit\\localpycs\\pyimod02_importers.pyc",
+          "size": 31802,
+          "sha256": "cc024a23c19a0ec13491f67cc7bf4a33c6947439f965d3154b03d46708da0801"
+        },
+        {
+          "path": "edakit\\localpycs\\pyimod03_ctypes.pyc",
+          "size": 6450,
+          "sha256": "e6017d5cef7ecb021c243170082978de1d699d1d0c27d2bd1ef221a9a169c69e"
+        },
+        {
+          "path": "edakit\\localpycs\\pyimod04_pywin32.pyc",
+          "size": 1679,
+          "sha256": "8956b968293913eaeb67654b56b65a955a4fa06e6179579738c6a460b6e6debb"
+        },
+        {
+          "path": "edakit\\localpycs\\struct.pyc",
+          "size": 305,
+          "sha256": "dc46cdfab7ea5bfd78e20ce81838a7a17666060827028564b0a2de0198aca964"
+        }
+      ]
+    },
+    {
+      "from": "build/value-filter",
+      "to": "build/archive/pre-cef-baseline-20261021/value-filter",
+      "files": [
+        {
+          "path": "edakit\\Analysis-00.toc",
+          "size": 106815,
+          "sha256": "cbbb892dd272aaa70e7a133c8bdd7424de549fde92894c19cbc83b7050893273"
+        },
+        {
+          "path": "edakit\\base_library.zip",
+          "size": 1409168,
+          "sha256": "7541bf293d9647a1168b48608dc9442c0f9a3f32d7c97d456b4c575d4d90373e"
+        },
+        {
+          "path": "edakit\\edakit.pkg",
+          "size": 13052966,
+          "sha256": "30e1e69134d6c270c6c997be00ea2fd2919f70f9839cb38448548bb9ca5b41d0"
+        },
+        {
+          "path": "edakit\\EXE-00.toc",
+          "size": 18004,
+          "sha256": "025d56d3c3e7068d29323245f54a8f454f5d42d0ddcd7f852898bec45ed90e84"
+        },
+        {
+          "path": "edakit\\PKG-00.toc",
+          "size": 16280,
+          "sha256": "175f91b96ffd6301619b6bf64ccc13d65617690eda087c0460153c3559fa4a4e"
+        },
+        {
+          "path": "edakit\\PYZ-00.pyz",
+          "size": 4188675,
+          "sha256": "830bb59477c5c1ec9d4c74b54f71e2eb95519695a25755e3d7c724c1d56f80d1"
+        },
+        {
+          "path": "edakit\\PYZ-00.toc",
+          "size": 68691,
+          "sha256": "f5251277bd602f6dbf00c9c0ed619adf0ffc7da780ae042c103914767373b0e5"
+        },
+        {
+          "path": "edakit\\warn-edakit.txt",
+          "size": 10539,
+          "sha256": "db820da934796b339c8f83d6aa932e00299a9386704b05600c5719503b521dd8"
+        },
+        {
+          "path": "edakit\\xref-edakit.html",
+          "size": 837734,
+          "sha256": "bbb8b4a37e521e1411fb1d10b62ba49692d29c4d7bba4aaf6d431b489b2ba5bc"
+        },
+        {
+          "path": "edakit\\localpycs\\pyimod01_archive.pyc",
+          "size": 4930,
+          "sha256": "95bc75fb1815443c6a51c4470dc254f44e2de2b66bb7dfd0c13541ff789c69e1"
+        },
+        {
+          "path": "edakit\\localpycs\\pyimod02_importers.pyc",
+          "size": 31802,
+          "sha256": "cc024a23c19a0ec13491f67cc7bf4a33c6947439f965d3154b03d46708da0801"
+        },
+        {
+          "path": "edakit\\localpycs\\pyimod03_ctypes.pyc",
+          "size": 6450,
+          "sha256": "e6017d5cef7ecb021c243170082978de1d699d1d0c27d2bd1ef221a9a169c69e"
+        },
+        {
+          "path": "edakit\\localpycs\\pyimod04_pywin32.pyc",
+          "size": 1679,
+          "sha256": "8956b968293913eaeb67654b56b65a955a4fa06e6179579738c6a460b6e6debb"
+        },
+        {
+          "path": "edakit\\localpycs\\struct.pyc",
+          "size": 305,
+          "sha256": "dc46cdfab7ea5bfd78e20ce81838a7a17666060827028564b0a2de0198aca964"
+        }
+      ]
+    },
+    {
+      "from": "build/workbench",
+      "to": "build/archive/pre-cef-baseline-20261021/workbench",
+      "files": [
+        {
+          "path": "edakit\\Analysis-00.toc",
+          "size": 106918,
+          "sha256": "31fe88cf827e0b3462e5014405eeac55c9719bd4b65dcf56573bd90343640758"
+        },
+        {
+          "path": "edakit\\base_library.zip",
+          "size": 1409168,
+          "sha256": "1b9e6c005c11a246c12b13e247f16b66ca5cf6b6cfb3ab67644ba61dd3e56b36"
+        },
+        {
+          "path": "edakit\\edakit.pkg",
+          "size": 13065577,
+          "sha256": "a0ab03bfb842f9b09e83007b4ae7904b5c16be3de52ddba20e8b8606c38a781c"
+        },
+        {
+          "path": "edakit\\EXE-00.toc",
+          "size": 17977,
+          "sha256": "95094636e098c04b693b573a75f5631c1d45c9e9361904dac61a7d3d56eb6ac5"
+        },
+        {
+          "path": "edakit\\PKG-00.toc",
+          "size": 16256,
+          "sha256": "842a00858161d542dcd6951720afd1ef3fd56e0dcb0dc9f8ce593dfb009636cb"
+        },
+        {
+          "path": "edakit\\PYZ-00.pyz",
+          "size": 4195414,
+          "sha256": "6fdebe1676659f4107b05ea4dd762de41162faacfcecb4a02a47a95e0d3c5d37"
+        },
+        {
+          "path": "edakit\\PYZ-00.toc",
+          "size": 68794,
+          "sha256": "1417feb6a6f678b757820f6ed1be69d0a97040127a8c2855f575a1baf500ee1d"
+        },
+        {
+          "path": "edakit\\warn-edakit.txt",
+          "size": 10539,
+          "sha256": "db820da934796b339c8f83d6aa932e00299a9386704b05600c5719503b521dd8"
+        },
+        {
+          "path": "edakit\\xref-edakit.html",
+          "size": 838692,
+          "sha256": "573ab3d4468de9fd92ff188d0a05792d12ce28b10d10e93ae75fa35847bc8545"
+        },
+        {
+          "path": "edakit\\localpycs\\pyimod01_archive.pyc",
+          "size": 4930,
+          "sha256": "95bc75fb1815443c6a51c4470dc254f44e2de2b66bb7dfd0c13541ff789c69e1"
+        },
+        {
+          "path": "edakit\\localpycs\\pyimod02_importers.pyc",
+          "size": 31802,
+          "sha256": "cc024a23c19a0ec13491f67cc7bf4a33c6947439f965d3154b03d46708da0801"
+        },
+        {
+          "path": "edakit\\localpycs\\pyimod03_ctypes.pyc",
+          "size": 6450,
+          "sha256": "e6017d5cef7ecb021c243170082978de1d699d1d0c27d2bd1ef221a9a169c69e"
+        },
+        {
+          "path": "edakit\\localpycs\\pyimod04_pywin32.pyc",
+          "size": 1679,
+          "sha256": "8956b968293913eaeb67654b56b65a955a4fa06e6179579738c6a460b6e6debb"
+        },
+        {
+          "path": "edakit\\localpycs\\struct.pyc",
+          "size": 305,
+          "sha256": "dc46cdfab7ea5bfd78e20ce81838a7a17666060827028564b0a2de0198aca964"
+        }
+      ]
+    },
+    {
+      "from": "tools/diag/ceftest.html",
+      "to": "tools/diag/archive/pre-cef-baseline-20261021/ceftest.html",
+      "files": [
+        {
+          "path": "ceftest.html",
+          "size": 1842,
+          "sha256": "2d8e6a84119b0526304cdbbea1e421a967356f2c44c7df03c1d81b3162377e3a"
+        }
+      ]
+    },
+    {
+      "from": "tools/diag/lcsc2_cef_diag.tcl",
+      "to": "tools/diag/archive/pre-cef-baseline-20261021/lcsc2_cef_diag.tcl",
+      "files": [
+        {
+          "path": "lcsc2_cef_diag.tcl",
+          "size": 1881,
+          "sha256": "8c899929a4f4259c9a0b6e1c76052ea28a36077c003ef268d626c573b8341fa5"
+        }
+      ]
+    },
+    {
+      "from": "tools/diag/lcsc2_diag.tcl",
+      "to": "tools/diag/archive/pre-cef-baseline-20261021/lcsc2_diag.tcl",
+      "files": [
+        {
+          "path": "lcsc2_diag.tcl",
+          "size": 2150,
+          "sha256": "afb0a1c66b9c701545a9cf47203db135cca3fdf5cbce560b1b1da9a4a9a8de2e"
+        }
+      ]
+    },
+    {
+      "from": "tools/diag/lcsc2_embed_diag.tcl",
+      "to": "tools/diag/archive/pre-cef-baseline-20261021/lcsc2_embed_diag.tcl",
+      "files": [
+        {
+          "path": "lcsc2_embed_diag.tcl",
+          "size": 1592,
+          "sha256": "bf1c9a34143f8de4a6c3446bad1cb8024277e2d30cd049ca5c3ecfa3bab0cef8"
+        }
+      ]
+    },
+    {
+      "from": "tools/diag/lcsc2_menu_diag.tcl",
+      "to": "tools/diag/archive/pre-cef-baseline-20261021/lcsc2_menu_diag.tcl",
+      "files": [
+        {
+          "path": "lcsc2_menu_diag.tcl",
+          "size": 1313,
+          "sha256": "1575d192e89511c4d0ccb482b90604e3b1125e0f484ec760ce37785fa93b6098"
+        }
+      ]
+    },
+    {
+      "from": "tools/diag/lcsc2_place_diag.tcl",
+      "to": "tools/diag/archive/pre-cef-baseline-20261021/lcsc2_place_diag.tcl",
+      "files": [
+        {
+          "path": "lcsc2_place_diag.tcl",
+          "size": 876,
+          "sha256": "80305299e7c7c6c9410f29b9d6b8d5baa03b02972c9262e64f75f8886a9bf4ad"
+        }
+      ]
+    },
+    {
+      "from": "tools/diag/lcsc2_tab_diag.tcl",
+      "to": "tools/diag/archive/pre-cef-baseline-20261021/lcsc2_tab_diag.tcl",
+      "files": [
+        {
+          "path": "lcsc2_tab_diag.tcl",
+          "size": 1878,
+          "sha256": "b998654d15527a814890e77b38b5a46a34aff8184e7c3bb37f0a64ab3174a40c"
+        }
+      ]
+    },
+    {
+      "from": "tools/diag/lcsc_compare_diag.tcl",
+      "to": "tools/diag/archive/pre-cef-baseline-20261021/lcsc_compare_diag.tcl",
+      "files": [
+        {
+          "path": "lcsc_compare_diag.tcl",
+          "size": 1244,
+          "sha256": "9a15cfe7e2a800d2af6dc2501e09b952ee42cbac6f4dc49706a10ae3e2660d8e"
+        }
+      ]
+    },
+    {
+      "from": "tools/diag/lcsc_follow_test.tcl",
+      "to": "tools/diag/archive/pre-cef-baseline-20261021/lcsc_follow_test.tcl",
+      "files": [
+        {
+          "path": "lcsc_follow_test.tcl",
+          "size": 2159,
+          "sha256": "12131908466b8f6f492f4e936bec5a8aaf04e3ee1ef38e14b3ac43db35060f5d"
+        }
+      ]
+    },
+    {
+      "from": "tools/diag/lcsc_panel_test.tcl",
+      "to": "tools/diag/archive/pre-cef-baseline-20261021/lcsc_panel_test.tcl",
+      "files": [
+        {
+          "path": "lcsc_panel_test.tcl",
+          "size": 1179,
+          "sha256": "48e8d2079d6c33d5b3647ab20656012aaad94572689c199062a691d6a34b978a"
+        }
+      ]
+    },
+    {
+      "from": "tools/diag/lcsc_pinvariant_test.tcl",
+      "to": "tools/diag/archive/pre-cef-baseline-20261021/lcsc_pinvariant_test.tcl",
+      "files": [
+        {
+          "path": "lcsc_pinvariant_test.tcl",
+          "size": 1681,
+          "sha256": "0f41450d1687a13cc03edb372d46d1dae6cb604db6c1736807b8faa5a49e3016"
+        }
+      ]
+    },
+    {
+      "from": "tools/diag/lcsc_test_diag.tcl",
+      "to": "tools/diag/archive/pre-cef-baseline-20261021/lcsc_test_diag.tcl",
+      "files": [
+        {
+          "path": "lcsc_test_diag.tcl",
+          "size": 1999,
+          "sha256": "61fc1ac92330394e79aa35d7c9191e6958c305b9f0485adc61abcb603568426d"
+        }
+      ]
+    },
+    {
+      "from": "tools/diag/pin_variants",
+      "to": "tools/diag/archive/pre-cef-baseline-20261021/pin_variants",
+      "files": [
+        {
+          "path": "v1_cur.xml",
+          "size": 78407,
+          "sha256": "bbfefecc7b16806ef0d3ee869f0b549ea573624604aa24b9069fef50fd0f6a35"
+        },
+        {
+          "path": "v2_short_flag.xml",
+          "size": 78407,
+          "sha256": "ec7f439a447eb3e8c5c18ab94d0ad15a3874ce117a7861e4f014fcc4b5e1417e"
+        },
+        {
+          "path": "v3_len30.xml",
+          "size": 78364,
+          "sha256": "6776c1b16c45c859adfe41fd97f27355b4264b89ba0e3637558a8ff04aaf7471"
+        },
+        {
+          "path": "v4_len30_longflag.xml",
+          "size": 78364,
+          "sha256": "75056d99d64b01373f66a11b675f2ebe7d177fd6fa8a159ca2d7d38f1eb7f70b"
+        }
+      ]
+    },
+    {
+      "from": "tools/diag/RP2040_v12.olb.xml",
+      "to": "tools/diag/archive/pre-cef-baseline-20261021/RP2040_v12.olb.xml",
+      "files": [
+        {
+          "path": "RP2040_v12.olb.xml",
+          "size": 81628,
+          "sha256": "3011b688738b7895361672dc060d69fcca3aa90baa0eac0443c20c6357dd2b83"
+        }
+      ]
+    },
+    {
+      "from": "tools/diag/ua.html",
+      "to": "tools/diag/archive/pre-cef-baseline-20261021/ua.html",
+      "files": [
+        {
+          "path": "ua.html",
+          "size": 1460,
+          "sha256": "eb7bd92523b1548a651ccdb4e556a58ad4d4a37dc0466524ac459abfff5735d7"
+        }
+      ]
+    },
+    {
+      "from": "tools/diag/ua2.html",
+      "to": "tools/diag/archive/pre-cef-baseline-20261021/ua2.html",
+      "files": [
+        {
+          "path": "ua2.html",
+          "size": 2155,
+          "sha256": "237ae2837e7b5fcb365ec42a2570c9df337ffb135df1fc7d649d556c8f7b11d2"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,5 @@
+body{font:14px Arial,"Microsoft YaHei",sans-serif;color:#20394b;background:#f6f8fa;margin:22px;line-height:1.6}
+h1{font-size:22px}p{margin:14px 0}button,input{font:inherit;padding:7px 12px;border:1px solid #b8cbd5;background:white}
+button{background:#087f89;color:white;cursor:pointer}input{width:260px}pre{white-space:pre-wrap;word-wrap:break-word;background:white;border:1px solid #ccd8e0;padding:16px}
+#stylecheck{background:#e0f4e8;border-left:5px solid #168455;padding:10px}
+.flexcheck{display:flex;justify-content:space-between;background:#e5edf4;margin-top:12px;padding:8px}

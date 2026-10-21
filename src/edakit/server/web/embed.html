@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>EdaKit · 元件工作台</title>
+<link rel="stylesheet" type="text/css" href="/static/embed.css">
+</head>
+<body>
+<div id="top"><span class="brand">EdaKit</span><span class="subtitle">元件工作台</span><span id="st">正在连接…</span></div>
+<div id="searchbar"><label for="kw">搜索元件</label><input id="kw" type="text" value="" title="型号、厂家或 C 编号；阻值、容值、感值可与分类组合查询"><button id="btnsearch" class="primary" type="button">查询</button><button id="btnclear" type="button">重置</button><span id="searchhelp">选好条件，再查询 · 回车提交</span></div>
+<div id="sidebar"><div class="railtitle">电子器件分类 <button id="railclose" type="button" title="收起分类">‹</button></div><div id="navcats"></div><div class="railnote">同一属性多选为“或”<br>不同属性之间为“且”<br>结果与封装独立查看</div></div>
+<div id="filters">
+ <div id="categories" class="filterrow"><button id="railtoggle" type="button" title="显示或收起分类">分类</button><button id="categorypath" type="button" title="选择分类">全部分类</button><div id="categorychooser" style="display:none"><select id="cat" title="一级分类" disabled="disabled"><option value="0">正在加载分类…</option></select><select id="cat2" title="二级分类" disabled="disabled"><option value="0">全部二级分类</option></select><select id="cat3" title="三级分类" disabled="disabled"><option value="0">全部三级分类</option></select></div><button id="morefilters" type="button">更多参数 ↓</button></div>
+ <div id="facetplaceholder" style="display:none"></div><div id="facetarea"><div id="facetfields"></div><div id="facetextra" style="display:none"></div><div id="facetempty">选择分类或输入关键词，加载该范围的参数</div></div>
+ <div id="selectionbar"><span id="chipslabel">已选条件</span><span id="filterchips"></span><button id="clearparams" type="button">清空参数</button><span id="dirtyhint"></span></div>
+ <div id="filterstatus"><span id="filtermsg">选项范围：分类与关键词；点击查询应用全部条件</span><button id="facetretry" type="button" style="display:none">重新加载参数</button></div>
+ <select id="package" style="display:none"><option value="">全部封装</option></select>
+</div>
+<div id="workspace"><div id="splitter" role="separator" tabindex="0" aria-label="调整列表与详情比例" title="拖动调整列表与详情比例；方向键微调"></div>
+ <div id="results" class="panel"><div class="panelhead">搜索结果 <span id="resultcount"></span><button id="columnbutton" type="button" title="选择结果列">列设置</button></div><div id="columnmenu" style="display:none"><b>显示列</b><label><input type="checkbox" data-column="1" checked>厂商</label><label><input type="checkbox" data-column="2" checked>封装</label><label><input type="checkbox" data-column="3" checked>库存</label><label><input type="checkbox" data-column="4" checked>价格</label><label><input type="checkbox" data-column="5">说明</label></div>
+  <div id="resultscope" title="">尚未查询</div><div id="queryerror" style="display:none"><span id="queryerrortext"></span><button id="queryretry" type="button">重试</button></div>
+  <div id="listhead"><table class="list" id="listheadtable"><colgroup><col width="33%"><col width="23%"><col width="24%"><col width="10%"><col width="10%"><col class="descriptioncol" width="0"></colgroup><thead><tr class="hd"><th>型号 / 编号</th><th>厂家</th><th>封装</th><th>库存</th><th>单价</th><th>描述</th></tr></thead></table></div>
+  <div id="listbox"><table class="list" id="list"><colgroup><col width="33%"><col width="23%"><col width="24%"><col width="10%"><col width="10%"><col class="descriptioncol" width="0"></colgroup><tbody id="rows"></tbody></table><div id="empty">先设置筛选条件，再点击“查询”<br><span>结果中单击预览，双击放置</span></div></div>
+  <div id="searchwait" style="display:none"><div class="skeletonrow"></div><div class="skeletonrow"></div><div class="skeletonrow"></div><div class="waitcard"><div id="searchwaittext">正在查询元件，请稍候…</div><div class="waitsub">筛选条件已锁定，可继续编辑下一次查询</div><button id="cancelquery" type="button">取消本次查询</button></div></div>
+  <div id="pg"><button id="prev" type="button">上一页</button><span id="pinfo">第 1 页</span><button id="next" type="button">下一页</button><select id="pagesize" title="每页显示数量"><option value="30">每页 30 条</option><option value="50" selected="selected">每页 50 条</option><option value="100">每页 100 条</option></select></div>
+ </div>
+ <div id="detail" class="panel"><div class="panelhead">元件详情 <button id="backresults" type="button">返回结果</button></div>
+  <div id="detailinfo"><div id="dname">请选择一个元件</div><div id="selectedcid"></div><div id="prop">从左侧结果中选择元件，查看符号与封装。</div></div><div id="detailactions"><button id="btnplace" class="primary" type="button" title="默认跟随光标，切回原理图单击落位" disabled="disabled">放置到原理图</button><a id="datasheet" class="datalink" target="_blank" rel="noopener noreferrer" style="display:none">数据手册 ↗</a><span id="nodatasheet" class="muted">选择元件后查看手册</span><div id="pmsg"></div></div>
+  <div id="previewbar"><button id="tabsymbol" class="tab" type="button">原理图符号</button><button id="tabfootprint" class="tab active" type="button">PCB 封装</button><button id="tab3d" class="tab" type="button" disabled="disabled">3D 模型</button><span id="geometry"></span></div>
+  <div id="zoomtools"><button id="zoomout" type="button" title="缩小">−</button><span id="zoomlabel">100%</span><button id="zoomin" type="button" title="放大">＋</button><button id="zoomfit" type="button">适应窗口</button><button id="zoomfull" type="button">大图查看</button><span id="orbittools" style="display:none"><button id="rotateleft" type="button" title="向左旋转">↶</button><button id="rotateright" type="button" title="向右旋转">↷</button><button id="rotatetop" type="button" title="切换俯视角度">俯仰</button></span></div>
+  <div id="previewport" class="viewport"><div id="previewcanvas" class="previewcanvas"><img id="previewimg" alt="元件预览" style="display:none"></div><div id="previewempty" class="previewempty">封装预览将显示在这里</div></div>
+  <div class="previewhint" id="previewhint">滚轮缩放 · 按住鼠标拖动 · 双击预览打开大图</div>
+ </div>
+</div>
+<div id="statusbar"><span id="workstate" style="display:none">处理中</span><span id="msg" role="status" aria-live="polite">选择条件后点击“查询”</span><span class="statushint">单击预览 · 双击放置</span></div>
+<div id="allparammask" style="display:none"></div>
+<div id="allparams" style="display:none" role="dialog" aria-label="全部筛选参数"><div id="allparamhead"><b>全部筛选参数</b><button id="allparamclose" type="button">关闭</button><div>同一属性多选为“或”，不同属性为“且”；完成选择后再查询。</div></div><div id="allparambody"></div><div id="allparamfoot"><span id="allparamcount"></span><button id="allparamdone" type="button">完成选择</button><button id="allparamquery" class="primary" type="button">应用并查询</button></div></div>
+<div id="facetpopup" style="display:none"><div class="pickerhead"><b id="pickertitle"></b><button id="pickerclose" type="button">完成</button></div><input id="pickersearch" type="text" title="查找当前属性选项" placeholder="查找选项"><div id="pickeroptions"></div><div class="pickerfooter"><button id="pickerclear" type="button">清除此属性</button><span id="pickercount"></span></div></div>
+<div id="largeview" style="display:none"><div id="largehead"><span id="largetitle">封装预览</span><button id="largeclose" type="button">关闭大图（Esc）</button></div><div id="largetools"><button id="largeout" type="button">− 缩小</button><span id="largezoomlabel">100%</span><button id="largein" type="button">＋ 放大</button><button id="largefit" type="button">适应窗口</button><span id="largeorbit" style="display:none"><button id="largeleft" type="button">↶</button><button id="largeright" type="button">↷</button><button id="largetop" type="button">俯仰</button></span><span id="largehint">滚轮缩放 · 按住鼠标拖动</span></div><div id="largeport" class="viewport"><div id="largecanvas" class="previewcanvas"><img id="largeimg" alt="元件大图预览"></div><div id="largeempty" class="previewempty" style="display:none"></div></div></div>
+<script type="text/javascript" src="/static/embed.js"></script>
+</body>
+</html>
