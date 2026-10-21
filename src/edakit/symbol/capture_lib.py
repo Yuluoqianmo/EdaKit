@@ -54,9 +54,7 @@
   连接点 + length × (cosθ, sinθ)，θ = `pin.orientation_deg`。
 
 == 还没摸清、先用保守默认值的 ==
-  * `type` 引脚电气类型编码：参考件用的是 `4`。Capture 里手放引脚默认是 Passive，
-    所以 **4 = Passive** 是最可信的解释，其余按 0=Input 1=Output 2=Bidirectional
-    3=TriState 5=Power 推。真机看一眼引脚类型就能定。
+  * `type` 使用下方已校准的 PortType 映射，Power=7。
   * `Text` 等其余图元：结构没采到样，默认不生成（`include_text=False`）。
     元件名靠 PartValue 显示，位号靠 Reference 显示，不影响辨识。
 """
@@ -65,6 +63,9 @@ from __future__ import annotations
 
 import re
 import time
+import copy
+import math
+from collections import Counter
 from pathlib import Path
 from xml.sax.saxutils import escape, quoteattr
 
@@ -117,6 +118,66 @@ _PIN_BOOLS = (
 def u(mm: float) -> int:
     """mm → Capture 符号单位（整数）。"""
     return int(round(mm / CAPTURE_UNIT_MM))
+
+
+def normalize_capture_symbol(source: Symbol) -> Symbol:
+    """Prepare a copy for Capture: unique signal names and 100 mil hotpoints.
+
+    Source electrical types and physical numbers remain authoritative. Do not
+    infer Power from a name such as VDD. Labels consume the same prepared copy.
+    """
+    sym = copy.deepcopy(source)
+    counts = Counter(p.name.casefold() for p in sym.pins)
+    reserved = {p.name.casefold() for p in sym.pins}
+    serials = Counter()
+    def order(pin):
+        return (0, int(pin.number)) if pin.number.isdigit() else (1, pin.number)
+    for pin in sorted(sym.pins, key=order):
+        key = pin.name.casefold()
+        if counts[key] <= 1 or pin.electrical_type.lower() == 'power':
+            continue
+        while True:
+            serials[key] += 1
+            name = f'{pin.name}{serials[key]}'
+            if name.casefold() not in reserved:
+                break
+        pin.name = name
+        reserved.add(name.casefold())
+
+    def snap(value):
+        return 10 * math.floor(value / 10 + 0.5)
+
+    groups = {}
+    for pin in sym.pins:
+        angle = pin.orientation_deg % 360
+        if angle not in (0, 90, 180, 270):
+            raise ValueError('Capture 格点对齐暂不支持非正交引脚。')
+        horizontal = angle in (0, 180)
+        fixed = u(pin.x_mm if horizontal else pin.y_mm)
+        groups.setdefault((angle, fixed), []).append(pin)
+    for (angle, fixed), pins in groups.items():
+        horizontal = angle in (0, 180)
+        values = sorted({u(p.y_mm if horizontal else p.x_mm) for p in pins})
+        mapped = []
+        for value in values:
+            mapped.append(max(snap(value), mapped[-1] + 10) if mapped else snap(value))
+        shift = snap(sum(a-b for a, b in zip(values, mapped)) / len(values))
+        mapping = {a: b + shift for a, b in zip(values, mapped)}
+        for pin in pins:
+            old_fixed = pin.x_mm if horizontal else pin.y_mm
+            direction = 1 if angle in (0, 90) else -1
+            body = old_fixed + direction * pin.length_mm
+            # Move the connection end outward so snapping cannot shorten the
+            # visible lead or move it into the body.
+            new_fixed = (10 * (math.floor(fixed / 10) if direction == 1
+                               else math.ceil(fixed / 10))) * CAPTURE_UNIT_MM
+            new_length = direction * (body - new_fixed)
+            if new_length < -1e-8:
+                raise ValueError(f'引脚 {pin.number} 长度不足以对齐 Capture 格点。')
+            variable = mapping[u(pin.y_mm if horizontal else pin.x_mm)] * CAPTURE_UNIT_MM
+            pin.x_mm, pin.y_mm = ((new_fixed, variable) if horizontal else (variable, new_fixed))
+            pin.length_mm = max(0.0, new_length)
+    return sym
 
 
 def default_values_block() -> str:
@@ -615,6 +676,7 @@ def generate_package_xml(
     （TESTEN/GND 跑到顶上、电源脚挤到底部）。这里对引脚、矩形、文字、BBox
     和位号/值的位置统一翻转，别再只翻引脚。
     """
+    sym = normalize_capture_symbol(sym)
     prefix = (refdes_prefix or sym.prefix or "U").rstrip("?")
 
     # 引脚名==编号 → 名字是冗余的（电阻、排针、连接器都这样），隐藏掉，

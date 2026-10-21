@@ -1,0 +1,2370 @@
+{
+  "date": "2026-10-21",
+  "backup": "E:\\outputs\\backups\\edakit-pcb-plan-20261021",
+  "retained_exe_sha256": {
+    "E:\\outputs\\edakit\\dist\\edakit.exe": "c3bfa7984f939cbe5f0d2967347f5562847f9050647eebe35f349459d0b6603f",
+    "E:\\outputs\\edakit\\dist\\edakit-cli.exe": "d39a54ba6694aa620d30cdf39d48eda62549337b5bd50a63ae5fad9a8132fe25"
+  },
+  "removed_pytest_cache_files": 5,
+  "moved_entries": 42,
+  "files": [
+    {
+      "from": "E:\\outputs\\edakit\\dist\\architecture-hardening\\edakit-cli.exe",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\dist\\architecture-hardening\\edakit-cli.exe",
+      "size": 13545313,
+      "sha256": "65e05a17489e9f7193d948728f6dfe20fa7429cb5113bd52d67f8fa7a28f5a68"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\dist\\architecture-hardening\\edakit.exe",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\dist\\architecture-hardening\\edakit.exe",
+      "size": 13541793,
+      "sha256": "46d710a420356125311fe0488b1d88d56b5af574ea1f20b94daded3d6b3d37f5"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\dist\\architecture-hardening\\SHA256.json",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\dist\\architecture-hardening\\SHA256.json",
+      "size": 490,
+      "sha256": "222892b09124f57da88d302cb9599bef72b98d07683c5a43ff47f3c39c5e2f72"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\dist\\archive\\pre-cef-baseline-20261021\\catalog-3d\\edakit.exe",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\dist\\archive\\pre-cef-baseline-20261021\\catalog-3d\\edakit.exe",
+      "size": 13420355,
+      "sha256": "23b64428d7e44a402b114f3f081e609766a1ed484936fc5cf678fa7099b6fd98"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\dist\\archive\\pre-cef-baseline-20261021\\cef-integration\\edakit.exe",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\dist\\archive\\pre-cef-baseline-20261021\\cef-integration\\edakit.exe",
+      "size": 13461640,
+      "sha256": "ff82f9ab8d1f494eb5590be21a6f7b5d63f507e50ef235358559a9eaf94a53e1"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\dist\\archive\\pre-cef-baseline-20261021\\cursor-fix\\edakit.exe",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\dist\\archive\\pre-cef-baseline-20261021\\cursor-fix\\edakit.exe",
+      "size": 12336976,
+      "sha256": "8849c3cd5912cbc0d9f8c8fed83da74123deb846a5683ce0acb3e664c07a3a88"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\dist\\archive\\pre-cef-baseline-20261021\\edakit.before-catalog-3d.exe",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\dist\\archive\\pre-cef-baseline-20261021\\edakit.before-catalog-3d.exe",
+      "size": 13402733,
+      "sha256": "f56c3c239f2b145dd2bdcdeb60d113358df3dbc37eb91a23c9aca2b88e7d4990"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\dist\\archive\\pre-cef-baseline-20261021\\edakit.before-localization-20261020.exe",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\dist\\archive\\pre-cef-baseline-20261021\\edakit.before-localization-20261020.exe",
+      "size": 13439072,
+      "sha256": "c9de7acb8f8e1b37c461905dc51c61c5bbc76df651c52e234b69a69a10a70aa8"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\dist\\archive\\pre-cef-baseline-20261021\\edakit.before-parameter-panel-20261020.exe",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\dist\\archive\\pre-cef-baseline-20261021\\edakit.before-parameter-panel-20261020.exe",
+      "size": 13438825,
+      "sha256": "869e66b9bab3fc0fa4b4bd4a2529256a594c16e23f698cb22230fc27363ec87d"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\dist\\archive\\pre-cef-baseline-20261021\\edakit.before-query-feedback.exe",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\dist\\archive\\pre-cef-baseline-20261021\\edakit.before-query-feedback.exe",
+      "size": 13422475,
+      "sha256": "6289da1591658da40955e3c480ea823880ca4390d5984d02e9bc418535e1cc69"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\dist\\archive\\pre-cef-baseline-20261021\\edakit.before-value-filter.exe",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\dist\\archive\\pre-cef-baseline-20261021\\edakit.before-value-filter.exe",
+      "size": 13422475,
+      "sha256": "6289da1591658da40955e3c480ea823880ca4390d5984d02e9bc418535e1cc69"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\dist\\archive\\pre-cef-baseline-20261021\\edakit.before-workbench-20261020.exe",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\dist\\archive\\pre-cef-baseline-20261021\\edakit.before-workbench-20261020.exe",
+      "size": 13426214,
+      "sha256": "4cd883c977e8bf0566624865ae718f06046f9f215674d5888087c5bcf0c353c1"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\dist\\archive\\pre-cef-baseline-20261021\\embedded-ui\\edakit.exe",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\dist\\archive\\pre-cef-baseline-20261021\\embedded-ui\\edakit.exe",
+      "size": 13402733,
+      "sha256": "f56c3c239f2b145dd2bdcdeb60d113358df3dbc37eb91a23c9aca2b88e7d4990"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\dist\\archive\\pre-cef-baseline-20261021\\localization\\edakit.exe",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\dist\\archive\\pre-cef-baseline-20261021\\localization\\edakit.exe",
+      "size": 13460639,
+      "sha256": "f9a50b596805c4861478cc8e8c7a0ea05401088f97d2b41b4310998c5a42591e"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\dist\\archive\\pre-cef-baseline-20261021\\parameter-panel\\edakit.exe",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\dist\\archive\\pre-cef-baseline-20261021\\parameter-panel\\edakit.exe",
+      "size": 13439072,
+      "sha256": "c9de7acb8f8e1b37c461905dc51c61c5bbc76df651c52e234b69a69a10a70aa8"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\dist\\archive\\pre-cef-baseline-20261021\\query-feedback\\edakit.exe",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\dist\\archive\\pre-cef-baseline-20261021\\query-feedback\\edakit.exe",
+      "size": 13422475,
+      "sha256": "6289da1591658da40955e3c480ea823880ca4390d5984d02e9bc418535e1cc69"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\dist\\archive\\pre-cef-baseline-20261021\\table-category\\edakit.exe",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\dist\\archive\\pre-cef-baseline-20261021\\table-category\\edakit.exe",
+      "size": 13404346,
+      "sha256": "ea6fb488556b17af78a5ae0eab409a2bbadd628a452c74a87a4877f784775f65"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\dist\\archive\\pre-cef-baseline-20261021\\value-filter\\edakit.exe",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\dist\\archive\\pre-cef-baseline-20261021\\value-filter\\edakit.exe",
+      "size": 13426214,
+      "sha256": "4cd883c977e8bf0566624865ae718f06046f9f215674d5888087c5bcf0c353c1"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\dist\\archive\\pre-cef-baseline-20261021\\workbench\\edakit.exe",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\dist\\archive\\pre-cef-baseline-20261021\\workbench\\edakit.exe",
+      "size": 13438825,
+      "sha256": "869e66b9bab3fc0fa4b4bd4a2529256a594c16e23f698cb22230fc27363ec87d"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\dist\\background-runtime\\edakit-cli.exe",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\dist\\background-runtime\\edakit-cli.exe",
+      "size": 13461706,
+      "sha256": "b18da48876ab6a712c8e1d475c645dc062d47c5bace4c248c9b04255347659f2"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\dist\\background-runtime\\edakit.exe",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\dist\\background-runtime\\edakit.exe",
+      "size": 13458186,
+      "sha256": "56f90d3199f7fc20d5ba091af8bc5d2d3ba9f67c0744f0c2f547b1af78c747b4"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\dist\\capacitor-switch-fix\\edakit-cli.exe",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\dist\\capacitor-switch-fix\\edakit-cli.exe",
+      "size": 13551000,
+      "sha256": "8227f63fe551c8e407c58f278bad31f25f31d050a9e1b38ff1e9b21db262f625"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\dist\\capacitor-switch-fix\\edakit.exe",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\dist\\capacitor-switch-fix\\edakit.exe",
+      "size": 13547480,
+      "sha256": "f94239a9bdb91c3508a30a4aeb61a91bb9bea566b9bd61af43f7f8a1327da6e0"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\dist\\capacitor-switch-fix\\SHA256.json",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\dist\\capacitor-switch-fix\\SHA256.json",
+      "size": 351,
+      "sha256": "90fe3b04ab6364a33192f3a45682d0a2cefbcc5cedb4cdd3188d5a49e0943c89"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\dist\\cef-preview-label\\edakit.exe",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\dist\\cef-preview-label\\edakit.exe",
+      "size": 13459887,
+      "sha256": "6836903c8932e889153d7f4e339eab6bdfd989921a6747f57950879526c4af65"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\dist\\edakit-cli.before-lifecycle-menu-20261021.exe",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\dist\\edakit-cli.before-lifecycle-menu-20261021.exe",
+      "size": 13468107,
+      "sha256": "19c10cc426a3f578bf294a70179b0cb355aceadf8874173665ef152062549951"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\dist\\edakit-cli.before-part-name-fix-20261021.exe",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\dist\\edakit-cli.before-part-name-fix-20261021.exe",
+      "size": 13468023,
+      "sha256": "06ab135a59013cf4a5607ebbb3b36fc631997126b48ab2552b40eb6455f9c4cf"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\dist\\edakit-cli.before-quiet-status-20261021.exe",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\dist\\edakit-cli.before-quiet-status-20261021.exe",
+      "size": 13461706,
+      "sha256": "b18da48876ab6a712c8e1d475c645dc062d47c5bace4c248c9b04255347659f2"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\dist\\edakit-cli.before-workbench-v2-20261021.exe",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\dist\\edakit-cli.before-workbench-v2-20261021.exe",
+      "size": 13461594,
+      "sha256": "87c43de3bba277eaf464c57112add2d2aead3e2c40ab89d66859dfd12d9c9ece"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\dist\\edakit-cli.exe.before-symbol-properties-20261021-134945",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\dist\\edakit-cli.exe.before-symbol-properties-20261021-134945",
+      "size": 13552115,
+      "sha256": "033e156af3b1da115b30283de94596edf42b54c6f966c33d76dd392394e63c34"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\dist\\edakit.before-background-runtime-20261021.exe",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\dist\\edakit.before-background-runtime-20261021.exe",
+      "size": 13459887,
+      "sha256": "6836903c8932e889153d7f4e339eab6bdfd989921a6747f57950879526c4af65"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\dist\\edakit.before-cef-integration-20261021.exe",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\dist\\edakit.before-cef-integration-20261021.exe",
+      "size": 13460639,
+      "sha256": "f9a50b596805c4861478cc8e8c7a0ea05401088f97d2b41b4310998c5a42591e"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\dist\\edakit.before-lifecycle-menu-20261021.exe",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\dist\\edakit.before-lifecycle-menu-20261021.exe",
+      "size": 13464587,
+      "sha256": "0fabed93ee51d25a354b8892019aefb785051b92c7a915c0576d2c52e2f4b8e1"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\dist\\edakit.before-part-name-fix-20261021.exe",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\dist\\edakit.before-part-name-fix-20261021.exe",
+      "size": 13464503,
+      "sha256": "ad99b876bf9fe2eb0d2c03609a1d75a34204639c321bad99c18f1794d9b354a6"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\dist\\edakit.before-preview-label-20261021.exe",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\dist\\edakit.before-preview-label-20261021.exe",
+      "size": 13461640,
+      "sha256": "ff82f9ab8d1f494eb5590be21a6f7b5d63f507e50ef235358559a9eaf94a53e1"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\dist\\edakit.before-quiet-status-20261021.exe",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\dist\\edakit.before-quiet-status-20261021.exe",
+      "size": 13458186,
+      "sha256": "56f90d3199f7fc20d5ba091af8bc5d2d3ba9f67c0744f0c2f547b1af78c747b4"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\dist\\edakit.before-workbench-v2-20261021.exe",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\dist\\edakit.before-workbench-v2-20261021.exe",
+      "size": 13458074,
+      "sha256": "8140bf013802afbab0a5448bb339019d7b5a3b3f816d96025b8e5232ce49d293"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\dist\\edakit.exe.before-symbol-properties-20261021-134945",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\dist\\edakit.exe.before-symbol-properties-20261021-134945",
+      "size": 13548595,
+      "sha256": "afa38fed6832ea3eca2dbc2411f36c2a09ce9d715d4c76df88db58a25684e817"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\dist\\lifecycle-menu\\edakit-cli.exe",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\dist\\lifecycle-menu\\edakit-cli.exe",
+      "size": 13474502,
+      "sha256": "656e9be4d1bd4095c68bf84518f22d26ed1947bf4c2bb6af3051bce8931fbc46"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\dist\\lifecycle-menu\\edakit.exe",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\dist\\lifecycle-menu\\edakit.exe",
+      "size": 13470982,
+      "sha256": "47a9bbb12a3c0ef362c03e05ea053120047b7c71e8a87b75b773b2de07ac9e61"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\dist\\part-name-fix\\edakit-cli.exe",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\dist\\part-name-fix\\edakit-cli.exe",
+      "size": 13468107,
+      "sha256": "19c10cc426a3f578bf294a70179b0cb355aceadf8874173665ef152062549951"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\dist\\part-name-fix\\edakit.exe",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\dist\\part-name-fix\\edakit.exe",
+      "size": 13464587,
+      "sha256": "0fabed93ee51d25a354b8892019aefb785051b92c7a915c0576d2c52e2f4b8e1"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\dist\\placement-properties\\edakit-cli.exe",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\dist\\placement-properties\\edakit-cli.exe",
+      "size": 13552115,
+      "sha256": "033e156af3b1da115b30283de94596edf42b54c6f966c33d76dd392394e63c34"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\dist\\placement-properties\\edakit.exe",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\dist\\placement-properties\\edakit.exe",
+      "size": 13548595,
+      "sha256": "afa38fed6832ea3eca2dbc2411f36c2a09ce9d715d4c76df88db58a25684e817"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\dist\\placement-properties\\SHA256.json",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\dist\\placement-properties\\SHA256.json",
+      "size": 177,
+      "sha256": "588fdf92e815b81e899b8aa65d3b651cc003646f4d91ef3fcaf56a0d20888ded"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\dist\\placement-reuse\\edakit-cli.exe",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\dist\\placement-reuse\\edakit-cli.exe",
+      "size": 13548769,
+      "sha256": "8ebce300c33286e98647d235fec4628bcaf315052e1db34f8c5a82807d2e86d7"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\dist\\placement-reuse\\edakit.exe",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\dist\\placement-reuse\\edakit.exe",
+      "size": 13545249,
+      "sha256": "8418af75d0eb4b9191afb3b6226f6c359f2f319ba4e165ff3717118829a8452f"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\dist\\placement-reuse\\SHA256.json",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\dist\\placement-reuse\\SHA256.json",
+      "size": 262,
+      "sha256": "ad2c9fcd4ff0e6850a15d73ab1ea1080f4949196e86e86b18259504e0e9ddb7d"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\dist\\quiet-status\\edakit-cli.exe",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\dist\\quiet-status\\edakit-cli.exe",
+      "size": 13461594,
+      "sha256": "87c43de3bba277eaf464c57112add2d2aead3e2c40ab89d66859dfd12d9c9ece"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\dist\\quiet-status\\edakit.exe",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\dist\\quiet-status\\edakit.exe",
+      "size": 13458074,
+      "sha256": "8140bf013802afbab0a5448bb339019d7b5a3b3f816d96025b8e5232ce49d293"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\dist\\rollback-before-architecture\\config.json",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\dist\\rollback-before-architecture\\config.json",
+      "size": 411,
+      "sha256": "abd66e7b9cdcf4619b4f5f513ebb6ace30b0e1d0d650c80ca540b7fc0a3bfd8c"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\dist\\rollback-before-architecture\\edakit-cli.exe",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\dist\\rollback-before-architecture\\edakit-cli.exe",
+      "size": 13474502,
+      "sha256": "656e9be4d1bd4095c68bf84518f22d26ed1947bf4c2bb6af3051bce8931fbc46"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\dist\\rollback-before-architecture\\edakit.exe",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\dist\\rollback-before-architecture\\edakit.exe",
+      "size": 13470982,
+      "sha256": "47a9bbb12a3c0ef362c03e05ea053120047b7c71e8a87b75b773b2de07ac9e61"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\dist\\rollback-before-architecture\\edakit.tcl",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\dist\\rollback-before-architecture\\edakit.tcl",
+      "size": 34999,
+      "sha256": "5b20b89a81b5a5ca9fac669b5f219fe23de7a1b8ab84a122fbf5c3dc640286f8"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\dist\\rollback-before-architecture\\edakitInit.tcl",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\dist\\rollback-before-architecture\\edakitInit.tcl",
+      "size": 731,
+      "sha256": "1b57e4146cf8d3f6faf54e5d320fd6b4ecab42cdafa987d0c93f692cdb539d97"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\dist\\rollback-before-architecture\\exe_path.txt",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\dist\\rollback-before-architecture\\exe_path.txt",
+      "size": 33,
+      "sha256": "04edab9030a993222b808d6bcdfa2853ee565edfd3a72b488aaf2b4184f00ce8"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\dist\\rollback-before-capacitor-switch-fix\\config.json",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\dist\\rollback-before-capacitor-switch-fix\\config.json",
+      "size": 411,
+      "sha256": "abd66e7b9cdcf4619b4f5f513ebb6ace30b0e1d0d650c80ca540b7fc0a3bfd8c"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\dist\\rollback-before-capacitor-switch-fix\\edakit-cli.exe",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\dist\\rollback-before-capacitor-switch-fix\\edakit-cli.exe",
+      "size": 13548769,
+      "sha256": "8ebce300c33286e98647d235fec4628bcaf315052e1db34f8c5a82807d2e86d7"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\dist\\rollback-before-capacitor-switch-fix\\edakit.exe",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\dist\\rollback-before-capacitor-switch-fix\\edakit.exe",
+      "size": 13545249,
+      "sha256": "8418af75d0eb4b9191afb3b6226f6c359f2f319ba4e165ff3717118829a8452f"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\dist\\rollback-before-capacitor-switch-fix\\exe_path.txt",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\dist\\rollback-before-capacitor-switch-fix\\exe_path.txt",
+      "size": 33,
+      "sha256": "04edab9030a993222b808d6bcdfa2853ee565edfd3a72b488aaf2b4184f00ce8"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\dist\\rollback-before-capacitor-switch-fix\\installed-edakit.tcl",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\dist\\rollback-before-capacitor-switch-fix\\installed-edakit.tcl",
+      "size": 44079,
+      "sha256": "ad469dca52b49849fbc54f7c81a9600b7cfed0b34ff4cfe3a7f63bc8da36e03e"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\dist\\rollback-before-capacitor-switch-fix\\installed-edakitInit.tcl",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\dist\\rollback-before-capacitor-switch-fix\\installed-edakitInit.tcl",
+      "size": 731,
+      "sha256": "1b57e4146cf8d3f6faf54e5d320fd6b4ecab42cdafa987d0c93f692cdb539d97"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\dist\\rollback-before-capacitor-switch-fix\\manifest.json",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\dist\\rollback-before-capacitor-switch-fix\\manifest.json",
+      "size": 1860,
+      "sha256": "76bf802fab4d358f71db31e6a85ea3dabc60ebd03a87e1eae82855ce744cdf69"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\dist\\rollback-before-capacitor-switch-fix\\manual-edakit.tcl",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\dist\\rollback-before-capacitor-switch-fix\\manual-edakit.tcl",
+      "size": 44079,
+      "sha256": "ad469dca52b49849fbc54f7c81a9600b7cfed0b34ff4cfe3a7f63bc8da36e03e"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\dist\\rollback-before-capacitor-switch-fix\\manual-edakitInit.tcl",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\dist\\rollback-before-capacitor-switch-fix\\manual-edakitInit.tcl",
+      "size": 731,
+      "sha256": "1b57e4146cf8d3f6faf54e5d320fd6b4ecab42cdafa987d0c93f692cdb539d97"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\dist\\rollback-before-capacitor-switch-fix\\previous-project-handoff.md",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\dist\\rollback-before-capacitor-switch-fix\\previous-project-handoff.md",
+      "size": 7990,
+      "sha256": "15c8c5b469c731f02287e4780024925dcaad81d0a7a7b779b7ac3f73106da46c"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\dist\\rollback-before-capacitor-switch-fix\\previous-root-handoff.md",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\dist\\rollback-before-capacitor-switch-fix\\previous-root-handoff.md",
+      "size": 1664,
+      "sha256": "ac9bc14a1702c0ca95a1f3ecf3b2932a1bd5e068820d43485c7e66eeb8a97f9d"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\dist\\rollback-before-placement-properties\\dist\\edakit-cli.exe",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\dist\\rollback-before-placement-properties\\dist\\edakit-cli.exe",
+      "size": 13551834,
+      "sha256": "285089f05b1d1b909b43879c124c9577df5972408d4afdd520c8883408c9fddf"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\dist\\rollback-before-placement-properties\\dist\\edakit.exe",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\dist\\rollback-before-placement-properties\\dist\\edakit.exe",
+      "size": 13548314,
+      "sha256": "62d7139fcd2a051b56af538cef483339557c7e6e277ba96e44cf834002a84d05"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\dist\\rollback-before-placement-properties\\dist\\README.md",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\dist\\rollback-before-placement-properties\\dist\\README.md",
+      "size": 1411,
+      "sha256": "5762a75d41fba5400ffcdb49e7892bb7fb6a1a0e92a8c585591372467e2a92a0"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\dist\\rollback-before-placement-properties\\docs\\README.md",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\dist\\rollback-before-placement-properties\\docs\\README.md",
+      "size": 2778,
+      "sha256": "654497b2ac75b320938d5a17dc567762fd22a1a5e394337c72372e0b8b025851"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\dist\\rollback-before-placement-properties\\docs\\项目交接.md",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\dist\\rollback-before-placement-properties\\docs\\项目交接.md",
+      "size": 5415,
+      "sha256": "8c2d6deb99360338ae8a2e7e8bbab23aefb5cf347d7ae31f7eb4acd590f42a4f"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\dist\\rollback-before-placement-properties\\manifest.json",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\dist\\rollback-before-placement-properties\\manifest.json",
+      "size": 1644,
+      "sha256": "58c97e2b36da48e4fe39e27f0e61dd432ee7515c4b653596d2ad55dc34e6461f"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\dist\\rollback-before-placement-properties\\README.md",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\dist\\rollback-before-placement-properties\\README.md",
+      "size": 4780,
+      "sha256": "ab0e173beda3002f97e0cd0df22865ee2d7c91b3edac13608ef90104b4dc21a2"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\dist\\rollback-before-placement-properties\\src\\edakit\\pipeline.py",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\dist\\rollback-before-placement-properties\\src\\edakit\\pipeline.py",
+      "size": 9480,
+      "sha256": "128dedf65194956e754f731ebd384c5d12cc79d1dff8b77074f2ae4f9b0cc451"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\dist\\rollback-before-placement-properties\\src\\edakit\\symbol\\capture_lib.py",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\dist\\rollback-before-placement-properties\\src\\edakit\\symbol\\capture_lib.py",
+      "size": 38500,
+      "sha256": "8e0775e5c223f6020931902824bc6e31b609bd9ebd0d8828bbb54084b897ee13"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\dist\\rollback-before-placement-properties\\src\\edakit\\symbol\\prepared.py",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\dist\\rollback-before-placement-properties\\src\\edakit\\symbol\\prepared.py",
+      "size": 1041,
+      "sha256": "f31f14e0f04fb4bd7283a94189d8d14ec2b2d35af50d4f367064e3ed1c8f2ff6"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\dist\\rollback-before-placement-properties\\tests\\test_architecture.py",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\dist\\rollback-before-placement-properties\\tests\\test_architecture.py",
+      "size": 11057,
+      "sha256": "18600b0ce372b32511193250b9cf5f2ad1199d483485268f75260595f363686f"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\dist\\rollback-before-placement-properties\\tests\\test_capacitor_capture.py",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\dist\\rollback-before-placement-properties\\tests\\test_capacitor_capture.py",
+      "size": 2952,
+      "sha256": "27914a94425fb62d9c6d997cde28af8886541458727e90450cc8f4df9d77fa87"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\dist\\rollback-before-placement-properties\\tests\\test_capture_lib.py",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\dist\\rollback-before-placement-properties\\tests\\test_capture_lib.py",
+      "size": 24754,
+      "sha256": "b4dba4dc287ba7df6a8a81474e371f9c30b0be7deabaa31fa12cd36b4dd5249e"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\dist\\rollback-before-placement-properties\\tests\\test_pipeline.py",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\dist\\rollback-before-placement-properties\\tests\\test_pipeline.py",
+      "size": 5842,
+      "sha256": "94f4c05deffc3900e1153e4ebde1608ba61900eb9a09f333b4301c030230fac7"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\dist\\rollback-before-placement-properties\\tests\\test_placement_reuse.py",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\dist\\rollback-before-placement-properties\\tests\\test_placement_reuse.py",
+      "size": 9969,
+      "sha256": "28eb00d92b3dbce747a1df2550b0fa4d29f24da9f5677f901d1c1d0b0cf9c8bb"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\dist\\rollback-before-placement-properties\\tests\\test_server.py",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\dist\\rollback-before-placement-properties\\tests\\test_server.py",
+      "size": 17937,
+      "sha256": "7801bf576a9f073c5d6c12a2029064a805c0d65ea852056a5cfa652dea3c0fcb"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\dist\\rollback-before-placement-properties\\交接文档.md",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\dist\\rollback-before-placement-properties\\交接文档.md",
+      "size": 991,
+      "sha256": "8bf673e14633aabca1b78bd0ceb4f14a766a61c10ae8d513fbf28b5de20274c9"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\dist\\rollback-before-placement-reuse\\config.json",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\dist\\rollback-before-placement-reuse\\config.json",
+      "size": 411,
+      "sha256": "abd66e7b9cdcf4619b4f5f513ebb6ace30b0e1d0d650c80ca540b7fc0a3bfd8c"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\dist\\rollback-before-placement-reuse\\edakit-cli.exe",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\dist\\rollback-before-placement-reuse\\edakit-cli.exe",
+      "size": 13545313,
+      "sha256": "65e05a17489e9f7193d948728f6dfe20fa7429cb5113bd52d67f8fa7a28f5a68"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\dist\\rollback-before-placement-reuse\\edakit.exe",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\dist\\rollback-before-placement-reuse\\edakit.exe",
+      "size": 13541793,
+      "sha256": "46d710a420356125311fe0488b1d88d56b5af574ea1f20b94daded3d6b3d37f5"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\dist\\rollback-before-placement-reuse\\edakit.tcl",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\dist\\rollback-before-placement-reuse\\edakit.tcl",
+      "size": 38246,
+      "sha256": "bcd119db9b7a4fbe6266de3bdf073296eab3704d208f7ce9fa98d6077edb267f"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\dist\\rollback-before-placement-reuse\\edakitInit.tcl",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\dist\\rollback-before-placement-reuse\\edakitInit.tcl",
+      "size": 731,
+      "sha256": "1b57e4146cf8d3f6faf54e5d320fd6b4ecab42cdafa987d0c93f692cdb539d97"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\dist\\rollback-before-placement-reuse\\exe_path.txt",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\dist\\rollback-before-placement-reuse\\exe_path.txt",
+      "size": 33,
+      "sha256": "04edab9030a993222b808d6bcdfa2853ee565edfd3a72b488aaf2b4184f00ce8"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\dist\\rollback-before-ui-polish\\dist\\edakit-cli.exe",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\dist\\rollback-before-ui-polish\\dist\\edakit-cli.exe",
+      "size": 13551000,
+      "sha256": "8227f63fe551c8e407c58f278bad31f25f31d050a9e1b38ff1e9b21db262f625"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\dist\\rollback-before-ui-polish\\dist\\edakit.exe",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\dist\\rollback-before-ui-polish\\dist\\edakit.exe",
+      "size": 13547480,
+      "sha256": "f94239a9bdb91c3508a30a4aeb61a91bb9bea566b9bd61af43f7f8a1327da6e0"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\dist\\rollback-before-ui-polish\\dist\\README.md",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\dist\\rollback-before-ui-polish\\dist\\README.md",
+      "size": 920,
+      "sha256": "bbaadc95e681a123f2c41557dd0948f84872889a66d203122a84b527e7e95460"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\dist\\rollback-before-ui-polish\\docs\\README.md",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\dist\\rollback-before-ui-polish\\docs\\README.md",
+      "size": 2678,
+      "sha256": "e2875d11d8edb947fd5dfb684a5763b354c7d000ef00d4e4eeffa52f9289132a"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\dist\\rollback-before-ui-polish\\docs\\项目交接.md",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\dist\\rollback-before-ui-polish\\docs\\项目交接.md",
+      "size": 4242,
+      "sha256": "359313d20d00f8138872f6e73d2259c88c0f852eec53dba9d8400a859ffff8ce"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\dist\\rollback-before-ui-polish\\frontend\\01-foundation.css",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\dist\\rollback-before-ui-polish\\frontend\\01-foundation.css",
+      "size": 12556,
+      "sha256": "65c21eabefa50c5409c226f95e0af67d9f7712152e30d5af11e504e6b5f515ee"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\dist\\rollback-before-ui-polish\\frontend\\02-workbench.css",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\dist\\rollback-before-ui-polish\\frontend\\02-workbench.css",
+      "size": 7852,
+      "sha256": "2a6aefc94086ecdeb781705cd4589322fb3123daa29a1f0d9577591de6a489ac"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\dist\\rollback-before-ui-polish\\manifest.json",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\dist\\rollback-before-ui-polish\\manifest.json",
+      "size": 2225,
+      "sha256": "994dabfe29e86fae696065cb6d07d11bc5a786a860e677a4c6f92b1dd39b6bcb"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\dist\\rollback-before-ui-polish\\README.md",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\dist\\rollback-before-ui-polish\\README.md",
+      "size": 4780,
+      "sha256": "44daa5af85de866febc1626590572380105dc31aab92ac679450191fcac0dab8"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\dist\\rollback-before-ui-polish\\src\\edakit\\server\\web\\embed.css",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\dist\\rollback-before-ui-polish\\src\\edakit\\server\\web\\embed.css",
+      "size": 20431,
+      "sha256": "d2877add76775b30ca5f391fbe574468105c383705ce4b6fa6516fce03cd0d8b"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\dist\\rollback-before-ui-polish\\交接文档.md",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\dist\\rollback-before-ui-polish\\交接文档.md",
+      "size": 877,
+      "sha256": "76caf13238c65a9a8015a36381341feb0f31e8c67380ea65c76f8570e00efa11"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\dist\\ui-typography-states\\edakit-cli.exe",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\dist\\ui-typography-states\\edakit-cli.exe",
+      "size": 13551834,
+      "sha256": "285089f05b1d1b909b43879c124c9577df5972408d4afdd520c8883408c9fddf"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\dist\\ui-typography-states\\edakit.exe",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\dist\\ui-typography-states\\edakit.exe",
+      "size": 13548314,
+      "sha256": "62d7139fcd2a051b56af538cef483339557c7e6e277ba96e44cf834002a84d05"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\dist\\ui-typography-states\\SHA256.json",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\dist\\ui-typography-states\\SHA256.json",
+      "size": 177,
+      "sha256": "683b79a53db6246e0919b0a918ed709902e0198fd0531fae033735ed7c238a0e"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\dist\\workbench-v2\\edakit-cli.exe",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\dist\\workbench-v2\\edakit-cli.exe",
+      "size": 13468023,
+      "sha256": "06ab135a59013cf4a5607ebbb3b36fc631997126b48ab2552b40eb6455f9c4cf"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\dist\\workbench-v2\\edakit.exe",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\dist\\workbench-v2\\edakit.exe",
+      "size": 13464503,
+      "sha256": "ad99b876bf9fe2eb0d2c03609a1d75a34204639c321bad99c18f1794d9b354a6"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\architecture-hardening\\edakit\\Analysis-00.toc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\architecture-hardening\\edakit\\Analysis-00.toc",
+      "size": 108978,
+      "sha256": "0ea86abac8d3a76e628197f42a2e6fe383b2b82ca82841d125bd42de740559bb"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\architecture-hardening\\edakit\\base_library.zip",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\architecture-hardening\\edakit\\base_library.zip",
+      "size": 1409168,
+      "sha256": "df5fd64db3ec1511e1b1ba4f825e3eb2034ec3f3d0977d74d3f5ef0e0edd4d76"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\architecture-hardening\\edakit\\edakit-cli.pkg",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\architecture-hardening\\edakit\\edakit-cli.pkg",
+      "size": 13172065,
+      "sha256": "497285a5c418f9cb96764e12dd31e0e8a768418979326fc46530c3e35a766711"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\architecture-hardening\\edakit\\edakit.pkg",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\architecture-hardening\\edakit\\edakit.pkg",
+      "size": 13172129,
+      "sha256": "8dbb6d1000a620d5a18c6b2f4ed0a6a99b566a44b61c4509e7aea8d7d8618873"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\architecture-hardening\\edakit\\EXE-00.toc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\architecture-hardening\\edakit\\EXE-00.toc",
+      "size": 18151,
+      "sha256": "cabf7076d546de76f0854686116cb4d2b01714e95c2d2895e042b38798568a38"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\architecture-hardening\\edakit\\EXE-01.toc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\architecture-hardening\\edakit\\EXE-01.toc",
+      "size": 18102,
+      "sha256": "55b82a3be03377269d641d9b4d22156b5aff1ebc3fe694c0cbeac94666a325ec"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\architecture-hardening\\edakit\\localpycs\\pyimod01_archive.pyc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\architecture-hardening\\edakit\\localpycs\\pyimod01_archive.pyc",
+      "size": 4930,
+      "sha256": "95bc75fb1815443c6a51c4470dc254f44e2de2b66bb7dfd0c13541ff789c69e1"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\architecture-hardening\\edakit\\localpycs\\pyimod02_importers.pyc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\architecture-hardening\\edakit\\localpycs\\pyimod02_importers.pyc",
+      "size": 31802,
+      "sha256": "cc024a23c19a0ec13491f67cc7bf4a33c6947439f965d3154b03d46708da0801"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\architecture-hardening\\edakit\\localpycs\\pyimod03_ctypes.pyc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\architecture-hardening\\edakit\\localpycs\\pyimod03_ctypes.pyc",
+      "size": 6450,
+      "sha256": "e6017d5cef7ecb021c243170082978de1d699d1d0c27d2bd1ef221a9a169c69e"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\architecture-hardening\\edakit\\localpycs\\pyimod04_pywin32.pyc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\architecture-hardening\\edakit\\localpycs\\pyimod04_pywin32.pyc",
+      "size": 1679,
+      "sha256": "8956b968293913eaeb67654b56b65a955a4fa06e6179579738c6a460b6e6debb"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\architecture-hardening\\edakit\\localpycs\\struct.pyc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\architecture-hardening\\edakit\\localpycs\\struct.pyc",
+      "size": 305,
+      "sha256": "dc46cdfab7ea5bfd78e20ce81838a7a17666060827028564b0a2de0198aca964"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\architecture-hardening\\edakit\\PKG-00.toc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\architecture-hardening\\edakit\\PKG-00.toc",
+      "size": 16413,
+      "sha256": "dcd471b6b0048e746d296f801479e03ca695fd6bf4a0f1cea5db5d02e2081d20"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\architecture-hardening\\edakit\\PKG-01.toc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\architecture-hardening\\edakit\\PKG-01.toc",
+      "size": 16364,
+      "sha256": "0f97e375e2215dd9cae1d33789c87f152c2b69a7ac7b3c9d56c56f241bb5a173"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\architecture-hardening\\edakit\\PYZ-00.pyz",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\architecture-hardening\\edakit\\PYZ-00.pyz",
+      "size": 4297199,
+      "sha256": "34f4daea87475ba4d1b8fea0d238a386d8831f334814e3c9df2175cd6af7f87b"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\architecture-hardening\\edakit\\PYZ-00.toc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\architecture-hardening\\edakit\\PYZ-00.toc",
+      "size": 70854,
+      "sha256": "155c9d9225183aff3501107a1a166a6de3f60d19eaf90a929c179abc3c31cd63"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\architecture-hardening\\edakit\\warn-edakit.txt",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\architecture-hardening\\edakit\\warn-edakit.txt",
+      "size": 10748,
+      "sha256": "d9046fec2b691e761b9f5e8629120274b6e69b62f527fe692d230545b73978fe"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\architecture-hardening\\edakit\\xref-edakit.html",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\architecture-hardening\\edakit\\xref-edakit.html",
+      "size": 862307,
+      "sha256": "21dc20c2a4a8a00c9be21d281d44a70b53dcdb88dee16b2d9a6510484c08302e"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\archive\\pre-cef-baseline-20261021\\catalog-3d\\edakit\\Analysis-00.toc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\archive\\pre-cef-baseline-20261021\\catalog-3d\\edakit\\Analysis-00.toc",
+      "size": 106707,
+      "sha256": "ce43fec9b34288afab0abc014d55aaa181f6548a799be84ca6adfc93d739408e"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\archive\\pre-cef-baseline-20261021\\catalog-3d\\edakit\\base_library.zip",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\archive\\pre-cef-baseline-20261021\\catalog-3d\\edakit\\base_library.zip",
+      "size": 1409168,
+      "sha256": "6f771735f42a00db6c508cf2ee4b8d1e62db0a0aa18dbfd742728fabf6cb6106"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\archive\\pre-cef-baseline-20261021\\catalog-3d\\edakit\\edakit.pkg",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\archive\\pre-cef-baseline-20261021\\catalog-3d\\edakit\\edakit.pkg",
+      "size": 13047107,
+      "sha256": "d5953dfd5291bc945e649c6a65592427c469e2d1e57c3ecb38a3770814195cae"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\archive\\pre-cef-baseline-20261021\\catalog-3d\\edakit\\EXE-00.toc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\archive\\pre-cef-baseline-20261021\\catalog-3d\\edakit\\EXE-00.toc",
+      "size": 17986,
+      "sha256": "fbe73c03538e42a441656616564ccd22aac4b0109d29da2136b67c78b4b7e32e"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\archive\\pre-cef-baseline-20261021\\catalog-3d\\edakit\\localpycs\\pyimod01_archive.pyc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\archive\\pre-cef-baseline-20261021\\catalog-3d\\edakit\\localpycs\\pyimod01_archive.pyc",
+      "size": 4930,
+      "sha256": "95bc75fb1815443c6a51c4470dc254f44e2de2b66bb7dfd0c13541ff789c69e1"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\archive\\pre-cef-baseline-20261021\\catalog-3d\\edakit\\localpycs\\pyimod02_importers.pyc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\archive\\pre-cef-baseline-20261021\\catalog-3d\\edakit\\localpycs\\pyimod02_importers.pyc",
+      "size": 31802,
+      "sha256": "cc024a23c19a0ec13491f67cc7bf4a33c6947439f965d3154b03d46708da0801"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\archive\\pre-cef-baseline-20261021\\catalog-3d\\edakit\\localpycs\\pyimod03_ctypes.pyc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\archive\\pre-cef-baseline-20261021\\catalog-3d\\edakit\\localpycs\\pyimod03_ctypes.pyc",
+      "size": 6450,
+      "sha256": "e6017d5cef7ecb021c243170082978de1d699d1d0c27d2bd1ef221a9a169c69e"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\archive\\pre-cef-baseline-20261021\\catalog-3d\\edakit\\localpycs\\pyimod04_pywin32.pyc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\archive\\pre-cef-baseline-20261021\\catalog-3d\\edakit\\localpycs\\pyimod04_pywin32.pyc",
+      "size": 1679,
+      "sha256": "8956b968293913eaeb67654b56b65a955a4fa06e6179579738c6a460b6e6debb"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\archive\\pre-cef-baseline-20261021\\catalog-3d\\edakit\\localpycs\\struct.pyc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\archive\\pre-cef-baseline-20261021\\catalog-3d\\edakit\\localpycs\\struct.pyc",
+      "size": 305,
+      "sha256": "dc46cdfab7ea5bfd78e20ce81838a7a17666060827028564b0a2de0198aca964"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\archive\\pre-cef-baseline-20261021\\catalog-3d\\edakit\\PKG-00.toc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\archive\\pre-cef-baseline-20261021\\catalog-3d\\edakit\\PKG-00.toc",
+      "size": 16264,
+      "sha256": "293dd06780d561f8a9716b4890bc0d205da8f47ac0007ad08f46345bf4be4ae8"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\archive\\pre-cef-baseline-20261021\\catalog-3d\\edakit\\PYZ-00.pyz",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\archive\\pre-cef-baseline-20261021\\catalog-3d\\edakit\\PYZ-00.pyz",
+      "size": 4185265,
+      "sha256": "7206e3daf07bda2d225ca03aaf731292bbbbdd4a6e11e7ba9fb716c20cfb728d"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\archive\\pre-cef-baseline-20261021\\catalog-3d\\edakit\\PYZ-00.toc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\archive\\pre-cef-baseline-20261021\\catalog-3d\\edakit\\PYZ-00.toc",
+      "size": 68583,
+      "sha256": "494c45f98bfe130b21adcd5a8e6aef74d26573b3b6f7133678079040e2416c84"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\archive\\pre-cef-baseline-20261021\\catalog-3d\\edakit\\warn-edakit.txt",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\archive\\pre-cef-baseline-20261021\\catalog-3d\\edakit\\warn-edakit.txt",
+      "size": 10539,
+      "sha256": "fdaa0244017c2d29ff3f15dad66a5ef2489bf79b3b684c6b27b7b5d66cf3b7c2"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\archive\\pre-cef-baseline-20261021\\catalog-3d\\edakit\\xref-edakit.html",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\archive\\pre-cef-baseline-20261021\\catalog-3d\\edakit\\xref-edakit.html",
+      "size": 836924,
+      "sha256": "70805daf17a726e086bcf93c31a19d077f56851642d93e9a70caff13a237672e"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\archive\\pre-cef-baseline-20261021\\edakit\\Analysis-00.toc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\archive\\pre-cef-baseline-20261021\\edakit\\Analysis-00.toc",
+      "size": 106485,
+      "sha256": "01dfbd2722c533e4047aaaa53d69b890e29493fa7d234559cbdf76f5174bfbe2"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\archive\\pre-cef-baseline-20261021\\edakit\\base_library.zip",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\archive\\pre-cef-baseline-20261021\\edakit\\base_library.zip",
+      "size": 1409168,
+      "sha256": "3a8e91e363b31f53351038100c54870564c49d138f0d10385791055dd3251d94"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\archive\\pre-cef-baseline-20261021\\edakit\\edakit.pkg",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\archive\\pre-cef-baseline-20261021\\edakit\\edakit.pkg",
+      "size": 13029485,
+      "sha256": "15dbacf4c01f39048208ca70108511485042f24ddf65a5c9333b790a122aefe0"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\archive\\pre-cef-baseline-20261021\\edakit\\EXE-00.toc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\archive\\pre-cef-baseline-20261021\\edakit\\EXE-00.toc",
+      "size": 17883,
+      "sha256": "115ddd491fe8d087732559ddf8b6cf885dc5540b18ce87c27481223abe1dfc9f"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\archive\\pre-cef-baseline-20261021\\edakit\\localpycs\\pyimod01_archive.pyc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\archive\\pre-cef-baseline-20261021\\edakit\\localpycs\\pyimod01_archive.pyc",
+      "size": 4930,
+      "sha256": "95bc75fb1815443c6a51c4470dc254f44e2de2b66bb7dfd0c13541ff789c69e1"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\archive\\pre-cef-baseline-20261021\\edakit\\localpycs\\pyimod02_importers.pyc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\archive\\pre-cef-baseline-20261021\\edakit\\localpycs\\pyimod02_importers.pyc",
+      "size": 31802,
+      "sha256": "cc024a23c19a0ec13491f67cc7bf4a33c6947439f965d3154b03d46708da0801"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\archive\\pre-cef-baseline-20261021\\edakit\\localpycs\\pyimod03_ctypes.pyc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\archive\\pre-cef-baseline-20261021\\edakit\\localpycs\\pyimod03_ctypes.pyc",
+      "size": 6450,
+      "sha256": "e6017d5cef7ecb021c243170082978de1d699d1d0c27d2bd1ef221a9a169c69e"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\archive\\pre-cef-baseline-20261021\\edakit\\localpycs\\pyimod04_pywin32.pyc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\archive\\pre-cef-baseline-20261021\\edakit\\localpycs\\pyimod04_pywin32.pyc",
+      "size": 1679,
+      "sha256": "8956b968293913eaeb67654b56b65a955a4fa06e6179579738c6a460b6e6debb"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\archive\\pre-cef-baseline-20261021\\edakit\\localpycs\\struct.pyc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\archive\\pre-cef-baseline-20261021\\edakit\\localpycs\\struct.pyc",
+      "size": 305,
+      "sha256": "dc46cdfab7ea5bfd78e20ce81838a7a17666060827028564b0a2de0198aca964"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\archive\\pre-cef-baseline-20261021\\edakit\\PKG-00.toc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\archive\\pre-cef-baseline-20261021\\edakit\\PKG-00.toc",
+      "size": 16160,
+      "sha256": "b17eff0eaa4112bc951cfa21cd7bdf428c812f1a6b18a86d9d91e1f3acd8e5d9"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\archive\\pre-cef-baseline-20261021\\edakit\\PYZ-00.pyz",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\archive\\pre-cef-baseline-20261021\\edakit\\PYZ-00.pyz",
+      "size": 4170195,
+      "sha256": "aae0d866251896a5ac0fc1ea8feb43fef280dbaaf842d7e4f5ab6374b36fc605"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\archive\\pre-cef-baseline-20261021\\edakit\\PYZ-00.toc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\archive\\pre-cef-baseline-20261021\\edakit\\PYZ-00.toc",
+      "size": 68361,
+      "sha256": "30da7c2937846c829a057f5dfaecac93fef67fcb6e3fcce840488410df40fe7d"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\archive\\pre-cef-baseline-20261021\\edakit\\warn-edakit.txt",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\archive\\pre-cef-baseline-20261021\\edakit\\warn-edakit.txt",
+      "size": 10539,
+      "sha256": "db820da934796b339c8f83d6aa932e00299a9386704b05600c5719503b521dd8"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\archive\\pre-cef-baseline-20261021\\edakit\\xref-edakit.html",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\archive\\pre-cef-baseline-20261021\\edakit\\xref-edakit.html",
+      "size": 834073,
+      "sha256": "dde3be1d925600584b5b006cb69790ca3228002e301d2d6f7fefb1138089aa8f"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\archive\\pre-cef-baseline-20261021\\edakit-cursor-fix-build.log",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\archive\\pre-cef-baseline-20261021\\edakit-cursor-fix-build.log",
+      "size": 8696,
+      "sha256": "6c61dd6b20d74378d1219553224ec8de6f87eef879b4ba3be8bfb8153287e3bd"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\archive\\pre-cef-baseline-20261021\\edakit-embedded-ui-build.log",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\archive\\pre-cef-baseline-20261021\\edakit-embedded-ui-build.log",
+      "size": 8947,
+      "sha256": "037c839f4be8339c6b9159ff5f4a2deb23b8aa838347022c083ce31a03cd7a24"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\archive\\pre-cef-baseline-20261021\\edakit-release-build.log",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\archive\\pre-cef-baseline-20261021\\edakit-release-build.log",
+      "size": 8916,
+      "sha256": "f59b4c0661ae00d722f0e58a5f289694c61c1b82a7162a14163b455636c4ad63"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\archive\\pre-cef-baseline-20261021\\localization\\edakit\\Analysis-00.toc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\archive\\pre-cef-baseline-20261021\\localization\\edakit\\Analysis-00.toc",
+      "size": 107031,
+      "sha256": "ed08725828787a14df43a9066d61feb5a22f7ce7cece03b6c0d433015b221ec3"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\archive\\pre-cef-baseline-20261021\\localization\\edakit\\base_library.zip",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\archive\\pre-cef-baseline-20261021\\localization\\edakit\\base_library.zip",
+      "size": 1409168,
+      "sha256": "59c2e60ed17ed71b87b7ef609c1c376c71fb0e802e1322c835cc2bc02f743d8c"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\archive\\pre-cef-baseline-20261021\\localization\\edakit\\edakit.pkg",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\archive\\pre-cef-baseline-20261021\\localization\\edakit\\edakit.pkg",
+      "size": 13087391,
+      "sha256": "fd062956dec9cd3513de997d8b42f40dd8c08e410f7f9dfaa4c9c59bee6686cb"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\archive\\pre-cef-baseline-20261021\\localization\\edakit\\EXE-00.toc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\archive\\pre-cef-baseline-20261021\\localization\\edakit\\EXE-00.toc",
+      "size": 18004,
+      "sha256": "28b950de2b309234ef482df5546cb4374ee19db732887139d747d143ce3329cb"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\archive\\pre-cef-baseline-20261021\\localization\\edakit\\localpycs\\pyimod01_archive.pyc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\archive\\pre-cef-baseline-20261021\\localization\\edakit\\localpycs\\pyimod01_archive.pyc",
+      "size": 4930,
+      "sha256": "95bc75fb1815443c6a51c4470dc254f44e2de2b66bb7dfd0c13541ff789c69e1"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\archive\\pre-cef-baseline-20261021\\localization\\edakit\\localpycs\\pyimod02_importers.pyc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\archive\\pre-cef-baseline-20261021\\localization\\edakit\\localpycs\\pyimod02_importers.pyc",
+      "size": 31802,
+      "sha256": "cc024a23c19a0ec13491f67cc7bf4a33c6947439f965d3154b03d46708da0801"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\archive\\pre-cef-baseline-20261021\\localization\\edakit\\localpycs\\pyimod03_ctypes.pyc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\archive\\pre-cef-baseline-20261021\\localization\\edakit\\localpycs\\pyimod03_ctypes.pyc",
+      "size": 6450,
+      "sha256": "e6017d5cef7ecb021c243170082978de1d699d1d0c27d2bd1ef221a9a169c69e"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\archive\\pre-cef-baseline-20261021\\localization\\edakit\\localpycs\\pyimod04_pywin32.pyc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\archive\\pre-cef-baseline-20261021\\localization\\edakit\\localpycs\\pyimod04_pywin32.pyc",
+      "size": 1679,
+      "sha256": "8956b968293913eaeb67654b56b65a955a4fa06e6179579738c6a460b6e6debb"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\archive\\pre-cef-baseline-20261021\\localization\\edakit\\localpycs\\struct.pyc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\archive\\pre-cef-baseline-20261021\\localization\\edakit\\localpycs\\struct.pyc",
+      "size": 305,
+      "sha256": "dc46cdfab7ea5bfd78e20ce81838a7a17666060827028564b0a2de0198aca964"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\archive\\pre-cef-baseline-20261021\\localization\\edakit\\PKG-00.toc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\archive\\pre-cef-baseline-20261021\\localization\\edakit\\PKG-00.toc",
+      "size": 16280,
+      "sha256": "10d33e5f15759b409fcf01fa9995a053bb7950ab9218a90258587b09cfefe408"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\archive\\pre-cef-baseline-20261021\\localization\\edakit\\PYZ-00.pyz",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\archive\\pre-cef-baseline-20261021\\localization\\edakit\\PYZ-00.pyz",
+      "size": 4216691,
+      "sha256": "e39de783d4389f1b5c6718b11932821f44b26788c179a6e210756561d65e7cbb"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\archive\\pre-cef-baseline-20261021\\localization\\edakit\\PYZ-00.toc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\archive\\pre-cef-baseline-20261021\\localization\\edakit\\PYZ-00.toc",
+      "size": 68907,
+      "sha256": "a29bbbdb7cdef9de6bae9e66e883af83e3d995d5e0b1ba72c95a75a70fd33b1e"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\archive\\pre-cef-baseline-20261021\\localization\\edakit\\warn-edakit.txt",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\archive\\pre-cef-baseline-20261021\\localization\\edakit\\warn-edakit.txt",
+      "size": 10539,
+      "sha256": "db820da934796b339c8f83d6aa932e00299a9386704b05600c5719503b521dd8"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\archive\\pre-cef-baseline-20261021\\localization\\edakit\\xref-edakit.html",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\archive\\pre-cef-baseline-20261021\\localization\\edakit\\xref-edakit.html",
+      "size": 839928,
+      "sha256": "fe0174d04e8499dbf0bca3de6a710fb122037cdbf4c387abd14206379f99cb11"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\archive\\pre-cef-baseline-20261021\\parameter-panel\\edakit\\Analysis-00.toc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\archive\\pre-cef-baseline-20261021\\parameter-panel\\edakit\\Analysis-00.toc",
+      "size": 106924,
+      "sha256": "5dba53325cac5796eb9a90ca1d77e01233b0ac685c245ec29f9ec737fdc84ee6"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\archive\\pre-cef-baseline-20261021\\parameter-panel\\edakit\\base_library.zip",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\archive\\pre-cef-baseline-20261021\\parameter-panel\\edakit\\base_library.zip",
+      "size": 1409168,
+      "sha256": "d9ea119840026ac588bd48aff9d664c995eb4cd85b5ba757cbaa1e6f5cc9aaa0"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\archive\\pre-cef-baseline-20261021\\parameter-panel\\edakit\\edakit.pkg",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\archive\\pre-cef-baseline-20261021\\parameter-panel\\edakit\\edakit.pkg",
+      "size": 13065824,
+      "sha256": "896b1a5c2837edae117f7d202c3bede99139926994f9039c74ffe7cc27d3b7a3"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\archive\\pre-cef-baseline-20261021\\parameter-panel\\edakit\\EXE-00.toc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\archive\\pre-cef-baseline-20261021\\parameter-panel\\edakit\\EXE-00.toc",
+      "size": 18031,
+      "sha256": "d7df99ea8be0d185077f269d1e34b6abe2f8ce8c7125da651661758533bfb04d"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\archive\\pre-cef-baseline-20261021\\parameter-panel\\edakit\\localpycs\\pyimod01_archive.pyc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\archive\\pre-cef-baseline-20261021\\parameter-panel\\edakit\\localpycs\\pyimod01_archive.pyc",
+      "size": 4930,
+      "sha256": "95bc75fb1815443c6a51c4470dc254f44e2de2b66bb7dfd0c13541ff789c69e1"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\archive\\pre-cef-baseline-20261021\\parameter-panel\\edakit\\localpycs\\pyimod02_importers.pyc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\archive\\pre-cef-baseline-20261021\\parameter-panel\\edakit\\localpycs\\pyimod02_importers.pyc",
+      "size": 31802,
+      "sha256": "cc024a23c19a0ec13491f67cc7bf4a33c6947439f965d3154b03d46708da0801"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\archive\\pre-cef-baseline-20261021\\parameter-panel\\edakit\\localpycs\\pyimod03_ctypes.pyc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\archive\\pre-cef-baseline-20261021\\parameter-panel\\edakit\\localpycs\\pyimod03_ctypes.pyc",
+      "size": 6450,
+      "sha256": "e6017d5cef7ecb021c243170082978de1d699d1d0c27d2bd1ef221a9a169c69e"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\archive\\pre-cef-baseline-20261021\\parameter-panel\\edakit\\localpycs\\pyimod04_pywin32.pyc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\archive\\pre-cef-baseline-20261021\\parameter-panel\\edakit\\localpycs\\pyimod04_pywin32.pyc",
+      "size": 1679,
+      "sha256": "8956b968293913eaeb67654b56b65a955a4fa06e6179579738c6a460b6e6debb"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\archive\\pre-cef-baseline-20261021\\parameter-panel\\edakit\\localpycs\\struct.pyc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\archive\\pre-cef-baseline-20261021\\parameter-panel\\edakit\\localpycs\\struct.pyc",
+      "size": 305,
+      "sha256": "dc46cdfab7ea5bfd78e20ce81838a7a17666060827028564b0a2de0198aca964"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\archive\\pre-cef-baseline-20261021\\parameter-panel\\edakit\\PKG-00.toc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\archive\\pre-cef-baseline-20261021\\parameter-panel\\edakit\\PKG-00.toc",
+      "size": 16304,
+      "sha256": "c4c6e3b6dd73ce41439cc0e1563e52378657e63801e927d2e5654921e642d8fd"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\archive\\pre-cef-baseline-20261021\\parameter-panel\\edakit\\PYZ-00.pyz",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\archive\\pre-cef-baseline-20261021\\parameter-panel\\edakit\\PYZ-00.pyz",
+      "size": 4195414,
+      "sha256": "6fdebe1676659f4107b05ea4dd762de41162faacfcecb4a02a47a95e0d3c5d37"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\archive\\pre-cef-baseline-20261021\\parameter-panel\\edakit\\PYZ-00.toc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\archive\\pre-cef-baseline-20261021\\parameter-panel\\edakit\\PYZ-00.toc",
+      "size": 68800,
+      "sha256": "d117fb5454552b6d9bd11cdbcf2bb4f018cecf9160bd929ddcb06d26ed0e9f11"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\archive\\pre-cef-baseline-20261021\\parameter-panel\\edakit\\warn-edakit.txt",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\archive\\pre-cef-baseline-20261021\\parameter-panel\\edakit\\warn-edakit.txt",
+      "size": 10539,
+      "sha256": "200a54e6082ee1869b3f8bfc0c73fefec02964baa41fe413090f088c839aa00d"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\archive\\pre-cef-baseline-20261021\\parameter-panel\\edakit\\xref-edakit.html",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\archive\\pre-cef-baseline-20261021\\parameter-panel\\edakit\\xref-edakit.html",
+      "size": 838692,
+      "sha256": "573ab3d4468de9fd92ff188d0a05792d12ce28b10d10e93ae75fa35847bc8545"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\archive\\pre-cef-baseline-20261021\\query-feedback\\edakit\\Analysis-00.toc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\archive\\pre-cef-baseline-20261021\\query-feedback\\edakit\\Analysis-00.toc",
+      "size": 106711,
+      "sha256": "6127cc0bf6ae8904a49f17138bfd6e45a3584c679c23749ecfe2e8f8752741b7"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\archive\\pre-cef-baseline-20261021\\query-feedback\\edakit\\base_library.zip",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\archive\\pre-cef-baseline-20261021\\query-feedback\\edakit\\base_library.zip",
+      "size": 1409168,
+      "sha256": "48f01dfc8a6fb38ff8e6130020ed81b9c2dd65a4c9f2f1644193093487146d2c"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\archive\\pre-cef-baseline-20261021\\query-feedback\\edakit\\edakit.pkg",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\archive\\pre-cef-baseline-20261021\\query-feedback\\edakit\\edakit.pkg",
+      "size": 13049227,
+      "sha256": "66a6378c1de972a9c6570ffd0352b640171400b2581c90e0a25cf5ca3f93f846"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\archive\\pre-cef-baseline-20261021\\query-feedback\\edakit\\EXE-00.toc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\archive\\pre-cef-baseline-20261021\\query-feedback\\edakit\\EXE-00.toc",
+      "size": 18022,
+      "sha256": "d964863d6fdd1caea4403a545e834a79eeb2e0563671d8a512260ec6a2761cc3"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\archive\\pre-cef-baseline-20261021\\query-feedback\\edakit\\localpycs\\pyimod01_archive.pyc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\archive\\pre-cef-baseline-20261021\\query-feedback\\edakit\\localpycs\\pyimod01_archive.pyc",
+      "size": 4930,
+      "sha256": "95bc75fb1815443c6a51c4470dc254f44e2de2b66bb7dfd0c13541ff789c69e1"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\archive\\pre-cef-baseline-20261021\\query-feedback\\edakit\\localpycs\\pyimod02_importers.pyc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\archive\\pre-cef-baseline-20261021\\query-feedback\\edakit\\localpycs\\pyimod02_importers.pyc",
+      "size": 31802,
+      "sha256": "cc024a23c19a0ec13491f67cc7bf4a33c6947439f965d3154b03d46708da0801"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\archive\\pre-cef-baseline-20261021\\query-feedback\\edakit\\localpycs\\pyimod03_ctypes.pyc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\archive\\pre-cef-baseline-20261021\\query-feedback\\edakit\\localpycs\\pyimod03_ctypes.pyc",
+      "size": 6450,
+      "sha256": "e6017d5cef7ecb021c243170082978de1d699d1d0c27d2bd1ef221a9a169c69e"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\archive\\pre-cef-baseline-20261021\\query-feedback\\edakit\\localpycs\\pyimod04_pywin32.pyc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\archive\\pre-cef-baseline-20261021\\query-feedback\\edakit\\localpycs\\pyimod04_pywin32.pyc",
+      "size": 1679,
+      "sha256": "8956b968293913eaeb67654b56b65a955a4fa06e6179579738c6a460b6e6debb"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\archive\\pre-cef-baseline-20261021\\query-feedback\\edakit\\localpycs\\struct.pyc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\archive\\pre-cef-baseline-20261021\\query-feedback\\edakit\\localpycs\\struct.pyc",
+      "size": 305,
+      "sha256": "dc46cdfab7ea5bfd78e20ce81838a7a17666060827028564b0a2de0198aca964"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\archive\\pre-cef-baseline-20261021\\query-feedback\\edakit\\PKG-00.toc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\archive\\pre-cef-baseline-20261021\\query-feedback\\edakit\\PKG-00.toc",
+      "size": 16296,
+      "sha256": "1261f006a95769f88be78e12bf1feaf6fd5980a9bd00b1c814ed9d72310118b1"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\archive\\pre-cef-baseline-20261021\\query-feedback\\edakit\\PYZ-00.pyz",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\archive\\pre-cef-baseline-20261021\\query-feedback\\edakit\\PYZ-00.pyz",
+      "size": 4185265,
+      "sha256": "7206e3daf07bda2d225ca03aaf731292bbbbdd4a6e11e7ba9fb716c20cfb728d"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\archive\\pre-cef-baseline-20261021\\query-feedback\\edakit\\PYZ-00.toc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\archive\\pre-cef-baseline-20261021\\query-feedback\\edakit\\PYZ-00.toc",
+      "size": 68587,
+      "sha256": "2262f69111ac58f3c76a7578ecae18e460e0d145fb9ed3bc332b98b71f032fbe"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\archive\\pre-cef-baseline-20261021\\query-feedback\\edakit\\warn-edakit.txt",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\archive\\pre-cef-baseline-20261021\\query-feedback\\edakit\\warn-edakit.txt",
+      "size": 10539,
+      "sha256": "db820da934796b339c8f83d6aa932e00299a9386704b05600c5719503b521dd8"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\archive\\pre-cef-baseline-20261021\\query-feedback\\edakit\\xref-edakit.html",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\archive\\pre-cef-baseline-20261021\\query-feedback\\edakit\\xref-edakit.html",
+      "size": 836924,
+      "sha256": "70805daf17a726e086bcf93c31a19d077f56851642d93e9a70caff13a237672e"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\archive\\pre-cef-baseline-20261021\\table-category\\edakit\\Analysis-00.toc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\archive\\pre-cef-baseline-20261021\\table-category\\edakit\\Analysis-00.toc",
+      "size": 106605,
+      "sha256": "ddca112e629b23c940a406a122b14ab4ff08b5fc0d837dbda2adcf2c3150fd83"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\archive\\pre-cef-baseline-20261021\\table-category\\edakit\\base_library.zip",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\archive\\pre-cef-baseline-20261021\\table-category\\edakit\\base_library.zip",
+      "size": 1409168,
+      "sha256": "94bcf7020b211b479a8a964880a90d6b85d62961751565d67afc219c3bbef727"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\archive\\pre-cef-baseline-20261021\\table-category\\edakit\\edakit.pkg",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\archive\\pre-cef-baseline-20261021\\table-category\\edakit\\edakit.pkg",
+      "size": 13031098,
+      "sha256": "e5801039d62437e5e7f0f322a882faf89fc23dda0a7587e2f9d39fddfa625e2f"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\archive\\pre-cef-baseline-20261021\\table-category\\edakit\\EXE-00.toc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\archive\\pre-cef-baseline-20261021\\table-category\\edakit\\EXE-00.toc",
+      "size": 18022,
+      "sha256": "f3d6efd914be061fabc2efb67a6c03108be3a572c6ce183ab094ca8d6cb95cc3"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\archive\\pre-cef-baseline-20261021\\table-category\\edakit\\localpycs\\pyimod01_archive.pyc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\archive\\pre-cef-baseline-20261021\\table-category\\edakit\\localpycs\\pyimod01_archive.pyc",
+      "size": 4930,
+      "sha256": "95bc75fb1815443c6a51c4470dc254f44e2de2b66bb7dfd0c13541ff789c69e1"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\archive\\pre-cef-baseline-20261021\\table-category\\edakit\\localpycs\\pyimod02_importers.pyc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\archive\\pre-cef-baseline-20261021\\table-category\\edakit\\localpycs\\pyimod02_importers.pyc",
+      "size": 31802,
+      "sha256": "cc024a23c19a0ec13491f67cc7bf4a33c6947439f965d3154b03d46708da0801"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\archive\\pre-cef-baseline-20261021\\table-category\\edakit\\localpycs\\pyimod03_ctypes.pyc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\archive\\pre-cef-baseline-20261021\\table-category\\edakit\\localpycs\\pyimod03_ctypes.pyc",
+      "size": 6450,
+      "sha256": "e6017d5cef7ecb021c243170082978de1d699d1d0c27d2bd1ef221a9a169c69e"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\archive\\pre-cef-baseline-20261021\\table-category\\edakit\\localpycs\\pyimod04_pywin32.pyc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\archive\\pre-cef-baseline-20261021\\table-category\\edakit\\localpycs\\pyimod04_pywin32.pyc",
+      "size": 1679,
+      "sha256": "8956b968293913eaeb67654b56b65a955a4fa06e6179579738c6a460b6e6debb"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\archive\\pre-cef-baseline-20261021\\table-category\\edakit\\localpycs\\struct.pyc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\archive\\pre-cef-baseline-20261021\\table-category\\edakit\\localpycs\\struct.pyc",
+      "size": 305,
+      "sha256": "dc46cdfab7ea5bfd78e20ce81838a7a17666060827028564b0a2de0198aca964"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\archive\\pre-cef-baseline-20261021\\table-category\\edakit\\PKG-00.toc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\archive\\pre-cef-baseline-20261021\\table-category\\edakit\\PKG-00.toc",
+      "size": 16296,
+      "sha256": "f348affa6d1e89ec36e606e59a8e96566e0267dc083cbc758aab77a97a1a8c93"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\archive\\pre-cef-baseline-20261021\\table-category\\edakit\\PYZ-00.pyz",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\archive\\pre-cef-baseline-20261021\\table-category\\edakit\\PYZ-00.pyz",
+      "size": 4171101,
+      "sha256": "0ca73e51c7382f14849b2fa6609f6cf023f8c29e57e87e22579368a12d3621a9"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\archive\\pre-cef-baseline-20261021\\table-category\\edakit\\PYZ-00.toc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\archive\\pre-cef-baseline-20261021\\table-category\\edakit\\PYZ-00.toc",
+      "size": 68481,
+      "sha256": "34140c4819784cfc06cbe0d729ec731f13950dacb379b40843ca106a3a5e12ce"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\archive\\pre-cef-baseline-20261021\\table-category\\edakit\\warn-edakit.txt",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\archive\\pre-cef-baseline-20261021\\table-category\\edakit\\warn-edakit.txt",
+      "size": 10539,
+      "sha256": "5b4d4c439fe72b9bbf4e8185d7f0cb92f99f1e180d9e19cbe91d30586ba6387b"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\archive\\pre-cef-baseline-20261021\\table-category\\edakit\\xref-edakit.html",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\archive\\pre-cef-baseline-20261021\\table-category\\edakit\\xref-edakit.html",
+      "size": 834796,
+      "sha256": "b77970f0b7e269aa22ae1ad70b56e2b11d1e1cf2feca608745dbc707300b11b8"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\archive\\pre-cef-baseline-20261021\\value-filter\\edakit\\Analysis-00.toc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\archive\\pre-cef-baseline-20261021\\value-filter\\edakit\\Analysis-00.toc",
+      "size": 106815,
+      "sha256": "cbbb892dd272aaa70e7a133c8bdd7424de549fde92894c19cbc83b7050893273"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\archive\\pre-cef-baseline-20261021\\value-filter\\edakit\\base_library.zip",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\archive\\pre-cef-baseline-20261021\\value-filter\\edakit\\base_library.zip",
+      "size": 1409168,
+      "sha256": "7541bf293d9647a1168b48608dc9442c0f9a3f32d7c97d456b4c575d4d90373e"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\archive\\pre-cef-baseline-20261021\\value-filter\\edakit\\edakit.pkg",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\archive\\pre-cef-baseline-20261021\\value-filter\\edakit\\edakit.pkg",
+      "size": 13052966,
+      "sha256": "30e1e69134d6c270c6c997be00ea2fd2919f70f9839cb38448548bb9ca5b41d0"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\archive\\pre-cef-baseline-20261021\\value-filter\\edakit\\EXE-00.toc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\archive\\pre-cef-baseline-20261021\\value-filter\\edakit\\EXE-00.toc",
+      "size": 18004,
+      "sha256": "025d56d3c3e7068d29323245f54a8f454f5d42d0ddcd7f852898bec45ed90e84"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\archive\\pre-cef-baseline-20261021\\value-filter\\edakit\\localpycs\\pyimod01_archive.pyc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\archive\\pre-cef-baseline-20261021\\value-filter\\edakit\\localpycs\\pyimod01_archive.pyc",
+      "size": 4930,
+      "sha256": "95bc75fb1815443c6a51c4470dc254f44e2de2b66bb7dfd0c13541ff789c69e1"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\archive\\pre-cef-baseline-20261021\\value-filter\\edakit\\localpycs\\pyimod02_importers.pyc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\archive\\pre-cef-baseline-20261021\\value-filter\\edakit\\localpycs\\pyimod02_importers.pyc",
+      "size": 31802,
+      "sha256": "cc024a23c19a0ec13491f67cc7bf4a33c6947439f965d3154b03d46708da0801"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\archive\\pre-cef-baseline-20261021\\value-filter\\edakit\\localpycs\\pyimod03_ctypes.pyc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\archive\\pre-cef-baseline-20261021\\value-filter\\edakit\\localpycs\\pyimod03_ctypes.pyc",
+      "size": 6450,
+      "sha256": "e6017d5cef7ecb021c243170082978de1d699d1d0c27d2bd1ef221a9a169c69e"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\archive\\pre-cef-baseline-20261021\\value-filter\\edakit\\localpycs\\pyimod04_pywin32.pyc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\archive\\pre-cef-baseline-20261021\\value-filter\\edakit\\localpycs\\pyimod04_pywin32.pyc",
+      "size": 1679,
+      "sha256": "8956b968293913eaeb67654b56b65a955a4fa06e6179579738c6a460b6e6debb"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\archive\\pre-cef-baseline-20261021\\value-filter\\edakit\\localpycs\\struct.pyc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\archive\\pre-cef-baseline-20261021\\value-filter\\edakit\\localpycs\\struct.pyc",
+      "size": 305,
+      "sha256": "dc46cdfab7ea5bfd78e20ce81838a7a17666060827028564b0a2de0198aca964"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\archive\\pre-cef-baseline-20261021\\value-filter\\edakit\\PKG-00.toc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\archive\\pre-cef-baseline-20261021\\value-filter\\edakit\\PKG-00.toc",
+      "size": 16280,
+      "sha256": "175f91b96ffd6301619b6bf64ccc13d65617690eda087c0460153c3559fa4a4e"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\archive\\pre-cef-baseline-20261021\\value-filter\\edakit\\PYZ-00.pyz",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\archive\\pre-cef-baseline-20261021\\value-filter\\edakit\\PYZ-00.pyz",
+      "size": 4188675,
+      "sha256": "830bb59477c5c1ec9d4c74b54f71e2eb95519695a25755e3d7c724c1d56f80d1"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\archive\\pre-cef-baseline-20261021\\value-filter\\edakit\\PYZ-00.toc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\archive\\pre-cef-baseline-20261021\\value-filter\\edakit\\PYZ-00.toc",
+      "size": 68691,
+      "sha256": "f5251277bd602f6dbf00c9c0ed619adf0ffc7da780ae042c103914767373b0e5"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\archive\\pre-cef-baseline-20261021\\value-filter\\edakit\\warn-edakit.txt",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\archive\\pre-cef-baseline-20261021\\value-filter\\edakit\\warn-edakit.txt",
+      "size": 10539,
+      "sha256": "db820da934796b339c8f83d6aa932e00299a9386704b05600c5719503b521dd8"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\archive\\pre-cef-baseline-20261021\\value-filter\\edakit\\xref-edakit.html",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\archive\\pre-cef-baseline-20261021\\value-filter\\edakit\\xref-edakit.html",
+      "size": 837734,
+      "sha256": "bbb8b4a37e521e1411fb1d10b62ba49692d29c4d7bba4aaf6d431b489b2ba5bc"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\archive\\pre-cef-baseline-20261021\\workbench\\edakit\\Analysis-00.toc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\archive\\pre-cef-baseline-20261021\\workbench\\edakit\\Analysis-00.toc",
+      "size": 106918,
+      "sha256": "31fe88cf827e0b3462e5014405eeac55c9719bd4b65dcf56573bd90343640758"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\archive\\pre-cef-baseline-20261021\\workbench\\edakit\\base_library.zip",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\archive\\pre-cef-baseline-20261021\\workbench\\edakit\\base_library.zip",
+      "size": 1409168,
+      "sha256": "1b9e6c005c11a246c12b13e247f16b66ca5cf6b6cfb3ab67644ba61dd3e56b36"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\archive\\pre-cef-baseline-20261021\\workbench\\edakit\\edakit.pkg",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\archive\\pre-cef-baseline-20261021\\workbench\\edakit\\edakit.pkg",
+      "size": 13065577,
+      "sha256": "a0ab03bfb842f9b09e83007b4ae7904b5c16be3de52ddba20e8b8606c38a781c"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\archive\\pre-cef-baseline-20261021\\workbench\\edakit\\EXE-00.toc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\archive\\pre-cef-baseline-20261021\\workbench\\edakit\\EXE-00.toc",
+      "size": 17977,
+      "sha256": "95094636e098c04b693b573a75f5631c1d45c9e9361904dac61a7d3d56eb6ac5"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\archive\\pre-cef-baseline-20261021\\workbench\\edakit\\localpycs\\pyimod01_archive.pyc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\archive\\pre-cef-baseline-20261021\\workbench\\edakit\\localpycs\\pyimod01_archive.pyc",
+      "size": 4930,
+      "sha256": "95bc75fb1815443c6a51c4470dc254f44e2de2b66bb7dfd0c13541ff789c69e1"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\archive\\pre-cef-baseline-20261021\\workbench\\edakit\\localpycs\\pyimod02_importers.pyc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\archive\\pre-cef-baseline-20261021\\workbench\\edakit\\localpycs\\pyimod02_importers.pyc",
+      "size": 31802,
+      "sha256": "cc024a23c19a0ec13491f67cc7bf4a33c6947439f965d3154b03d46708da0801"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\archive\\pre-cef-baseline-20261021\\workbench\\edakit\\localpycs\\pyimod03_ctypes.pyc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\archive\\pre-cef-baseline-20261021\\workbench\\edakit\\localpycs\\pyimod03_ctypes.pyc",
+      "size": 6450,
+      "sha256": "e6017d5cef7ecb021c243170082978de1d699d1d0c27d2bd1ef221a9a169c69e"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\archive\\pre-cef-baseline-20261021\\workbench\\edakit\\localpycs\\pyimod04_pywin32.pyc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\archive\\pre-cef-baseline-20261021\\workbench\\edakit\\localpycs\\pyimod04_pywin32.pyc",
+      "size": 1679,
+      "sha256": "8956b968293913eaeb67654b56b65a955a4fa06e6179579738c6a460b6e6debb"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\archive\\pre-cef-baseline-20261021\\workbench\\edakit\\localpycs\\struct.pyc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\archive\\pre-cef-baseline-20261021\\workbench\\edakit\\localpycs\\struct.pyc",
+      "size": 305,
+      "sha256": "dc46cdfab7ea5bfd78e20ce81838a7a17666060827028564b0a2de0198aca964"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\archive\\pre-cef-baseline-20261021\\workbench\\edakit\\PKG-00.toc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\archive\\pre-cef-baseline-20261021\\workbench\\edakit\\PKG-00.toc",
+      "size": 16256,
+      "sha256": "842a00858161d542dcd6951720afd1ef3fd56e0dcb0dc9f8ce593dfb009636cb"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\archive\\pre-cef-baseline-20261021\\workbench\\edakit\\PYZ-00.pyz",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\archive\\pre-cef-baseline-20261021\\workbench\\edakit\\PYZ-00.pyz",
+      "size": 4195414,
+      "sha256": "6fdebe1676659f4107b05ea4dd762de41162faacfcecb4a02a47a95e0d3c5d37"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\archive\\pre-cef-baseline-20261021\\workbench\\edakit\\PYZ-00.toc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\archive\\pre-cef-baseline-20261021\\workbench\\edakit\\PYZ-00.toc",
+      "size": 68794,
+      "sha256": "1417feb6a6f678b757820f6ed1be69d0a97040127a8c2855f575a1baf500ee1d"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\archive\\pre-cef-baseline-20261021\\workbench\\edakit\\warn-edakit.txt",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\archive\\pre-cef-baseline-20261021\\workbench\\edakit\\warn-edakit.txt",
+      "size": 10539,
+      "sha256": "db820da934796b339c8f83d6aa932e00299a9386704b05600c5719503b521dd8"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\archive\\pre-cef-baseline-20261021\\workbench\\edakit\\xref-edakit.html",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\archive\\pre-cef-baseline-20261021\\workbench\\edakit\\xref-edakit.html",
+      "size": 838692,
+      "sha256": "573ab3d4468de9fd92ff188d0a05792d12ce28b10d10e93ae75fa35847bc8545"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\background-runtime\\edakit\\Analysis-00.toc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\background-runtime\\edakit\\Analysis-00.toc",
+      "size": 107128,
+      "sha256": "56f81b8b04bac237cd03a7850e2443bed1d51aaa7a6ab7ac515f41cc17a5475a"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\background-runtime\\edakit\\base_library.zip",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\background-runtime\\edakit\\base_library.zip",
+      "size": 1409168,
+      "sha256": "0037a796c12775c8b2a1353e451fdfecc402d749b02eaf918a1970dbf4681f6d"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\background-runtime\\edakit\\edakit-cli.pkg",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\background-runtime\\edakit\\edakit-cli.pkg",
+      "size": 13088346,
+      "sha256": "78ef6ac8e26eb65b03830d7596a2f243c5e6abc9f8e929bc0b84134598878353"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\background-runtime\\edakit\\edakit.pkg",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\background-runtime\\edakit\\edakit.pkg",
+      "size": 13088410,
+      "sha256": "5f617821b94d91a07fbacc89b53004c93a0a1609cbbc42f3f3c13950dbbac529"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\background-runtime\\edakit\\EXE-00.toc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\background-runtime\\edakit\\EXE-00.toc",
+      "size": 18109,
+      "sha256": "8eeee2cdf2cfd252e649711f22a9723f641243c3c1ca8d5892043ccd3dda84f0"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\background-runtime\\edakit\\EXE-01.toc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\background-runtime\\edakit\\EXE-01.toc",
+      "size": 18060,
+      "sha256": "b2906f8dff6cae5f4a84a49956796c3df2b9f3d5c7b2ea8a00df7eddfe22797c"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\background-runtime\\edakit\\localpycs\\pyimod01_archive.pyc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\background-runtime\\edakit\\localpycs\\pyimod01_archive.pyc",
+      "size": 4930,
+      "sha256": "95bc75fb1815443c6a51c4470dc254f44e2de2b66bb7dfd0c13541ff789c69e1"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\background-runtime\\edakit\\localpycs\\pyimod02_importers.pyc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\background-runtime\\edakit\\localpycs\\pyimod02_importers.pyc",
+      "size": 31802,
+      "sha256": "cc024a23c19a0ec13491f67cc7bf4a33c6947439f965d3154b03d46708da0801"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\background-runtime\\edakit\\localpycs\\pyimod03_ctypes.pyc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\background-runtime\\edakit\\localpycs\\pyimod03_ctypes.pyc",
+      "size": 6450,
+      "sha256": "e6017d5cef7ecb021c243170082978de1d699d1d0c27d2bd1ef221a9a169c69e"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\background-runtime\\edakit\\localpycs\\pyimod04_pywin32.pyc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\background-runtime\\edakit\\localpycs\\pyimod04_pywin32.pyc",
+      "size": 1679,
+      "sha256": "8956b968293913eaeb67654b56b65a955a4fa06e6179579738c6a460b6e6debb"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\background-runtime\\edakit\\localpycs\\struct.pyc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\background-runtime\\edakit\\localpycs\\struct.pyc",
+      "size": 305,
+      "sha256": "dc46cdfab7ea5bfd78e20ce81838a7a17666060827028564b0a2de0198aca964"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\background-runtime\\edakit\\PKG-00.toc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\background-runtime\\edakit\\PKG-00.toc",
+      "size": 16381,
+      "sha256": "0fbc9cfeba8d03c9a6769e44625188af502ff4642e1f9e9723e1d5fdc0098abd"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\background-runtime\\edakit\\PKG-01.toc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\background-runtime\\edakit\\PKG-01.toc",
+      "size": 16332,
+      "sha256": "93f7b5ede25d083fee745266a0bcf0b00de2fa2648322f5a55ebd98079a07461"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\background-runtime\\edakit\\PYZ-00.pyz",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\background-runtime\\edakit\\PYZ-00.pyz",
+      "size": 4217623,
+      "sha256": "b9f92061290bdcb714691aa5962c5610f95637b95afa58de4c0288e93b27b728"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\background-runtime\\edakit\\PYZ-00.toc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\background-runtime\\edakit\\PYZ-00.toc",
+      "size": 69004,
+      "sha256": "7fa567aa2a2c9230a519eb113bcb35ed9d62b44915acf98452415778c6743520"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\background-runtime\\edakit\\warn-edakit.txt",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\background-runtime\\edakit\\warn-edakit.txt",
+      "size": 10539,
+      "sha256": "db820da934796b339c8f83d6aa932e00299a9386704b05600c5719503b521dd8"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\background-runtime\\edakit\\xref-edakit.html",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\background-runtime\\edakit\\xref-edakit.html",
+      "size": 840717,
+      "sha256": "36511cd07f0d60b512bc014436fae818cf83911f0fe6c83dd3400c84d2ee0ba6"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\capacitor-switch-fix\\edakit\\Analysis-00.toc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\capacitor-switch-fix\\edakit\\Analysis-00.toc",
+      "size": 109084,
+      "sha256": "4832d70915752bde7fb8324419e88f87ad31247efff2c335226f9252d983fa3f"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\capacitor-switch-fix\\edakit\\base_library.zip",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\capacitor-switch-fix\\edakit\\base_library.zip",
+      "size": 1409168,
+      "sha256": "8aa50d356374fa282e8b1d96e98151c379af93574f76cdaec41e73db6df2d24d"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\capacitor-switch-fix\\edakit\\edakit-cli.pkg",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\capacitor-switch-fix\\edakit\\edakit-cli.pkg",
+      "size": 13177752,
+      "sha256": "50f96e1881419e591817ed8d0da772cb68fe18bf3cb48947f923e4d92dd72392"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\capacitor-switch-fix\\edakit\\edakit.pkg",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\capacitor-switch-fix\\edakit\\edakit.pkg",
+      "size": 13177816,
+      "sha256": "974243e858648e57ada0f25ce44c910e34304bf59d5af5c8fd1b0180c85af434"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\capacitor-switch-fix\\edakit\\EXE-00.toc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\capacitor-switch-fix\\edakit\\EXE-00.toc",
+      "size": 18133,
+      "sha256": "482510ab0aae35cf180b91a68944bed6ab8f48b494bdf3ddf8af88a6fbcb48e3"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\capacitor-switch-fix\\edakit\\EXE-01.toc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\capacitor-switch-fix\\edakit\\EXE-01.toc",
+      "size": 18084,
+      "sha256": "4f02cf2c01680010761cdda987a78d69950055bd3afa406c44c1a51b75e2e798"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\capacitor-switch-fix\\edakit\\localpycs\\pyimod01_archive.pyc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\capacitor-switch-fix\\edakit\\localpycs\\pyimod01_archive.pyc",
+      "size": 4930,
+      "sha256": "95bc75fb1815443c6a51c4470dc254f44e2de2b66bb7dfd0c13541ff789c69e1"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\capacitor-switch-fix\\edakit\\localpycs\\pyimod02_importers.pyc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\capacitor-switch-fix\\edakit\\localpycs\\pyimod02_importers.pyc",
+      "size": 31802,
+      "sha256": "cc024a23c19a0ec13491f67cc7bf4a33c6947439f965d3154b03d46708da0801"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\capacitor-switch-fix\\edakit\\localpycs\\pyimod03_ctypes.pyc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\capacitor-switch-fix\\edakit\\localpycs\\pyimod03_ctypes.pyc",
+      "size": 6450,
+      "sha256": "e6017d5cef7ecb021c243170082978de1d699d1d0c27d2bd1ef221a9a169c69e"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\capacitor-switch-fix\\edakit\\localpycs\\pyimod04_pywin32.pyc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\capacitor-switch-fix\\edakit\\localpycs\\pyimod04_pywin32.pyc",
+      "size": 1679,
+      "sha256": "8956b968293913eaeb67654b56b65a955a4fa06e6179579738c6a460b6e6debb"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\capacitor-switch-fix\\edakit\\localpycs\\struct.pyc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\capacitor-switch-fix\\edakit\\localpycs\\struct.pyc",
+      "size": 305,
+      "sha256": "dc46cdfab7ea5bfd78e20ce81838a7a17666060827028564b0a2de0198aca964"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\capacitor-switch-fix\\edakit\\PKG-00.toc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\capacitor-switch-fix\\edakit\\PKG-00.toc",
+      "size": 16397,
+      "sha256": "a59cc0727781eea9e2013bc79894415247442db277cc44ebfe68da659a7e94b7"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\capacitor-switch-fix\\edakit\\PKG-01.toc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\capacitor-switch-fix\\edakit\\PKG-01.toc",
+      "size": 16348,
+      "sha256": "815ad1d792ab68d7742435cc02d5efd6caa20cd7f70a8ed45ac1e59d09d2a128"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\capacitor-switch-fix\\edakit\\PYZ-00.pyz",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\capacitor-switch-fix\\edakit\\PYZ-00.pyz",
+      "size": 4301126,
+      "sha256": "405b29d1105680f0fdc1400bc855482c112dc89d50a8f339ec0a9ba063494855"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\capacitor-switch-fix\\edakit\\PYZ-00.toc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\capacitor-switch-fix\\edakit\\PYZ-00.toc",
+      "size": 70960,
+      "sha256": "84ca300a6271b213aa7a62bfed94deb59d0cfb9c6ae9869b7e731c4b5d106c14"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\capacitor-switch-fix\\edakit\\warn-edakit.txt",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\capacitor-switch-fix\\edakit\\warn-edakit.txt",
+      "size": 10748,
+      "sha256": "764b5de85397ead1386f6edef787f224ed4d6b4dddb30f4066169802e53908ac"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\capacitor-switch-fix\\edakit\\xref-edakit.html",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\capacitor-switch-fix\\edakit\\xref-edakit.html",
+      "size": 863492,
+      "sha256": "cb52062aeebc36544744d1f6072bb96d7a22b4e6962ffa28f57449ef76c5b5a6"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\cef-integration\\edakit\\Analysis-00.toc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\cef-integration\\edakit\\Analysis-00.toc",
+      "size": 107034,
+      "sha256": "021728b054407a501c43d5f6e015a1b774594ab2ee268967911c8bc680618829"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\cef-integration\\edakit\\base_library.zip",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\cef-integration\\edakit\\base_library.zip",
+      "size": 1409168,
+      "sha256": "d99f8253c34f14d6c85730d10b6fa12e192ac772f5d3545ac5cd0080ac767820"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\cef-integration\\edakit\\edakit.pkg",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\cef-integration\\edakit\\edakit.pkg",
+      "size": 13086639,
+      "sha256": "117d4fcd0c5471c6f2c4b38f86a5f173f77307105c19ff53df11044feb026242"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\cef-integration\\edakit\\EXE-00.toc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\cef-integration\\edakit\\EXE-00.toc",
+      "size": 18033,
+      "sha256": "05888cfb672de1d7739cc93f612de9096a9cf2592f424ec2f4c27a1cb488f91a"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\cef-integration\\edakit\\localpycs\\pyimod01_archive.pyc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\cef-integration\\edakit\\localpycs\\pyimod01_archive.pyc",
+      "size": 4930,
+      "sha256": "95bc75fb1815443c6a51c4470dc254f44e2de2b66bb7dfd0c13541ff789c69e1"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\cef-integration\\edakit\\localpycs\\pyimod02_importers.pyc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\cef-integration\\edakit\\localpycs\\pyimod02_importers.pyc",
+      "size": 31802,
+      "sha256": "cc024a23c19a0ec13491f67cc7bf4a33c6947439f965d3154b03d46708da0801"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\cef-integration\\edakit\\localpycs\\pyimod03_ctypes.pyc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\cef-integration\\edakit\\localpycs\\pyimod03_ctypes.pyc",
+      "size": 6450,
+      "sha256": "e6017d5cef7ecb021c243170082978de1d699d1d0c27d2bd1ef221a9a169c69e"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\cef-integration\\edakit\\localpycs\\pyimod04_pywin32.pyc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\cef-integration\\edakit\\localpycs\\pyimod04_pywin32.pyc",
+      "size": 1679,
+      "sha256": "8956b968293913eaeb67654b56b65a955a4fa06e6179579738c6a460b6e6debb"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\cef-integration\\edakit\\localpycs\\struct.pyc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\cef-integration\\edakit\\localpycs\\struct.pyc",
+      "size": 305,
+      "sha256": "dc46cdfab7ea5bfd78e20ce81838a7a17666060827028564b0a2de0198aca964"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\cef-integration\\edakit\\PKG-00.toc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\cef-integration\\edakit\\PKG-00.toc",
+      "size": 16304,
+      "sha256": "2bd91c262721bbf1d383dbec32565abe133606f8cf05e34f849aa0e28d2c5fe3"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\cef-integration\\edakit\\PYZ-00.pyz",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\cef-integration\\edakit\\PYZ-00.pyz",
+      "size": 4216691,
+      "sha256": "e39de783d4389f1b5c6718b11932821f44b26788c179a6e210756561d65e7cbb"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\cef-integration\\edakit\\PYZ-00.toc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\cef-integration\\edakit\\PYZ-00.toc",
+      "size": 68910,
+      "sha256": "04eba77dcb427f3ad7f5a95fe4f73abe3b75070b0872ee7f76cbf918de7564f3"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\cef-integration\\edakit\\warn-edakit.txt",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\cef-integration\\edakit\\warn-edakit.txt",
+      "size": 10539,
+      "sha256": "db820da934796b339c8f83d6aa932e00299a9386704b05600c5719503b521dd8"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\cef-integration\\edakit\\xref-edakit.html",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\cef-integration\\edakit\\xref-edakit.html",
+      "size": 839928,
+      "sha256": "fe0174d04e8499dbf0bca3de6a710fb122037cdbf4c387abd14206379f99cb11"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\lifecycle-menu\\edakit\\Analysis-00.toc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\lifecycle-menu\\edakit\\Analysis-00.toc",
+      "size": 107450,
+      "sha256": "af1d8643ee66be8e6b2279b5e1cde0b858faaff34e5b4c49cd872b925f1c1588"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\lifecycle-menu\\edakit\\base_library.zip",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\lifecycle-menu\\edakit\\base_library.zip",
+      "size": 1409168,
+      "sha256": "5fc247044c853bf1b592b9659e50268d17d6d362b4e1edbbeab4a04988ab47f9"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\lifecycle-menu\\edakit\\edakit-cli.pkg",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\lifecycle-menu\\edakit\\edakit-cli.pkg",
+      "size": 13101254,
+      "sha256": "9c115cf21cdebc81d989fb8f8663f2069268599f0f67cbf66e5facaced8c6cb1"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\lifecycle-menu\\edakit\\edakit.pkg",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\lifecycle-menu\\edakit\\edakit.pkg",
+      "size": 13101318,
+      "sha256": "b8ad1726448815cf2c256fff14716bd98fc5c27c62c1e15a0b4801e9ae72f298"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\lifecycle-menu\\edakit\\EXE-00.toc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\lifecycle-menu\\edakit\\EXE-00.toc",
+      "size": 18079,
+      "sha256": "cc45607b57fb4e2892adeda65b649f2634e5e383fad07b306f1a29049c1fb6d6"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\lifecycle-menu\\edakit\\EXE-01.toc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\lifecycle-menu\\edakit\\EXE-01.toc",
+      "size": 18030,
+      "sha256": "c473ed902f9e3dc8e1a891595f4489af8d50f7b3412a8ea42b51b7b411ca623e"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\lifecycle-menu\\edakit\\localpycs\\pyimod01_archive.pyc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\lifecycle-menu\\edakit\\localpycs\\pyimod01_archive.pyc",
+      "size": 4930,
+      "sha256": "95bc75fb1815443c6a51c4470dc254f44e2de2b66bb7dfd0c13541ff789c69e1"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\lifecycle-menu\\edakit\\localpycs\\pyimod02_importers.pyc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\lifecycle-menu\\edakit\\localpycs\\pyimod02_importers.pyc",
+      "size": 31802,
+      "sha256": "cc024a23c19a0ec13491f67cc7bf4a33c6947439f965d3154b03d46708da0801"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\lifecycle-menu\\edakit\\localpycs\\pyimod03_ctypes.pyc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\lifecycle-menu\\edakit\\localpycs\\pyimod03_ctypes.pyc",
+      "size": 6450,
+      "sha256": "e6017d5cef7ecb021c243170082978de1d699d1d0c27d2bd1ef221a9a169c69e"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\lifecycle-menu\\edakit\\localpycs\\pyimod04_pywin32.pyc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\lifecycle-menu\\edakit\\localpycs\\pyimod04_pywin32.pyc",
+      "size": 1679,
+      "sha256": "8956b968293913eaeb67654b56b65a955a4fa06e6179579738c6a460b6e6debb"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\lifecycle-menu\\edakit\\localpycs\\struct.pyc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\lifecycle-menu\\edakit\\localpycs\\struct.pyc",
+      "size": 305,
+      "sha256": "dc46cdfab7ea5bfd78e20ce81838a7a17666060827028564b0a2de0198aca964"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\lifecycle-menu\\edakit\\PKG-00.toc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\lifecycle-menu\\edakit\\PKG-00.toc",
+      "size": 16349,
+      "sha256": "15912d42ce1cead4771fc4d2bead86a6f5ef8dde047406780ccaa20f76c86725"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\lifecycle-menu\\edakit\\PKG-01.toc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\lifecycle-menu\\edakit\\PKG-01.toc",
+      "size": 16300,
+      "sha256": "25b8e0a18e0f509f29fdb3f43eec4790fd2344c108f77209d915d7946e27eed8"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\lifecycle-menu\\edakit\\PYZ-00.pyz",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\lifecycle-menu\\edakit\\PYZ-00.pyz",
+      "size": 4226858,
+      "sha256": "f4c28b5b7ae5d1890477b2e03e7c5d1ed676c1dd8ac1f3eb3c6817168cc438bb"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\lifecycle-menu\\edakit\\PYZ-00.toc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\lifecycle-menu\\edakit\\PYZ-00.toc",
+      "size": 69326,
+      "sha256": "fb532f206d270665f536658c9ba877554d0a2f2dd66c57c7c3504cada9d1f655"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\lifecycle-menu\\edakit\\warn-edakit.txt",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\lifecycle-menu\\edakit\\warn-edakit.txt",
+      "size": 10539,
+      "sha256": "ad653166b02594a20460dfe7a4e2e3e2f974bfa2077288c0ad6cd7b96631b953"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\lifecycle-menu\\edakit\\xref-edakit.html",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\lifecycle-menu\\edakit\\xref-edakit.html",
+      "size": 844667,
+      "sha256": "f8b05d4c1a418097384c4a9b04cc994309de8dd5e14c0628e38cadd1cd9b95fc"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\part-name-fix\\edakit\\Analysis-00.toc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\part-name-fix\\edakit\\Analysis-00.toc",
+      "size": 107339,
+      "sha256": "2e4d2760b03d6ae1f63e70440deffdd274973d3e70798d7e0bf60f1dfd852b3e"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\part-name-fix\\edakit\\base_library.zip",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\part-name-fix\\edakit\\base_library.zip",
+      "size": 1409168,
+      "sha256": "8d0593d3397625787624dd41c0c4e656e604499bed17d7e69fee6f33b7c0bf4a"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\part-name-fix\\edakit\\edakit-cli.pkg",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\part-name-fix\\edakit\\edakit-cli.pkg",
+      "size": 13094859,
+      "sha256": "4dac71351d0b3690692d0faab542caccac793bb73b6c1c96d34d8dddb7741462"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\part-name-fix\\edakit\\edakit.pkg",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\part-name-fix\\edakit\\edakit.pkg",
+      "size": 13094923,
+      "sha256": "6067b39b8ab1c5a6307f00e088255ca202ae06d422cfe02dbe94daf805edafda"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\part-name-fix\\edakit\\EXE-00.toc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\part-name-fix\\edakit\\EXE-00.toc",
+      "size": 18070,
+      "sha256": "a4d2dfe06cf1653aaa83d705652300d31c4b9726c77165fbe096daf71f1ab92c"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\part-name-fix\\edakit\\EXE-01.toc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\part-name-fix\\edakit\\EXE-01.toc",
+      "size": 18021,
+      "sha256": "31fd7c8d7f170359779326063009af5564cc415cbed4828b762b32e5fd2abf1d"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\part-name-fix\\edakit\\localpycs\\pyimod01_archive.pyc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\part-name-fix\\edakit\\localpycs\\pyimod01_archive.pyc",
+      "size": 4930,
+      "sha256": "95bc75fb1815443c6a51c4470dc254f44e2de2b66bb7dfd0c13541ff789c69e1"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\part-name-fix\\edakit\\localpycs\\pyimod02_importers.pyc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\part-name-fix\\edakit\\localpycs\\pyimod02_importers.pyc",
+      "size": 31802,
+      "sha256": "cc024a23c19a0ec13491f67cc7bf4a33c6947439f965d3154b03d46708da0801"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\part-name-fix\\edakit\\localpycs\\pyimod03_ctypes.pyc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\part-name-fix\\edakit\\localpycs\\pyimod03_ctypes.pyc",
+      "size": 6450,
+      "sha256": "e6017d5cef7ecb021c243170082978de1d699d1d0c27d2bd1ef221a9a169c69e"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\part-name-fix\\edakit\\localpycs\\pyimod04_pywin32.pyc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\part-name-fix\\edakit\\localpycs\\pyimod04_pywin32.pyc",
+      "size": 1679,
+      "sha256": "8956b968293913eaeb67654b56b65a955a4fa06e6179579738c6a460b6e6debb"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\part-name-fix\\edakit\\localpycs\\struct.pyc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\part-name-fix\\edakit\\localpycs\\struct.pyc",
+      "size": 305,
+      "sha256": "dc46cdfab7ea5bfd78e20ce81838a7a17666060827028564b0a2de0198aca964"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\part-name-fix\\edakit\\PKG-00.toc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\part-name-fix\\edakit\\PKG-00.toc",
+      "size": 16341,
+      "sha256": "8113a558d5a26e1a1bd376b2a6ed6dc91f1b8fddaab6dc1e74e1fe01587c3651"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\part-name-fix\\edakit\\PKG-01.toc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\part-name-fix\\edakit\\PKG-01.toc",
+      "size": 16292,
+      "sha256": "02c39b5a61d2d30708306ac6d69b7733397d76604a84a19e6ccb9dc6da41d9e0"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\part-name-fix\\edakit\\PYZ-00.pyz",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\part-name-fix\\edakit\\PYZ-00.pyz",
+      "size": 4221317,
+      "sha256": "86926f8e7bfc5f3d260ecc8c4546ef985f8397c555c43f4d6c815a871505015b"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\part-name-fix\\edakit\\PYZ-00.toc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\part-name-fix\\edakit\\PYZ-00.toc",
+      "size": 69215,
+      "sha256": "73c11bb8d028f556937dd43d9ac85e5a778632dce6ca55e468fbfcb4bdda5aaa"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\part-name-fix\\edakit\\warn-edakit.txt",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\part-name-fix\\edakit\\warn-edakit.txt",
+      "size": 10539,
+      "sha256": "76d8ec6c675f64ad79765d4a53a84ab5da816b9b66db1488404ee0b6517a1ab7"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\part-name-fix\\edakit\\xref-edakit.html",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\part-name-fix\\edakit\\xref-edakit.html",
+      "size": 843151,
+      "sha256": "42d183327bd76b79c4269d8e848fcca443e22b3cc13df32e1036ae68a189888a"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\placement-properties\\edakit\\Analysis-00.toc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\placement-properties\\edakit\\Analysis-00.toc",
+      "size": 109084,
+      "sha256": "751611e6d311fc473ef40e3a4ea777813587385d3849d94991d0c74c066506cc"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\placement-properties\\edakit\\base_library.zip",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\placement-properties\\edakit\\base_library.zip",
+      "size": 1409168,
+      "sha256": "f3c86d1e7ee217dd3dd9d05678dd6fc62c76a18e3e70f86dfd9610bafecd306d"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\placement-properties\\edakit\\edakit-cli.pkg",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\placement-properties\\edakit\\edakit-cli.pkg",
+      "size": 13178867,
+      "sha256": "ba39b74ea580fd14bf79a33a6f36a62bd27252fae1ba99285bb0b8fa54e39e6a"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\placement-properties\\edakit\\edakit.pkg",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\placement-properties\\edakit\\edakit.pkg",
+      "size": 13178931,
+      "sha256": "0aada3990078d1b4681fb00c69bbbe06368ee90f63bce4ceefb6ff32282ceffd"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\placement-properties\\edakit\\EXE-00.toc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\placement-properties\\edakit\\EXE-00.toc",
+      "size": 18133,
+      "sha256": "fa877aacc2c005e35864edbe419de6bd39bb18ed4dec4bf03914c564dffed2da"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\placement-properties\\edakit\\EXE-01.toc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\placement-properties\\edakit\\EXE-01.toc",
+      "size": 18084,
+      "sha256": "3dbb2df6d3da33c6dd8aee2bf659b306ae945bd0165338f00d3fdf7aab4cf1a7"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\placement-properties\\edakit\\localpycs\\pyimod01_archive.pyc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\placement-properties\\edakit\\localpycs\\pyimod01_archive.pyc",
+      "size": 4930,
+      "sha256": "95bc75fb1815443c6a51c4470dc254f44e2de2b66bb7dfd0c13541ff789c69e1"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\placement-properties\\edakit\\localpycs\\pyimod02_importers.pyc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\placement-properties\\edakit\\localpycs\\pyimod02_importers.pyc",
+      "size": 31802,
+      "sha256": "cc024a23c19a0ec13491f67cc7bf4a33c6947439f965d3154b03d46708da0801"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\placement-properties\\edakit\\localpycs\\pyimod03_ctypes.pyc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\placement-properties\\edakit\\localpycs\\pyimod03_ctypes.pyc",
+      "size": 6450,
+      "sha256": "e6017d5cef7ecb021c243170082978de1d699d1d0c27d2bd1ef221a9a169c69e"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\placement-properties\\edakit\\localpycs\\pyimod04_pywin32.pyc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\placement-properties\\edakit\\localpycs\\pyimod04_pywin32.pyc",
+      "size": 1679,
+      "sha256": "8956b968293913eaeb67654b56b65a955a4fa06e6179579738c6a460b6e6debb"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\placement-properties\\edakit\\localpycs\\struct.pyc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\placement-properties\\edakit\\localpycs\\struct.pyc",
+      "size": 305,
+      "sha256": "dc46cdfab7ea5bfd78e20ce81838a7a17666060827028564b0a2de0198aca964"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\placement-properties\\edakit\\PKG-00.toc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\placement-properties\\edakit\\PKG-00.toc",
+      "size": 16397,
+      "sha256": "92442ab938c51f5e51f2040be93505e8f8587abffae1498b2c335137e54935b7"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\placement-properties\\edakit\\PKG-01.toc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\placement-properties\\edakit\\PKG-01.toc",
+      "size": 16348,
+      "sha256": "98eb8519520e9d2572cab7933ee07d5359b224ec667e3e780ebff9109c07dc36"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\placement-properties\\edakit\\PYZ-00.pyz",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\placement-properties\\edakit\\PYZ-00.pyz",
+      "size": 4301291,
+      "sha256": "d5b5a4c254a16db2fd171b3d34ef3f212451bf101000e3c2462ef80a14161887"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\placement-properties\\edakit\\PYZ-00.toc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\placement-properties\\edakit\\PYZ-00.toc",
+      "size": 70960,
+      "sha256": "65cb2e94dd90e73393ee98d1b329ce2abf41ea05327938c731a74f74a9fa8dba"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\placement-properties\\edakit\\warn-edakit.txt",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\placement-properties\\edakit\\warn-edakit.txt",
+      "size": 10748,
+      "sha256": "7b25333d534e649aec89019804cffc41e8a23610eb9b710d264e0a53beb81582"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\placement-properties\\edakit\\xref-edakit.html",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\placement-properties\\edakit\\xref-edakit.html",
+      "size": 863492,
+      "sha256": "cb52062aeebc36544744d1f6072bb96d7a22b4e6962ffa28f57449ef76c5b5a6"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\placement-reuse\\edakit\\Analysis-00.toc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\placement-reuse\\edakit\\Analysis-00.toc",
+      "size": 109079,
+      "sha256": "1287322265c1350253c2a545e300b5453658256269b63e52f16612ec827cf4db"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\placement-reuse\\edakit\\base_library.zip",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\placement-reuse\\edakit\\base_library.zip",
+      "size": 1409168,
+      "sha256": "b47dff6bb1e3cb3ffd6c278e206a3f6b98840410f29c831c1b6179f6cf983964"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\placement-reuse\\edakit\\edakit-cli.pkg",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\placement-reuse\\edakit\\edakit-cli.pkg",
+      "size": 13175521,
+      "sha256": "4ba6001d9c95a4d5533f61bfcf801df1680641bc24b05e8d7293982af7c96911"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\placement-reuse\\edakit\\edakit.pkg",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\placement-reuse\\edakit\\edakit.pkg",
+      "size": 13175585,
+      "sha256": "a7a1b63f17b4398b89a587acc4796149dd08d2b6c443e06496bf1b69af8073fb"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\placement-reuse\\edakit\\EXE-00.toc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\placement-reuse\\edakit\\EXE-00.toc",
+      "size": 18088,
+      "sha256": "68e07d8811bfd306b213d24c99983781dbd9f94f2b78430bc344d7847f75e850"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\placement-reuse\\edakit\\EXE-01.toc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\placement-reuse\\edakit\\EXE-01.toc",
+      "size": 18039,
+      "sha256": "79c0d59cf17c25790a49c6b8d4566c6a4b66550044441d392c9418a2a66651e4"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\placement-reuse\\edakit\\localpycs\\pyimod01_archive.pyc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\placement-reuse\\edakit\\localpycs\\pyimod01_archive.pyc",
+      "size": 4930,
+      "sha256": "95bc75fb1815443c6a51c4470dc254f44e2de2b66bb7dfd0c13541ff789c69e1"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\placement-reuse\\edakit\\localpycs\\pyimod02_importers.pyc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\placement-reuse\\edakit\\localpycs\\pyimod02_importers.pyc",
+      "size": 31802,
+      "sha256": "cc024a23c19a0ec13491f67cc7bf4a33c6947439f965d3154b03d46708da0801"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\placement-reuse\\edakit\\localpycs\\pyimod03_ctypes.pyc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\placement-reuse\\edakit\\localpycs\\pyimod03_ctypes.pyc",
+      "size": 6450,
+      "sha256": "e6017d5cef7ecb021c243170082978de1d699d1d0c27d2bd1ef221a9a169c69e"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\placement-reuse\\edakit\\localpycs\\pyimod04_pywin32.pyc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\placement-reuse\\edakit\\localpycs\\pyimod04_pywin32.pyc",
+      "size": 1679,
+      "sha256": "8956b968293913eaeb67654b56b65a955a4fa06e6179579738c6a460b6e6debb"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\placement-reuse\\edakit\\localpycs\\struct.pyc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\placement-reuse\\edakit\\localpycs\\struct.pyc",
+      "size": 305,
+      "sha256": "dc46cdfab7ea5bfd78e20ce81838a7a17666060827028564b0a2de0198aca964"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\placement-reuse\\edakit\\PKG-00.toc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\placement-reuse\\edakit\\PKG-00.toc",
+      "size": 16357,
+      "sha256": "f27482aae182f93760c859b8127e4e87531c7d95e7b3fa3a29d89bc86bdd953a"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\placement-reuse\\edakit\\PKG-01.toc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\placement-reuse\\edakit\\PKG-01.toc",
+      "size": 16308,
+      "sha256": "08feb6ac9ed947f47ac1fb7f9953915482277cc4b9796b7204f82969c2e99a11"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\placement-reuse\\edakit\\PYZ-00.pyz",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\placement-reuse\\edakit\\PYZ-00.pyz",
+      "size": 4299082,
+      "sha256": "c38f76afd33940d43a58b7f5931c6a6531e1196d411d0346b8c0b9e238d70c16"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\placement-reuse\\edakit\\PYZ-00.toc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\placement-reuse\\edakit\\PYZ-00.toc",
+      "size": 70955,
+      "sha256": "473a7875a60cb3c6fe1eb667cfd224c9ce28bf234f171805da6592bc39f0e1ed"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\placement-reuse\\edakit\\warn-edakit.txt",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\placement-reuse\\edakit\\warn-edakit.txt",
+      "size": 10748,
+      "sha256": "d9046fec2b691e761b9f5e8629120274b6e69b62f527fe692d230545b73978fe"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\placement-reuse\\edakit\\xref-edakit.html",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\placement-reuse\\edakit\\xref-edakit.html",
+      "size": 863492,
+      "sha256": "cb52062aeebc36544744d1f6072bb96d7a22b4e6962ffa28f57449ef76c5b5a6"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\ui-typography-states\\edakit\\Analysis-00.toc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\ui-typography-states\\edakit\\Analysis-00.toc",
+      "size": 109084,
+      "sha256": "9672387328731c71e45905335294ea695a06cf4f21e658e1cd9b047fba66d796"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\ui-typography-states\\edakit\\base_library.zip",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\ui-typography-states\\edakit\\base_library.zip",
+      "size": 1409168,
+      "sha256": "4f7c7cbd62caed9ffbe753c6dfa8aa8f0d77604f7ba6f0f5181791b5715d4efb"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\ui-typography-states\\edakit\\edakit-cli.pkg",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\ui-typography-states\\edakit\\edakit-cli.pkg",
+      "size": 13178586,
+      "sha256": "47d1cd72020bbbae81a8bde8a9f1cfdb1051f94fa6319d3ae7c2ccce4e7c1a0c"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\ui-typography-states\\edakit\\edakit.pkg",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\ui-typography-states\\edakit\\edakit.pkg",
+      "size": 13178650,
+      "sha256": "76c733f917019adc019bdb091dc4373902a58c49b14e3f22985ca7a001a6bc27"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\ui-typography-states\\edakit\\EXE-00.toc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\ui-typography-states\\edakit\\EXE-00.toc",
+      "size": 18133,
+      "sha256": "c48ec33e6dc4c9440db2e04f9f7316748decf02210acdbba3ac85a810e1ecb98"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\ui-typography-states\\edakit\\EXE-01.toc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\ui-typography-states\\edakit\\EXE-01.toc",
+      "size": 18084,
+      "sha256": "f0b6d5355989d603c96fb17d217478e73495cc3a43a99e094dd475fe43297241"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\ui-typography-states\\edakit\\localpycs\\pyimod01_archive.pyc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\ui-typography-states\\edakit\\localpycs\\pyimod01_archive.pyc",
+      "size": 4930,
+      "sha256": "95bc75fb1815443c6a51c4470dc254f44e2de2b66bb7dfd0c13541ff789c69e1"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\ui-typography-states\\edakit\\localpycs\\pyimod02_importers.pyc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\ui-typography-states\\edakit\\localpycs\\pyimod02_importers.pyc",
+      "size": 31802,
+      "sha256": "cc024a23c19a0ec13491f67cc7bf4a33c6947439f965d3154b03d46708da0801"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\ui-typography-states\\edakit\\localpycs\\pyimod03_ctypes.pyc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\ui-typography-states\\edakit\\localpycs\\pyimod03_ctypes.pyc",
+      "size": 6450,
+      "sha256": "e6017d5cef7ecb021c243170082978de1d699d1d0c27d2bd1ef221a9a169c69e"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\ui-typography-states\\edakit\\localpycs\\pyimod04_pywin32.pyc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\ui-typography-states\\edakit\\localpycs\\pyimod04_pywin32.pyc",
+      "size": 1679,
+      "sha256": "8956b968293913eaeb67654b56b65a955a4fa06e6179579738c6a460b6e6debb"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\ui-typography-states\\edakit\\localpycs\\struct.pyc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\ui-typography-states\\edakit\\localpycs\\struct.pyc",
+      "size": 305,
+      "sha256": "dc46cdfab7ea5bfd78e20ce81838a7a17666060827028564b0a2de0198aca964"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\ui-typography-states\\edakit\\PKG-00.toc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\ui-typography-states\\edakit\\PKG-00.toc",
+      "size": 16397,
+      "sha256": "546de5a03cd05036c5e757b7331ae4a08aba5671f4ec477f5163bb8ae0592dbe"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\ui-typography-states\\edakit\\PKG-01.toc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\ui-typography-states\\edakit\\PKG-01.toc",
+      "size": 16348,
+      "sha256": "fe9c0fcb936c345634cebe993305a4e0643c693fae8e06d5bcd833b857d1c193"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\ui-typography-states\\edakit\\PYZ-00.pyz",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\ui-typography-states\\edakit\\PYZ-00.pyz",
+      "size": 4301126,
+      "sha256": "405b29d1105680f0fdc1400bc855482c112dc89d50a8f339ec0a9ba063494855"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\ui-typography-states\\edakit\\PYZ-00.toc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\ui-typography-states\\edakit\\PYZ-00.toc",
+      "size": 70960,
+      "sha256": "36578fd2f71385e6c2bf3f8a44a278162dbaf0e8bfa2fdcaa658cec517622ad5"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\ui-typography-states\\edakit\\warn-edakit.txt",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\ui-typography-states\\edakit\\warn-edakit.txt",
+      "size": 10748,
+      "sha256": "d9046fec2b691e761b9f5e8629120274b6e69b62f527fe692d230545b73978fe"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\ui-typography-states\\edakit\\xref-edakit.html",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\ui-typography-states\\edakit\\xref-edakit.html",
+      "size": 863492,
+      "sha256": "cb52062aeebc36544744d1f6072bb96d7a22b4e6962ffa28f57449ef76c5b5a6"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\workbench-v2\\edakit\\Analysis-00.toc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\workbench-v2\\edakit\\Analysis-00.toc",
+      "size": 107234,
+      "sha256": "e512b37c8947ec60dbb3798e8d23cb28e6f8ba95dc090af67aa27131834b5399"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\workbench-v2\\edakit\\base_library.zip",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\workbench-v2\\edakit\\base_library.zip",
+      "size": 1409168,
+      "sha256": "e0486dadd917474ee4a939ce3c35ab708f57b7bf57ab30409f8b5e96368f9187"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\workbench-v2\\edakit\\edakit-cli.pkg",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\workbench-v2\\edakit\\edakit-cli.pkg",
+      "size": 13094775,
+      "sha256": "f5393d5cc59f6abee7d4ffa32c7f10f6dc32e4b68c79d40dc917958b44e4ed1b"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\workbench-v2\\edakit\\edakit.pkg",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\workbench-v2\\edakit\\edakit.pkg",
+      "size": 13094839,
+      "sha256": "aa09728fed60826c3b620c16bd5ca4b5d95a548d65d8c086711ef7d01ee00972"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\workbench-v2\\edakit\\EXE-00.toc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\workbench-v2\\edakit\\EXE-00.toc",
+      "size": 18061,
+      "sha256": "90ace5261a3c14ea6d0831ae9a54ab3bffa35a5d858efa9f576bf23cd60d6c33"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\workbench-v2\\edakit\\EXE-01.toc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\workbench-v2\\edakit\\EXE-01.toc",
+      "size": 18012,
+      "sha256": "c118b5c6185a13172ce3845246c97c933d6dcecb6023424e3a916b754778ea0e"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\workbench-v2\\edakit\\localpycs\\pyimod01_archive.pyc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\workbench-v2\\edakit\\localpycs\\pyimod01_archive.pyc",
+      "size": 4930,
+      "sha256": "95bc75fb1815443c6a51c4470dc254f44e2de2b66bb7dfd0c13541ff789c69e1"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\workbench-v2\\edakit\\localpycs\\pyimod02_importers.pyc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\workbench-v2\\edakit\\localpycs\\pyimod02_importers.pyc",
+      "size": 31802,
+      "sha256": "cc024a23c19a0ec13491f67cc7bf4a33c6947439f965d3154b03d46708da0801"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\workbench-v2\\edakit\\localpycs\\pyimod03_ctypes.pyc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\workbench-v2\\edakit\\localpycs\\pyimod03_ctypes.pyc",
+      "size": 6450,
+      "sha256": "e6017d5cef7ecb021c243170082978de1d699d1d0c27d2bd1ef221a9a169c69e"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\workbench-v2\\edakit\\localpycs\\pyimod04_pywin32.pyc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\workbench-v2\\edakit\\localpycs\\pyimod04_pywin32.pyc",
+      "size": 1679,
+      "sha256": "8956b968293913eaeb67654b56b65a955a4fa06e6179579738c6a460b6e6debb"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\workbench-v2\\edakit\\localpycs\\struct.pyc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\workbench-v2\\edakit\\localpycs\\struct.pyc",
+      "size": 305,
+      "sha256": "dc46cdfab7ea5bfd78e20ce81838a7a17666060827028564b0a2de0198aca964"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\workbench-v2\\edakit\\PKG-00.toc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\workbench-v2\\edakit\\PKG-00.toc",
+      "size": 16333,
+      "sha256": "98759fa12fa88d10de9f6ee70a263a34a553efbac66d56f9938b79de799e1bae"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\workbench-v2\\edakit\\PKG-01.toc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\workbench-v2\\edakit\\PKG-01.toc",
+      "size": 16284,
+      "sha256": "78de08653d921c2492afc63de5a97a544c3ed661d1746f3ed943d7f8bec69756"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\workbench-v2\\edakit\\PYZ-00.pyz",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\workbench-v2\\edakit\\PYZ-00.pyz",
+      "size": 4219973,
+      "sha256": "51fcc346994421f425eefacb41364c025664cb2e3b4f20ccdca3845f254aa018"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\workbench-v2\\edakit\\PYZ-00.toc",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\workbench-v2\\edakit\\PYZ-00.toc",
+      "size": 69110,
+      "sha256": "1d2ae97dbece50f0111802ca5b731120c052a0c4f4a13baac8ba4338c7f86ed2"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\workbench-v2\\edakit\\warn-edakit.txt",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\workbench-v2\\edakit\\warn-edakit.txt",
+      "size": 10539,
+      "sha256": "ee5e55cb13c12660d4edcc84f6887e33f1917182c50a2fd9dda1848c85afc56d"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\build\\workbench-v2\\edakit\\xref-edakit.html",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\build\\workbench-v2\\edakit\\xref-edakit.html",
+      "size": 842110,
+      "sha256": "0ae9c2eaa0f86eb159fe615c1d23652db06ac124dd2cd6c74d6d6f839c0351ed"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\samples\\C2040\\C2040.olb.xml",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\samples\\C2040\\C2040.olb.xml",
+      "size": 8592,
+      "sha256": "54943384843353a49a11c39e7494d11133e9204ef02ca6ec0075395821ae318a"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\samples\\C2040\\capture_place.tcl",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\samples\\C2040\\capture_place.tcl",
+      "size": 518,
+      "sha256": "4bb21ef207bc7e1a1ca9e048629b43521c309d821b86ac92532b0468f35c922d"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\samples\\C2040\\capture_run.tcl",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\samples\\C2040\\capture_run.tcl",
+      "size": 569,
+      "sha256": "2c7028cf747e0f844272b2232df672d774806d17bf67e57ff1bcd76bc693276d"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\samples\\C2040\\LQFN-56_L7.0-W7.0-P0.4-EP.il",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\samples\\C2040\\LQFN-56_L7.0-W7.0-P0.4-EP.il",
+      "size": 27719,
+      "sha256": "2f5610f714d6bdb54b6274280a03fe563bcb19d9eca4da6a1436932d2d8707fd"
+    },
+    {
+      "from": "E:\\outputs\\edakit\\samples\\C2040\\part.map.xml",
+      "to": "E:\\outputs\\backups\\edakit-pcb-plan-20261021\\samples\\C2040\\part.map.xml",
+      "size": 400,
+      "sha256": "834e885e5fccdb96ad6ebaf3dc689a24c3609c9866fddb5ea15c95e713074905"
+    }
+  ]
+}

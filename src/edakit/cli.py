@@ -629,7 +629,7 @@ def cmd_selftest(args: argparse.Namespace) -> int:
             raise FileNotFoundError("没找到自检样例 JSON")
         payload = json.loads(sample.read_text(encoding="utf-8"))
         comp = parse_component("C2040", payload)
-        il = generate_skill(comp.footprint)  # type: ignore[arg-type]
+        il = generate_skill(comp.footprint, refdes_prefix=comp.symbol.prefix if comp.symbol else "")  # type: ignore[arg-type]
         for fn in ("axlDBCreatePadStack", "axlDBCreatePin", "axlSaveDesign"):
             if fn not in il:
                 raise ValueError(f"生成的 SKILL 里没有 {fn}")

@@ -1,0 +1,298 @@
+{
+  "schema_version": 1,
+  "symbol": "RP2040",
+  "footprint": "C2040_QFN56_EP",
+  "pin_count": 57,
+  "pin_numbers_matched": true,
+  "independent_pad_names_checked": false,
+  "name_status": "symbol_name_mapping_only",
+  "pins": [
+    {
+      "number": "9",
+      "symbol_name": "GPIO7",
+      "mapped_pad_name": "GPIO7"
+    },
+    {
+      "number": "8",
+      "symbol_name": "GPIO6",
+      "mapped_pad_name": "GPIO6"
+    },
+    {
+      "number": "7",
+      "symbol_name": "GPIO5",
+      "mapped_pad_name": "GPIO5"
+    },
+    {
+      "number": "6",
+      "symbol_name": "GPIO4",
+      "mapped_pad_name": "GPIO4"
+    },
+    {
+      "number": "57",
+      "symbol_name": "GND",
+      "mapped_pad_name": "GND"
+    },
+    {
+      "number": "56",
+      "symbol_name": "QSPI_SS",
+      "mapped_pad_name": "QSPI_SS"
+    },
+    {
+      "number": "55",
+      "symbol_name": "QSPI_SD1",
+      "mapped_pad_name": "QSPI_SD1"
+    },
+    {
+      "number": "54",
+      "symbol_name": "QSPI_SD2",
+      "mapped_pad_name": "QSPI_SD2"
+    },
+    {
+      "number": "53",
+      "symbol_name": "QSPI_SD0",
+      "mapped_pad_name": "QSPI_SD0"
+    },
+    {
+      "number": "52",
+      "symbol_name": "QSPI_SCLK",
+      "mapped_pad_name": "QSPI_SCLK"
+    },
+    {
+      "number": "51",
+      "symbol_name": "QSPI_SD3",
+      "mapped_pad_name": "QSPI_SD3"
+    },
+    {
+      "number": "50",
+      "symbol_name": "DVDD",
+      "mapped_pad_name": "DVDD"
+    },
+    {
+      "number": "5",
+      "symbol_name": "GPIO3",
+      "mapped_pad_name": "GPIO3"
+    },
+    {
+      "number": "49",
+      "symbol_name": "IOVDD",
+      "mapped_pad_name": "IOVDD"
+    },
+    {
+      "number": "48",
+      "symbol_name": "USB_VDD",
+      "mapped_pad_name": "USB_VDD"
+    },
+    {
+      "number": "47",
+      "symbol_name": "USB_DP",
+      "mapped_pad_name": "USB_DP"
+    },
+    {
+      "number": "46",
+      "symbol_name": "USB_DM",
+      "mapped_pad_name": "USB_DM"
+    },
+    {
+      "number": "45",
+      "symbol_name": "VREG_VOUT",
+      "mapped_pad_name": "VREG_VOUT"
+    },
+    {
+      "number": "44",
+      "symbol_name": "VREG_IN",
+      "mapped_pad_name": "VREG_IN"
+    },
+    {
+      "number": "43",
+      "symbol_name": "ADC_AVDD",
+      "mapped_pad_name": "ADC_AVDD"
+    },
+    {
+      "number": "42",
+      "symbol_name": "IOVDD",
+      "mapped_pad_name": "IOVDD"
+    },
+    {
+      "number": "41",
+      "symbol_name": "GPIO29_ADC3",
+      "mapped_pad_name": "GPIO29_ADC3"
+    },
+    {
+      "number": "40",
+      "symbol_name": "GPIO28_ADC2",
+      "mapped_pad_name": "GPIO28_ADC2"
+    },
+    {
+      "number": "4",
+      "symbol_name": "GPIO2",
+      "mapped_pad_name": "GPIO2"
+    },
+    {
+      "number": "39",
+      "symbol_name": "GPIO27_ADC1",
+      "mapped_pad_name": "GPIO27_ADC1"
+    },
+    {
+      "number": "38",
+      "symbol_name": "GPIO26_ADC0",
+      "mapped_pad_name": "GPIO26_ADC0"
+    },
+    {
+      "number": "37",
+      "symbol_name": "GPIO25",
+      "mapped_pad_name": "GPIO25"
+    },
+    {
+      "number": "36",
+      "symbol_name": "GPIO24",
+      "mapped_pad_name": "GPIO24"
+    },
+    {
+      "number": "35",
+      "symbol_name": "GPIO23",
+      "mapped_pad_name": "GPIO23"
+    },
+    {
+      "number": "34",
+      "symbol_name": "GPIO22",
+      "mapped_pad_name": "GPIO22"
+    },
+    {
+      "number": "33",
+      "symbol_name": "IOVDD",
+      "mapped_pad_name": "IOVDD"
+    },
+    {
+      "number": "32",
+      "symbol_name": "GPIO21",
+      "mapped_pad_name": "GPIO21"
+    },
+    {
+      "number": "31",
+      "symbol_name": "GPIO20",
+      "mapped_pad_name": "GPIO20"
+    },
+    {
+      "number": "30",
+      "symbol_name": "GPIO19",
+      "mapped_pad_name": "GPIO19"
+    },
+    {
+      "number": "3",
+      "symbol_name": "GPIO1",
+      "mapped_pad_name": "GPIO1"
+    },
+    {
+      "number": "29",
+      "symbol_name": "GPIO18",
+      "mapped_pad_name": "GPIO18"
+    },
+    {
+      "number": "28",
+      "symbol_name": "GPIO17",
+      "mapped_pad_name": "GPIO17"
+    },
+    {
+      "number": "27",
+      "symbol_name": "GPIO16",
+      "mapped_pad_name": "GPIO16"
+    },
+    {
+      "number": "26",
+      "symbol_name": "RUN",
+      "mapped_pad_name": "RUN"
+    },
+    {
+      "number": "25",
+      "symbol_name": "SWD",
+      "mapped_pad_name": "SWD"
+    },
+    {
+      "number": "24",
+      "symbol_name": "SWCLK",
+      "mapped_pad_name": "SWCLK"
+    },
+    {
+      "number": "23",
+      "symbol_name": "DVDD",
+      "mapped_pad_name": "DVDD"
+    },
+    {
+      "number": "22",
+      "symbol_name": "IOVDD",
+      "mapped_pad_name": "IOVDD"
+    },
+    {
+      "number": "21",
+      "symbol_name": "XOUT",
+      "mapped_pad_name": "XOUT"
+    },
+    {
+      "number": "20",
+      "symbol_name": "XIN",
+      "mapped_pad_name": "XIN"
+    },
+    {
+      "number": "2",
+      "symbol_name": "GPIO0",
+      "mapped_pad_name": "GPIO0"
+    },
+    {
+      "number": "19",
+      "symbol_name": "TESTEN",
+      "mapped_pad_name": "TESTEN"
+    },
+    {
+      "number": "18",
+      "symbol_name": "GPIO15",
+      "mapped_pad_name": "GPIO15"
+    },
+    {
+      "number": "17",
+      "symbol_name": "GPIO14",
+      "mapped_pad_name": "GPIO14"
+    },
+    {
+      "number": "16",
+      "symbol_name": "GPIO13",
+      "mapped_pad_name": "GPIO13"
+    },
+    {
+      "number": "15",
+      "symbol_name": "GPIO12",
+      "mapped_pad_name": "GPIO12"
+    },
+    {
+      "number": "14",
+      "symbol_name": "GPIO11",
+      "mapped_pad_name": "GPIO11"
+    },
+    {
+      "number": "13",
+      "symbol_name": "GPIO10",
+      "mapped_pad_name": "GPIO10"
+    },
+    {
+      "number": "12",
+      "symbol_name": "GPIO9",
+      "mapped_pad_name": "GPIO9"
+    },
+    {
+      "number": "11",
+      "symbol_name": "GPIO8",
+      "mapped_pad_name": "GPIO8"
+    },
+    {
+      "number": "10",
+      "symbol_name": "IOVDD",
+      "mapped_pad_name": "IOVDD"
+    },
+    {
+      "number": "1",
+      "symbol_name": "IOVDD",
+      "mapped_pad_name": "IOVDD"
+    }
+  ],
+  "source_footprint_name": "LQFN-56_L7.0-W7.0-P0.4-EP",
+  "test_alias_only": true
+}

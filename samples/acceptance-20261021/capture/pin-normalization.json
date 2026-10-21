@@ -1,0 +1,572 @@
+[
+  {
+    "number": "9",
+    "source_name": "GPIO7",
+    "capture_name": "GPIO7",
+    "electrical_type": "bidirectional",
+    "hotpoint_capture_units": [
+      130,
+      -60
+    ]
+  },
+  {
+    "number": "8",
+    "source_name": "GPIO6",
+    "capture_name": "GPIO6",
+    "electrical_type": "bidirectional",
+    "hotpoint_capture_units": [
+      130,
+      -70
+    ]
+  },
+  {
+    "number": "7",
+    "source_name": "GPIO5",
+    "capture_name": "GPIO5",
+    "electrical_type": "bidirectional",
+    "hotpoint_capture_units": [
+      130,
+      -80
+    ]
+  },
+  {
+    "number": "6",
+    "source_name": "GPIO4",
+    "capture_name": "GPIO4",
+    "electrical_type": "bidirectional",
+    "hotpoint_capture_units": [
+      130,
+      -90
+    ]
+  },
+  {
+    "number": "57",
+    "source_name": "GND",
+    "capture_name": "GND",
+    "electrical_type": "bidirectional",
+    "hotpoint_capture_units": [
+      0,
+      200
+    ]
+  },
+  {
+    "number": "56",
+    "source_name": "QSPI_SS",
+    "capture_name": "QSPI_SS",
+    "electrical_type": "bidirectional",
+    "hotpoint_capture_units": [
+      -130,
+      -130
+    ]
+  },
+  {
+    "number": "55",
+    "source_name": "QSPI_SD1",
+    "capture_name": "QSPI_SD1",
+    "electrical_type": "bidirectional",
+    "hotpoint_capture_units": [
+      -130,
+      -100
+    ]
+  },
+  {
+    "number": "54",
+    "source_name": "QSPI_SD2",
+    "capture_name": "QSPI_SD2",
+    "electrical_type": "bidirectional",
+    "hotpoint_capture_units": [
+      -130,
+      -90
+    ]
+  },
+  {
+    "number": "53",
+    "source_name": "QSPI_SD0",
+    "capture_name": "QSPI_SD0",
+    "electrical_type": "bidirectional",
+    "hotpoint_capture_units": [
+      -130,
+      -110
+    ]
+  },
+  {
+    "number": "52",
+    "source_name": "QSPI_SCLK",
+    "capture_name": "QSPI_SCLK",
+    "electrical_type": "output",
+    "hotpoint_capture_units": [
+      -130,
+      -70
+    ]
+  },
+  {
+    "number": "51",
+    "source_name": "QSPI_SD3",
+    "capture_name": "QSPI_SD3",
+    "electrical_type": "bidirectional",
+    "hotpoint_capture_units": [
+      -130,
+      -80
+    ]
+  },
+  {
+    "number": "50",
+    "source_name": "DVDD",
+    "capture_name": "DVDD2",
+    "electrical_type": "bidirectional",
+    "hotpoint_capture_units": [
+      -80,
+      -200
+    ]
+  },
+  {
+    "number": "5",
+    "source_name": "GPIO3",
+    "capture_name": "GPIO3",
+    "electrical_type": "bidirectional",
+    "hotpoint_capture_units": [
+      130,
+      -100
+    ]
+  },
+  {
+    "number": "49",
+    "source_name": "IOVDD",
+    "capture_name": "IOVDD6",
+    "electrical_type": "bidirectional",
+    "hotpoint_capture_units": [
+      -10,
+      -200
+    ]
+  },
+  {
+    "number": "48",
+    "source_name": "USB_VDD",
+    "capture_name": "USB_VDD",
+    "electrical_type": "bidirectional",
+    "hotpoint_capture_units": [
+      50,
+      -200
+    ]
+  },
+  {
+    "number": "47",
+    "source_name": "USB_DP",
+    "capture_name": "USB_DP",
+    "electrical_type": "bidirectional",
+    "hotpoint_capture_units": [
+      130,
+      -170
+    ]
+  },
+  {
+    "number": "46",
+    "source_name": "USB_DM",
+    "capture_name": "USB_DM",
+    "electrical_type": "bidirectional",
+    "hotpoint_capture_units": [
+      130,
+      -160
+    ]
+  },
+  {
+    "number": "45",
+    "source_name": "VREG_VOUT",
+    "capture_name": "VREG_VOUT",
+    "electrical_type": "bidirectional",
+    "hotpoint_capture_units": [
+      -50,
+      -200
+    ]
+  },
+  {
+    "number": "44",
+    "source_name": "VREG_IN",
+    "capture_name": "VREG_IN",
+    "electrical_type": "bidirectional",
+    "hotpoint_capture_units": [
+      -30,
+      -200
+    ]
+  },
+  {
+    "number": "43",
+    "source_name": "ADC_AVDD",
+    "capture_name": "ADC_AVDD",
+    "electrical_type": "bidirectional",
+    "hotpoint_capture_units": [
+      70,
+      -200
+    ]
+  },
+  {
+    "number": "42",
+    "source_name": "IOVDD",
+    "capture_name": "IOVDD5",
+    "electrical_type": "bidirectional",
+    "hotpoint_capture_units": [
+      0,
+      -200
+    ]
+  },
+  {
+    "number": "41",
+    "source_name": "GPIO29_ADC3",
+    "capture_name": "GPIO29_ADC3",
+    "electrical_type": "bidirectional",
+    "hotpoint_capture_units": [
+      130,
+      170
+    ]
+  },
+  {
+    "number": "40",
+    "source_name": "GPIO28_ADC2",
+    "capture_name": "GPIO28_ADC2",
+    "electrical_type": "bidirectional",
+    "hotpoint_capture_units": [
+      130,
+      160
+    ]
+  },
+  {
+    "number": "4",
+    "source_name": "GPIO2",
+    "capture_name": "GPIO2",
+    "electrical_type": "bidirectional",
+    "hotpoint_capture_units": [
+      130,
+      -110
+    ]
+  },
+  {
+    "number": "39",
+    "source_name": "GPIO27_ADC1",
+    "capture_name": "GPIO27_ADC1",
+    "electrical_type": "bidirectional",
+    "hotpoint_capture_units": [
+      130,
+      150
+    ]
+  },
+  {
+    "number": "38",
+    "source_name": "GPIO26_ADC0",
+    "capture_name": "GPIO26_ADC0",
+    "electrical_type": "bidirectional",
+    "hotpoint_capture_units": [
+      130,
+      140
+    ]
+  },
+  {
+    "number": "37",
+    "source_name": "GPIO25",
+    "capture_name": "GPIO25",
+    "electrical_type": "bidirectional",
+    "hotpoint_capture_units": [
+      130,
+      120
+    ]
+  },
+  {
+    "number": "36",
+    "source_name": "GPIO24",
+    "capture_name": "GPIO24",
+    "electrical_type": "bidirectional",
+    "hotpoint_capture_units": [
+      130,
+      110
+    ]
+  },
+  {
+    "number": "35",
+    "source_name": "GPIO23",
+    "capture_name": "GPIO23",
+    "electrical_type": "bidirectional",
+    "hotpoint_capture_units": [
+      130,
+      100
+    ]
+  },
+  {
+    "number": "34",
+    "source_name": "GPIO22",
+    "capture_name": "GPIO22",
+    "electrical_type": "bidirectional",
+    "hotpoint_capture_units": [
+      130,
+      90
+    ]
+  },
+  {
+    "number": "33",
+    "source_name": "IOVDD",
+    "capture_name": "IOVDD4",
+    "electrical_type": "bidirectional",
+    "hotpoint_capture_units": [
+      10,
+      -200
+    ]
+  },
+  {
+    "number": "32",
+    "source_name": "GPIO21",
+    "capture_name": "GPIO21",
+    "electrical_type": "bidirectional",
+    "hotpoint_capture_units": [
+      130,
+      80
+    ]
+  },
+  {
+    "number": "31",
+    "source_name": "GPIO20",
+    "capture_name": "GPIO20",
+    "electrical_type": "bidirectional",
+    "hotpoint_capture_units": [
+      130,
+      70
+    ]
+  },
+  {
+    "number": "30",
+    "source_name": "GPIO19",
+    "capture_name": "GPIO19",
+    "electrical_type": "bidirectional",
+    "hotpoint_capture_units": [
+      130,
+      60
+    ]
+  },
+  {
+    "number": "3",
+    "source_name": "GPIO1",
+    "capture_name": "GPIO1",
+    "electrical_type": "bidirectional",
+    "hotpoint_capture_units": [
+      130,
+      -120
+    ]
+  },
+  {
+    "number": "29",
+    "source_name": "GPIO18",
+    "capture_name": "GPIO18",
+    "electrical_type": "bidirectional",
+    "hotpoint_capture_units": [
+      130,
+      50
+    ]
+  },
+  {
+    "number": "28",
+    "source_name": "GPIO17",
+    "capture_name": "GPIO17",
+    "electrical_type": "bidirectional",
+    "hotpoint_capture_units": [
+      130,
+      40
+    ]
+  },
+  {
+    "number": "27",
+    "source_name": "GPIO16",
+    "capture_name": "GPIO16",
+    "electrical_type": "bidirectional",
+    "hotpoint_capture_units": [
+      130,
+      30
+    ]
+  },
+  {
+    "number": "26",
+    "source_name": "RUN",
+    "capture_name": "RUN",
+    "electrical_type": "input",
+    "hotpoint_capture_units": [
+      -130,
+      80
+    ]
+  },
+  {
+    "number": "25",
+    "source_name": "SWD",
+    "capture_name": "SWD",
+    "electrical_type": "bidirectional",
+    "hotpoint_capture_units": [
+      -130,
+      130
+    ]
+  },
+  {
+    "number": "24",
+    "source_name": "SWCLK",
+    "capture_name": "SWCLK",
+    "electrical_type": "output",
+    "hotpoint_capture_units": [
+      -130,
+      120
+    ]
+  },
+  {
+    "number": "23",
+    "source_name": "DVDD",
+    "capture_name": "DVDD1",
+    "electrical_type": "bidirectional",
+    "hotpoint_capture_units": [
+      -70,
+      -200
+    ]
+  },
+  {
+    "number": "22",
+    "source_name": "IOVDD",
+    "capture_name": "IOVDD3",
+    "electrical_type": "bidirectional",
+    "hotpoint_capture_units": [
+      20,
+      -200
+    ]
+  },
+  {
+    "number": "21",
+    "source_name": "XOUT",
+    "capture_name": "XOUT",
+    "electrical_type": "unspecified",
+    "hotpoint_capture_units": [
+      -130,
+      30
+    ]
+  },
+  {
+    "number": "20",
+    "source_name": "XIN",
+    "capture_name": "XIN",
+    "electrical_type": "input",
+    "hotpoint_capture_units": [
+      -130,
+      10
+    ]
+  },
+  {
+    "number": "2",
+    "source_name": "GPIO0",
+    "capture_name": "GPIO0",
+    "electrical_type": "bidirectional",
+    "hotpoint_capture_units": [
+      130,
+      -130
+    ]
+  },
+  {
+    "number": "19",
+    "source_name": "TESTEN",
+    "capture_name": "TESTEN",
+    "electrical_type": "unspecified",
+    "hotpoint_capture_units": [
+      -50,
+      200
+    ]
+  },
+  {
+    "number": "18",
+    "source_name": "GPIO15",
+    "capture_name": "GPIO15",
+    "electrical_type": "bidirectional",
+    "hotpoint_capture_units": [
+      130,
+      20
+    ]
+  },
+  {
+    "number": "17",
+    "source_name": "GPIO14",
+    "capture_name": "GPIO14",
+    "electrical_type": "bidirectional",
+    "hotpoint_capture_units": [
+      130,
+      10
+    ]
+  },
+  {
+    "number": "16",
+    "source_name": "GPIO13",
+    "capture_name": "GPIO13",
+    "electrical_type": "bidirectional",
+    "hotpoint_capture_units": [
+      130,
+      0
+    ]
+  },
+  {
+    "number": "15",
+    "source_name": "GPIO12",
+    "capture_name": "GPIO12",
+    "electrical_type": "bidirectional",
+    "hotpoint_capture_units": [
+      130,
+      -10
+    ]
+  },
+  {
+    "number": "14",
+    "source_name": "GPIO11",
+    "capture_name": "GPIO11",
+    "electrical_type": "bidirectional",
+    "hotpoint_capture_units": [
+      130,
+      -20
+    ]
+  },
+  {
+    "number": "13",
+    "source_name": "GPIO10",
+    "capture_name": "GPIO10",
+    "electrical_type": "bidirectional",
+    "hotpoint_capture_units": [
+      130,
+      -30
+    ]
+  },
+  {
+    "number": "12",
+    "source_name": "GPIO9",
+    "capture_name": "GPIO9",
+    "electrical_type": "bidirectional",
+    "hotpoint_capture_units": [
+      130,
+      -40
+    ]
+  },
+  {
+    "number": "11",
+    "source_name": "GPIO8",
+    "capture_name": "GPIO8",
+    "electrical_type": "bidirectional",
+    "hotpoint_capture_units": [
+      130,
+      -50
+    ]
+  },
+  {
+    "number": "10",
+    "source_name": "IOVDD",
+    "capture_name": "IOVDD2",
+    "electrical_type": "bidirectional",
+    "hotpoint_capture_units": [
+      30,
+      -200
+    ]
+  },
+  {
+    "number": "1",
+    "source_name": "IOVDD",
+    "capture_name": "IOVDD1",
+    "electrical_type": "bidirectional",
+    "hotpoint_capture_units": [
+      40,
+      -200
+    ]
+  }
+]

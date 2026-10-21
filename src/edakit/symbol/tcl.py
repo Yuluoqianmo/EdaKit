@@ -38,6 +38,10 @@ if {{[catch {{
     if {{![file exists "{ol}"]}} {{error "Capture 未生成 OLB"}}
     XMATIC_OLB2XML "{ol}" "{rt}"
     if {{![file exists "{rt}"]}} {{error "Capture 未生成回读 XML"}}
+    # Capture must rewrite its own exported XML before placement. A direct
+    # XML2OLB result can scatter pins even when the readback coordinates match.
+    XMATIC_XML2OLB "{rt}" "{ol}"
+    XMATIC_OLB2XML "{ol}" "{rt}"
     puts "EDAKIT_OLB_OK"
 }} err]}} {{
     puts "EDAKIT_OLB_FAIL: $err"

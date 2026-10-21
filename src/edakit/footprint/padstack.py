@@ -45,6 +45,11 @@ def merge_padstacks(pads: list[Pad]) -> list[Padstack]:
 
 
 def _merge_one(name: str, group: list[Pad]) -> Padstack:
+    if any(abs((p.rotation_deg - group[0].rotation_deg + 180) % 360 - 180) > 1e-4 for p in group):
+        raise UnsupportedGeometryError(f"焊盘 {name} 的同编号记录角度不一致，无法安全合并。")
+    holes = {round(p.hole_mm, 4) for p in group if p.hole_mm > 0}
+    if len(holes) > 1:
+        raise UnsupportedGeometryError(f"焊盘 {name} 的钻孔直径不一致。")
     # 位置一致性检查: 同编号焊盘中心必须重合 (容差 0.01 mm)
     xs = {round(p.x_mm, 2) for p in group}
     ys = {round(p.y_mm, 2) for p in group}
@@ -72,17 +77,12 @@ def _merge_one(name: str, group: list[Pad]) -> Padstack:
                 round(pad.w_mm, 3),
                 round(pad.h_mm, 3),
                 pad.shape,
-            ):
+            ) or same.polygon_mm != pad.polygon_mm:
                 raise UnsupportedGeometryError(
                     f"焊盘 {name} 的 {layer} 层存在多个不同铜形，无法安全合并。"
                 )
             continue
         seen[layer] = pad
-        if pad.polygon_mm and _has_hole(pad.polygon_mm):
-            raise UnsupportedGeometryError(
-                f"焊盘 {name} 的 {layer} 层铜形含内部挖空，"
-                f"Allegro 形状符号不支持，拒绝填实丢弃几何。"
-            )
         for mapped in _padstack_layers(layer):
             ps.layers.append(
                 PadstackLayer(
@@ -103,7 +103,9 @@ def _padstack_layers(copper_layer: str) -> list[str]:
     if copper_layer == "BOTTOM":
         return ["BOTTOM", "BOTTOM_SOLDERMASK", "BOTTOM_PASTE"]
     # MULTI_LAYER: 通孔, 顶底都写
-    return ["TOP", "BOTTOM", "TOP_SOLDERMASK", "BOTTOM_SOLDERMASK"]
+    if copper_layer == "MULTI_LAYER":
+        return ["TOP", "BOTTOM", "DEFAULT_INTERNAL", "TOP_SOLDERMASK", "BOTTOM_SOLDERMASK"]
+    raise UnsupportedGeometryError(f"不支持的焊盘层: {copper_layer}")
 
 
 def _map_shape(shape: str, w_mm: float = 0.0, h_mm: float = 0.0) -> str:
@@ -119,11 +121,3 @@ def _map_shape(shape: str, w_mm: float = 0.0, h_mm: float = 0.0) -> str:
         "POLYGON": "SHAPE",
         "REGULAR_POLYGON": "SHAPE",
     }.get(s, "SHAPE")
-
-
-def _has_hole(polygon: list[tuple[float, float]]) -> bool:
-    """粗略判断多边形是否含内孔 (暂无可靠判据，先返回 False)。
-
-    真实判据需要看 EasyEDA 是否把内孔作为独立子轮廓 —— 待用带内孔的样本校准。
-    """
-    return False

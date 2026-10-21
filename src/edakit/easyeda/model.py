@@ -56,6 +56,9 @@ FOOTPRINT_LAYERS = {
     "12": "DOCUMENT",
     "13": "TOP_ASSEMBLY",
     "14": "BOTTOM_ASSEMBLY",
+    "99": "ComponentShapeLayer",
+    "100": "LeadShapeLayer",
+    "101": "ComponentPolarityLayer",
 }
 
 
@@ -104,6 +107,8 @@ class Pad:
     hole_mm: float = 0.0  # 通孔直径 (0 表示 SMD)
     polygon_mm: list[tuple[float, float]] = field(default_factory=list)
     is_smd: bool = True
+    # 可选的独立功能名。EasyEDA Standard PAD 没有该字段，不能把 net 当作 name。
+    name: str = ""
 
     @property
     def top_layer(self) -> str:

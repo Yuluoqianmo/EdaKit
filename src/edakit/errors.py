@@ -17,6 +17,10 @@ class ParseError(LcscError):
     """EasyEDA shape 解析失败。"""
 
 
+class PinMappingError(LcscError):
+    """符号与封装的物理引脚关系无效，禁止输出配对文件。"""
+
+
 class UnsupportedGeometryError(LcscError):
     """遇到了当前无法安全转换的几何 (例如带内孔的铜焊盘)。
 

@@ -224,8 +224,9 @@ def parse_symbol_primitive(prim: Primitive, tf: _Transform) -> Primitive:
 def parse_footprint_pad(prim: Primitive, tf: _Transform) -> Pad:
     """焊盘 'PAD'。字段序 (easyeda2kicad EeFootprintPad):
 
-    0 shape, 1 cx, 2 cy, 3 w, 4 h, 5 layer_id, 6 net, 7 number,
-    8 hole_radius, 9 points, 10 rotation, 11 id, 12 hole_length, ...
+    fields 包含指令本身: 0 PAD, 1 shape, 2 cx, 3 cy, 4 w, 5 h,
+    6 layer_id, 7 net, 8 number, 9 hole_radius, 10 points,
+    11 rotation, 12 id, 13 hole_length, ...。net 不是引脚功能名。
     """
     f = prim.fields
     pad = Pad()
@@ -292,9 +293,17 @@ def parse_footprint_primitive(prim: Primitive, tf: _Transform) -> Primitive:
             }
     elif k == "SOLIDREGION":  # SOLIDREGION~layer_id~net~path~region_type~id~~...
         if len(f) >= 4:
+            path = f[3]
+            # This converter currently supports only absolute M/L/Z outlines.
+            # Reject other commands downstream instead of treating curve controls as vertices.
+            commands = re.findall(r"[A-Za-z]", path)
+            supported = all(command.upper() in {"M", "L", "Z"} for command in commands)
+            pts = [tf.pt(p) for p in _points(path)] if supported else []
             prim.geom = {
                 "layer": layer_name(f[1]),
-                "path": f[3] if len(f) > 3 else "",
+                "path": path,
+                "path_supported": supported,
+                "points_mm": [v for p in pts for v in p],
                 "region_type": f[4] if len(f) > 4 else "solid",
             }
     elif k == "SVGNODE":

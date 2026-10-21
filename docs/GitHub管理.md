@@ -1,5 +1,9 @@
 # GitHub 源码管理
 
+## 2026-10-21 开发检查点
+
+PCB 原生验收与 Capture P5 修正保存在 `feat/pcb-footprint-acceptance-20261021`，在家继续请先 fetch 并切换该分支。换机接续以[回家接续开发](回家接续开发-20261021.md)为准。源码及必要的隔离原生验收样本随 Git 上传；未重新发布 exe，网表导入仍待验收。下文基线指此前 main 的已发布 P4 状态。
+
 仓库：`Yuluoqianmo/EdaKit`（私有），默认分支 `main`。本地工作目录为 `E:/outputs/edakit`，远端名为 `origin`。
 
 ## 当前基线

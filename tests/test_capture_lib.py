@@ -27,6 +27,7 @@ from edakit.symbol.capture_lib import (
     generate_package_xml,
     is_capture_lib_dialect,
     layout_vertical_pins,
+    normalize_capture_symbol,
     u,
 )
 
@@ -277,7 +278,7 @@ def test_pin_name_labels_are_rotated_per_side():
     rotated = [_label_name(t) for t in texts if esc(t) != "0"]
     # 顶边 12 + 底边 2 = 14 个竖排名（DVDD/IOVDD 有重名，不能按名字去重）
     assert len(rotated) == 14
-    for name in ("ADC_AVDD", "IOVDD", "TESTEN", "GND"):
+    for name in ("ADC_AVDD", "IOVDD1", "TESTEN", "GND"):
         assert name in rotated
     flat = {_label_name(t) for t in texts if esc(t) == "0"}
     for name in ("GPIO7", "QSPI_SS", "USB_DP"):
@@ -489,12 +490,8 @@ def test_pin_names_visible_when_meaningful():
     assert flag.get("val") == "0"
 
 
-def test_generator_keeps_easyda_pin_layout():
-    """生成器不再做「按名字宽度疏排」，必须原样保留 EasyEDA 引脚坐标。
-
-    2026-10-19 调研后改的方案：竖排名字由 Capture 的 IsPinNamesRotated 负责，
-    疏排会把本体拉宽、引脚挪位，符号失真。疏排函数保留作兜底但不默认调用。
-    """
+def test_generator_aligns_hotpoints_without_expanding_body():
+    """Capture 连接点对齐 100 mil；本体不因文字宽度被拉大。"""
     comp = _comp("C2040")
     root = ET.fromstring(generate_lib_xml(comp.symbol, package_name="RP2040"))
     got = sorted(
@@ -503,7 +500,7 @@ def test_generator_keeps_easyda_pin_layout():
     )
     want = sorted(
         (p.name, round(p.x_mm / 0.254))
-        for p in comp.symbol.pins
+        for p in normalize_capture_symbol(comp.symbol).pins
     )
     assert got == want
     # 本体的宽度也不应被改大：Rect 与 EasyEDA 最大矩形一致
