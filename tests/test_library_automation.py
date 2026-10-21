@@ -7,8 +7,10 @@ import pytest
 
 from edakit.config import Config
 from edakit.easyeda.parse import parse_component
-from edakit.errors import DeployError
+from edakit.easyeda.model import Primitive
+from edakit.errors import DeployError, PinMappingError
 from edakit.footprint import native
+from edakit.footprint.padstack import merge_padstacks
 from edakit.install import allegro_env
 from edakit.library import library_names
 from edakit.pipeline import stage_component
@@ -133,6 +135,7 @@ def test_timeout_only_terminates_owned_process(component, tmp_path):
     root = tmp_path / 'cadence'
     (root / 'tools/bin').mkdir(parents=True)
     (root / 'tools/bin/allegro.exe').touch()
+    (root / 'tools/bin/dbdoctor.exe').touch()
     template = root / 'share/pcb/examples/board_design/symbols/smdres.dra'
     template.parent.mkdir(parents=True)
     template.write_bytes(b'template')
@@ -154,3 +157,112 @@ def test_timeout_only_terminates_owned_process(component, tmp_path):
             cadence_root=str(root)), timeout=-1, launch=launch)
     assert process.killed
     assert not (tmp_path / 'lib/edakit-library.json').exists()
+
+
+def test_generic_footprint_reused_across_parts(component, tmp_path):
+    result, files = native_files(component, tmp_path)
+    native.publish(component, result, files, tmp_path)
+    other = deepcopy(component)
+    other.cid = 'C99999'
+    other.symbol.manufacturer = 'Another manufacturer'
+    other.symbol.mpn = 'Another value'
+    other.footprint.model_3d_name = 'another model'
+    other.footprint.origin = (999, 1000)
+    other.footprint.pads.reverse()
+    other.footprint.pads[0].x_mm += .0000001
+    other.footprint.padstacks = merge_padstacks(other.footprint.pads)
+    for p in other.footprint.primitives:
+        if p.kind not in {'ARC', 'HOLE', 'RECT', 'RECTANGLE'}:
+            p.raw += '~unrelated source metadata'
+    assert library_names(other)['footprint'] == library_names(component)['footprint']
+    assert library_names(other)['symbol'] != library_names(component)['symbol']
+    def forbidden(*args, **kwargs):
+        pytest.fail('reused geometry must not launch Cadence')
+    cached = native.build_footprint(other, Config(footprint_lib=str(tmp_path)), launch=forbidden)
+    assert cached['reused'] and cached['elapsedSeconds'] < 1
+
+
+def test_generic_geometry_separates_numbering_and_layers(component):
+    original = library_names(component)['footprint']
+    for field, value in [('name', 'A'), ('rotation_deg', 90), ('drill_mm', .2)]:
+        changed = deepcopy(component)
+        setattr(changed.footprint.padstacks[0], field, value)
+        assert library_names(changed)['footprint'] != original
+    changed = deepcopy(component)
+    changed.footprint.padstacks[0].layers[0].w_mm += .01
+    assert library_names(changed)['footprint'] != original
+    changed = deepcopy(component)
+    changed.footprint.primitives.append(Primitive('ARC', raw='unsupported'))
+    assert library_names(changed)['footprint'] != original
+
+
+@pytest.mark.parametrize('source, label', [
+    ('TSSOP-2_L4.9-W3.9-P0.65', 'SOP2_0D65_3D9X4D9'),
+    ('SOIC-2_L4.9-W3.9-P0.65', 'SOP2_0D65_3D9X4D9'),
+    ('SOT-23-2', 'SOT23_2'),
+    ('unknown-source-metadata', 'R2'),
+])
+def test_reference_naming_categories(component, source, label):
+    from edakit.library import package_label
+    component.footprint.name = source
+    assert package_label(component) == label
+    assert len(library_names(component)['footprint']) <= 31
+
+
+def test_pad_identity_reuses_rounding_noise_and_layer_order(component):
+    from edakit.footprint.identity import pad_name
+    pad = component.footprint.padstacks[0]
+    other = deepcopy(pad)
+    other.layers.reverse()
+    other.layers[0].w_mm += .00000001
+    assert pad_name(pad) == pad_name(other)
+    other.layers[0].w_mm += .001
+    assert pad_name(pad) != pad_name(other)
+
+
+def test_standard_pad_definition_ignores_absolute_source_corners(component):
+    from edakit.footprint.identity import pad_name
+    pad = component.footprint.padstacks[0]
+    other = deepcopy(pad)
+    other.name = '500'
+    other.x_mm += 100
+    for layer in other.layers:
+        layer.polygon_mm = [(100, 200), (101, 201)]
+    assert pad_name(other) == pad_name(pad)
+    assert len({pad_name(p) for p in component.footprint.padstacks}) == 1
+
+
+def test_template_cache_uses_verified_upgrade_and_recovers_corruption(tmp_path):
+    root = tmp_path / 'cadence'
+    (root / 'tools/bin').mkdir(parents=True)
+    (root / 'tools/bin/dbdoctor.exe').write_bytes(b'doctor')
+    template = root / 'source.dra'
+    template.write_bytes(b'old')
+    folder = tmp_path / 'work'
+    folder.mkdir()
+    calls = []
+    class Process:
+        returncode = 0
+        def poll(self):
+            return 0
+    def launch(args, **kwargs):
+        calls.append(args)
+        Path(args[-1]).write_bytes(b'upgraded')
+        return Process()
+    args = (template, root, tmp_path / 'lib', folder, {}, {}, None, 30, launch)
+    seed, reused = native.upgraded_template(*args)
+    assert not reused and seed.read_bytes() == b'upgraded'
+    assert native.upgraded_template(*args)[1] and len(calls) == 1
+    seed.write_bytes(b'corrupt')
+    assert not native.upgraded_template(*args)[1] and len(calls) == 2
+    template.write_bytes(b'new release')
+    assert not native.upgraded_template(*args)[1] and len(calls) == 3
+
+
+def test_reuse_still_checks_new_symbol_pin_pairing(component, tmp_path):
+    result, files = native_files(component, tmp_path)
+    native.publish(component, result, files, tmp_path)
+    other = deepcopy(component)
+    other.symbol.pins[0].number = '99'
+    with pytest.raises(PinMappingError):
+        native.build_footprint(other, Config(footprint_lib=str(tmp_path)))

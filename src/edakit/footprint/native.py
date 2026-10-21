@@ -7,10 +7,12 @@ import shutil
 import subprocess
 import threading
 import time
+import uuid
 
 from ..library import library_names
 from ..storage import atomic_write
 from ..services.footprint import prepare_footprint
+from .validation import validate_pin_mapping
 
 
 def cadence_install(config):
@@ -177,11 +179,51 @@ def run_owned(args, folder, environment, options, log_name, stopping, timeout, l
                     process.wait(timeout=3)
 
 
-def build_footprint(component, config, *, stopping=None, timeout=150, launch=subprocess.Popen):
+def upgraded_template(template, root, library, folder, environment, options, stopping, timeout, launch):
+    """Reuse an upgraded private vendor template, checked against tool and file identity."""
+    doctor = root / 'tools/bin/dbdoctor.exe'
+    stamp = doctor.stat()
+    key = hashlib.sha256(json.dumps([str(root.resolve()), file_hash(template),
+                                    stamp.st_size, stamp.st_mtime_ns]).encode()).hexdigest()
+    cache = Path(library) / '.edakit-cache' / 'native-template' / key
+    seed = cache / 'seed.dra'
+    receipt = cache / 'seed.json'
+    try:
+        if json.loads(receipt.read_text())['sha256'] == file_hash(seed):
+            return seed, True
+    except (OSError, ValueError, KeyError, TypeError):
+        pass
+    temporary = folder / 'template.dra'
+    shutil.copy2(template, temporary)
+    run_owned([str(doctor), '-no_dbcheck', '-no_backup', str(temporary)],
+              folder, environment, options, 'upgrade.log', stopping, min(timeout, 60), launch)
+    if not temporary.is_file() or temporary.stat().st_size == 0:
+        raise RuntimeError('Cadence 模板升级未产生有效文件')
+    cache.mkdir(parents=True, exist_ok=True)
+    pending = cache / (uuid.uuid4().hex + '.tmp')
+    try:
+        shutil.copy2(temporary, pending)
+        os.replace(pending, seed)
+        atomic_write(receipt, json.dumps({'sha256': file_hash(seed)}))
+    finally:
+        pending.unlink(missing_ok=True)
+    return seed, False
+
+
+def build_footprint(component, config, *, stopping=None, timeout=150, launch=subprocess.Popen, progress=None):
+    started = time.perf_counter()
+    def phase(message):
+        if progress:
+            progress(message)
+    phase('正在校验封装库，查找可复用封装')
     if not config.footprint_lib or not Path(config.footprint_lib).is_absolute():
         raise ValueError('请先在库设置中指定完整的 PCB 封装库目录')
+    if component.symbol is None or component.footprint is None:
+        raise ValueError('缺少原理图符号或 PCB 封装，无法校验引脚配对')
+    validate_pin_mapping(component.symbol, component.footprint)
     cached = compiled_result(component, config.footprint_lib)
     if cached is not None:
+        cached['elapsedSeconds'] = round(time.perf_counter() - started, 3)
         return cached
     root = cadence_install(config)
     template = root / 'share/pcb/examples/board_design/symbols/smdres.dra'
@@ -189,7 +231,6 @@ def build_footprint(component, config, *, stopping=None, timeout=150, launch=sub
         raise ValueError('Cadence 安装缺少 package symbol 模板 smdres.dra')
     result = prepare_footprint(component, config.footprint_lib)
     folder = Path(result['directory'])
-    shutil.copy2(template, result['drawing'])
     atomic_write(folder / 'automatic.il', automation_script(result))
     atomic_write(folder / 'automatic.scr', 'skill load("' + skill_path(folder / 'automatic.il') + '")\nexit\nfillin no\n')
     environment = os.environ.copy()
@@ -197,7 +238,7 @@ def build_footprint(component, config, *, stopping=None, timeout=150, launch=sub
     for variable in ('CDSROOT', 'CDS_INST_DIR', 'PCB_INST_DIR'):
         environment[variable] = str(root)
     # Use the user's actual license/product setup, isolated from open designs.
-    args = [str(root / 'tools/bin/allegro.exe'), '-safe', '-noopengl',
+    args = [str(root / 'tools/bin/allegro.exe'), '-nograph', '-safe', '-noopengl',
             '-product', 'Allegro_performance', '-p', str(folder),
             '-s', str(folder / 'automatic.scr'), result['drawing']]
     options = {}
@@ -207,17 +248,23 @@ def build_footprint(component, config, *, stopping=None, timeout=150, launch=sub
         startup.wShowWindow = 0
         options['startupinfo'] = startup
         options['creationflags'] = subprocess.CREATE_NEW_PROCESS_GROUP
-    run_owned([str(root / 'tools/bin/dbdoctor.exe'), '-no_dbcheck', '-no_backup', result['drawing']],
-              folder, environment, options, 'upgrade.log', stopping, min(timeout, 60), launch)
+    phase('正在准备 Cadence 后台编译环境')
+    seed, template_reused = upgraded_template(template, root, config.footprint_lib, folder,
+        environment, options, stopping, timeout, launch)
+    shutil.copy2(seed, result['drawing'])
+    phase('正在后台编译焊盘和 PCB 封装')
     run_owned(args, folder, environment, options, 'process.log', stopping, timeout, launch)
     try:
+        phase('正在核对原生引脚并保存封装库')
         files = validate_outputs(component, result)
         publish(component, result, files, config.footprint_lib)
     except Exception as error:
         raise RuntimeError(str(error) + '；日志目录：' + str(folder)) from error
     result.update(status='compiled', nativeBuildVerified=True, directory=config.footprint_lib,
                   drawing=str(Path(config.footprint_lib) / (result['footprint'].lower() + '.dra')),
-                  command='', message='PCB 封装已自动生成并保存到封装库', logDirectory=str(folder))
+                  command='', message='PCB 封装已自动生成并保存到封装库', logDirectory=str(folder),
+                  backend='allegro-nograph', templateReused=template_reused,
+                  elapsedSeconds=round(time.perf_counter() - started, 3))
     return result
 
 
@@ -268,8 +315,11 @@ class FootprintJobs:
             return dict(self.jobs[job_id])
 
     def _run(self, job_id, component, config):
+        def progress(message):
+            with self.lock:
+                self.jobs[job_id]['message'] = message
         try:
-            result = self.builder(component, config, stopping=self.stop)
+            result = self.builder(component, config, stopping=self.stop, progress=progress)
         except Exception as error:
             result = {'status': 'failed', 'message': str(error)}
         with self.lock:

@@ -8,7 +8,8 @@
     pcbResultFocus = document.activeElement;
     text(el("pcbresultname"), d.footprint);
     el("pcbdrawing").value = d.directory;
-    el("pcbcommand").value = d.message + "\n" + d.footprint + ".dra\n" + d.footprint + ".psm";
+    var elapsed = typeof d.elapsedSeconds === "number" ? " · " + (d.elapsedSeconds < 1 ? Math.max(1, Math.round(d.elapsedSeconds * 1000)) + " 毫秒" : d.elapsedSeconds.toFixed(2) + " 秒") : "";
+    el("pcbcommand").value = d.message + elapsed + "\n" + d.footprint.toLowerCase() + ".dra\n" + d.footprint.toLowerCase() + ".psm";
     text(el("pcbcopymsg"), "");
     el("pcbresult").style.display = el("pcbresultmask").style.display = "";
     el("pcbdrawing").focus();
@@ -50,7 +51,10 @@
   });
   function pollPcb(job, cid, failures) {
     jsonp("/api/es/footprint/status", { job: job }, function (d) {
-      if (d.status === "building") { window.setTimeout(function () { pollPcb(job, cid, 0); }, 900); return; }
+      if (d.status === "building") {
+        if (state.feedback.waits.pcb && d.message) { state.feedback.waits.pcb.label = d.message; paintWait(); }
+        window.setTimeout(function () { pollPcb(job, cid, 0); }, 400); return;
+      }
       pcbBusy = false; pcbButton(); endWait("pcb");
       if (d.status === "compiled") {
         if (state.selection.sel && state.selection.sel.cid === cid) { text(el("pmsg"), "PCB 封装已保存：" + d.footprint); }

@@ -51,7 +51,7 @@ def test_stage_writes_all_artifacts(tmp_path):
     # 符号 XML 落在 staging，封装类文件落在封装库
     assert st.symbol_xml.parent.name == "C2040"
     assert st.footprint_skill.parent == (tmp_path / "footprint_lib")
-    assert st.footprint_name.startswith('EK_C2040_F_')
+    assert st.footprint_name.startswith('QFN57_0D4_7X7_EP_')
     assert st.warnings == []
 
     # 3D 映射额外出一份 3D Canvas 用的

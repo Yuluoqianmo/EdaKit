@@ -1,13 +1,11 @@
 """Allegro 17.2 标准焊盘封装候选脚本，原生结果须上机验收。"""
 from __future__ import annotations
-import hashlib
-import json
 import math
 import re
-from dataclasses import asdict
 from pathlib import Path
 from ..easyeda.model import Footprint
 from ..errors import UnsupportedGeometryError
+from .identity import native_precision, pad_name
 
 LAYERS = {'TOP':'TOP', 'BOTTOM':'BOTTOM', 'DEFAULT_INTERNAL':'DEFAULT_INTERNAL',
           'TOP_SOLDERMASK':'SOLDERMASK_TOP', 'BOTTOM_SOLDERMASK':'SOLDERMASK_BOTTOM',
@@ -36,6 +34,7 @@ def _check(call, label):
 def generate_skill(fp: Footprint, *, drill_plated: bool = True, output_dir: Path | None = None,
                    refdes_prefix: str = "", manual: bool = False) -> str:
     """按本机 algroskill 手册生成脚本；在独立符号编辑器加载，拒绝覆盖输出。"""
+    fp = native_precision(fp)
     prefix = (refdes_prefix or "U").strip().rstrip("?*")
     if not re.fullmatch(r"[A-Za-z][A-Za-z0-9_]*", prefix):
         raise UnsupportedGeometryError(f'无效的器件位号前缀: {refdes_prefix!r}')
@@ -89,8 +88,7 @@ def generate_skill(fp: Footprint, *, drill_plated: bool = True, output_dir: Path
     points = []
     for ps in fp.padstacks:
         plated = ps.hole_plated and drill_plated
-        data = {'layers':[asdict(l) for l in ps.layers], 'drill':ps.drill_mm, 'plated':plated}
-        name = 'EK_' + hashlib.sha256(json.dumps(data, sort_keys=True).encode()).hexdigest()[:20]
+        name = pad_name(ps, drill_plated)
         if name not in created:
             created.add(name)
             drill = 'nil'
@@ -98,7 +96,7 @@ def generate_skill(fp: Footprint, *, drill_plated: bool = True, output_dir: Path
                 plating = 'PLATED' if plated else 'NON_PLATED'
                 drill = f"(make_axlPadStackDrill ?holeType 'CIRCLE_DRILL ?drillDiameter {ps.drill_mm:.4f} ?plating '{plating})"
             pads = []
-            for lay in ps.layers:
+            for lay in sorted(ps.layers, key=lambda l: l.layer):
                 figure = {'RECT': 'RECTANGLE', 'CIRCLE': 'CIRCLE', 'OBLONG': 'OVAL'}[lay.shape]
                 # Allegro distinguishes a square from a non-square rectangle.
                 # Compare dimensions at the same precision emitted to SKILL.
