@@ -34,6 +34,13 @@ def test_c2040_unique_names_grid_no_collisions_and_source_untouched():
     assert normalize_capture_symbol(normalize_capture_symbol(source)) == normalize_capture_symbol(source)
     physical = xml.findall('.//PhysicalPart/PinNumber/Defn')
     assert {p.get('number') for p in physical} == {str(i) for i in range(1,58)}
+    rect = xml.find('.//NormalView/Rect/Defn')
+    edges = {key: int(rect.get(key)) for key in ('x1', 'x2', 'y1', 'y2')}
+    assert all(value % 10 == 0 for value in edges.values())
+    for pin in pins:
+        hx, hy, sx, sy = (int(pin.get(k)) for k in ('hotptX', 'hotptY', 'startX', 'startY'))
+        assert abs(hx-sx) + abs(hy-sy) == 30
+        assert sx in (edges['x1'], edges['x2']) or sy in (edges['y1'], edges['y2'])
 
 
 @pytest.mark.parametrize('angle', [0, 90, 180, 270])
@@ -44,7 +51,7 @@ def test_short_source_lead_becomes_line_without_moving_body_end(angle):
     prepared = normalize_capture_symbol(source)
     pin = prepared.pins[0]
     assert u(pin.x_mm) % 10 == u(pin.y_mm) % 10 == 0
-    assert pin.length_mm >= 2.54 - 1e-8
+    assert pin.length_mm >= 7.62 - 1e-8
     horizontal = angle in (0, 180)
     direction = 1 if angle in (0, 90) else -1
     assert ((pin.x_mm if horizontal else pin.y_mm) + direction * pin.length_mm

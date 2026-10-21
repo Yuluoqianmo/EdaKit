@@ -154,8 +154,8 @@ def test_pin_geometry_start_is_body_end_hot_is_connection():
     # 0603 的 2 号脚在右边：连接端必须比本体端更靠外
     assert abs(hot_x) > abs(start_x)
     assert (hot_x > 0) == (start_x > 0)
-    # 引脚长 2.54mm = 10 单位
-    assert abs(hot_x - start_x) == 10
+    # 引脚长 7.62mm = 300 mil = 30 单位
+    assert abs(hot_x - start_x) == 30
 
 
 def test_pin_numbers_mapping_is_complete():

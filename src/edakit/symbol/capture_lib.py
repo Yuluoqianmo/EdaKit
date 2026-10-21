@@ -127,6 +127,26 @@ def normalize_capture_symbol(source: Symbol) -> Symbol:
     infer Power from a name such as VDD. Labels consume the same prepared copy.
     """
     sym = copy.deepcopy(source)
+    # Rectangular ICs: put the body edges on the same 100 mil grid as
+    # connection points, so a standard 300 mil lead can have exact length.
+    body_edges = {}
+    rect_index = _body_rect_index(sym)
+    if rect_index is not None:
+        g = sym.primitives[rect_index].geom
+        for first, last in (('x_mm', 'x2_mm'), ('y_mm', 'y2_mm')):
+            if first not in g or last not in g:
+                continue
+            low, high = sorted((g[first], g[last]))
+            lo = 10 * math.floor(round(low / CAPTURE_UNIT_MM, 8) / 10)
+            hi = 10 * math.ceil(round(high / CAPTURE_UNIT_MM, 8) / 10)
+            body_edges[first[0]] = ((low, lo), (high, hi))
+            g[first], g[last] = ((lo, hi) if g[first] <= g[last] else (hi, lo))
+            g[first] *= CAPTURE_UNIT_MM
+            g[last] *= CAPTURE_UNIT_MM
+        if 'w_mm' in g:
+            g['w_mm'] = abs(g['x2_mm'] - g['x_mm'])
+        if 'h_mm' in g:
+            g['h_mm'] = abs(g['y2_mm'] - g['y_mm'])
     counts = Counter(p.name.casefold() for p in sym.pins)
     reserved = {p.name.casefold() for p in sym.pins}
     serials = Counter()
@@ -167,13 +187,16 @@ def normalize_capture_symbol(source: Symbol) -> Symbol:
             old_fixed = pin.x_mm if horizontal else pin.y_mm
             direction = 1 if angle in (0, 90) else -1
             body = old_fixed + direction * pin.length_mm
-            # Move the connection end outward so snapping cannot shorten the
-            # visible lead or move it into the body.
-            # Keep at least 100 mil of visible Line lead, including on tiny
-            # source symbols. Snap the connection end outward from the body.
-            limit = (body - direction * 2.54) / CAPTURE_UNIT_MM
-            new_fixed = (10 * (math.floor(min(fixed, limit) / 10) if direction == 1
-                               else math.ceil(max(fixed, limit) / 10))) * CAPTURE_UNIT_MM
+            for old_edge, new_edge in body_edges.get('x' if horizontal else 'y', ()):
+                if abs(body - old_edge) < 1e-6:
+                    body = new_edge * CAPTURE_UNIT_MM
+                    break
+            # Standard Line lead: 300 mil (three 100 mil grid intervals).
+            # On a nonrectangular source whose body end is off grid, extend
+            # outward by less than one extra interval to retain its geometry.
+            limit = round(body / CAPTURE_UNIT_MM - direction * 30, 8)
+            new_fixed = (10 * (math.floor(limit / 10) if direction == 1
+                               else math.ceil(limit / 10))) * CAPTURE_UNIT_MM
             new_length = direction * (body - new_fixed)
             if new_length < -1e-8:
                 raise ValueError(f'引脚 {pin.number} 长度不足以对齐 Capture 格点。')
