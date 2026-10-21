@@ -92,7 +92,8 @@ def stage_component(comp: Component, cfg: Config, *, download_step: bool = True,
     work.mkdir(parents=True, exist_ok=True)
 
     out = Staged(cid=cid, workdir=work)
-    fp_name = comp.footprint.name if comp.footprint else f"{cid}_PKG"
+    from .footprint.naming import footprint_name
+    fp_name = footprint_name(comp.footprint.name) if comp.footprint else f"{cid}_PKG"
     out.footprint_name = fp_name
     if pin_map is not None:
         out.pin_map = work / f"{cid}.pinmap.json"
@@ -169,7 +170,10 @@ def stage_component(comp: Component, cfg: Config, *, download_step: bool = True,
         out.warnings.append("立创没有该元件的 PCB 封装")
     else:
         try:
-            il = generate_skill(comp.footprint, output_dir=lib,
+            from copy import deepcopy
+            pcb = deepcopy(comp.footprint)
+            pcb.name = fp_name
+            il = generate_skill(pcb, output_dir=lib,
                                 refdes_prefix=comp.symbol.prefix if comp.symbol else "")
         except UnsupportedGeometryError as e:
             out.warnings.append(f"PCB 封装脚本未生成: {e}")

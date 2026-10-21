@@ -34,7 +34,7 @@ def _check(call, label):
     return f'    (unless {call} (error "EdaKit: {_s(label)} failed"))'
 
 def generate_skill(fp: Footprint, *, drill_plated: bool = True, output_dir: Path | None = None,
-                   refdes_prefix: str = "") -> str:
+                   refdes_prefix: str = "", manual: bool = False) -> str:
     """按本机 algroskill 手册生成脚本；在独立符号编辑器加载，拒绝覆盖输出。"""
     prefix = (refdes_prefix or "U").strip().rstrip("?*")
     if not re.fullmatch(r"[A-Za-z][A-Za-z0-9_]*", prefix):
@@ -73,8 +73,15 @@ def generate_skill(fp: Footprint, *, drill_plated: bool = True, output_dir: Path
     out = ['/* EdaKit M4 candidate. Load in a separate Allegro symbol editor. */',
            '(defun lcsc_build_footprint ()', '  (let ()']
     for ext in ('.dra', '.psm'):
+        if manual and ext == '.dra':
+            continue
         out.append(f'    (when (isFile "{_s(base + ext)}") (error "EdaKit: output already exists"))')
-    out.append(_check(f'(axlOpenDesign ?design "{_s(base)}.dra" ?mode "w" ?noMru t)', 'open design'))
+    if manual:
+        out.append('    (unless (axlIsSymbolEditor) (error "EdaKit: create a Package Symbol first"))')
+        out.append('    (unless (equal (lowerCase (axlDesignType t)) "package") (error "EdaKit: expected package symbol"))')
+        out.append(f'    (unless (equal (lowerCase (simplifyFilename (axlGetDrawingName))) (lowerCase (simplifyFilename "{_s(base)}.dra"))) (error "EdaKit: wrong drawing path"))')
+    else:
+        out.append(_check(f'(axlOpenDesign ?design "{_s(base)}.dra" ?mode "w" ?noMru t)', 'open design'))
     out.append(_check('(axlSetSymbolType "package")', 'symbol type'))
     out.append(_check('(axlDBChangeDesignUnits "millimeters" 4)', 'units'))
     extents_index = len(out)

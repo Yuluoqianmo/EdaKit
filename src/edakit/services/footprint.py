@@ -1,0 +1,40 @@
+"""Prepare isolated native package builds from the workbench."""
+from copy import deepcopy
+from datetime import datetime
+import json
+from pathlib import Path
+import uuid
+
+from ..footprint.naming import footprint_name
+from ..footprint.skill import generate_skill
+from ..footprint.validation import validate_pin_mapping
+from ..storage import atomic_write
+
+
+def prepare_footprint(component, library):
+    if component.footprint is None:
+        raise ValueError('该器件没有 PCB 封装数据')
+    report = validate_pin_mapping(component.symbol, component.footprint) if component.symbol else None
+    if report is None:
+        raise ValueError('缺少原理图符号，无法校验引脚配对')
+    fp = deepcopy(component.footprint)
+    source = fp.name
+    fp.name = footprint_name(source)
+    folder = Path(library).parent / 'pcb-candidates' / component.cid / (
+        datetime.now().strftime('%Y%m%d-%H%M%S') + '-' + uuid.uuid4().hex[:8])
+    script = generate_skill(fp, output_dir=folder,
+                           refdes_prefix=component.symbol.prefix, manual=True)
+    folder.mkdir(parents=True, exist_ok=False)
+    script_path = folder / 'manual_build.il'
+    atomic_write(script_path, script)
+    report.update(source_footprint_name=source, footprint_name=fp.name,
+                  status='candidate', native_build_verified=False)
+    atomic_write(folder / 'pinmap.json', json.dumps(report, ensure_ascii=False, indent=2))
+    drawing = (folder / (fp.name + '.dra')).as_posix()
+    command = 'skill load("' + script_path.as_posix() + '")'
+    message = ('PCB Footprint: ' + fp.name + '\n'
+               'File > New > Package symbol\nDrawing Name: ' + drawing + '\n\n' + command)
+    atomic_write(folder / 'BUILD.txt', message)
+    return {'status': 'candidate', 'footprint': fp.name, 'directory': str(folder),
+            'drawing': drawing, 'command': command, 'message': message,
+            'nativeBuildVerified': False}

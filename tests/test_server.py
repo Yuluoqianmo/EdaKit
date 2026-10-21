@@ -9,6 +9,20 @@ import urllib.error
 import urllib.request
 
 import pytest
+
+
+def test_workbench_footprint_route(_isolate, monkeypatch):
+    from pathlib import Path
+    opened = []
+    monkeypatch.setattr(server_app.os, 'startfile', lambda path: opened.append(path))
+    _, body = _get(_isolate, '/api/es/footprint?cid=C2040')
+    result = json.loads(body)
+    assert result['status'] == 'candidate'
+    assert result['nativeBuildVerified'] is False
+    assert opened == [result['directory']]
+    assert Path(result['directory'], 'manual_build.il').is_file()
+    assert result['footprint'] in result['drawing']
+    assert 'skill load(' in result['command']
 from conftest import DATA
 
 from edakit.catalog.models import CategoryNode, Part, SearchResult
@@ -204,10 +218,10 @@ def test_placement_queue_carries_properties_and_reuses_preparation(_isolate, mon
         source = Path(fields["olb_xml"])
         assert fields["symbol_digest"] == hashlib.sha256(source.read_bytes()).hexdigest()
         package = ET.parse(source).find("Package")
-        assert fields["part_name"] == package.find("Defn").get("name") == "RP2040_P7"
+        assert fields["part_name"] == package.find("Defn").get("name") == "RP2040_P8"
         assert {p.get("name"): p.get("val") for p in package.findall("LibPart/NormalView/SymbolUserProp/Defn")} == {
             "Description": component.symbol.description,
-            "PCBFootprint": component.footprint.name,
+            "PCBFootprint": first['footprint'],
             "Manufacturer": component.symbol.manufacturer,
             "Manufacturer_PN": component.symbol.mpn,
         }

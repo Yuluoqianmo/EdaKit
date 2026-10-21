@@ -151,7 +151,7 @@
   function resetDetail() {
     detailPending = false;
     ++state.selection.detailQuery; state.layout.phoneDetail = false; state.preview.full = false; el("largeview").style.display = "none"; state.selection.sel = null; state.selection.detail = null; endWait("cad"); endWait("product"); cancelImage("previewimg"); cancelImage("largeimg");
-    el("btnplace").disabled = el("tabfootprint").disabled = el("tabsymbol").disabled = el("tab3d").disabled = true;
+    el("btnpcb").disabled = el("btnplace").disabled = el("tabfootprint").disabled = el("tabsymbol").disabled = el("tab3d").disabled = true;
     text(el("dname"), "请选择一个元件"); text(el("selectedcid"), ""); text(el("prop"), "从查询结果中选择元件，查看符号与封装。"); text(el("pmsg"), ""); datasheet("", "选择元件后查看手册"); showEmpty("选择元件后显示预览");
   }
   function datasheet(url, message) {
@@ -171,7 +171,7 @@
     if (state.selection.sel && state.selection.sel.cid === p.cid && (state.selection.detail || detailPending)) { return; }
     detailPending = true;
     cancelImage("largeimg");
-    state.selection.sel = p; state.selection.detail = null; state.preview.zoom = 1; state.preview.yaw = 35; state.preview.pitch = 55; state.preview.png = ""; el("btnplace").disabled = el("tab3d").disabled = el("tabfootprint").disabled = el("tabsymbol").disabled = true;
+    state.selection.sel = p; state.selection.detail = null; state.preview.zoom = 1; state.preview.yaw = 35; state.preview.pitch = 55; state.preview.png = ""; el("btnpcb").disabled = el("btnplace").disabled = el("tab3d").disabled = el("tabfootprint").disabled = el("tabsymbol").disabled = true;
     text(el("dname"), p.model); text(el("selectedcid"), p.cid);
     properties(p); datasheet(p.datasheet, "正在查询手册…");
     text(el("pmsg"), "正在加载元件详情…"); showEmpty("正在加载预览…");
@@ -187,6 +187,7 @@
       if (token !== state.selection.detailQuery) { return; } detailPending = false; endWait("cad"); state.selection.detail = d; el("btnplace").disabled = !d.hasSymbol || state.placement.placing; el("tabsymbol").disabled = !d.hasSymbol; el("tabfootprint").disabled = !d.hasFootprint; el("tab3d").disabled = !d.model3d; el("tab3d").title = d.model3d ? "查看真实3D模型" : "该元件暂无3D模型";
       if (!p.datasheet && d.datasheet) { datasheet(d.datasheet); }
       if (state.preview.kind === "model3d" && !d.model3d) { state.preview.kind = "footprint"; }
+      pcbButton();
       text(el("pmsg"), d.hasSymbol ? "单击按钮后切回原理图，单击落位；Esc 退出。" : "该元件没有原理图符号");
       if (!d.hasFootprint && d.hasSymbol) { state.preview.kind = "symbol"; } renderPreview(true);
     }, function (msg) { if (token === state.selection.detailQuery) { detailPending = false; endWait("cad"); text(el("pmsg"), msg || "详情加载失败，请重新选择"); showEmpty("预览加载失败"); } });
@@ -324,6 +325,27 @@
   bind("splitter", "keydown", function (ev) { ev = ev || window.event; if (ev.keyCode === 38 || ev.keyCode === 40) { state.layout.split = Math.max(.3, Math.min(.72, state.layout.split + (ev.keyCode === 38 ? -.03 : .03))); layout(); if (ev.preventDefault) { ev.preventDefault(); } } });
   bind(document, "mousemove", function (ev) { if (!splitDrag) { return; } ev = ev || window.event; state.layout.split = Math.max(.3, Math.min(.72, splitDrag.value + (ev.clientY - splitDrag.y) / Math.max(250, document.documentElement.clientHeight - 196))); scheduleLayout(); });
   bind(document, "mouseup", function () { splitDrag = null; });
+
+/* source: 09-pcb.js */
+  var pcbBusy = false;
+  function pcbButton() {
+    el("btnpcb").disabled = pcbBusy || !state.selection.detail || !state.selection.detail.hasFootprint || !state.selection.detail.hasSymbol;
+    text(el("btnpcb"), pcbBusy ? "生成中…" : "生成 PCB 封装");
+  }
+  bind("btnpcb", "click", function () {
+    if (pcbBusy || !state.selection.sel || !state.selection.detail || !state.selection.detail.hasFootprint) { return; }
+    var cid = state.selection.sel.cid;
+    pcbBusy = true; pcbButton(); beginWait("pcb", "正在生成 PCB 封装", 90);
+    jsonp("/api/es/footprint", { cid: cid }, function (d) {
+      pcbBusy = false; pcbButton(); endWait("pcb");
+      if (state.selection.sel && state.selection.sel.cid === cid) { text(el("pmsg"), "候选封装已生成，目录已打开。" + d.footprint); }
+      window.alert(d.message + "\n\n候选文件已生成，需在 Allegro 中编译验证。\n完整指令见目录内 BUILD.txt。");
+    }, function (message) {
+      pcbBusy = false; pcbButton(); endWait("pcb");
+      if (state.selection.sel && state.selection.sel.cid === cid) { text(el("pmsg"), message || "封装生成失败"); }
+      notice(message || "封装生成失败");
+    });
+  });
 
 /* source: 09-placement.js */
   function placeBusy(busy) {

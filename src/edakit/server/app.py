@@ -185,6 +185,14 @@ class MallHandler(BaseHTTPRequestHandler):
                 )
             if path == "/api/es/place":
                 return self._place_from_qs(qs)
+            if path == "/api/es/footprint":
+                from ..services.footprint import prepare_footprint
+                result = prepare_footprint(self._component((qs.get('cid') or [''])[0]), Config.load().footprint_lib)
+                try:
+                    os.startfile(result['directory'])
+                except OSError:
+                    result['message'] += '\n无法自动打开目录，请按路径打开。'
+                return self._jsonp(qs, result) or self._json(result)
             if path == "/api/es/place/status":
                 seq = (qs.get("seq") or [""])[0]
                 result = {"result": read_response(seq)}

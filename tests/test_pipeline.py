@@ -51,7 +51,7 @@ def test_stage_writes_all_artifacts(tmp_path):
     # 符号 XML 落在 staging，封装类文件落在封装库
     assert st.symbol_xml.parent.name == "C2040"
     assert st.footprint_skill.parent == (tmp_path / "footprint_lib")
-    assert st.footprint_name == "LQFN-56_L7.0-W7.0-P0.4-EP"
+    assert st.footprint_name == "LQFN-56_L7_0-W7_0-P0_d2719ce467"
     assert st.warnings == []
 
     # 3D 映射额外出一份 3D Canvas 用的
@@ -151,9 +151,8 @@ def test_symbol_xml_is_capture_lib_dialect(tmp_path):
     # Package 名包含版本后缀（必须与 PlacePart 传的名字一致）；
     # 封装名落在 pcbFootprint 属性上
     assert f'name="{st.part_name}"' in txt
-    assert st.part_name == "RP2040_P7"
-    assert 'pcbFootprint="LQFN-56_L7.0-W7.0-P0.4-EP"' in txt
-    assert 'pcbFootprint="LQFN-56_L7.0-W7.0-P0.4-EP"' in txt
+    assert st.part_name == "RP2040_P8"
+    assert 'pcbFootprint="LQFN-56_L7_0-W7_0-P0_d2719ce467"' in txt
     # 57 个引脚
     assert txt.count("<SymbolPinScalar>") == 57
 
@@ -167,7 +166,7 @@ def test_staging_and_library_merge_keep_component_properties(tmp_path, capture_o
 
     component = _comp(cid)
     staged = stage_component(component, _cfg(tmp_path), capture_only=capture_only, download_step=False)
-    assert staged.part_name.endswith("_P7")
+    assert staged.part_name.endswith("_P8")
     assert staged.part_name != capture_part_name(component.symbol.name, cid, revision="P3")
     assert staged.part_name != capture_part_name(component.symbol.name, cid)
     assert staged.part_name != capture_part_name(component.symbol.name, cid, revision="G2")
@@ -181,7 +180,7 @@ def test_staging_and_library_merge_keep_component_properties(tmp_path, capture_o
     assert len(packages) == 1
     assert {p.get("name"): p.get("val") for p in packages[0].findall("LibPart/NormalView/SymbolUserProp/Defn")} == {
         "Description": component.symbol.description,
-        "PCBFootprint": component.footprint.name,
+        "PCBFootprint": staged.footprint_name,
         "Manufacturer": component.symbol.manufacturer,
         "Manufacturer_PN": component.symbol.mpn,
     }

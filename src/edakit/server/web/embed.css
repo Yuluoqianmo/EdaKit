@@ -90,3 +90,6 @@ button,input,select{font:13px "Microsoft YaHei UI","Microsoft YaHei","Segoe UI",
 #allparambody .facetlabel{height:34px;line-height:17px;white-space:normal}#allparambody .facetfield{height:76px}
 .previewempty.updating{top:auto;bottom:6px;left:12px;right:12px;padding:3px 6px;background:#eef4f7;color:#617f8d;border:1px solid #dde7ed;border-radius:2px;font-size:10px;line-height:17px}
 @media(max-height:650px){.list td{height:30px;padding:3px 9px;font-size:12px}.list td b{font-size:12px}.list td .cid{line-height:16px;font-size:11px}}
+
+/* source: 03-pcb.css */
+#btnpcb{height:32px;padding:0 10px;margin-left:6px;font-size:12px;min-width:112px}
