@@ -25,7 +25,10 @@ class PreviewService:
         geometry = component.symbol if kind == "symbol" else component.footprint
         if geometry is None:
             raise PreviewMissing("no_" + kind)
-        return render_symbol_svg(geometry) if kind == "symbol" else render_footprint_svg(geometry)
+        if kind == "symbol":
+            from ..symbol.capture_lib import normalize_capture_symbol
+            return render_symbol_svg(normalize_capture_symbol(geometry))
+        return render_footprint_svg(geometry)
 
     def png(self, component, kind, size, yaw=35, pitch=55):
         if kind == "model3d":

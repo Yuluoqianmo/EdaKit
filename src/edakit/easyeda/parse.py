@@ -245,6 +245,15 @@ def parse_footprint_pad(prim: Primitive, tf: _Transform) -> Pad:
     if len(f) > 10 and f[10].strip():
         pad.polygon_mm = [tf.pt(p) for p in _points(f[10])]
     pad.rotation_deg = _f(f[11]) if len(f) > 11 else 0.0
+    pad.slot_length_mm = _f(f[13]) * units.FOOTPRINT_UNIT_TO_MM if len(f) > 13 else 0.0
+    pad.hole_points_mm = [tf.pt(p) for p in _points(f[14])] if len(f) > 14 and f[14].strip() else []
+    pad.hole_plated = f[15].strip().upper() not in {'N', 'NO', 'FALSE', '0'} if len(f) > 15 else True
+    # Verified against KiCad's EasyEDA importer: 17=paste margin,
+    # 18=solder mask margin, both in source drawing units (not radius ratio).
+    pad.paste_expansion_mm = _f(f[17]) * units.FOOTPRINT_UNIT_TO_MM if len(f) > 17 else 0
+    pad.solder_expansion_mm = _f(f[18]) * units.FOOTPRINT_UNIT_TO_MM if len(f) > 18 else 0
+    pad.paste_enabled = min(pad.w_mm,pad.h_mm)+2*pad.paste_expansion_mm > 0
+    pad.solder_enabled = min(pad.w_mm,pad.h_mm)+2*pad.solder_expansion_mm > 0
     pad.is_smd = pad.hole_mm <= 0.0
     prim.geom = {
         "x_mm": pad.x_mm,
@@ -284,26 +293,59 @@ def parse_footprint_primitive(prim: Primitive, tf: _Transform) -> Primitive:
                 "width_mm": _f(f[1]) * units.FOOTPRINT_UNIT_TO_MM,
                 "path": f[4] if len(f) > 4 else "",
             }
+            from .arcs import circular_arcs
+            try:
+                prim.geom['arcs'] = circular_arcs(prim.geom['path'], tf)
+            except ValueError as exc:
+                prim.geom['arc_error'] = str(exc)
+    elif k in {"RECT", "RECTANGLE"}:
+        # PCB RECT: x, y, width, height, layer, id, locked, stroke, fill.
+        if len(f) >= 10:
+            x, y = tf.pt((_f(f[1]), _f(f[2])))
+            x2, y2 = tf.pt((_f(f[1]) + _f(f[3]), _f(f[2]) + _f(f[4])))
+            prim.geom = {"x_mm": x, "y_mm": y, "x2_mm": x2, "y2_mm": y2,
+                         "layer": layer_name(f[5]),
+                         "width_mm": _f(f[8]) * units.FOOTPRINT_UNIT_TO_MM,
+                         "filled": f[9].lower() not in {"none", "", "transparent"}}
     elif k == "HOLE":  # HOLE~cx~cy~radius~...
         if len(f) >= 4:
             prim.geom = {
                 "x_mm": tf.x(_f(f[1])),
                 "y_mm": tf.y(_f(f[2])),
-                "hole_mm": _f(f[3]) * units.FOOTPRINT_UNIT_TO_MM,
+                "hole_mm": 2 * _f(f[3]) * units.FOOTPRINT_UNIT_TO_MM,
             }
     elif k == "SOLIDREGION":  # SOLIDREGION~layer_id~net~path~region_type~id~~...
         if len(f) >= 4:
             path = f[3]
             # This converter currently supports only absolute M/L/Z outlines.
             # Reject other commands downstream instead of treating curve controls as vertices.
-            commands = re.findall(r"[A-Za-z]", path)
-            supported = all(command.upper() in {"M", "L", "Z"} for command in commands)
-            pts = [tf.pt(p) for p in _points(path)] if supported else []
+            # One absolute polygon only: relative commands and multiple
+            # subpaths must not be flattened into a different solid shape.
+            number = r"[-+]?(?:\d+(?:\.\d*)?|\.\d+)(?:[eE][-+]?\d+)?"
+            pair = rf"{number}[\s,]+{number}"
+            polygon = rf"\s*M\s*{pair}(?:(?:\s*L\s*|[\s,]+){pair})+\s*Z?\s*"
+            supported = re.fullmatch(polygon, path) is not None
+            nums = re.findall(number, path) if supported else []
+            supported = supported and len(nums) % 2 == 0
+            if not supported:
+                nums = []
+            pts = [tf.pt((float(nums[i]), float(nums[i + 1])))
+                   for i in range(0, len(nums), 2)]
+            rings = [pts] if supported else []
+            if not supported:
+                from ..footprint.geometry import path_polygons
+                try:
+                    rings = path_polygons(path, tf)
+                    pts = rings[0]
+                    supported = True
+                except (ValueError, TypeError, IndexError, OverflowError):
+                    pass
             prim.geom = {
                 "layer": layer_name(f[1]),
                 "path": path,
                 "path_supported": supported,
                 "points_mm": [v for p in pts for v in p],
+                "rings_mm": rings,
                 "region_type": f[4] if len(f) > 4 else "solid",
             }
     elif k == "SVGNODE":
@@ -347,9 +389,63 @@ def parse_component(cid: str, payload: dict[str, Any]) -> Component:
     comp = Component(cid=cid, uuid=payload.get("uuid", ""), title=payload.get("title", ""))
     comp.raw = payload
     comp.symbol = parse_symbol(cid, payload)
+    if payload.get("subparts"):
+        comp.symbol = _merge_symbol_units(cid, payload, comp.symbol)
     comp.footprint = parse_footprint(payload)
     comp.model3d = parse_model3d(payload, comp.footprint)
     return comp
+
+
+def _merge_symbol_units(cid: str, payload: dict[str, Any], root: Symbol | None) -> Symbol:
+    """Flatten independent units into one gridded body, retaining every physical pin.
+
+    The root is a preview of a unit, not an additional package unit. The explicit
+    subparts are authoritative. Never combine their overlapping local coordinates.
+    """
+    if root is None:
+        raise ParseError("多单元器件缺少主符号数据")
+    pins = []
+    numbers = set()
+    for part in payload["subparts"]:
+        unit = parse_symbol(cid, part)
+        if unit is None or not unit.pins:
+            raise ParseError("多单元器件存在空单元，无法安全生成")
+        for pin in unit.pins:
+            if not pin.number or pin.number in numbers:
+                raise ParseError(f"多单元器件引脚编号为空或重复: {pin.number}")
+            numbers.add(pin.number)
+            pins.append(pin)
+    if not {p.number for p in root.pins}.issubset(numbers):
+        raise ParseError("多单元器件数据不完整：子单元未覆盖主符号引脚")
+    banks = {angle: [] for angle in (0, 90, 180, 270)}
+    for pin in pins:
+        angle = pin.orientation_deg % 360
+        if angle not in banks:
+            raise ParseError("多单元器件含非正交引脚，无法安全布局")
+        banks[angle].append(pin)
+    # Retain source order within each unit/bank. 100 mil pitch, 300 mil leads.
+    pitch = 2.54
+    width = max(16, max(len(banks[90]), len(banks[270])) + 1) * pitch
+    height = max(4, max(len(banks[0]), len(banks[180])) + 1) * pitch
+    # Allow long functional labels on both sides of an IC.
+    width = max(width, max((len(p.name) for p in pins), default=0) * 2.54)
+    for angle, bank in banks.items():
+        for i, pin in enumerate(bank, 1):
+            pin.length_mm = 3 * pitch
+            if angle in (0, 180):
+                pin.x_mm = -3 * pitch if angle == 0 else width + 3 * pitch
+                pin.y_mm = -i * pitch
+            else:
+                pin.x_mm = i * pitch
+                pin.y_mm = -height - 3 * pitch if angle == 90 else 3 * pitch
+    root.pins = pins
+    root.primitives = [Primitive(kind="R", geom={
+        "x_mm": 0.0, "y_mm": 0.0, "x2_mm": width, "y2_mm": -height,
+        "w_mm": width, "h_mm": height, "rotation": 0.0,
+    })]
+    root.width_mm, root.height_mm = width + 6 * pitch, height + 6 * pitch
+    root.origin = (0.0, 0.0)
+    return root
 
 
 def parse_symbol(cid: str, payload: dict[str, Any]) -> Symbol | None:
@@ -426,9 +522,8 @@ def parse_footprint(payload: dict[str, Any]) -> Footprint | None:
         fp.primitives.append(prim)
 
     fp.is_smd = all(p.is_smd for p in fp.pads) if fp.pads else True
-    from ..footprint.padstack import merge_padstacks
-
-    fp.padstacks = merge_padstacks(fp.pads)
+    from ..footprint.padstack import footprint_padstacks
+    fp.padstacks = footprint_padstacks(fp)
     return fp
 
 

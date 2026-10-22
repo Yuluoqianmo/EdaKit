@@ -8,6 +8,7 @@ from typing import Any
 from .storage import atomic_write
 
 APP_DIR_NAME = "edakit"
+DEFAULT_LIBRARY_ROOT = Path("D:/EdaKit/Libraries")
 
 
 def app_dir() -> Path:
@@ -62,8 +63,9 @@ class Config:
             except (json.JSONDecodeError, TypeError) as exc:
                 raise ValueError("Invalid configuration file; preserve it for repair") from exc
         cfg = cls()
-        cfg.footprint_lib = str(app_dir() / "footprint_lib")
-        cfg.project_olb = str(app_dir() / "project.olb")
+        cfg.symbol_lib = str(DEFAULT_LIBRARY_ROOT / "Symbols")
+        cfg.footprint_lib = str(DEFAULT_LIBRARY_ROOT / "Footprints")
+        cfg.project_olb = str(Path(cfg.symbol_lib) / "EdaKit.olb")
         return cfg
 
     @classmethod

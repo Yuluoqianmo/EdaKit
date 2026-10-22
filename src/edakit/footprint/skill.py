@@ -16,11 +16,16 @@ DRAW = {'TOP_SILK':'PACKAGE GEOMETRY/SILKSCREEN_TOP',
         'BOTTOM_ASSEMBLY':'PACKAGE GEOMETRY/ASSEMBLY_BOTTOM',
         'DOCUMENT':'PACKAGE GEOMETRY/ASSEMBLY_TOP',
         'BOARD_OUTLINE':'PACKAGE GEOMETRY/ASSEMBLY_TOP',
+        'ComponentShapeLayer':'PACKAGE GEOMETRY/ASSEMBLY_TOP',
+        'LeadShapeLayer':'PACKAGE GEOMETRY/ASSEMBLY_TOP',
         'ComponentPolarityLayer':'PACKAGE GEOMETRY/SILKSCREEN_TOP'}
-SOLID_DRAW = {'ComponentShapeLayer': 'PACKAGE GEOMETRY/ASSEMBLY_TOP',
-              'LeadShapeLayer': 'PACKAGE GEOMETRY/ASSEMBLY_TOP',
+# Outlines and filled graphics must use the same semantic layer mapping.
+# Mask artwork is non-copper package geometry; never map copper to assembly.
+SOLID_DRAW = {**DRAW,
               'TOP_PASTE': 'PACKAGE GEOMETRY/PASTEMASK_TOP',
-              'ComponentPolarityLayer': 'PACKAGE GEOMETRY/SILKSCREEN_TOP'}
+              'BOTTOM_PASTE': 'PACKAGE GEOMETRY/PASTEMASK_BOTTOM',
+              'TOP_SOLDERMASK': 'PACKAGE GEOMETRY/SOLDERMASK_TOP',
+              'BOTTOM_SOLDERMASK': 'PACKAGE GEOMETRY/SOLDERMASK_BOTTOM'}
 
 def _s(s):
     return s.replace('\\', '\\\\').replace('"', '\\"')
@@ -42,29 +47,43 @@ def generate_skill(fp: Footprint, *, drill_plated: bool = True, output_dir: Path
         raise UnsupportedGeometryError('封装名称不是有效的单个库文件名。')
     if not fp.padstacks:
         raise UnsupportedGeometryError('封装没有可生成的焊盘。')
-    numbers = [ps.name for ps in fp.padstacks]
+    for prim in fp.primitives:
+        if prim.kind in {'VIA','COPPERAREA','KEEPOUT'}:
+            raise UnsupportedGeometryError(f'暂不支持封装中的 {prim.kind} 电气或禁布区域，不能静默丢弃。')
+    numbers = [ps.name for ps in fp.padstacks if not ps.mechanical]
     if (len(numbers) != len(set(numbers)) or
             any(not n or n.startswith('@') or any(c.isspace() or ord(c) < 32 for c in n) for n in numbers)):
         raise UnsupportedGeometryError('封装引脚编号为空、重复或无效；机械孔需独立建模。')
-    if any(p.kind in {'HOLE', 'RECT', 'RECTANGLE'} for p in fp.primitives):
-        raise UnsupportedGeometryError('当前阶段尚不支持圆弧、独立孔或矩形图元，拒绝丢弃几何。')
     for region in fp.solid_regions:
         layer = region.geom.get('layer')
         pts = region.geom.get('points_mm') or []
-        if (layer not in SOLID_DRAW or not region.geom.get('path_supported', True)
+        if region.geom.get('region_type', 'solid') not in {'solid', 'cutout'}:
+            raise UnsupportedGeometryError(
+                f'不支持的填充区域类型: {region.geom.get("region_type")!r}，层 {layer!r}；不能按实心区域转换。')
+        if layer not in SOLID_DRAW:
+            raise UnsupportedGeometryError(f'不支持的填充区域层: {layer!r}；不能转换或丢弃该层。')
+        if (not region.geom.get('path_supported', True)
                 or len(pts) < 6 or len(pts) % 2
                 or not all(math.isfinite(v) for v in pts)):
-            raise UnsupportedGeometryError(f'不支持的填充区域: {layer!r}，或区域路径无效。')
+            raise UnsupportedGeometryError(f'填充区域路径无效或暂不支持: {layer!r}。')
     for ps in fp.padstacks:
-        if not all(math.isfinite(v) for v in (ps.x_mm, ps.y_mm, ps.rotation_deg, ps.drill_mm)) or ps.drill_mm < 0 or not ps.layers:
+        if not all(math.isfinite(v) for v in (ps.x_mm, ps.y_mm, ps.rotation_deg, ps.drill_mm,
+                ps.slot_width_mm, ps.slot_height_mm, ps.drill_offset_x_mm, ps.drill_offset_y_mm)) or ps.drill_mm < 0 or (not ps.layers and not ps.mechanical):
             raise UnsupportedGeometryError(f'焊盘 {ps.name} 的坐标、钻孔或层无效。')
+        if ps.mechanical and (ps.hole_plated or ps.drill_mm <= 0):
+            raise UnsupportedGeometryError('无编号机械孔必须是非镀孔且孔径大于零。')
         for lay in ps.layers:
-            if lay.layer not in LAYERS or lay.shape not in {'RECT', 'CIRCLE', 'OBLONG'}:
+            if lay.layer not in LAYERS or lay.shape not in {'RECT', 'CIRCLE', 'OBLONG', 'ROUNDED_RECT', 'SHAPE'}:
                 raise UnsupportedGeometryError(f'焊盘 {ps.name}: 暂不支持 {lay.layer}/{lay.shape}，拒绝近似铜形。')
             if not all(math.isfinite(v) and v > 0 for v in (lay.w_mm, lay.h_mm)):
                 raise UnsupportedGeometryError(f'焊盘 {ps.name} 尺寸无效。')
             if lay.shape == 'CIRCLE' and abs(lay.w_mm - lay.h_mm) > 1e-4:
                 raise UnsupportedGeometryError(f'焊盘 {ps.name} 圆形宽高不相等。')
+            if lay.shape == 'ROUNDED_RECT' and not 0 < lay.radius_mm <= min(lay.w_mm, lay.h_mm)/2:
+                raise UnsupportedGeometryError(f'焊盘 {ps.name} 圆角半径缺失或超出范围。')
+            if lay.shape == 'SHAPE':
+                from .geometry import polygon
+                polygon(lay.polygon_mm)
     if any(l not in DRAW for l, _ in fp.lines) or any(l not in DRAW for l, *_ in fp.circles):
         raise UnsupportedGeometryError('存在尚未支持的图形层。')
     root = Path(output_dir).resolve().as_posix() if output_dir is not None else '.'
@@ -94,26 +113,46 @@ def generate_skill(fp: Footprint, *, drill_plated: bool = True, output_dir: Path
             drill = 'nil'
             if ps.drill_mm:
                 plating = 'PLATED' if plated else 'NON_PLATED'
-                drill = f"(make_axlPadStackDrill ?holeType 'CIRCLE_DRILL ?drillDiameter {ps.drill_mm:.4f} ?plating '{plating})"
+                hole = (f"?holeType 'OVAL_SLOT ?slotSize {_pt(ps.slot_width_mm, ps.slot_height_mm)} ?usage \"SLOT\""
+                        if ps.slot_width_mm and ps.slot_height_mm else
+                        f"?holeType 'CIRCLE_DRILL ?drillDiameter {ps.drill_mm:.4f}")
+                drill = (f"(make_axlPadStackDrill {hole} ?plating '{plating} "
+                         f'?offset {_pt(ps.drill_offset_x_mm, ps.drill_offset_y_mm)})')
             pads = []
             for lay in sorted(ps.layers, key=lambda l: l.layer):
-                figure = {'RECT': 'RECTANGLE', 'CIRCLE': 'CIRCLE', 'OBLONG': 'OVAL'}[lay.shape]
+                figure = {'RECT': 'RECTANGLE', 'CIRCLE': 'CIRCLE',
+                          'OBLONG': 'OBLONG_X' if lay.w_mm > lay.h_mm else 'OBLONG_Y',
+                          'ROUNDED_RECT': 'ROUNDED_RECTANGLE', 'SHAPE': ''}[lay.shape]
+                if lay.shape == 'OBLONG' and f'{lay.w_mm:.4f}' == f'{lay.h_mm:.4f}':
+                    figure = 'CIRCLE'
                 # Allegro distinguishes a square from a non-square rectangle.
                 # Compare dimensions at the same precision emitted to SKILL.
                 if lay.shape == 'RECT' and f'{lay.w_mm:.4f}' == f'{lay.h_mm:.4f}':
                     figure = 'SQUARE'
+                extra = ''
+                if lay.shape == 'ROUNDED_RECT':
+                    extra = f' ?radius {lay.radius_mm:.4f} ?corners "UR-UL-LR-LL"'
+                if lay.shape == 'SHAPE':
+                    from .shapes import shape_name
+                    figure_arg = f'"{shape_name(lay)}"'
+                else:
+                    figure_arg = "'" + figure
                 pads.append(f'(make_axlPadStackPad ?layer "{LAYERS[lay.layer]}" ' +
-                            f"?type 'REGULAR ?figure '{figure} ?figureSize {_pt(lay.w_mm, lay.h_mm)})")
+                            f"?type 'REGULAR ?figure {figure_arg} ?figureSize {_pt(lay.w_mm, lay.h_mm)}{extra})")
             out.append(_check(f'(axlDBCreatePadStack "{name}" {drill} (list {" ".join(pads)}))', 'create padstack'))
             path = _s(f'{root}/{name}.pad')
             out.append(f'    (unless (isFile "{path}")')
             out.append(_check(f'(axlPadstackToDisk "{name}" "{path}")', 'save padstack'))
             out.append('    )')
-        pin = 'nil' if ps.name.startswith('@') else (
+        pin = 'nil' if ps.mechanical else (
             f'(make_axlPinText ?number "{_s(ps.name)}" ?offset 0:0 ' +
             '?text (make_axlTextOrientation ?textBlock 1 ?rotation 0.0 ?justify "center"))')
         out.append(_check(f'(axlDBCreatePin "{name}" {_pt(ps.x_mm, ps.y_mm)} {pin} {ps.rotation_deg:.4f})', 'create pin'))
         a = math.radians(ps.rotation_deg)
+        if ps.drill_mm:
+            radius = max(ps.drill_mm, ps.slot_width_mm, ps.slot_height_mm)/2
+            points.extend(((ps.x_mm-radius-abs(ps.drill_offset_x_mm), ps.y_mm-radius-abs(ps.drill_offset_y_mm)),
+                           (ps.x_mm+radius+abs(ps.drill_offset_x_mm), ps.y_mm+radius+abs(ps.drill_offset_y_mm))))
         for lay in ps.layers:
             if lay.layer not in {'TOP', 'BOTTOM', 'DEFAULT_INTERNAL'}:
                 continue
@@ -131,40 +170,75 @@ def generate_skill(fp: Footprint, *, drill_plated: bool = True, output_dir: Path
         width = circles[i].geom['stroke_mm'] if i < len(circles) else 0.12
         out.append(_check(f'(axlDBCreateCircle (list {_pt(x,y)} {r:.4f}) {width:.4f} "{DRAW[layer]}")', 'circle'))
         points.extend(((x-r,y-r),(x+r,y+r)))
+    for prim in (p for p in fp.primitives if p.kind in {'RECT', 'RECTANGLE'}):
+        g = prim.geom
+        if not all(k in g for k in ('x_mm', 'y_mm', 'x2_mm', 'y2_mm', 'width_mm', 'filled')):
+            raise UnsupportedGeometryError('矩形图元字段不完整。')
+        x, y, xx, yy, width = (g[k] for k in ('x_mm', 'y_mm', 'x2_mm', 'y2_mm', 'width_mm'))
+        if (g.get('layer') not in DRAW or not all(math.isfinite(v) for v in (x, y, xx, yy, width))
+                or x == xx or y == yy or width < 0 or (not g['filled'] and width == 0)):
+            raise UnsupportedGeometryError('矩形图元层、尺寸或线宽无效。')
+        vertices = [(x, y), (xx, y), (xx, yy), (x, yy), (x, y)]
+        if g['filled']:
+            call = f'(axlDBCreateRectangle (list {_pt(min(x,xx),min(y,yy))} {_pt(max(x,xx),max(y,yy))}) t "{DRAW[g["layer"]]}")'
+            out.append(_check(call, 'rectangle fill'))
+        if width > 0:
+            # A closed line preserves the source stroke width; rectangle API has no width argument.
+            coords = ' '.join(_pt(a, b) for a, b in vertices)
+            call = f'(axlDBCreateLine (list {coords}) {width:.4f} "{DRAW[g["layer"]]}")'
+            out.append(_check(call, 'rectangle outline'))
+        for a, b in vertices:
+            points.extend(((a-width/2, b-width/2), (a+width/2, b+width/2)))
     for prim in (p for p in fp.primitives if p.kind == 'ARC'):
-        # ARC path semantics are not yet calibrated; preserve the source in validation errors.
-        raise UnsupportedGeometryError(f"暂不支持 ARC 圆弧图元: {prim.raw[:160]}")
-    for region in fp.solid_regions:
-        flat = region.geom['points_mm']
-        # Allegro requires an explicitly closed boundary. Normalize at the
-        # emitted precision so rounding cannot introduce zero-length edges.
-        vertices = []
-        for i in range(0, len(flat), 2):
-            vertex = tuple(float(f'{v:.4f}') for v in flat[i:i + 2])
-            if not vertices or vertex != vertices[-1]:
-                vertices.append(vertex)
-        if len(vertices) > 1 and vertices[-1] == vertices[0]:
-            vertices.pop()
-        area2 = sum(a[0]*b[1] - b[0]*a[1]
-                    for a, b in zip(vertices, vertices[1:] + vertices[:1]))
-        if len(set(vertices)) < 3 or abs(area2) < 1e-12:
-            raise UnsupportedGeometryError('填充区域在输出精度下退化，无法生成闭合边界。')
-        vertices.append(vertices[0])
-        coords = ' '.join(_pt(x, y) for x, y in vertices)
-        out.append(_check(
-            f'(axlDBCreateShape (axlPathStart (list {coords})) t "{SOLID_DRAW[region.geom["layer"]]}")',
-            'solid region'))
-        points.extend((flat[i], flat[i + 1]) for i in range(0, len(flat), 2))
+        g = prim.geom
+        if not g.get('arcs') or g.get('layer') not in DRAW:
+            raise UnsupportedGeometryError(f"ARC 圆弧无效: {g.get('arc_error', prim.raw[:160])}")
+        width = g.get('width_mm', 0.12)
+        if not math.isfinite(width) or width <= 0:
+            raise UnsupportedGeometryError('ARC 线宽必须大于零')
+        for arc in g['arcs']:
+            sx, sy = arc['start']
+            ex, ey = arc['end']
+            if math.hypot(ex-sx, ey-sy) < 1e-8:
+                raise UnsupportedGeometryError('ARC 起终点在输出精度下重合，无法确定圆弧')
+            radius = max(arc['radius'], math.hypot(ex-sx, ey-sy)/2)
+            # Cadence algroskill 03dbcre8: endpoint, clockwise, bigarc, radius.
+            out.append('    (let ((path (axlPathStart (list ' + _pt(sx, sy) + '))))')
+            out.append(_check(f'(axlPathArcRadius path {width:.4f} {_pt(ex, ey)} '
+                              f'{"t" if arc["clockwise"] else "nil"} '
+                              f'{"t" if arc["large"] else "nil"} {radius:.8f})', 'arc segment'))
+            out.append(_check(f'(axlDBCreatePath path "{DRAW[g["layer"]]}")', 'arc'))
+            out.append('    )')
+            from ..easyeda.arcs import arc_bounds
+            for x, y in arc_bounds(arc):
+                points.extend(((x-width/2, y-width/2), (x+width/2, y+width/2)))
+    from .geometry import graphic_regions, pieces
+    for region_index, (layer, geometry) in enumerate(graphic_regions(fp)):
+        from shapely import constrained_delaunay_triangles
+        polygons = []
+        for poly in pieces(geometry):
+            # Graphic layers can forbid void DB objects. Triangulation keeps
+            # exact holes without depending on that layer-specific permission.
+            polygons.extend(list(constrained_delaunay_triangles(poly).geoms) if poly.interiors else [poly])
+        for poly in polygons:
+            vertices = list(poly.exterior.coords)
+            coords = ' '.join(_pt(x,y) for x,y in vertices)
+            out.append(_check(
+                f'(axlDBCreateShape (axlPathStart (list {coords})) t "{SOLID_DRAW[layer]}")',
+                'solid region').replace('solid region failed', f'solid region failed [{region_index}:{layer}]'))
+            points.extend(vertices)
     x1, x2 = min(x for x,y in points)-0.2, max(x for x,y in points)+0.2
     y1, y2 = min(y for x,y in points)-0.2, max(y for x,y in points)+0.2
     # New package drawings can have positive-only default extents. Establish
     # geometry bounds in mm before creating any pin, including negative XY.
-    ex1, ey1 = min(-10.0, x1-10.0), min(-10.0, y1-10.0)
-    ex2, ey2 = max(10.0, x2+10.0), max(10.0, y2+10.0)
+    # Whole-mm outward limits avoid 17.2 rejecting extents after its internal
+    # mil-to-mm rounding (e.g. 15.1999 mm is not representable at design accuracy).
+    ex1, ey1 = math.floor(min(-10.0, x1-10.0)), math.floor(min(-10.0, y1-10.0))
+    ex2, ey2 = math.ceil(max(10.0, x2+10.0)), math.ceil(max(10.0, y2+10.0))
     out.insert(extents_index,
         '    (let ((bounds (axlGetParam "paramDesign")->bBox))\n'
-        f'      (unless (and (xCoord (car bounds)) <= {ex1:.4f} (yCoord (car bounds)) <= {ey1:.4f} '
-        f'(xCoord (cadr bounds)) >= {ex2:.4f} (yCoord (cadr bounds)) >= {ey2:.4f})\n'
+        f'      (unless (and (xCoord (car bounds)) <= {x1:.4f} (yCoord (car bounds)) <= {y1:.4f} '
+        f'(xCoord (cadr bounds)) >= {x2:.4f} (yCoord (cadr bounds)) >= {y2+2.0:.4f})\n'
         + _check(f'(axlDBChangeDesignExtents (list '
                  f'(list (min (xCoord (car bounds)) {ex1:.4f}) (min (yCoord (car bounds)) {ey1:.4f})) '
                  f'(list (max (xCoord (cadr bounds)) {ex2:.4f}) (max (yCoord (cadr bounds)) {ey2:.4f}))))',

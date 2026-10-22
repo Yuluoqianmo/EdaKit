@@ -21,7 +21,29 @@
 /* source: 02-feedback.js */
   function beginWait(key, label, priority) { state.feedback.waits[key] = { label: label, start: new Date().getTime(), priority: priority || 0 }; paintWait(); }
   function endWait(key) { delete state.feedback.waits[key]; paintWait(); }
-  function notice(message) { state.feedback.notice = message; paintWait(); }
+  var activityRecords = [];
+  function notice(message) {
+    if (!message) { return; }
+    state.feedback.notice = String(message);
+    if (!activityRecords.length || activityRecords[activityRecords.length - 1].message !== String(message)) {
+      var now = new Date(), stamp = ("0" + now.getHours()).slice(-2) + ":" + ("0" + now.getMinutes()).slice(-2) + ":" + ("0" + now.getSeconds()).slice(-2);
+      activityRecords.push({ message: String(message), stamp: stamp });
+      if (activityRecords.length > 80) { activityRecords.shift(); }
+      var row = document.createElement("div"); row.className = "activityentry";
+      text(row, stamp + "  " + message); el("activitylog").insertBefore(row, el("activitylog").firstChild);
+      if (el("activitylog").childNodes.length > 80) { el("activitylog").removeChild(el("activitylog").lastChild); }
+      el("activitylog").scrollTop = 0;
+    }
+    paintWait();
+  }
+  bind("activitycopy", "click", function () {
+    var lines = [], i, field = el("activityclipboard"), copied = false;
+    for (i = 0; i < activityRecords.length; i++) { lines.push(activityRecords[i].stamp + "  " + activityRecords[i].message); }
+    field.value = lines.join("\n\n"); field.focus(); field.select();
+    try { copied = document.execCommand("copy"); } catch (ignore) {}
+    text(el("activitycopy"), copied ? "已复制" : "请按 Ctrl+C");
+    window.setTimeout(function () { text(el("activitycopy"), "复制记录"); }, 2000);
+  });
   function paintWait() {
     var best = null, k, now = new Date().getTime();
     for (k in state.feedback.waits) { if (state.feedback.waits.hasOwnProperty(k) && (!best || state.feedback.waits[k].priority > best.priority)) { best = state.feedback.waits[k]; } }
@@ -152,7 +174,7 @@
     detailPending = false;
     ++state.selection.detailQuery; state.layout.phoneDetail = false; state.preview.full = false; el("largeview").style.display = "none"; state.selection.sel = null; state.selection.detail = null; endWait("cad"); endWait("product"); cancelImage("previewimg"); cancelImage("largeimg");
     el("btnpcb").disabled = el("btnplace").disabled = el("tabfootprint").disabled = el("tabsymbol").disabled = el("tab3d").disabled = true;
-    text(el("dname"), "请选择一个元件"); text(el("selectedcid"), ""); text(el("prop"), "从查询结果中选择元件，查看符号与封装。"); text(el("pmsg"), ""); datasheet("", "选择元件后查看手册"); showEmpty("选择元件后显示预览");
+    text(el("dname"), "请选择一个元件"); text(el("selectedcid"), ""); text(el("prop"), "从查询结果中选择元件，查看符号与封装。"); notice(""); datasheet("", "选择元件后查看手册"); showEmpty("选择元件后显示预览");
   }
   function datasheet(url, message) {
     var valid = /^https?:\/\//i.test(url || ""); el("datasheet").style.display = valid ? "" : "none"; el("nodatasheet").style.display = valid ? "none" : "";
@@ -174,7 +196,7 @@
     state.selection.sel = p; state.selection.detail = null; state.preview.zoom = 1; state.preview.yaw = 35; state.preview.pitch = 55; state.preview.png = ""; el("btnpcb").disabled = el("btnplace").disabled = el("tab3d").disabled = el("tabfootprint").disabled = el("tabsymbol").disabled = true;
     text(el("dname"), p.model); text(el("selectedcid"), p.cid);
     properties(p); datasheet(p.datasheet, "正在查询手册…");
-    text(el("pmsg"), "正在加载元件详情…"); showEmpty("正在加载预览…");
+    notice("正在加载元件详情…"); showEmpty("正在加载预览…");
     var token = ++state.selection.detailQuery; beginWait("product", "正在查询商品资料和数据手册", 40); beginWait("cad", "正在加载符号与封装详情", 60);
     jsonp("/api/es/product/" + encodeURIComponent(p.cid), {}, function (metadata) {
       if (token !== state.selection.detailQuery) { return; } endWait("product");
@@ -188,9 +210,9 @@
       if (!p.datasheet && d.datasheet) { datasheet(d.datasheet); }
       if (state.preview.kind === "model3d" && !d.model3d) { state.preview.kind = "footprint"; }
       pcbButton();
-      text(el("pmsg"), d.hasSymbol ? "单击按钮后切回原理图，单击落位；Esc 退出。" : "该元件没有原理图符号");
+      notice(d.hasSymbol ? "单击按钮后切回原理图，单击落位；Esc 退出。" : "该元件没有原理图符号");
       if (!d.hasFootprint && d.hasSymbol) { state.preview.kind = "symbol"; } renderPreview(true);
-    }, function (msg) { if (token === state.selection.detailQuery) { detailPending = false; endWait("cad"); text(el("pmsg"), msg || "详情加载失败，请重新选择"); showEmpty("预览加载失败"); } });
+    }, function (msg) { if (token === state.selection.detailQuery) { detailPending = false; endWait("cad"); notice(msg || "详情加载失败，请重新选择"); showEmpty("预览加载失败"); } });
   }
 
 /* source: 07-preview.js */
@@ -273,7 +295,7 @@
   function scheduleLayout() { if (layoutQueued) { return; } layoutQueued = true; (window.requestAnimationFrame || function (fn) { window.setTimeout(fn, 16); })(function () { layoutQueued = false; layout(); }); }
   function layout() {
     var w = document.documentElement.clientWidth || document.body.clientWidth, h = document.documentElement.clientHeight || document.body.clientHeight;
-    var dock = w < 1050, phone = w < 640, short = h < 650, margin = 12, content = w - margin * 2, top = 158, available = Math.max(220, h - top - 38), detailH, listH;
+    var dock = w < 1050, phone = w < 640, short = h < 650, margin = 12, content = w - margin * 2, top = 158, available = Math.max(220, h - top - 132), detailH, listH;
     document.body.className = phone ? "phone" : dock ? "dock" : "wide";
     el("sidebar").style.display = "none";
     el("filters").style.left = el("workspace").style.left = margin + "px";
@@ -328,40 +350,10 @@
 
 /* source: 09-pcb.js */
   var pcbBusy = false;
-  var pcbResultFocus = null;
-  function closePcbResult() {
-    el("pcbresult").style.display = el("pcbresultmask").style.display = "none";
-    if (pcbResultFocus && pcbResultFocus.focus) { pcbResultFocus.focus(); }
-  }
   function showPcbResult(d) {
-    pcbResultFocus = document.activeElement;
-    text(el("pcbresultname"), d.footprint);
-    el("pcbdrawing").value = d.directory;
-    var elapsed = typeof d.elapsedSeconds === "number" ? " · " + (d.elapsedSeconds < 1 ? Math.max(1, Math.round(d.elapsedSeconds * 1000)) + " 毫秒" : d.elapsedSeconds.toFixed(2) + " 秒") : "";
-    el("pcbcommand").value = d.message + elapsed + "\n" + d.footprint.toLowerCase() + ".dra\n" + d.footprint.toLowerCase() + ".psm";
-    text(el("pcbcopymsg"), "");
-    el("pcbresult").style.display = el("pcbresultmask").style.display = "";
-    el("pcbdrawing").focus();
+    var elapsed = typeof d.elapsedSeconds === "number" ? " · " + d.elapsedSeconds.toFixed(2) + " 秒" : "";
+    notice("PCB 封装生成完成" + elapsed + "\n" + d.footprint + "\n封装库：" + d.directory + "\n" + d.message + "\n文件：" + d.footprint.toLowerCase() + ".dra / " + d.footprint.toLowerCase() + ".psm");
   }
-  function copyPcbField(id) {
-    var field = el(id), copied = false;
-    field.focus(); field.select();
-    try { copied = document.execCommand("copy"); } catch (error) { copied = false; }
-    text(el("pcbcopymsg"), copied ? "已复制" : "已选中完整内容，请按 Ctrl+C 复制");
-  }
-  bind("pcbresultclose", "click", closePcbResult);
-  bind("pcbdrawingcopy", "click", function () { copyPcbField("pcbdrawing"); });
-  bind("pcbcommandcopy", "click", function () { copyPcbField("pcbcommand"); });
-  bind(document, "keydown", function (ev) {
-    ev = ev || window.event;
-    if (el("pcbresult").style.display === "none") { return; }
-    if (ev.keyCode === 27) { closePcbResult(); }
-    if (ev.keyCode === 9) {
-      var first = el("pcbresultclose"), last = el("pcbcommandcopy");
-      if (ev.shiftKey && document.activeElement === first) { last.focus(); if (ev.preventDefault) { ev.preventDefault(); } ev.returnValue = false; }
-      else if (!ev.shiftKey && document.activeElement === last) { first.focus(); if (ev.preventDefault) { ev.preventDefault(); } ev.returnValue = false; }
-    }
-  });
   function pcbButton() {
     el("btnpcb").disabled = pcbBusy || !state.selection.detail || !state.selection.detail.hasFootprint || !state.selection.detail.hasSymbol;
     text(el("btnpcb"), pcbBusy ? "生成中…" : "生成 PCB 封装");
@@ -374,7 +366,6 @@
       pollPcb(d.job, cid, 0);
     }, function (message) {
       pcbBusy = false; pcbButton(); endWait("pcb");
-      if (state.selection.sel && state.selection.sel.cid === cid) { text(el("pmsg"), message || "封装生成失败"); }
       notice(message || "封装生成失败");
     });
   });
@@ -386,10 +377,9 @@
       }
       pcbBusy = false; pcbButton(); endWait("pcb");
       if (d.status === "compiled") {
-        if (state.selection.sel && state.selection.sel.cid === cid) { text(el("pmsg"), "PCB 封装已保存：" + d.footprint); }
+
         showPcbResult(d);
       } else {
-        if (state.selection.sel && state.selection.sel.cid === cid) { text(el("pmsg"), d.message || "构建失败"); }
         notice(d.message || "构建失败");
       }
     }, function (message) {
@@ -406,41 +396,41 @@
   function place() {
     if (!state.selection.sel || state.placement.placing) { return; } var p = state.selection.sel;
     if (state.selection.detail && !state.selection.detail.hasSymbol) { return; }
-    placeBusy(true); beginWait("place", "正在准备 " + p.model + " 的放置数据", 90); text(el("pmsg"), "正在准备放置，请稍候，不要重复点击…");
+    placeBusy(true); beginWait("place", "正在准备 " + p.model + " 的放置数据", 90); notice("正在准备放置，请稍候，不要重复点击…");
     jsonp("/api/es/place", { cid: p.cid, force_cursor: "1" }, function (d) {
-      if (state.selection.sel && state.selection.sel.cid === p.cid && !d.captureOnline) { text(el("pmsg"), "Capture 未连接，请检查插件。请求可能稍后执行。"); }
+      if (state.selection.sel && state.selection.sel.cid === p.cid && !d.captureOnline) { notice("Capture 未连接，请检查插件。请求可能稍后执行。"); }
       pollPlace(d.seq, p.cid, 0);
-    }, function (msg) { placeBusy(false); if (state.selection.sel && state.selection.sel.cid === p.cid) { text(el("pmsg"), (msg || "准备失败") + "；请查看原理图或服务日志确认放置状态。"); } });
+    }, function (msg) { placeBusy(false); if (state.selection.sel && state.selection.sel.cid === p.cid) { notice((msg || "准备失败") + "；请查看原理图或服务日志确认放置状态。"); } });
   }
   function pollPlace(seq, cid, attempt) {
-    if (attempt > 120) { placeBusy(false); notice("等待 Capture 超时，请检查原理图与服务日志"); if (state.selection.sel && state.selection.sel.cid === cid) { text(el("pmsg"), "等待 Capture 超时，请检查原理图与服务日志。"); } return; }
+    if (attempt > 120) { placeBusy(false); notice("等待 Capture 超时，请检查原理图与服务日志"); if (state.selection.sel && state.selection.sel.cid === cid) { notice("等待 Capture 超时，请检查原理图与服务日志。"); } return; }
     jsonp("/api/es/place/status", { seq: seq }, function (d) {
       var r = d.result, same = state.selection.sel && state.selection.sel.cid === cid;
-      if (!r || r.stage === "waiting-schematic") { if (r && same) { text(el("pmsg"), "请点击原理图，继续放置。"); } window.setTimeout(function () { pollPlace(seq, cid, attempt + 1); }, 700); return; }
+      if (!r || r.stage === "waiting-schematic") { if (r && same) { notice("请点击原理图，继续放置。"); } window.setTimeout(function () { pollPlace(seq, cid, attempt + 1); }, 700); return; }
       placeBusy(false);
-      if (same) { text(el("pmsg"), !r.ok ? "放置失败：" + r.message : (r.message || "").indexOf("armed:") === 0 ? "单击原理图落位，Esc 退出。" : r.message); }
-    }, function () { placeBusy(false); if (state.selection.sel && state.selection.sel.cid === cid) { text(el("pmsg"), "放置状态查询失败，请查看原理图或服务日志确认状态。"); } });
+      if (same) { notice(!r.ok ? "放置失败：" + r.message : (r.message || "").indexOf("armed:") === 0 ? "单击原理图落位，Esc 退出。" : r.message); }
+    }, function () { placeBusy(false); if (state.selection.sel && state.selection.sel.cid === cid) { notice("放置状态查询失败，请查看原理图或服务日志确认状态。"); } });
   }
 
 /* source: 09-settings.js */
   var librarySaving = false;
   function closeLibrarySettings() {
-    if (librarySaving) { return; }
+    if (librarySaving || directoryPicking) { return; }
     el("librarymask").style.display = el("librarydialog").style.display = "none";
     el("librarysettings").focus();
   }
   bind("librarysettings", "click", function () {
-    if (librarySaving) { return; }
+    if (librarySaving || directoryPicking) { return; }
     el("librarymask").style.display = el("librarydialog").style.display = "";
     el("librarysave").disabled = true; text(el("librarymessage"), "正在读取…");
     jsonp("/api/es/library/settings", {}, function (d) {
       el("symbolpath").value = d.symbol_lib; el("footprintpath").value = d.footprint_lib; el("cadencepath").value = d.cadence_root;
-      el("librarysave").disabled = false; text(el("librarymessage"), ""); el("symbolpath").focus();
+      el("librarysave").disabled = false; text(el("librarymessage"), d.cadence_detected ? "已检测到有效的 Cadence 安装目录" : "未检测到有效的 Cadence 安装目录，请选择安装根目录"); el("symbolpath").focus();
     }, function (message) { text(el("librarymessage"), message); });
   });
   bind("libraryclose", "click", closeLibrarySettings);
   bind("librarysave", "click", function () {
-    if (librarySaving) { return; }
+    if (librarySaving || directoryPicking) { return; }
     librarySaving = true; el("librarysave").disabled = true; text(el("librarymessage"), "正在保存…");
     jsonp("/api/es/library/settings/save", { symbol_lib: el("symbolpath").value, footprint_lib: el("footprintpath").value, cadence_root: el("cadencepath").value }, function (d) {
       librarySaving = false; el("librarysave").disabled = false; text(el("librarymessage"), d.message);
@@ -456,6 +446,34 @@
       else if (!ev.shiftKey && document.activeElement === last) { first.focus(); if (ev.preventDefault) { ev.preventDefault(); } ev.returnValue = false; }
     }
   });
+
+  var directoryPicking = false;
+  function pickerControls(busy, active) {
+    var ids = ["symbolpathbrowse", "footprintpathbrowse", "cadencepathbrowse", "librarysave", "libraryclose"], i;
+    for (i = 0; i < ids.length; i++) { el(ids[i]).disabled = busy; }
+    if (active) { text(el(active + "browse"), busy ? "选择中…" : "选择目录…"); }
+  }
+  function browseLibraryPath(id) {
+    if (directoryPicking || librarySaving) { return; }
+    directoryPicking = true;
+    pickerControls(true, id);
+    text(el("librarymessage"), "正在打开系统目录窗口，请稍候…");
+    function finish(message) { directoryPicking = false; pickerControls(false, id); text(el("librarymessage"), message); notice(message); }
+    jsonp("/api/es/library/browse", {initial: el(id).value}, function (job) {
+      text(el("librarymessage"), "目录窗口已请求打开，请在系统窗口完成选择");
+      function poll() {
+        jsonp("/api/es/library/browse/status", {job: job.job}, function (result) {
+          if (!result.done) { window.setTimeout(poll, 600); return; }
+          if (result.path) { el(id).value = result.path; }
+          finish(result.message || (result.path ? "目录已选择，请点击保存" : result.cancelled ? "已取消选择，原路径保持不变" : "目录窗口未返回有效路径，请重试"));
+        }, function () { text(el("librarymessage"), "正在重新连接目录窗口，请先完成系统窗口中的选择…"); window.setTimeout(poll, 1200); });
+      }
+      poll();
+    }, finish);
+  }
+  bind("symbolpathbrowse", "click", function () { browseLibraryPath("symbolpath"); });
+  bind("footprintpathbrowse", "click", function () { browseLibraryPath("footprintpath"); });
+  bind("cadencepathbrowse", "click", function () { browseLibraryPath("cadencepath"); });
 
 /* source: 10-events.js */
   bind("btnsearch", "click", search); bind("btnclear", "click", resetFilters);
@@ -483,9 +501,9 @@
     ev = ev || window.event; if (ev.preventDefault) { ev.preventDefault(); } ev.returnValue = false;
     if (!state.selection.sel || state.selection.openingDoc) { return false; } var cid = state.selection.sel.cid;
     state.selection.openingDoc = true; el("datasheet").className = "datalink opening"; text(el("datasheet"), "正在打开手册…"); beginWait("doc", "正在打开数据手册", 80);
-    text(el("pmsg"), "正在打开数据手册，请稍候…");
+    notice("正在打开数据手册，请稍候…");
     function done() { state.selection.openingDoc = false; el("datasheet").className = "datalink"; text(el("datasheet"), "数据手册 ↗"); endWait("doc"); }
-    jsonp("/api/es/datasheet/open", { cid: cid }, function (d) { done(); if (state.selection.sel && state.selection.sel.cid === cid) { text(el("pmsg"), d.message); } }, function (msg) { done(); if (state.selection.sel && state.selection.sel.cid === cid) { text(el("pmsg"), msg || "数据手册打开失败，请重试"); } });
+    jsonp("/api/es/datasheet/open", { cid: cid }, function (d) { done(); if (state.selection.sel && state.selection.sel.cid === cid) { notice(d.message); } }, function (msg) { done(); if (state.selection.sel && state.selection.sel.cid === cid) { notice(msg || "数据手册打开失败，请重试"); } });
     return false;
   });
   bind("btnplace", "click", place); bind("tabsymbol", "click", function () { state.preview.kind = "symbol"; renderPreview(true); }); bind("tabfootprint", "click", function () { state.preview.kind = "footprint"; renderPreview(true); });

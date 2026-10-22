@@ -144,11 +144,13 @@ def test_skill_uses_square_for_equal_rect_dimensions():
     assert "?figure 'RECTANGLE ?figureSize 0.8500:0.2000" in il
 
 
-def test_skill_maps_oblong_pad_to_oval():
+def test_skill_maps_oblong_pad_to_native_axis():
     comp = _comp()
     comp.footprint.padstacks[0].layers[0] = PadstackLayer("TOP", "OBLONG", 1.0, 0.5)
     il = generate_skill(comp.footprint)
-    assert "?figure 'OVAL" in il
+    assert "?figure 'OBLONG_X ?figureSize 1.0000:0.5000" in il
+    comp.footprint.padstacks[0].layers[0] = PadstackLayer("TOP", "OBLONG", 0.5, 1.0)
+    assert "?figure 'OBLONG_Y ?figureSize 0.5000:1.0000" in generate_skill(comp.footprint)
 
 
 def test_tcl_generation():

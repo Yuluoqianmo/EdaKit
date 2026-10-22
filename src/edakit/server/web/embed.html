@@ -26,35 +26,25 @@
   <div id="pg"><button id="prev" type="button">上一页</button><span id="pinfo">第 1 页</span><button id="next" type="button">下一页</button><select id="pagesize" title="每页显示数量"><option value="30">每页 30 条</option><option value="50" selected="selected">每页 50 条</option><option value="100">每页 100 条</option></select></div>
  </div>
  <div id="detail" class="panel"><div class="panelhead">元件详情 <button id="backresults" type="button">返回结果</button></div>
-  <div id="detailinfo"><div id="dname">请选择一个元件</div><div id="selectedcid"></div><div id="prop">从左侧结果中选择元件，查看符号与封装。</div></div><div id="detailactions"><button id="btnplace" class="primary" type="button" title="默认跟随光标，切回原理图单击落位" disabled="disabled">放置到原理图</button><button id="btnpcb" type="button" disabled="disabled">生成 PCB 封装</button><a id="datasheet" class="datalink" target="_blank" rel="noopener noreferrer" style="display:none">数据手册 ↗</a><span id="nodatasheet" class="muted">选择元件后查看手册</span><div id="pmsg"></div></div>
+  <div id="detailinfo"><div id="dname">请选择一个元件</div><div id="selectedcid"></div><div id="prop">从左侧结果中选择元件，查看符号与封装。</div></div><div id="detailactions"><button id="btnplace" class="primary" type="button" title="默认跟随光标，切回原理图单击落位" disabled="disabled">放置到原理图</button><button id="btnpcb" type="button" disabled="disabled">生成 PCB 封装</button><a id="datasheet" class="datalink" target="_blank" rel="noopener noreferrer" style="display:none">数据手册 ↗</a><span id="nodatasheet" class="muted">选择元件后查看手册</span></div>
   <div id="previewbar"><button id="tabsymbol" class="tab" type="button">原理图符号</button><button id="tabfootprint" class="tab active" type="button">PCB 封装</button><button id="tab3d" class="tab" type="button" disabled="disabled">3D 模型</button><span id="geometry"></span></div>
   <div id="zoomtools"><button id="zoomout" type="button" title="缩小">−</button><span id="zoomlabel">100%</span><button id="zoomin" type="button" title="放大">＋</button><button id="zoomfit" type="button">适应窗口</button><button id="zoomfull" type="button">大图查看</button><span id="orbittools" style="display:none"><button id="rotateleft" type="button" title="向左旋转">↶</button><button id="rotateright" type="button" title="向右旋转">↷</button><button id="rotatetop" type="button" title="切换俯视角度">俯仰</button></span></div>
   <div id="previewport" class="viewport"><div id="previewcanvas" class="previewcanvas"><img id="previewimg" alt="元件预览" style="display:none"></div><div id="previewempty" class="previewempty">封装预览将显示在这里</div></div>
   <div class="previewhint" id="previewhint">滚轮缩放 · 按住鼠标拖动 · 双击预览打开大图</div>
  </div>
 </div>
-<div id="statusbar"><span id="workstate" style="display:none">处理中</span><span id="msg" role="status" aria-live="polite">选择条件后点击“查询”</span><span class="statushint">单击预览 · 双击放置</span></div>
+<div id="activity" aria-label="操作信息"><div id="activityhead"><b>操作信息</b><span id="activityhint">进度、结果与错误统一显示在此处</span><button id="activitycopy" type="button">复制记录</button></div><div id="statusbar"><span id="workstate" style="display:none">处理中</span><span id="msg" role="status" aria-live="polite">选择条件后点击“查询”</span></div><div id="activitylog" role="log" aria-label="操作记录"></div><textarea id="activityclipboard" aria-label="复制操作记录" readonly style="position:absolute;left:-10000px"></textarea></div>
 <div id="allparammask" style="display:none"></div>
 <div id="allparams" style="display:none" role="dialog" aria-label="全部筛选参数"><div id="allparamhead"><b>全部筛选参数</b><button id="allparamclose" type="button">关闭</button><div>同一属性多选为“或”，不同属性为“且”；完成选择后再查询。</div></div><div id="allparambody"></div><div id="allparamfoot"><span id="allparamcount"></span><button id="allparamdone" type="button">完成选择</button><button id="allparamquery" class="primary" type="button">应用并查询</button></div></div>
 <div id="facetpopup" style="display:none"><div class="pickerhead"><b id="pickertitle"></b><button id="pickerclose" type="button">完成</button></div><input id="pickersearch" type="text" title="查找当前属性选项" placeholder="查找选项"><div id="pickeroptions"></div><div class="pickerfooter"><button id="pickerclear" type="button">清除此属性</button><span id="pickercount"></span></div></div>
 <div id="largeview" style="display:none"><div id="largehead"><span id="largetitle">封装预览</span><button id="largeclose" type="button">关闭大图（Esc）</button></div><div id="largetools"><button id="largeout" type="button">− 缩小</button><span id="largezoomlabel">100%</span><button id="largein" type="button">＋ 放大</button><button id="largefit" type="button">适应窗口</button><span id="largeorbit" style="display:none"><button id="largeleft" type="button">↶</button><button id="largeright" type="button">↷</button><button id="largetop" type="button">俯仰</button></span><span id="largehint">滚轮缩放 · 按住鼠标拖动</span></div><div id="largeport" class="viewport"><div id="largecanvas" class="previewcanvas"><img id="largeimg" alt="元件大图预览"></div><div id="largeempty" class="previewempty" style="display:none"></div></div></div>
-<div id="pcbresultmask" style="display:none"></div>
-<div id="pcbresult" style="display:none" role="dialog" aria-modal="true" aria-labelledby="pcbresulttitle">
-  <div id="pcbresulthead"><b id="pcbresulttitle">PCB 封装生成结果</b><button id="pcbresultclose" type="button" title="关闭">关闭</button></div>
-  <div id="pcbresultbody">
-    <div id="pcbresultname"></div>
-    <label for="pcbdrawing">封装库路径</label><textarea id="pcbdrawing" readonly="readonly" rows="3" spellcheck="false"></textarea><button id="pcbdrawingcopy" type="button">复制路径</button>
-    <label for="pcbcommand">生成结果</label><textarea id="pcbcommand" readonly="readonly" rows="4" spellcheck="false"></textarea><button id="pcbcommandcopy" type="button">复制结果</button>
-    <div id="pcbcopymsg" role="status"></div>
-  </div>
-</div>
 <div id="librarymask" style="display:none"></div>
 <div id="librarydialog" style="display:none" role="dialog" aria-modal="true" aria-labelledby="librarytitle">
  <div id="libraryhead"><b id="librarytitle">库设置</b><button id="libraryclose" type="button">关闭</button></div>
  <div id="librarybody">
-  <label for="symbolpath">原理图库目录</label><input id="symbolpath" type="text" spellcheck="false">
-  <label for="footprintpath">PCB 封装库目录</label><input id="footprintpath" type="text" spellcheck="false">
-  <label for="cadencepath">Cadence 安装目录</label><input id="cadencepath" type="text" placeholder="自动检测" spellcheck="false">
+  <label for="symbolpath">原理图库目录</label><div class="pathrow"><input id="symbolpath" type="text" spellcheck="false"><button id="symbolpathbrowse" type="button">选择目录…</button></div>
+  <label for="footprintpath">PCB 封装库目录</label><div class="pathrow"><input id="footprintpath" type="text" spellcheck="false"><button id="footprintpathbrowse" type="button">选择目录…</button></div>
+  <label for="cadencepath">Cadence 安装目录</label><div class="pathrow"><input id="cadencepath" type="text" placeholder="自动检测" spellcheck="false"><button id="cadencepathbrowse" type="button">选择目录…</button></div>
   <div id="librarymessage" role="status"></div><button id="librarysave" class="primary" type="button">保存</button>
  </div>
 </div>

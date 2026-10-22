@@ -1,0 +1,383 @@
+{
+  "date": "2026-10-22",
+  "scope": "E:\\outputs\\edakit",
+  "files": 313,
+  "bytes": 378085766,
+  "status": "moved_and_sha256_verified",
+  "deletedFiles": 0,
+  "destination": "E:\\outputs\\待清理\\edakit-20261022",
+  "moved": [
+    {
+      "path": "E:\\outputs\\edakit\\dist\\before-arc-20261022",
+      "files": 2,
+      "bytes": 27182282
+    },
+    {
+      "path": "E:\\outputs\\edakit\\dist\\before-generic-background-20261021",
+      "files": 2,
+      "bytes": 27159272
+    },
+    {
+      "path": "E:\\outputs\\edakit\\dist\\before-library-auto-20261021",
+      "files": 2,
+      "bytes": 27130428
+    },
+    {
+      "path": "E:\\outputs\\edakit\\dist\\before-p10-20261022",
+      "files": 2,
+      "bytes": 27176568
+    },
+    {
+      "path": "E:\\outputs\\edakit\\dist\\before-pcb-result-20261021",
+      "files": 2,
+      "bytes": 27128880
+    },
+    {
+      "path": "E:\\outputs\\edakit\\dist\\before-pcb-workbench-20261021",
+      "files": 2,
+      "bytes": 27100242
+    },
+    {
+      "path": "E:\\outputs\\edakit\\dist\\before-rect-20261022",
+      "files": 4,
+      "bytes": 40784320
+    },
+    {
+      "path": "E:\\outputs\\edakit\\dist\\generic-background-20261021",
+      "files": 3,
+      "bytes": 27176817
+    },
+    {
+      "path": "E:\\outputs\\edakit\\dist\\pcb-auto",
+      "files": 2,
+      "bytes": 27159272
+    },
+    {
+      "path": "E:\\outputs\\edakit\\dist\\pcb-workbench",
+      "files": 2,
+      "bytes": 27130428
+    },
+    {
+      "path": "E:\\outputs\\edakit\\dist\\rollback-before-symbol-properties",
+      "files": 14,
+      "bytes": 27215852
+    },
+    {
+      "path": "E:\\outputs\\edakit\\dist\\symbol-properties",
+      "files": 3,
+      "bytes": 27100419
+    },
+    {
+      "path": "E:\\outputs\\edakit\\build",
+      "files": 17,
+      "bytes": 33236077
+    },
+    {
+      "path": "E:\\outputs\\edakit\\.pytest_cache",
+      "files": 5,
+      "bytes": 38492
+    },
+    {
+      "path": "E:\\outputs\\edakit\\samples\\acceptance-20261021",
+      "files": 70,
+      "bytes": 899266
+    },
+    {
+      "path": "E:\\outputs\\edakit\\tools\\diag\\archive",
+      "files": 19,
+      "bytes": 418579
+    },
+    {
+      "path": "E:\\outputs\\edakit\\design",
+      "files": 9,
+      "bytes": 1763713
+    },
+    {
+      "path": "E:\\outputs\\edakit\\docs\\Allegro原生验收-20261021.md",
+      "files": 1,
+      "bytes": 7702
+    },
+    {
+      "path": "E:\\outputs\\edakit\\docs\\Allegro手动测试操作指南.md",
+      "files": 1,
+      "bytes": 7141
+    },
+    {
+      "path": "E:\\outputs\\edakit\\docs\\Capture内嵌技术与性能优化调研.md",
+      "files": 1,
+      "bytes": 13494
+    },
+    {
+      "path": "E:\\outputs\\edakit\\docs\\Capture原生引脚显示P6-20261021.md",
+      "files": 1,
+      "bytes": 4058
+    },
+    {
+      "path": "E:\\outputs\\edakit\\docs\\Capture引脚长度P7-20261021.md",
+      "files": 1,
+      "bytes": 3626
+    },
+    {
+      "path": "E:\\outputs\\edakit\\docs\\Capture网表与格点修正-20261021.md",
+      "files": 1,
+      "bytes": 4374
+    },
+    {
+      "path": "E:\\outputs\\edakit\\docs\\Capture超长器件名放置修复.md",
+      "files": 1,
+      "bytes": 3489
+    },
+    {
+      "path": "E:\\outputs\\edakit\\docs\\CEF内嵌试验与验证.md",
+      "files": 1,
+      "bytes": 11141
+    },
+    {
+      "path": "E:\\outputs\\edakit\\docs\\CEF工作台V2实施与验证.md",
+      "files": 1,
+      "bytes": 9012
+    },
+    {
+      "path": "E:\\outputs\\edakit\\docs\\CEF正式接入与验证.md",
+      "files": 1,
+      "bytes": 7588
+    },
+    {
+      "path": "E:\\outputs\\edakit\\docs\\edakit-cursor-fix-selftest.log",
+      "files": 1,
+      "bytes": 615
+    },
+    {
+      "path": "E:\\outputs\\edakit\\docs\\edakit-exe-selftest.log",
+      "files": 1,
+      "bytes": 597
+    },
+    {
+      "path": "E:\\outputs\\edakit\\docs\\PCB插件入口验证-20261021.md",
+      "files": 1,
+      "bytes": 2872
+    },
+    {
+      "path": "E:\\outputs\\edakit\\docs\\PCB整理清单-20261021.json",
+      "files": 1,
+      "bytes": 137053
+    },
+    {
+      "path": "E:\\outputs\\edakit\\docs\\PCB方案重整与验证-20261021.md",
+      "files": 1,
+      "bytes": 3662
+    },
+    {
+      "path": "E:\\outputs\\edakit\\docs\\UI重设计与性能优化讨论稿.md",
+      "files": 1,
+      "bytes": 9111
+    },
+    {
+      "path": "E:\\outputs\\edakit\\docs\\上机测试步骤.md",
+      "files": 1,
+      "bytes": 29099
+    },
+    {
+      "path": "E:\\outputs\\edakit\\docs\\代码梳理与实施方案.md",
+      "files": 1,
+      "bytes": 6709
+    },
+    {
+      "path": "E:\\outputs\\edakit\\docs\\元件工作台改版与验证.md",
+      "files": 1,
+      "bytes": 11908
+    },
+    {
+      "path": "E:\\outputs\\edakit\\docs\\内嵌商城优化方案.md",
+      "files": 1,
+      "bytes": 3501
+    },
+    {
+      "path": "E:\\outputs\\edakit\\docs\\内嵌商城验证步骤.md",
+      "files": 1,
+      "bytes": 3983
+    },
+    {
+      "path": "E:\\outputs\\edakit\\docs\\分类封装3D与手册方案.md",
+      "files": 1,
+      "bytes": 5031
+    },
+    {
+      "path": "E:\\outputs\\edakit\\docs\\分类封装3D与手册验证步骤.md",
+      "files": 1,
+      "bytes": 4804
+    },
+    {
+      "path": "E:\\outputs\\edakit\\docs\\历史交接-20261020-初始版本.md",
+      "files": 1,
+      "bytes": 16229
+    },
+    {
+      "path": "E:\\outputs\\edakit\\docs\\历史交接-20261021-CEF整理前.md",
+      "files": 1,
+      "bytes": 26581
+    },
+    {
+      "path": "E:\\outputs\\edakit\\docs\\历史技术方案-20261021-CEF整理前.md",
+      "files": 1,
+      "bytes": 32518
+    },
+    {
+      "path": "E:\\outputs\\edakit\\docs\\参数面板显示修复与验证.md",
+      "files": 1,
+      "bytes": 7695
+    },
+    {
+      "path": "E:\\outputs\\edakit\\docs\\后台运行与放置体验优化.md",
+      "files": 1,
+      "bytes": 3963
+    },
+    {
+      "path": "E:\\outputs\\edakit\\docs\\回家接续开发-20261021.md",
+      "files": 1,
+      "bytes": 8380
+    },
+    {
+      "path": "E:\\outputs\\edakit\\docs\\安静等待反馈优化.md",
+      "files": 1,
+      "bytes": 3064
+    },
+    {
+      "path": "E:\\outputs\\edakit\\docs\\实施验证结果.md",
+      "files": 1,
+      "bytes": 21867
+    },
+    {
+      "path": "E:\\outputs\\edakit\\docs\\数值筛选修复与验证.md",
+      "files": 1,
+      "bytes": 5803
+    },
+    {
+      "path": "E:\\outputs\\edakit\\docs\\文件整理清单-20261021.json",
+      "files": 1,
+      "bytes": 34662
+    },
+    {
+      "path": "E:\\outputs\\edakit\\docs\\架构加固实施与验证.md",
+      "files": 1,
+      "bytes": 10241
+    },
+    {
+      "path": "E:\\outputs\\edakit\\docs\\架构评估与扩展建议.md",
+      "files": 1,
+      "bytes": 7958
+    },
+    {
+      "path": "E:\\outputs\\edakit\\docs\\查询与等待反馈验证步骤.md",
+      "files": 1,
+      "bytes": 4956
+    },
+    {
+      "path": "E:\\outputs\\edakit\\docs\\电容符号与连续放置修复.md",
+      "files": 1,
+      "bytes": 6446
+    },
+    {
+      "path": "E:\\outputs\\edakit\\docs\\统一汉化实施与验证.md",
+      "files": 1,
+      "bytes": 8006
+    },
+    {
+      "path": "E:\\outputs\\edakit\\docs\\统一汉化术语对照与实施清单.md",
+      "files": 1,
+      "bytes": 60855
+    },
+    {
+      "path": "E:\\outputs\\edakit\\docs\\菜单与后台生命周期验证.md",
+      "files": 1,
+      "bytes": 6269
+    },
+    {
+      "path": "E:\\outputs\\edakit\\docs\\表头与分类优化验证步骤.md",
+      "files": 1,
+      "bytes": 3390
+    },
+    {
+      "path": "E:\\outputs\\edakit\\docs\\重复放置复用优化.md",
+      "files": 1,
+      "bytes": 5955
+    },
+    {
+      "path": "E:\\outputs\\edakit\\docs\\项目文件整理-20261021.md",
+      "files": 1,
+      "bytes": 3159
+    },
+    {
+      "path": "E:\\outputs\\edakit\\docs\\验证记录.md",
+      "files": 1,
+      "bytes": 77942
+    },
+    {
+      "path": "E:\\outputs\\edakit\\tests\\__pycache__",
+      "files": 39,
+      "bytes": 1045519
+    },
+    {
+      "path": "E:\\outputs\\edakit\\tools\\diag\\__pycache__",
+      "files": 3,
+      "bytes": 19900
+    },
+    {
+      "path": "E:\\outputs\\edakit\\src\\edakit\\__pycache__",
+      "files": 11,
+      "bytes": 99746
+    },
+    {
+      "path": "E:\\outputs\\edakit\\src\\edakit\\bridge\\__pycache__",
+      "files": 3,
+      "bytes": 17123
+    },
+    {
+      "path": "E:\\outputs\\edakit\\src\\edakit\\catalog\\__pycache__",
+      "files": 8,
+      "bytes": 106211
+    },
+    {
+      "path": "E:\\outputs\\edakit\\src\\edakit\\easyeda\\__pycache__",
+      "files": 5,
+      "bytes": 44716
+    },
+    {
+      "path": "E:\\outputs\\edakit\\src\\edakit\\footprint\\__pycache__",
+      "files": 7,
+      "bytes": 70556
+    },
+    {
+      "path": "E:\\outputs\\edakit\\src\\edakit\\install\\__pycache__",
+      "files": 3,
+      "bytes": 20700
+    },
+    {
+      "path": "E:\\outputs\\edakit\\src\\edakit\\render\\__pycache__",
+      "files": 4,
+      "bytes": 22046
+    },
+    {
+      "path": "E:\\outputs\\edakit\\src\\edakit\\server\\__pycache__",
+      "files": 3,
+      "bytes": 53771
+    },
+    {
+      "path": "E:\\outputs\\edakit\\src\\edakit\\services\\__pycache__",
+      "files": 12,
+      "bytes": 39915
+    },
+    {
+      "path": "E:\\outputs\\edakit\\src\\edakit\\symbol\\__pycache__",
+      "files": 7,
+      "bytes": 76929
+    },
+    {
+      "path": "E:\\outputs\\edakit\\src\\edakit\\threed\\__pycache__",
+      "files": 4,
+      "bytes": 20654
+    }
+  ],
+  "verification": "All 313 source files absent at original paths and SHA256 matched at destination.",
+  "manifest": "E:\\outputs\\待清理\\edakit-20261022\\移动清单.json"
+}

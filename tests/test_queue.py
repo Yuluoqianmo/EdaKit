@@ -5,6 +5,7 @@
 """
 
 import time
+from pathlib import Path
 
 import pytest
 
@@ -87,13 +88,14 @@ def test_pending_and_clear():
 
 def test_config_defaults_and_save(tmp_path):
     cfg = queue.Config.load()
-    assert cfg.footprint_lib.endswith("footprint_lib")
+    assert Path(cfg.footprint_lib).as_posix() == "D:/EdaKit/Libraries/Footprints"
     cfg.place_mode = "cursor"
     cfg.footprint_lib = str(tmp_path / "lib")
     cfg.save()
     cfg2 = queue.Config.load()
     assert cfg2.place_mode == "cursor"
     assert cfg2.footprint_lib == str(tmp_path / "lib")
+    cfg2.symbol_lib = str(tmp_path / "symbols")
     cfg2.ensure_dirs()
     assert (tmp_path / "lib").is_dir()
 

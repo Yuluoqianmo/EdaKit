@@ -10,8 +10,19 @@ SETTINGS_LOCK = threading.RLock()
 
 def read_settings():
     cfg = Config.load()
+    detected = cfg.cadence_root
+    if not detected:
+        from ..install.deploy import find_capture_tcl_root, spb_root_from_tcl
+        from ..errors import DeployError
+        try:
+            root = spb_root_from_tcl(find_capture_tcl_root())
+            if root and (root / 'tools/bin/allegro.exe').is_file():
+                detected = str(root)
+        except (DeployError, OSError):
+            pass
     return {'symbol_lib': cfg.symbol_lib or str(Path(cfg.project_olb).parent),
-            'footprint_lib': cfg.footprint_lib, 'cadence_root': cfg.cadence_root}
+            'footprint_lib': cfg.footprint_lib, 'cadence_root': detected,
+            'cadence_detected': bool(detected and (Path(detected) / 'tools/bin/allegro.exe').is_file())}
 
 
 def save_settings(values):

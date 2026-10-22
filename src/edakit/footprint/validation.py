@@ -4,7 +4,7 @@ from collections import Counter
 
 from ..easyeda.model import Footprint, Symbol
 from ..errors import PinMappingError
-from .padstack import merge_padstacks
+from .padstack import footprint_padstacks, is_aperture
 
 
 def _number(value: str, source: str) -> str:
@@ -25,6 +25,10 @@ def validate_pin_mapping(symbol: Symbol, footprint: Footprint) -> dict:
     # 跨层铜形可合并；同层重复编号不能借合并静默消失。
     records = []
     for pad in footprint.pads:
+        if is_aperture(pad):
+            continue
+        if not pad.number and not pad.hole_plated and pad.hole_mm > 0:
+            continue
         number = _number(pad.number, "PCB 焊盘")
         for layer in pad.layers or ["TOP"]:
             records.append((number, layer))
@@ -32,10 +36,10 @@ def validate_pin_mapping(symbol: Symbol, footprint: Footprint) -> dict:
     if duplicate_pads:
         raise PinMappingError(f"PCB 存在同层重复焊盘编号: {duplicate_pads}")
     # 重新计算，避免调用者修改 pads 后使用过期的 padstacks 输出错误编号。
-    merged = merge_padstacks(footprint.pads)
-    expected = {ps.name for ps in merged}
+    merged = footprint_padstacks(footprint)
+    expected = {ps.name for ps in merged if not ps.mechanical}
     actual = [ps.name for ps in footprint.padstacks]
-    if len(actual) != len(set(actual)) or set(actual) != expected or merged != footprint.padstacks:
+    if len(actual) != len(set(actual)) or set(actual) != {ps.name for ps in merged} or merged != footprint.padstacks:
         raise PinMappingError("PCB 原始焊盘与合并后的 Padstack 不一致，请重新解析。")
     missing, extra = sorted(set(pins) - expected), sorted(expected - set(pins))
     if missing or extra:
@@ -43,6 +47,10 @@ def validate_pin_mapping(symbol: Symbol, footprint: Footprint) -> dict:
 
     names = {pin.number: pin.name for pin in symbol.pins}
     for pad in footprint.pads:
+        if is_aperture(pad):
+            continue
+        if not pad.number:
+            continue
         if pad.name and pad.name != names[pad.number]:
             raise PinMappingError(
                 f"引脚 {pad.number} 名称不一致: 原理图 {names[pad.number]!r}, PCB {pad.name!r}"

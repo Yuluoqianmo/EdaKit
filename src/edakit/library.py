@@ -28,10 +28,11 @@ def package_label(component):
     family = {'LQFN': 'QFN', 'TSSOP': 'SOP', 'SSOP': 'SOP', 'MSOP': 'SOP',
               'TSOP': 'SOP', 'PSOP': 'SOP', 'SOIC': 'SOP',
               'LQFP': 'QFP', 'TQFP': 'QFP', 'PQFP': 'QFP'}.get(family, family)
-    label = family + str(len(fp.padstacks))
+    pin_count = sum(not p.mechanical for p in fp.padstacks)
+    label = family + str(pin_count)
     subtype = re.match(r'(?:SOT|SC|TO)[_-]?(\d+)(?:$|[_-])', source)
     if subtype:
-        label = family + subtype[1] + '_' + str(len(fp.padstacks))
+        label = family + subtype[1] + '_' + str(pin_count)
     pitch = re.search(r'(?:^|[_-])P(\d+(?:\.\d+)?)', source)
     if pitch:
         value = pitch[1].rstrip('0').rstrip('.') if '.' in pitch[1] else pitch[1]
@@ -53,8 +54,8 @@ def library_names(component):
     prefix = (component.symbol.prefix if component.symbol else '').strip().rstrip('?*') or 'U'
     pcb = digest({'format': 2, 'footprint': geometry(component.footprint),
                   'prefix': prefix, 'packageClass': label})
-    symbol = digest({'format': 9, 'symbol': asdict(component.symbol) if component.symbol else None,
+    symbol = digest({'format': 10, 'symbol': asdict(component.symbol) if component.symbol else None,
                      'pcb': pcb})
-    return {'symbol': f'EK_{cid}_S_{symbol[:8]}_P9',
+    return {'symbol': f'EK_{cid}_S_{symbol[:8]}_P10',
             'footprint': f'{label}_{pcb[:10].upper()}',
             'geometryDigest': pcb, 'symbolDigest': symbol, 'namingVersion': NAMING_VERSION}

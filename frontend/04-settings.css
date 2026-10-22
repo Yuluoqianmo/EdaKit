@@ -8,3 +8,5 @@
 #librarybody input{box-sizing:border-box;width:100%;height:34px;font-size:13px}
 #librarymessage{min-height:24px;margin:14px 0 8px;word-wrap:break-word}
 @media(max-width:460px){#top .subtitle{display:none}#librarysettings{right:145px}}
+
+.pathrow{position:relative;padding-right:104px}.pathrow button{position:absolute;right:0;top:0;width:96px;height:34px}.pathrow input{width:100%}

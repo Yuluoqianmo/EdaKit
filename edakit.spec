@@ -26,6 +26,7 @@ a = Analysis(
         ("src/edakit/symbol/templates/*.xml", "edakit/symbol/templates"),
         # 一个元件样例 —— 给 `selftest` 用（不联网也能验证解析/生成/渲染真的可用）
         ("tests/data/C2040.json", "edakit/samples"),
+        ("tests/data/C165948.json", "edakit/samples"),
     ],
     hiddenimports=[],
     hookspath=[],

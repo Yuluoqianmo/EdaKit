@@ -168,6 +168,8 @@ def stage_component(comp: Component, cfg: Config, *, download_step: bool = True,
             from copy import deepcopy
             pcb = deepcopy(comp.footprint)
             pcb.name = fp_name
+            if any(layer.shape == 'SHAPE' for pad in pcb.padstacks for layer in pad.layers):
+                raise UnsupportedGeometryError('该封装包含自定义形状依赖，请使用插件“生成 PCB 封装”完成原生编译和完整发布。')
             il = generate_skill(pcb, output_dir=lib,
                                 refdes_prefix=comp.symbol.prefix if comp.symbol else "")
         except UnsupportedGeometryError as e:

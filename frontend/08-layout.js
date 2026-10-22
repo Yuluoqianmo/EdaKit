@@ -16,7 +16,7 @@
   function scheduleLayout() { if (layoutQueued) { return; } layoutQueued = true; (window.requestAnimationFrame || function (fn) { window.setTimeout(fn, 16); })(function () { layoutQueued = false; layout(); }); }
   function layout() {
     var w = document.documentElement.clientWidth || document.body.clientWidth, h = document.documentElement.clientHeight || document.body.clientHeight;
-    var dock = w < 1050, phone = w < 640, short = h < 650, margin = 12, content = w - margin * 2, top = 158, available = Math.max(220, h - top - 38), detailH, listH;
+    var dock = w < 1050, phone = w < 640, short = h < 650, margin = 12, content = w - margin * 2, top = 158, available = Math.max(220, h - top - 132), detailH, listH;
     document.body.className = phone ? "phone" : dock ? "dock" : "wide";
     el("sidebar").style.display = "none";
     el("filters").style.left = el("workspace").style.left = margin + "px";

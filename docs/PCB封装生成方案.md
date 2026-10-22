@@ -1,62 +1,39 @@
 # PCB 封装生成与校验方案
 
-更新：2026-10-21。目标宿主为本机 OrCAD Capture / Allegro 17.2。本文替代早期“生成 .il 即完成封装”的规划。当前实现是 **EasyEDA 现有几何转换 + 生成前编号校验 + SKILL 候选脚本**；尚未取得 Allegro 原生验收结果，也尚未实现 IPC 参数化计算。
+更新：2026-10-22。当前插件已接通源几何转换、独立 Allegro 17.2 后台编译、原生回读、完整依赖发布和缓存复用。最新支持矩阵、实测型号、测试操作及限制见 [PCB 扩展能力与器件验证](PCB扩展能力与器件验证-20261022.md)。
 
-## 依据与取舍
+## 输入与几何
 
-| 一手资料 | 核对内容 | 本项目采用方式 |
-|---|---|---|
-| 本机 Cadence 17.2 `doc/cap_ug/Assigning_Footprint_Properties.html`，Assigning footprints to components | 符号与 PCB footprint 引脚数量及编号必须匹配 | 生成文件、复用 Capture 缓存之前执行硬校验 |
-| 本机 `doc/algrolibdev/chap3.html`，Package Symbols / Adding Pins；`chap5.html`，PINORDER | 逻辑编号与 package pin number 匹配；机械孔可无电气编号；器件功能名另有逻辑映射 | 不把 GPIO/GND 当成物理焊盘编号，不把无号铜焊盘猜作机械孔 |
-| [Cadence Allegro PCB Librarian 官方说明](https://login.cadence.com/content/dam/cadence-www/global/en_US/documents/tools/pcb-design-analysis/allegro-pcb-librarian-xl-ds.pdf) | footprint validation 比对符号与封装编号，详细 packaging check 包括网表和布局 | 自动测试之后增加原生回读、网表及隔离 PCB 导入验收 |
-| [uPesy/easyeda2kicad.py 的 PAD 模型](https://github.com/uPesy/easyeda2kicad.py/blob/master/easyeda2kicad/easyeda/parameters_easyeda.py) | PAD 存在 number、net、几何、孔与镀铜字段，没有独立功能名 | 核对字段定义，保留原始数据；不把 net 当 pin name |
-| [pointhi/kicad-footprint-generator](https://github.com/pointhi/kicad-footprint-generator/blob/master/README.md) | 参数文件、封装族脚本与几何树分离；仓库已声明迁往 KiCad GitLab | 借鉴“输入参数 → 几何模型 → 目标格式输出”；其 KiCad 输出不能直接当 Allegro API 用 |
-| [Footprint Expert：Calculation Mode Options](https://www.pcblibraries.com/Products/FPX/UserGuide/Calculation%20Mode%20Options/) | Min/Max 模式使用尺寸公差及焊点目标；Nominal 使用标称尺寸 | 后续参数化路线明确模式、标准版本、参数与公差，禁止仅凭封装字符串猜尺寸 |
-| [Footprint Expert：FPX File Guidelines](https://www.pcblibraries.com/Products/FPX/UserGuide/FPX%20File%20Guidelines/) | 封装尺寸、厂家推荐焊盘、旋转与逻辑属性；用户选项分离保存；要求核对厂家手册 | 厂家推荐图形、源几何转换、参数计算分别标记来源，统一版本化工艺配置 |
+从器件 CAD 数据保留坐标、原点、旋转、铜层、钻孔、丝印、装配、开窗和非铜填充，统一换算为 mm。PAD 孔半径和 HOLE 半径乘 2 才是钻孔直径；槽孔总长和端点分别提供尺寸与方向。阻焊/钢网扩展量分别应用，不默认覆盖源设置。
 
-本机官方文档根目录：`D:/Cadence/SPB_17.2/doc/`。API 签名查 `algroskill` 对应函数页，不能用其他版本或开源转换器的调用代替本机手册。外部代码仅作为设计参考，本轮没有引入其源码或新增运行依赖。
+支持矩形、圆、长圆、原生圆角矩形、连通无内孔多边形铜盘、圆孔、轴向槽孔、明确的机械孔、直线、矩形、圆形 ARC 和非铜复合填充。曲线按 1 μm 弦误差离散。自交、退化、未知层、无可靠电气归属的铜区域、区域铣槽等明确拒绝，不能静默丢弃。
 
-## 数量、编号与名称的统一规则
+## 引脚配对
 
-1. **物理编号精确一致。** Capture `Pin.number` 对 Allegro package `pin number`，保留 `A1`、`01` 等字符串，不改大小写、不补号、不按列表顺序重编号。NC、EP、散热焊盘只要属于电气引脚就计入；例如 C2040 实际为 57 个引脚，不能按封装名中的 56 排除 EP。
-2. **比较实际物理引脚。** 同编号、同位置、同旋转的跨层形状经验证后合为一个 padstack；同层重复编号直接报错。合并结果必须与原始 pads 重算结果相同，防止过期 padstack 被输出。本阶段不支持重复逻辑引脚／多位置同号铜盘，遇到此类真实器件需先设计显式映射，不能自动丢弃。
-3. **功能名称随编号继承。** 生成 `<cid>.pinmap.json`，保存每个编号的原理图名称，例如 `9 → GPIO7`。若 PCB 输入另外提供可靠功能名，则逐号精确校验；冲突即阻断。当前 EasyEDA Standard PAD 不提供独立功能名，清单明确 `independent_pad_names_checked=false`、`name_status=symbol_name_mapping_only`。这表示“名称映射已保存”，不等于“两个独立来源名称已核对”。
-4. **编号与功能名分开存储。** PCB 原生 pin number 必须仍是 `9`，不能改为 `GPIO7`。功能名保存在配对元数据；今后需要在 PCB 中显示功能名时，再通过经原生验证的属性或注释承载，不改变连接标识。
-5. **机械孔单独建模。** 独立 HOLE 不计电气数量；当前 SKILL 对 HOLE 尚不支持，完整封装候选仍会拒绝。无号 PAD 不猜测用途，生成前拒绝，待增加明确的机械／NPTH 模型后支持。
-6. **不匹配为错误。** `PinMappingError` 在写入配对文件或复用缓存前抛出，适用于完整导出和 Capture-only。已有成功结果不覆盖。缺少符号或封装时保留现有单项导出兼容行为，并显示缺项警告；不能声称完成配对验证。
+1. Capture Pin.number 与 Allegro pin number 保持精确一致，保留 A1、01、EP、NC 等源字符串；不根据封装名称推断引脚数，例如 C2040 含 EP 共 57 脚。
+2. 同号同位置同旋转的跨层记录合为一个 padstack。同号多位置或同层不同铜形阻断，不能删盘或补号。
+3. 功能名由原理图编号映射保存到 pinmap。源 Standard PAD 没有独立功能名，不把 net 当名称，也不声称完成两个独立来源名称比对。
+4. 独立 HOLE 与明确无号 NPTH 为机械孔，不计入电气 pin count。无号铜盘不猜用途。
+5. 发布前重新校验实际电气编号/坐标、机械孔数量/坐标、钻孔/槽孔长宽、偏移及镀孔属性；任何差异阻止发布。
 
-## 两条生成路线
+## 自动生成链路
 
-**路线 A：已有封装几何转换，当前优先。** 从器件 CAD 数据读出真实焊盘／丝印／装配／填充及模型原点，转成 mm 中间模型，执行编号、几何与层检查，再输出隔离候选。源尺寸保持原值，不自动用 IPC 推荐值替换。坐标原点来自 canvas，封装 Y 不翻转；方向与旋转仍要用带方向性的样例在 Allegro 对照确认。
+工作台选中器件 → 预检编号及几何 → 按完整几何摘要查询缓存 → 隔离构建目录 → 准备私有 Cadence package 模板 → 生成自定义 shape symbol → 生成 padstack 和 package → 保存/编译 → 原生回读 → 发布 .dra/.psm/.pad 与所需 .ssm/.dra → 更新库索引。
 
-**路线 B：指定封装的参数化生成，后续开发。** 用户选择封装族并给出厂家数据手册版本及页面、引脚布局、尺寸和公差、热焊盘、安装高度、厂家推荐 land pattern（如有）。再选择厂家推荐尺寸或明确版本的计算模式，配置 toe/heel/side、密度、阻焊扩展、钢网缩减、丝印间距、装配及放置边界。缺少必要参数即停止计算。先实现 Chip 两端、SOIC/SOP、QFP、QFN/DFN，再扩展 BGA、连接器和槽孔。不能把“0603 / QFN-56”字符串直接作为完整尺寸依据，也不能将当前的 1:1 阻焊／钢网复制宣称为 IPC 计算结果。
+模板升级和生成均由拥有的后台进程完成。只清理私有模板图形，不操作用户打开的设计。进度及错误统一显示在插件底部操作信息区，不需手输命令。
 
-两条路线共用 `Symbol / Footprint / Padstack → 配对校验 → 几何检查 → Allegro 输出 → 原生验收`。工艺选项、计算模式和数据来源应与器件几何分别版本化；参数改变重新计算、重新验收。路线 B 尚处于设计阶段。
+所有依赖按内容摘要校验；同名文件冲突保留原文件并报错。机械孔、槽孔、开窗、圆角、形状依赖参与缓存身份。旧 CLI 遇到自定义形状时提示使用插件完整编译，不输出缺失 SSM 的可用性假象。
 
-## 原生输出和发布门槛
+默认新库路径 D:/EdaKit/Libraries/Symbols 和 D:/EdaKit/Libraries/Footprints；已有自定义路径继续保留。名称以通用封装族信息加几何摘要生成，相同几何可复用，不以立创编号作为唯一库名。
 
-| 阶段 | 产物／检查 | 当前状态 |
-|---|---|---|
-| 输入 | 原始 JSON、精确编号、功能名映射、mm 坐标 | 已有六个真实离线样本 |
-| 配对预检 | 集合、数量、重复、名称冲突、跨层合并与过期数据检查；pinmap JSON | 本轮实现 |
-| 候选输出 | `.il`；矩形／圆／OBLONG padstack、直线、圆、M/L/Z 区域、PLACE_BOUND | 已有；API 调用仍待真机验收 |
-| 几何缺项 | ARC、独立 HOLE、RECT、未知层／曲线路径等 | 拒绝相应 PCB 脚本；完整 stage 可返回 Capture/STEP 子项及 warning，不能算 PCB 导出成功 |
-| 原生构建 | 隔离符号编辑器生成 `.pad/.dra/.psm`；检查返回值与输出文件 | 待完成 |
-| 回读和导入 | 回读实际编号、位置、尺寸、层；Capture footprint 检查；网表导入隔离 PCB | 待完成 |
-| 发布／复用 | 通过验收后写入库索引和内容摘要；同名异几何不能复用 | 后续实现；当前脚本拒绝覆盖 `.dra/.psm` |
+## 验证
 
-当前以几何内容散列命名 padstack，仍需验证已有同名 `.pad` 的内容、孔镀铜、内层规则、阻焊／钢网选项、文字及高度等完整性。脚本文本出现某个 SKILL 函数不证明原生签名或编译结果正确。最近可用的 Capture 程序继续保持已验收版本，本轮源码尚未重新打包部署。
+525 项回归通过、2 项跳过；8 个真实器件原生生成和回读通过；人工组合样本覆盖原生圆角、异形、非镀槽孔及复合区域。冻结程序的自检与插件 HTTP 自动生成、依赖发布和缓存复用通过。工程级网表导入与整板 DRC 由用户实际测试，不能以单个焊盘保存日志替代。
 
-## 下一步验收顺序
+证据与逐步操作见上述验证文档。第三方几何库许可证已随包附带。Cadence API 依据本机 17.2 algroskill 官方手册，源字段依据 KiCad 官方 EasyEDA importer 固定提交；未复制外部 GPL 实现。
 
-1. 在独立工作目录先验证两端 SMD：确认单位、原点、方向、旋转、pin number、padstack、位号和保存编译。
-2. 验证 C2040：57 个物理引脚、EP=57、116 个填充区域，逐层比较，查实际 `.psm` 编号集合；核对 DOCUMENT/BOARD_OUTLINE 与极性层的暂定映射。
-3. 增加圆孔通孔、底层焊盘、槽孔／NPTH 模型；每类先建立原生参考再实现，暂不对不支持几何作近似替换。
-4. 用生成 Capture 符号建立最小测试原理图，运行 footprint pin 检查，生成网表并导入隔离 PCB，核对连线、名称映射、EP 和 DRC；保存原生日志与截图。
-5. 确认上述链路后，再加入工作台“生成 PCB 封装”入口、候选／已验收状态和参数化封装族编辑。
+## 后续路线
 
-自动化回归覆盖输入及输出约束，不能替代以上 Allegro 17.2 原生验收。项目整理与测试结果见[本轮记录](PCB方案重整与验证-20261021.md)。
+当前为已有几何转换；尚未实现 IPC 参数化计算。下一阶段可建设 Chip、SOIC、QFP、QFN 等参数模型，输入厂家手册尺寸、公差、焊点目标、密度和工艺配置。仅有“0603”或“QFN-56”名称不足以计算可靠焊盘。
 
-2026-10-21 接续：已准备两引脚与 C2040 隔离输入及启动探针；自动启动未到达 SKILL，原生验收尚未开始。详见 [Allegro 原生验收记录](Allegro原生验收-20261021.md)。
-
-后续手动验收：两引脚样本补齐绘图范围与 REF DES 对象后，在用户本机编译成功；C2040、尺寸回读和网表导入仍待验证。REF DES 前缀现从原理图 `Symbol.prefix` 传入，丝印及装配一致生成 R*/C*/L*/U* 等占位文字，支持原始多字母前缀，不按封装名猜测器件类别。
+Footprint Expert 的参数/配置与快速输出思路可作为交互参考；其计算规则、厂家推荐几何与当前源图形转换需明确区分。多位置同号复合引脚、区域铣槽和带孔铜形需先建立显式模型与原生参考，再加入支持。

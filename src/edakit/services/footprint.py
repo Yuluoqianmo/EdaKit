@@ -26,6 +26,10 @@ def prepare_footprint(component, library):
     script = generate_skill(fp, output_dir=folder,
                            refdes_prefix=component.symbol.prefix, manual=True)
     folder.mkdir(parents=True, exist_ok=False)
+    from ..footprint.shapes import shape_scripts
+    shapes = shape_scripts(fp, folder)
+    for name, content in shapes.items():
+        atomic_write(folder / (name + '.il'), content)
     script_path = folder / 'manual_build.il'
     atomic_write(script_path, script)
     report.update(source_footprint_name=source, footprint_name=fp.name, **names,
@@ -40,4 +44,4 @@ def prepare_footprint(component, library):
                  'Footprint: ' + fp.name + '\n')
     return {'status': 'candidate', 'footprint': fp.name, 'directory': str(folder),
             'drawing': drawing, 'command': command, 'message': message,
-            'nativeBuildVerified': False}
+            'nativeBuildVerified': False, 'shapeSymbols': sorted(shapes)}

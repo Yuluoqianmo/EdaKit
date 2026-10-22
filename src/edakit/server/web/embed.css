@@ -41,10 +41,10 @@ button,input,select{font:13px "Microsoft YaHei UI","Microsoft YaHei","Segoe UI",
 #categorychooser{position:absolute;left:0;top:37px;width:290px;padding:12px;background:#fff;border:1px solid #bacbd4;border-radius:3px;box-shadow:0 4px 10px #d5dfe4;z-index:80}#categories #categorychooser select{display:block;position:static;width:100%;height:31px;margin-bottom:8px}
 #facetarea{overflow:hidden}#facetfields,#facetextra{position:relative}.facetfield{height:62px}.facetbutton{height:29px;font-size:12px}#filters .facetlabel{display:none}#filters .facetfield{height:32px}#facetempty{font-size:11px;padding:7px 0;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
 #selectionbar{height:27px;line-height:26px;padding:0;overflow:hidden;font-size:11px}#chipslabel{font-size:11px;color:#637789}.filterchip{font-size:11px;height:22px;background:#e8f3f4;border:1px solid #b5d5d8;color:#176971}#filterstatus{position:absolute;left:0;right:0;bottom:-12px;height:12px;line-height:12px;font-size:11px;overflow:hidden;background:#f4f6f8}#filtermsg{font-size:11px;color:#667b8c}
-#workspace{right:12px;bottom:38px}.panel{border:1px solid #dce3e9;border-radius:2px}.panelhead{height:30px;line-height:30px;font-weight:normal;font-size:12px;background:#fff}#resultscope{top:31px;height:23px;line-height:23px;font-size:12px;color:#637789}#listhead{top:55px;height:30px}#listbox{top:85px;bottom:40px}.list th{height:29px;font-size:11px;padding:0 10px}.list td{height:42px;padding:4px 10px;font-size:12px;color:#31485b}.list td b{font-size:12px;font-weight:600}.list td .cid{font-size:10px;line-height:17px}.list td:nth-child(6),.list th:nth-child(6),.descriptioncol{display:none}.list td.packagecell{font-size:11px}#searchwait,#queryerror{top:85px;bottom:40px}#pg{height:28px;padding:5px 8px}#pinfo{font-size:11px}#empty{padding:35px 12px}
+#workspace{right:12px;bottom:132px}.panel{border:1px solid #dce3e9;border-radius:2px}.panelhead{height:30px;line-height:30px;font-weight:normal;font-size:12px;background:#fff}#resultscope{top:31px;height:23px;line-height:23px;font-size:12px;color:#637789}#listhead{top:55px;height:30px}#listbox{top:85px;bottom:40px}.list th{height:29px;font-size:11px;padding:0 10px}.list td{height:42px;padding:4px 10px;font-size:12px;color:#31485b}.list td b{font-size:12px;font-weight:600}.list td .cid{font-size:10px;line-height:17px}.list td:nth-child(6),.list th:nth-child(6),.descriptioncol{display:none}.list td.packagecell{font-size:11px}#searchwait,#queryerror{top:85px;bottom:40px}#pg{height:28px;padding:5px 8px}#pinfo{font-size:11px}#empty{padding:35px 12px}
 #detail>.panelhead{display:none}#detailinfo{top:18px;left:18px;right:18px;bottom:360px;overflow:auto}#dname{font-size:18px;line-height:25px}#selectedcid{font-size:12px;color:#64788a;line-height:21px}#prop{font-size:12px;line-height:23px;margin:10px 0}.paramsummary{display:block;font-size:11px;color:#5d7485;margin-top:8px}.paramsummary span{display:block;line-height:21px}
-#detailactions{position:absolute;left:18px;right:18px;bottom:12px;min-height:54px}#btnplace{width:145px;height:34px;font-size:13px}#pmsg{font-size:12px;color:#637789;line-height:18px;margin-top:6px}.datalink{font-size:12px;margin-left:12px}.muted{display:block;margin:5px 0 0}#previewbar{left:14px;right:14px;top:auto;bottom:310px;height:32px}.tab{height:31px;font-size:12px;padding:0 9px}#previewport{left:14px;right:14px;top:auto;bottom:110px;height:192px}#zoomtools{left:14px;right:14px;bottom:75px;height:27px;border:0}#previewhint{display:none}.viewport{background:#f8fafc}.previewempty{font-size:11px}#geometry{display:none}
-.dock #detailinfo{left:18px;top:20px;width:43%;right:auto;bottom:82px}.dock #detailactions{left:18px;width:43%;right:auto;bottom:10px}.dock #previewbar{left:48%;right:14px;top:12px;bottom:auto}.dock #previewport{left:48%;right:14px;top:50px;bottom:47px;height:auto}.dock #zoomtools{left:48%;right:14px;bottom:10px}.dock #dname{font-size:17px;line-height:24px}.dock #detailinfo{border-right:1px solid #e3e9ee;padding-right:12px;box-sizing:border-box}.dock #prop{margin-top:8px;line-height:22px}.dock .datalink{margin-left:10px;font-size:12px}
+#detailactions{position:absolute;left:18px;right:18px;bottom:12px;height:72px}#btnplace{width:145px;height:34px;font-size:13px}#pmsg{font-size:12px;color:#637789;line-height:18px;margin-top:6px}.datalink{font-size:12px;margin-left:12px}.muted{display:block;margin:5px 0 0}#previewbar{left:14px;right:14px;top:auto;bottom:310px;height:32px}.tab{height:31px;font-size:12px;padding:0 9px}#previewport{left:14px;right:14px;top:auto;bottom:110px;height:192px}#zoomtools{left:14px;right:14px;bottom:75px;height:27px;border:0}#previewhint{display:none}.viewport{background:#f8fafc}.previewempty{font-size:11px}#geometry{display:none}
+.dock #detailinfo{left:18px;top:20px;width:43%;right:auto;bottom:96px}.dock #detailactions{left:18px;width:43%;right:auto;bottom:10px}.dock #previewbar{left:48%;right:14px;top:12px;bottom:auto}.dock #previewport{left:48%;right:14px;top:50px;bottom:47px;height:auto}.dock #zoomtools{left:48%;right:14px;bottom:10px}.dock #dname{font-size:17px;line-height:24px}.dock #detailinfo{border-right:1px solid #e3e9ee;padding-right:12px;box-sizing:border-box}.dock #prop{margin-top:8px;line-height:22px}.dock .datalink{margin-left:10px;font-size:12px}
 #splitter{position:absolute;z-index:30;cursor:row-resize;background:#eef2f5;border-top:1px solid #dce3e9;border-bottom:1px solid #dce3e9;box-sizing:border-box}#splitter:after{content:"";position:absolute;left:48%;top:3px;width:28px;height:2px;background:#9baebc}#splitter:focus{outline:1px solid #80b5b8}
 #backresults{display:none}.phone #detail>.panelhead{display:block}.phone #backresults{display:block;float:right;height:25px;margin-top:2px;font-size:11px}.phone #detailinfo{top:44px;left:14px;right:14px;width:auto;bottom:60%;border:0}.phone #previewbar{top:42%;left:14px;right:14px;bottom:auto}.phone #previewport{top:calc(42% + 38px);left:14px;right:14px;bottom:112px;height:auto}.phone #zoomtools{left:14px;right:14px;bottom:78px}.phone #detailactions{left:14px;right:14px;width:auto;bottom:10px}.phone #categorypath{width:150px!important}.phone #statusbar .statushint{display:none}.phone #msg{margin-right:0}
 /* Shared control states; explicit selectors preserve feedback on transparent tools. */
@@ -92,17 +92,20 @@ button,input,select{font:13px "Microsoft YaHei UI","Microsoft YaHei","Segoe UI",
 @media(max-height:650px){.list td{height:30px;padding:3px 9px;font-size:12px}.list td b{font-size:12px}.list td .cid{line-height:16px;font-size:11px}}
 
 /* source: 03-pcb.css */
-#btnpcb{height:32px;padding:0 10px;margin-left:6px;font-size:12px;min-width:112px}
-#pcbresultmask{position:fixed;left:0;top:0;width:100%;height:100%;background:rgba(0,0,0,.3);z-index:1100}
-#pcbresult{position:fixed;left:4%;right:4%;top:8%;width:92%;max-width:800px;max-height:84%;margin:0 auto;box-sizing:border-box;background:#fff;border:1px solid #b8c9d2;border-radius:4px;z-index:1101;overflow:auto;resize:both;text-align:left;color:#243e53}
-#pcbresulthead{padding:12px 16px;border-bottom:1px solid #dae3e8;overflow:hidden;font-size:15px}
-#pcbresultclose{float:right}
-#pcbresultbody{padding:16px}
-#pcbresultname{font-weight:bold;margin-bottom:14px;word-wrap:break-word}
-#pcbresult label{display:block;margin:12px 0 6px;font-size:12px}
-#pcbresult textarea{display:block;box-sizing:border-box;width:100%;padding:8px;font-family:Consolas,monospace;font-size:13px;line-height:20px;letter-spacing:0;white-space:pre-wrap;word-wrap:break-word;overflow:auto;resize:vertical;color:#243e53;background:#f8fafc;border:1px solid #b8c9d2}
-#pcbresultbody button{margin-top:6px;height:30px;padding:0 12px}
-#pcbcopymsg{min-height:20px;margin-top:12px;font-size:12px;color:#087f83;word-wrap:break-word}
+/* Shared operation center: fixed height; results never resize action controls. */
+#activity{position:absolute;left:12px;right:12px;bottom:6px;height:116px;background:#fff;border:1px solid #dce3e9;border-radius:3px;overflow:hidden}
+#activityhead{height:27px;line-height:27px;padding:0 10px;border-bottom:1px solid #e4eaee;font-size:12px;color:#304b60}
+#activityhint{margin-left:12px;color:#8092a0;font-size:11px}
+#activitycopy{float:right;height:23px;margin-top:2px;padding:0 8px;font-size:11px}
+#activity #statusbar{position:relative;height:23px;line-height:23px;padding:0 10px;border:0;background:#f4f9f9}
+#activity #msg{margin:0;font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#activitylog{position:absolute;left:0;right:0;top:51px;bottom:0;overflow:auto;padding:0 10px;font-size:11px;line-height:18px;color:#476276}
+.activityentry{padding:5px 0;border-bottom:1px solid #edf1f4;white-space:pre-wrap;word-wrap:break-word}
+#detailactions{box-sizing:border-box;padding-top:4px;background:#fff}
+#detailactions #btnplace,#detailactions #btnpcb{width:48%;padding:0 4px;height:34px;margin:0;font-size:12px;vertical-align:top}
+#detailactions .datalink{display:block;margin:5px 0 0;font-size:11px;line-height:20px}
+#detailactions .muted{margin:5px 0 0;font-size:11px;line-height:20px}
+@media(max-width:460px){#activityhint{display:none}}
 
 /* source: 04-settings.css */
 #librarysettings{position:absolute;right:155px;top:5px;height:25px;padding:0 9px;font-size:12px}
@@ -115,3 +118,5 @@ button,input,select{font:13px "Microsoft YaHei UI","Microsoft YaHei","Segoe UI",
 #librarybody input{box-sizing:border-box;width:100%;height:34px;font-size:13px}
 #librarymessage{min-height:24px;margin:14px 0 8px;word-wrap:break-word}
 @media(max-width:460px){#top .subtitle{display:none}#librarysettings{right:145px}}
+
+.pathrow{position:relative;padding-right:104px}.pathrow button{position:absolute;right:0;top:0;width:96px;height:34px}.pathrow input{width:100%}

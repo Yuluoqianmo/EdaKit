@@ -216,7 +216,7 @@ def test_placement_queue_carries_properties_and_reuses_preparation(_isolate, mon
         assert fields["symbol_digest"] == hashlib.sha256(source.read_bytes()).hexdigest()
         package = ET.parse(source).find("Package")
         assert fields["part_name"] == package.find("Defn").get("name") == first['partName']
-        assert fields['part_name'].startswith('EK_C2040_S_') and fields['part_name'].endswith('_P9')
+        assert fields['part_name'].startswith('EK_C2040_S_') and fields['part_name'].endswith('_P10')
         assert {p.get("name"): p.get("val") for p in package.findall("LibPart/NormalView/SymbolUserProp/Defn")} == {
             "Description": component.symbol.description,
             "PCBFootprint": first['footprint'],

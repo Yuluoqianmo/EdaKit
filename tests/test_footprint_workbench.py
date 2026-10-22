@@ -36,8 +36,11 @@ def test_paired_name_and_manual_build(tmp_path):
 
 
 def test_unsupported_geometry_creates_no_candidate(tmp_path):
+    from edakit.easyeda.model import Primitive
+    comp = component('C23630')
+    comp.footprint.primitives.append(Primitive('ARC', raw='invalid ARC'))
     with pytest.raises(UnsupportedGeometryError, match='ARC'):
-        prepare_footprint(component('C23630'), tmp_path / 'lib')
+        prepare_footprint(comp, tmp_path / 'lib')
     assert not (tmp_path / 'lib' / '.edakit-builds').exists()
 
 

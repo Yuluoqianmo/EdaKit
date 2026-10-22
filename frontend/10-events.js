@@ -23,9 +23,9 @@
     ev = ev || window.event; if (ev.preventDefault) { ev.preventDefault(); } ev.returnValue = false;
     if (!state.selection.sel || state.selection.openingDoc) { return false; } var cid = state.selection.sel.cid;
     state.selection.openingDoc = true; el("datasheet").className = "datalink opening"; text(el("datasheet"), "正在打开手册…"); beginWait("doc", "正在打开数据手册", 80);
-    text(el("pmsg"), "正在打开数据手册，请稍候…");
+    notice("正在打开数据手册，请稍候…");
     function done() { state.selection.openingDoc = false; el("datasheet").className = "datalink"; text(el("datasheet"), "数据手册 ↗"); endWait("doc"); }
-    jsonp("/api/es/datasheet/open", { cid: cid }, function (d) { done(); if (state.selection.sel && state.selection.sel.cid === cid) { text(el("pmsg"), d.message); } }, function (msg) { done(); if (state.selection.sel && state.selection.sel.cid === cid) { text(el("pmsg"), msg || "数据手册打开失败，请重试"); } });
+    jsonp("/api/es/datasheet/open", { cid: cid }, function (d) { done(); if (state.selection.sel && state.selection.sel.cid === cid) { notice(d.message); } }, function (msg) { done(); if (state.selection.sel && state.selection.sel.cid === cid) { notice(msg || "数据手册打开失败，请重试"); } });
     return false;
   });
   bind("btnplace", "click", place); bind("tabsymbol", "click", function () { state.preview.kind = "symbol"; renderPreview(true); }); bind("tabfootprint", "click", function () { state.preview.kind = "footprint"; renderPreview(true); });

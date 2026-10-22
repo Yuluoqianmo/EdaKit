@@ -193,6 +193,14 @@ class MallHandler(BaseHTTPRequestHandler):
             if path == '/api/es/footprint/status':
                 result = self.server.services.footprints.status((qs.get('job') or [''])[0])
                 return self._jsonp(qs, result) or self._json(result)
+            if path == '/api/es/library/browse':
+                from ..services.directory_picker import start_picker
+                result = start_picker((qs.get('initial') or [''])[0])
+                return self._jsonp(qs, result) or self._json(result)
+            if path == '/api/es/library/browse/status':
+                from ..services.directory_picker import picker_status
+                result = picker_status((qs.get('job') or [''])[0])
+                return self._jsonp(qs, result) or self._json(result)
             if path in ('/api/es/library/settings', '/api/es/library/settings/save'):
                 from ..services.library_settings import read_settings, save_settings
                 result = save_settings({k: v[0] for k, v in qs.items()}) if path.endswith('/save') else read_settings()

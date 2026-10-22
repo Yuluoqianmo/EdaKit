@@ -109,6 +109,14 @@ class Pad:
     is_smd: bool = True
     # 可选的独立功能名。EasyEDA Standard PAD 没有该字段，不能把 net 当作 name。
     name: str = ""
+    slot_length_mm: float = 0.0
+    hole_points_mm: list[tuple[float, float]] = field(default_factory=list)
+    hole_plated: bool = True
+    corner_radius_mm: float = 0.0
+    solder_expansion_mm: float = 0.0
+    paste_expansion_mm: float = 0.0
+    paste_enabled: bool = True
+    solder_enabled: bool = True
 
     @property
     def top_layer(self) -> str:
@@ -128,6 +136,9 @@ class PadstackLayer:
     w_mm: float = 0.0
     h_mm: float = 0.0
     polygon_mm: list[tuple[float, float]] = field(default_factory=list)
+    radius_mm: float = 0.0
+    offset_x_mm: float = 0.0
+    offset_y_mm: float = 0.0
 
 
 @dataclass
@@ -141,6 +152,11 @@ class Padstack:
     x_mm: float = 0.0  # 引脚锚点
     y_mm: float = 0.0
     rotation_deg: float = 0.0
+    mechanical: bool = False
+    slot_width_mm: float = 0.0
+    slot_height_mm: float = 0.0
+    drill_offset_x_mm: float = 0.0
+    drill_offset_y_mm: float = 0.0
 
 
 @dataclass

@@ -637,6 +637,31 @@ def cmd_selftest(args: argparse.Namespace) -> int:
 
     check("封装 SKILL 生成", check_skill)
 
+    def check_extended_geometry() -> str:
+        import tempfile
+        from .footprint.shapes import shape_scripts
+        from .footprint.geometry import path_polygons
+        from .easyeda.parse import _Transform
+        from .easyeda.model import Pad, Footprint
+        from .footprint.padstack import merge_padstacks
+        source = Path(__file__).parent / "samples" / "C165948.json"
+        if not source.exists():
+            source = Path(__file__).resolve().parents[2] / "tests/data/C165948.json"
+        comp = parse_component("C165948", json.loads(source.read_text(encoding="utf-8")))
+        with tempfile.TemporaryDirectory(prefix="edakit-geometry-") as directory:
+            scripts = shape_scripts(comp.footprint, Path(directory))
+        if not scripts or sum(p.mechanical for p in comp.footprint.padstacks) != 2:
+            raise ValueError("异形焊盘或机械孔解析失败")
+        path_polygons("M0 0 C1 0 2 1 2 2 L0 2Z", _Transform(0, 0, flip_y=False))
+        fp = Footprint(name="RR", padstacks=merge_padstacks([
+            Pad(number="1", shape="ROUNDRECT", w_mm=2, h_mm=1,
+                layers=["TOP"], corner_radius_mm=.2)]))
+        if "ROUNDED_RECTANGLE" not in generate_skill(fp):
+            raise ValueError("圆角焊盘生成失败")
+        return f"{len(scripts)} 个形状依赖，机械孔、曲线和圆角焊盘通过"
+
+    check("扩展封装几何与动态库", check_extended_geometry)
+
     # ---- 7. SVG 预览生成 ----
     def check_render() -> str:
         if sample is None:

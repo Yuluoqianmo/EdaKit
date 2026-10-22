@@ -131,7 +131,10 @@ def normalize_capture_symbol(source: Symbol) -> Symbol:
     # connection points, so a standard 300 mil lead can have exact length.
     body_edges = {}
     rect_index = _body_rect_index(sym)
-    if rect_index is not None:
+    # Discrete bodies are artwork, not IC pin banks: outward rounding of
+    # each edge can turn a narrow resistor rectangle into a square.
+    discrete = sym.prefix.rstrip('?*').upper() in {'R', 'C', 'L'} and len(sym.pins) == 2
+    if rect_index is not None and not discrete:
         g = sym.primitives[rect_index].geom
         for first, last in (('x_mm', 'x2_mm'), ('y_mm', 'y2_mm')):
             if first not in g or last not in g:

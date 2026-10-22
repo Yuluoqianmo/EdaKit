@@ -15,6 +15,12 @@ from ..services.footprint import prepare_footprint
 from .validation import validate_pin_mapping
 
 
+def manufacturing_notes(component):
+    if any(p.drill_mm for p in component.footprint.padstacks):
+        return ['通孔/槽孔未定义负片电源层 ANTI/THERMAL，请按工程规则配置后再用于负片层设计。']
+    return []
+
+
 def cadence_install(config):
     if config.cadence_root:
         root = Path(config.cadence_root)
@@ -38,10 +44,34 @@ def automation_script(result):
     success = skill_path(folder / 'native-success.txt')
     diagnostic = skill_path(folder / 'native-design.txt')
     errors = skill_path(folder / 'native-errors.txt')
+    shape_steps = []
+    for name in result.get('shapeSymbols', []):
+        shape_steps.extend([
+            f'    (unless (axlOpenDesign ?design "{skill_path(folder / (name + ".dra"))}" ?mode "w" ?noMru t) (error "EdaKit: open shape failed"))',
+            '    (edakit_clear_template)',
+            f'    (load "{skill_path(folder / (name + ".il"))}")'])
+    if shape_steps:
+        shape_steps.append(f'    (unless (axlOpenDesign ?design "{drawing}" ?mode "w" ?noMru t) (error "EdaKit: reopen package failed"))')
+    shapes = '\n'.join(shape_steps)
+    mechanics = skill_path(folder / 'native-mechanical.txt')
+    padreport = skill_path(folder / 'native-padstacks.txt')
     # Startup opens a private copy of the vendor package template.
-    return f'''(let ((edakitResult nil) (edakitFile nil) (errport (outfile "{errors}")))
+    return f'''(defun edakit_clear_template ()
+    (axlVisibleDesign t)
+    (axlClearSelSet)
+    (axlSetFindFilter ?enabled (list "all") ?onButtons (list "all"))
+    (axlAddSelectAll)
+    (when (axlGetSelSet) (unless (axlDeleteObject (axlGetSelSet)) (error "EdaKit: template cleanup failed")))
+    (axlClearSelSet)
+    (axlAddSelectAll)
+    (when (or (axlGetSelSet) (axlDBGetDesign)->pins) (error "EdaKit: template still contains figures"))
+    (axlClearSelSet))
+(let ((edakitResult nil) (edakitFile nil) (errport (outfile "{errors}")))
   (setq edakitResult (errset (progn
     (axlSetVariable "noconfirm" t)
+    (axlSetVariable "psmpath" '("{skill_path(folder)}" "."))
+    (axlSetVariable "padpath" '("{skill_path(folder)}" "."))
+{shapes}
     (unless (equal (lowerCase (simplifyFilename (axlGetDrawingName))) (lowerCase (simplifyFilename "{drawing}"))) (error "EdaKit: wrong automatic build drawing"))
     (unless (axlIsSymbolEditor) (error "EdaKit: expected symbol editor"))
     (axlVisibleDesign t)
@@ -60,7 +90,20 @@ def automation_script(result):
     (setq edakitFile (outfile "{report}"))
     (unless edakitFile (error "EdaKit: cannot write native pin report"))
     (foreach edakitPin (axlDBGetDesign)->pins
-      (fprintf edakitFile "%s|%.4f|%.4f\\n" edakitPin->number (xCoord edakitPin->xy) (yCoord edakitPin->xy)))
+      (when (and edakitPin->number (not (equal edakitPin->number "")))
+        (fprintf edakitFile "%s|%.4f|%.4f\\n" edakitPin->number (xCoord edakitPin->xy) (yCoord edakitPin->xy))))
+    (close edakitFile)
+    (setq edakitFile (outfile "{mechanics}"))
+    (foreach edakitPin (axlDBGetDesign)->pins
+      (unless (and edakitPin->number (not (equal edakitPin->number "")))
+        (fprintf edakitFile "%.4f|%.4f\\n" (xCoord edakitPin->xy) (yCoord edakitPin->xy))))
+    (close edakitFile)
+    (setq edakitFile (outfile "{padreport}"))
+    (foreach edakitPad (axlDBGetDesign)->padstacks
+      (fprintf edakitFile "%s|%.4f|%.4f|%.4f|%.4f|%L\\n" edakitPad->name
+        (max edakitPad->drillDiameter edakitPad->drillSizeWidth)
+        (max edakitPad->drillDiameter edakitPad->drillSizeHeight)
+        (xCoord (or edakitPad->drillOffset 0:0)) (yCoord (or edakitPad->drillOffset 0:0)) edakitPad->plating))
     (close edakitFile)
     (setq edakitFile (outfile "{success}"))
     (fprintf edakitFile "COMPILED\\n")
@@ -89,7 +132,7 @@ def validate_outputs(component, result):
         if number in actual:
             raise RuntimeError('原生封装引脚编号重复：' + number)
         actual[number] = (float(x), float(y))
-    expected = {ps.name: (ps.x_mm, ps.y_mm) for ps in component.footprint.padstacks}
+    expected = {ps.name: (ps.x_mm, ps.y_mm) for ps in component.footprint.padstacks if not ps.mechanical}
     if actual.keys() != expected.keys():
         raise RuntimeError('原生封装引脚编号与输入不一致')
     for number, xy in expected.items():
@@ -101,7 +144,35 @@ def validate_outputs(component, result):
     padnames = set(re.findall(r'EK_[a-f0-9]{20}\.pad', script))
     if not padnames or any(n.lower() not in outputs or outputs[n.lower()].stat().st_size == 0 for n in padnames):
         raise RuntimeError('原生 padstack 输出缺失')
-    return [outputs[(result['footprint'] + ext).lower()] for ext in ('.dra', '.psm')] + [outputs[n.lower()] for n in sorted(padnames)]
+    from .identity import pad_name
+    if any(p.drill_mm for p in component.footprint.padstacks):
+        readback = {}
+        for line in (folder / 'native-padstacks.txt').read_text().splitlines():
+            name,w,h,x,y,plating = line.split('|')
+            readback[name.lower()] = (float(w),float(h),float(x),float(y),plating.strip('"'))
+        for p in component.footprint.padstacks:
+            if not p.drill_mm:
+                continue
+            native = readback.get(pad_name(p).lower())
+            expected_drill = (p.slot_width_mm or p.drill_mm,p.slot_height_mm or p.drill_mm,
+                              p.drill_offset_x_mm,p.drill_offset_y_mm)
+            if native is None or any(abs(a-b) > .0002 for a,b in zip(native[:4],expected_drill)) or native[4].upper().replace('-','_') != ('PLATED' if p.hole_plated else 'NON_PLATED'):
+                raise RuntimeError('原生钻孔尺寸、方向、偏移或镀孔属性不一致：' + p.name)
+    expected_holes = sorted((p.x_mm,p.y_mm) for p in component.footprint.padstacks if p.mechanical)
+    if expected_holes:
+        actual_holes = sorted(tuple(map(float,line.split('|'))) for line in
+            (folder / 'native-mechanical.txt').read_text().splitlines())
+        if len(expected_holes) != len(actual_holes) or any(abs(a-b) > .0002
+                for x,y in zip(expected_holes, actual_holes) for a,b in zip(x,y)):
+            raise RuntimeError('原生机械孔数量或坐标不一致')
+    dependencies = []
+    for name in result.get('shapeSymbols', []):
+        for ext in ('.dra', '.ssm'):
+            target = outputs.get((name+ext).lower())
+            if target is None or target.stat().st_size == 0:
+                raise RuntimeError('自定义焊盘形状文件缺失：' + name+ext)
+            dependencies.append(target)
+    return [outputs[(result['footprint'] + ext).lower()] for ext in ('.dra', '.psm')] + [outputs[n.lower()] for n in sorted(padnames)] + dependencies
 
 
 def file_hash(path):
@@ -143,7 +214,8 @@ def publish(component, result, files, library):
             index['files'][target.name] = digest
         index['packages'][result['footprint']] = {**identity, 'cid': component.cid,
             'sourceFootprint': component.footprint.name, 'status': 'compiled',
-            'pinCount': len(component.footprint.padstacks),
+            'pinCount': sum(not p.mechanical for p in component.footprint.padstacks),
+            'mechanicalCount': sum(p.mechanical for p in component.footprint.padstacks),
             'files': {target.name: digest for _, target, digest in planned}}
         atomic_write(index_path, json.dumps(index, ensure_ascii=False, indent=2))
     except BaseException:
@@ -252,6 +324,8 @@ def build_footprint(component, config, *, stopping=None, timeout=150, launch=sub
     seed, template_reused = upgraded_template(template, root, config.footprint_lib, folder,
         environment, options, stopping, timeout, launch)
     shutil.copy2(seed, result['drawing'])
+    for name in result.get('shapeSymbols', []):
+        shutil.copy2(seed, folder / (name+'.dra'))
     phase('正在后台编译焊盘和 PCB 封装')
     run_owned(args, folder, environment, options, 'process.log', stopping, timeout, launch)
     try:
@@ -260,9 +334,11 @@ def build_footprint(component, config, *, stopping=None, timeout=150, launch=sub
         publish(component, result, files, config.footprint_lib)
     except Exception as error:
         raise RuntimeError(str(error) + '；日志目录：' + str(folder)) from error
+    notes = manufacturing_notes(component)
     result.update(status='compiled', nativeBuildVerified=True, directory=config.footprint_lib,
                   drawing=str(Path(config.footprint_lib) / (result['footprint'].lower() + '.dra')),
-                  command='', message='PCB 封装已自动生成并保存到封装库', logDirectory=str(folder),
+                  command='', message='PCB 封装已自动生成并保存到封装库' + ('；' + ' '.join(notes) if notes else ''),
+                  warnings=notes, logDirectory=str(folder),
                   backend='allegro-nograph', templateReused=template_reused,
                   elapsedSeconds=round(time.perf_counter() - started, 3))
     return result
@@ -278,17 +354,20 @@ def compiled_result(component, library):
             return None
         files = record['files']
         required = {identity['footprint'].lower() + ext for ext in ('.dra', '.psm')}
-        if (record.get('pinCount') != len(component.footprint.padstacks)
+        if (record.get('pinCount') != sum(not p.mechanical for p in component.footprint.padstacks)
+                or record.get('mechanicalCount', 0) != sum(p.mechanical for p in component.footprint.padstacks)
                 or record.get('namingVersion') != identity['namingVersion']
                 or not required.issubset(files) or not any(name.endswith('.pad') for name in files)
                 or any(Path(name).name != name or file_hash(folder / name) != digest for name, digest in files.items())):
             return None
     except (OSError, ValueError, KeyError, TypeError):
         return None
+    notes = manufacturing_notes(component)
     return {'status': 'compiled', 'nativeBuildVerified': True, 'reused': True,
             'directory': str(folder), 'footprint': identity['footprint'],
             'drawing': str(folder / (identity['footprint'].lower() + '.dra')),
-            'command': '', 'message': '已复用封装库中校验通过的原生文件'}
+            'command': '', 'message': '已复用封装库中校验通过的原生文件' + ('；' + ' '.join(notes) if notes else ''),
+            'warnings': notes}
 
 
 class FootprintJobs:

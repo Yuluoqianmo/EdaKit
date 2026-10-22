@@ -40,11 +40,14 @@ def pad_definition(ps, drill_plated=True):
         data = asdict(layer)
         # Standard shapes are emitted from width/height, not the source's
         # absolute corner coordinates (which differ at every pin position).
-        if layer.shape in {'RECT', 'CIRCLE', 'OBLONG'}:
+        if layer.shape in {'RECT', 'CIRCLE', 'OBLONG', 'ROUNDED_RECT'}:
             data.pop('polygon_mm')
         layers.append(normalized(data))
-    return {'format': 2, 'layers': ordered(layers),
-            'drill': normalized(ps.drill_mm), 'plated': ps.hole_plated and drill_plated}
+    return {'format': 3, 'layers': ordered(layers),
+            'drill': normalized(ps.drill_mm), 'plated': ps.hole_plated and drill_plated,
+            'slot': normalized([ps.slot_width_mm, ps.slot_height_mm]),
+            'drillOffset': normalized([ps.drill_offset_x_mm, ps.drill_offset_y_mm]),
+            'mechanical': ps.mechanical}
 
 
 def pad_name(ps, drill_plated=True):
@@ -66,7 +69,9 @@ def geometry(fp):
         'circles': ordered([normalized([*circle, circles[i].geom['stroke_mm'] if i < len(circles) else .12])
                             for i, circle in enumerate(fp.circles)]),
         'regions': ordered([normalized(p.geom) for p in fp.solid_regions]),
+        'apertures': ordered([normalized(asdict(p)) for p in fp.pads
+                             if p.layers and all(l in {'TOP_PASTE','BOTTOM_PASTE','TOP_SOLDERMASK','BOTTOM_SOLDERMASK'} for l in p.layers)]),
         # Unsupported input must never match a previously compiled supported part.
         'unsupported': ordered([{'kind': p.kind, 'geom': p.geom, 'raw': p.raw}
-                                for p in fp.primitives if p.kind in {'ARC', 'HOLE', 'RECT', 'RECTANGLE'}]),
+                                for p in fp.primitives if p.kind in {'ARC', 'HOLE', 'RECT', 'RECTANGLE', 'VIA', 'COPPERAREA', 'KEEPOUT'}]),
     })
