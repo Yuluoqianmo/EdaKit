@@ -154,6 +154,14 @@ class MallHandler(BaseHTTPRequestHandler):
                 return self._static("embed.html")
             if path in ("/embed", "/embed.html"):
                 return self._static("embed.html")
+            if path in ("/properties", "/properties.html"):
+                return self._static("properties.html")
+            if path == "/api/properties/layout":
+                from ..bridge.properties import layout
+                return self._json(layout())
+            if path == "/api/properties/status":
+                from ..bridge.properties import status
+                return self._json(status((qs.get("job") or [""])[0], (qs.get("session") or [""])[0]))
             if path.startswith("/static/"):
                 return self._static(path[len("/static/"):])
             if path == "/api/search":
@@ -242,6 +250,12 @@ class MallHandler(BaseHTTPRequestHandler):
         parsed = urlparse(self.path)
         path = unquote(parsed.path)
         try:
+            if path == "/api/properties/request":
+                from ..bridge.properties import submit
+                return self._json(submit(self._read_body()))
+            if path == "/api/properties/layout":
+                from ..bridge.properties import layout
+                return self._json(layout(self._read_body()))
             if path == "/api/place":
                 return self._place()
             if path == "/api/config":

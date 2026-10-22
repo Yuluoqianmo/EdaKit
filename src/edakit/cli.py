@@ -555,7 +555,7 @@ def cmd_selftest(args: argparse.Namespace) -> int:
     def check_web() -> str:
         from .server.app import WEB_DIR
 
-        need = ["embed.html", "embed.js", "embed.css"]
+        need = ["embed.html", "embed.js", "embed.css", "properties.html", "properties.js", "properties.css"]
         missing = [n for n in need if not (WEB_DIR / n).is_file()]
         if missing:
             raise FileNotFoundError(f"缺 {missing}（在 {WEB_DIR}）")
@@ -567,7 +567,7 @@ def cmd_selftest(args: argparse.Namespace) -> int:
     # ---- 2. TCL 模板（deploy 靠它们）----
     def check_templates() -> str:
         d = Path(install_pkg.__file__).parent / "templates"
-        need = ["edakit.tcl", "edakitInit.tcl", "probe.tcl", "diag_olb2xml.tcl"]
+        need = ["edakit.tcl", "edakitInit.tcl", "properties.tcl", "probe.tcl", "diag_olb2xml.tcl"]
         missing = [n for n in need if not (d / n).is_file()]
         if missing:
             raise FileNotFoundError(f"缺 {missing}（在 {d}）")

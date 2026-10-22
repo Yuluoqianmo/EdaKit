@@ -59,6 +59,22 @@ set ::orPrm::failShow 1
 set ::orPrm::failDestroy 1
 if {![catch {::edakit::openCefMall http://127.0.0.1:2000/embed}]} { error "cleanup failure swallowed" }
 if {$::orPrm::creates != 2 || ![info exists ::edakit::cefWidget]} { error "ownership lost" }
+set ::orPrm::failShow 0
+set ::orPrm::failDestroy 0
+proc ::edakit::ensureServer {} {return http://127.0.0.1:1234/}
+proc ::edakit::schematicActive {} {return 0}
+set before $::orPrm::creates
+::edakit::properties::openPanel
+set loads $::orPrm::loads
+::edakit::properties::openPanel
+if {$::orPrm::creates != $before+1 || $::orPrm::loads != $loads} {error "Property dock lost state"}
+set ::orPrm::failShow 1
+::edakit::properties::openPanel
+if {$::orPrm::creates != $before+2} {error "Property stale dock not recovered"}
+set ::orPrm::failShow 1
+set ::orPrm::failDestroy 1
+if {![catch {::edakit::properties::openPanel}]} {error "Property cleanup failure swallowed"}
+if {$::orPrm::creates != $before+2 || ![info exists ::edakit::properties::widget]} {error "Property dock ownership lost"}
 puts PASS
 ''', encoding="ascii")
     result = subprocess.run([TCLSH, str(driver), str(PLUGIN)], capture_output=True, text=True)
@@ -314,7 +330,7 @@ def test_plugin_sources_and_registers_menu(run_plugin):
     assert "EdaKit top-level menu registered" in res["out"]
     assert "EdaKit Mall" in res["out"]
     assert "EdaKitEnabled" in res["out"]
-    assert "MENU-COUNT=5" in res["out"]
+    assert "MENU-COUNT=7" in res["out"]
     assert "CALLBACK=edakitMallLegacy:1" not in res["out"]
     assert "Diagnostics" in res["out"]
     assert "Legacy Viewer" not in res["out"]

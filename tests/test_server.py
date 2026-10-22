@@ -483,3 +483,27 @@ def test_jsonp_errors_are_readable_and_invalid_brand_is_not_sent(_isolate, monke
     monkeypatch.setattr(server_app.MallClient, 'facet_options', lambda *a: (_ for _ in ()).throw(server_app.FetchError('upstream unavailable')))
     _, body = _get_str(_isolate, '/api/es/facets?cat=1199&cb=failed')
     assert 'failed(' in body and 'upstream unavailable' in body
+
+def test_properties_page_and_layout(_isolate):
+    _, body = _get(_isolate, '/properties?session=host-a')
+    assert 'Component Properties' in body.decode('utf-8')
+    for name in ('properties.js', 'properties.css'):
+        code, content = _get(_isolate, '/static/' + name)
+        assert code == 200 and len(content) > 100
+    fields = {'columns': ['Reference', 'Manufacturer'], 'widths': {'Manufacturer': 220}, 'templates': {'采购': ['Manufacturer']}}
+    _, body = _post(_isolate, '/api/properties/layout', fields)
+    assert json.loads(body) == fields
+    _, body = _get(_isolate, '/api/properties/layout')
+    assert json.loads(body)['columns'] == fields['columns']
+
+
+def test_properties_request_routes_are_session_bound(_isolate, monkeypatch):
+    from edakit.bridge import properties
+    monkeypatch.setattr(properties, 'resolve_target', lambda session: session)
+    _, body = _post(_isolate, '/api/properties/request', {'session': 'test-capture', 'scope': 'design'})
+    job = json.loads(body)['job']
+    _, body = _get(_isolate, '/api/properties/status?session=test-capture&job=' + job)
+    assert json.loads(body)['state'] == 'pending'
+    with pytest.raises(urllib.error.HTTPError) as exc:
+        _get(_isolate, '/api/properties/status?session=other-capture&job=' + job)
+    assert exc.value.code == 400

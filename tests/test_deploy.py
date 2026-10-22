@@ -61,6 +61,7 @@ def test_deploy_copies_templates(tmp_path, capsys):
     assert target.is_dir()
     # 主逻辑在子目录，入口在 capAutoLoad 根目录（Capture 只扫根目录）
     assert (target / "edakit.tcl").is_file()
+    assert (target / "properties.tcl").is_file()
     init = target.parent / "edakitInit.tcl"
     assert init.is_file()
     assert not (target / "edakitInit.tcl").exists()

@@ -7,6 +7,14 @@ def build(check=False):
     source = ROOT / "frontend"
     target = ROOT / "src/edakit/server/web"
     for extension in ("js", "css"):
+        properties = source / "properties" / ("properties." + extension)
+        property_output = target / properties.name
+        property_body = properties.read_text(encoding="utf-8-sig")
+        if check:
+            if property_output.read_text(encoding="utf-8") != property_body:
+                raise SystemExit(str(property_output) + " is stale")
+        else:
+            property_output.write_text(property_body, encoding="utf-8", newline="\n")
         files = sorted(source.glob("*." + extension))
         body = "\n".join("/* source: " + path.name + " */\n" + path.read_text(encoding="utf-8") for path in files)
         if extension == "js":

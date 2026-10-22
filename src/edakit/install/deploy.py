@@ -22,7 +22,7 @@ from . import allegro_env
 # 子目录里的主文件，也不会注册两遍/开两个轮询。
 INIT_TEMPLATE = "edakitInit.tcl"
 MAIN_TEMPLATE = "edakit.tcl"
-TEMPLATES = (INIT_TEMPLATE, MAIN_TEMPLATE)
+TEMPLATES = (INIT_TEMPLATE, MAIN_TEMPLATE, "properties.tcl")
 
 # \"Program Files\" 只是常见位置之一 —— 很多公司装在 D:\Cadence\SPB_17.2 这种地方，
 # 所以下面还会按盘符扫 <盘>:\Cadence\SPB_* / OrCADX_*。
@@ -148,6 +148,7 @@ def deploy(
             s = src / name
             if not s.exists():
                 raise DeployError(f"模板缺失: {s}")
+        shutil.copy2(src / "properties.tcl", target / "properties.tcl")
         shutil.copy2(src / MAIN_TEMPLATE, target / MAIN_TEMPLATE)
         print(f"  已装 {MAIN_TEMPLATE}  → {target}")
         shutil.copy2(src / INIT_TEMPLATE, auto / INIT_TEMPLATE)

@@ -175,6 +175,7 @@ namespace eval edakit {
         variable menuTries
         catch { tryPendingPlace }
         catch { processQueue }
+        catch { ::edakit::properties::poll }
         # Menu may not register when the plugin loads before Capture's menu
         # system is ready; retry roughly every 2 seconds for the first minute.
         if {!$menuRegistered && $menuTries < 30} {
@@ -963,6 +964,8 @@ namespace eval edakit {
     proc buildMenus {args} {
         InsertXMLMenu [list [list "EdaKit"] "" "" [list "popup" "EdaKit" "0"]]
         InsertXMLMenu [list [list "EdaKit" "Mall"] "" "" [list "action" "LCSC Mall" "0" "EdaKitMall" "EdaKitEnabled"]]
+        InsertXMLMenu [list [list "EdaKit" "Properties"] "" "" [list "action" "Component Properties" "0" "EdaKitProperties" "EdaKitEnabled"]]
+        InsertXMLMenu [list [list "EdaKit" "SelectedProperties"] "" "" [list "action" "Selected Component Properties" "0" "EdaKitSelectedProperties" "EdaKitEnabled"]]
         InsertXMLMenu [list [list "EdaKit" "Diagnostics"] "" "" [list "popup" "Diagnostics" "0"]]
         foreach {id label action} {
             Probe "Capability Probe" edakitProbe
@@ -982,6 +985,7 @@ namespace eval edakit {
             RegisterAction "EdaKitEnabled" "::edakit::menuTrue" "" "::edakit::menuTrue" ""
             foreach {id callback} {
                 Mall edakitMall
+                Properties edakitProperties SelectedProperties edakitSelectedProperties
                 Probe edakitProbe Log edakitLog
             } {
                 RegisterAction "EdaKit$id" "::edakit::menuTrue" "" $callback ""
@@ -999,6 +1003,8 @@ namespace eval edakit {
     }
 
 }
+
+source [file join [file dirname [info script]] properties.tcl]
 
 # -------------------------------------------------------------- register --
 # First attempt happens right away; the poll loop keeps retrying (see poll)
