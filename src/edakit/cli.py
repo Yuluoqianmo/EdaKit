@@ -561,7 +561,7 @@ def cmd_selftest(args: argparse.Namespace) -> int:
     def check_web() -> str:
         from .server.app import WEB_DIR
 
-        need = ["embed.html", "embed.js", "embed.css", "properties.html", "properties.js", "properties.css"]
+        need = ["embed.html", "embed.js", "embed.css", "properties.html", "properties.js", "properties.css", "bom.html", "bom.js", "bom.css", "workbench.html", "workbench.js", "workbench.css"]
         missing = [n for n in need if not (WEB_DIR / n).is_file()]
         if missing:
             raise FileNotFoundError(f"缺 {missing}（在 {WEB_DIR}）")

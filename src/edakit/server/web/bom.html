@@ -1,0 +1,15 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>EdaKit BOM 预览</title><link rel="icon" href="data:,"><link rel="stylesheet" href="/static/bom.css"></head>
+<body><header><strong>EdaKit <span>BOM 预览</span></strong><button id="settingsToggle">导出设置</button></header>
+<main><section class="toolbar"><button id="refresh" class="primary">读取整个工程</button><button id="addMaterial">新增物料</button><input id="search" placeholder="搜索位号、型号、描述" aria-label="搜索物料"><label><input type="checkbox" id="issuesOnly">只看待处理</label><label class="filebutton">匹配编码<input id="codesFile" type="file" accept=".xlsx,.csv"></label><button id="export" class="primary">导出 Excel</button></section>
+<p id="design"></p>
+<section id="settings" hidden>
+<div class="metadata"><label>BOM 名称<input id="title" placeholder="工程名称_单板物料清单"></label><label>制表人<input id="author"></label><label>日期<input id="date" type="date"></label></div>
+<div class="tools"><label class="filebutton">更换模板<input id="templateFile" type="file" accept=".xlsx"></label><span id="templateName">默认中文 BOM 布局</span><button id="folderButton">导出目录</button><input id="folder" placeholder="选择导出文件夹" aria-label="导出文件夹"></div>
+<h2>属性映射</h2><div id="mapping" class="metadata"></div><button id="saveMapping">保存字段映射</button>
+</section>
+<section id="manualEditor" hidden><h2>手动物料</h2><div id="manualFields" class="metadata"></div><button id="saveManual" class="primary">保存物料</button> <button id="cancelManual">取消</button> <button id="deleteManual" hidden>删除此物料</button></section>
+<section id="importer" hidden><h2>物料编码表列匹配</h2><div class="metadata"><label>工作表<select id="sheet"></select></label><label>表头行<input id="headerRow" type="number" min="1" max="100" value="1"></label><div class="scanAction"><span>&nbsp;</span><button id="scan">读取列名</button></div><label>厂家型号列<select id="pnColumn"></select></label><label>物料编码列<select id="codeColumn"></select></label><label>类型列（可选）<select id="typeColumn"></select></label></div><p>Capture 侧只使用 Manufacturer_PN 精确匹配；忽略首尾空格与字母大小写，保留型号内部空格及标点。重复型号结果不同会标为冲突。</p><button id="importCodes" class="primary">确认导入并匹配</button><button id="cancelImport">取消</button></section>
+<div class="summary"><span id="count">尚未读取器件</span><span id="codeName">尚未导入编码表</span><span id="status" role="status">读取工程后可编辑类型、补填编码。</span></div>
+<div class="tablewrap"><div id="frozenHead"><table id="frozenGrid" aria-label="BOM 表头"><colgroup></colgroup><thead></thead></table></div><div id="tableBody"><table id="grid" aria-label="BOM 物料"><colgroup></colgroup><thead></thead><tbody></tbody></table><p id="empty">尚无 BOM 数据</p></div></div>
+<datalist id="types"></datalist></main><script src="/static/bom.js"></script></body></html>

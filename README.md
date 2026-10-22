@@ -4,12 +4,15 @@
 
 ## 使用
 
+商城、器件属性和 BOM 现在共用一个 EdaKit 工作台，顶部标签切换，页面状态保留；原有菜单入口会选中对应标签。更新后完整重启 Capture，详见 [统一工作台](docs/统一工作台-20261022.md)。
+
 1. Capture 菜单 EdaKit → LCSC Mall 打开工作台。
 2. 设置中选择库目录并保存。默认原理图库 `D:/EdaKit/Libraries/Symbols`，PCB/焊盘库 `D:/EdaKit/Libraries/Footprints`，独立 STP 库 `D:/EdaKit/Libraries/STEP`，原理图累积库为 Symbols/EdaKit.olb。安装目录自动检测，也可手动选择。
 3. 搜索并选中器件，点击“放置到原理图”，在图纸上落位。
 4. 点击“生成 PCB 封装”，等待自动编译和发布，不需要输入 SKILL 指令。
 5. EdaKit → Component Properties 打开工程器件属性表，在页面内按范围和搜索条件查询器件。配置原生字段、编辑或批量粘贴后，点击“同步到 Capture”。详见 [器件属性编辑器](docs/器件属性编辑器-20261022.md)。
-6. 更新程序后保存工程，退出所有 Capture，再重新打开；Allegro 库搜索路径在重新启动 Allegro 后生效。
+6. EdaKit → BOM Preview 读取整个工程，预览中文 BOM，填写名称、制表人和日期，导入模板及公司物料编码表后导出 Excel。厂家型号固定使用 `Manufacturer_PN`，详见 [BOM 预览与导出](docs/BOM预览与导出-20261022.md)。
+7. 更新程序后保存工程，退出所有 Capture，再重新打开；Allegro 库搜索路径在重新启动 Allegro 后生效。
 
 ## 项目文件
 

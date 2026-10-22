@@ -115,6 +115,18 @@ def test_health(_isolate):
     assert s == 200 and json.loads(b)["ok"] is True
 
 
+def test_bom_routes_and_session_isolation(_isolate, monkeypatch):
+    from edakit.services import bom
+    assert _get(_isolate, '/bom')[0] == 200
+    assert b'Manufacturer_PN' in _get(_isolate, '/static/bom.js')[1]
+    assert json.loads(_get(_isolate, '/api/bom/settings')[1])['mapping']['厂家'] == 'Manufacturer'
+    with pytest.raises(urllib.error.HTTPError) as error:
+        _post(_isolate, '/api/bom/preview', {'snapshot': '0' * 32, 'session': 'other'})
+    assert error.value.code == 400
+    monkeypatch.setattr(bom, 'status', lambda *args: {'state': 'done', 'snapshot': {'design': 'test', 'rows': []}})
+    assert json.loads(_post(_isolate, '/api/bom/preview', {'snapshot': 'id', 'session': 'owner'})[1])['packages'] == 0
+
+
 def test_index_and_static_served(_isolate):
     s, b = _get(_isolate, "/")
     assert s == 200 and b"<html" in b.lower()

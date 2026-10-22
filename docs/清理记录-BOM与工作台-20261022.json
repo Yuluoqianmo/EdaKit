@@ -1,0 +1,347 @@
+{
+  "date": "2026-10-22",
+  "scope": "repository caches and reproducible BOM/workbench build-test sandboxes",
+  "items": [
+    {
+      "path": "E:\\outputs\\edakit\\.pytest_cache",
+      "files": 5,
+      "bytes": 50497.0,
+      "action": "recycle-bin"
+    },
+    {
+      "path": "E:\\outputs\\edakit\\src\\edakit\\__pycache__",
+      "files": 11,
+      "bytes": 105277.0,
+      "action": "recycle-bin"
+    },
+    {
+      "path": "E:\\outputs\\edakit\\src\\edakit\\bridge\\__pycache__",
+      "files": 4,
+      "bytes": 31672.0,
+      "action": "recycle-bin"
+    },
+    {
+      "path": "E:\\outputs\\edakit\\src\\edakit\\catalog\\__pycache__",
+      "files": 8,
+      "bytes": 106211.0,
+      "action": "recycle-bin"
+    },
+    {
+      "path": "E:\\outputs\\edakit\\src\\edakit\\easyeda\\__pycache__",
+      "files": 5,
+      "bytes": 52292.0,
+      "action": "recycle-bin"
+    },
+    {
+      "path": "E:\\outputs\\edakit\\src\\edakit\\footprint\\__pycache__",
+      "files": 10,
+      "bytes": 112443.0,
+      "action": "recycle-bin"
+    },
+    {
+      "path": "E:\\outputs\\edakit\\src\\edakit\\install\\__pycache__",
+      "files": 4,
+      "bytes": 29485.0,
+      "action": "recycle-bin"
+    },
+    {
+      "path": "E:\\outputs\\edakit\\src\\edakit\\render\\__pycache__",
+      "files": 4,
+      "bytes": 25073.0,
+      "action": "recycle-bin"
+    },
+    {
+      "path": "E:\\outputs\\edakit\\src\\edakit\\server\\__pycache__",
+      "files": 3,
+      "bytes": 56788.0,
+      "action": "recycle-bin"
+    },
+    {
+      "path": "E:\\outputs\\edakit\\src\\edakit\\services\\__pycache__",
+      "files": 14,
+      "bytes": 90580.0,
+      "action": "recycle-bin"
+    },
+    {
+      "path": "E:\\outputs\\edakit\\src\\edakit\\symbol\\__pycache__",
+      "files": 7,
+      "bytes": 76929.0,
+      "action": "recycle-bin"
+    },
+    {
+      "path": "E:\\outputs\\edakit\\src\\edakit\\threed\\__pycache__",
+      "files": 5,
+      "bytes": 33946.0,
+      "action": "recycle-bin"
+    },
+    {
+      "path": "E:\\outputs\\edakit\\tests\\__pycache__",
+      "files": 47,
+      "bytes": 1306759.0,
+      "action": "recycle-bin"
+    },
+    {
+      "path": "E:\\outputs\\edakit\\tools\\diag\\__pycache__",
+      "files": 2,
+      "bytes": 10431.0,
+      "action": "recycle-bin"
+    },
+    {
+      "path": "E:\\outputs\\edakit-bom-build",
+      "files": 17,
+      "bytes": 63119554.0,
+      "action": "recycle-bin"
+    },
+    {
+      "path": "E:\\outputs\\edakit-bom-dist",
+      "files": 2,
+      "bytes": 53894932.0,
+      "action": "recycle-bin"
+    },
+    {
+      "path": "E:\\outputs\\edakit-bom-final-tests",
+      "files": 215,
+      "bytes": 149870.0,
+      "action": "recycle-bin"
+    },
+    {
+      "path": "E:\\outputs\\edakit-bom-frozen-app",
+      "files": 6,
+      "bytes": 42261.0,
+      "action": "recycle-bin"
+    },
+    {
+      "path": "E:\\outputs\\edakit-bom-full-01",
+      "files": 1598,
+      "bytes": 4719871.0,
+      "action": "recycle-bin"
+    },
+    {
+      "path": "E:\\outputs\\edakit-bom-header-build",
+      "files": 17,
+      "bytes": 63133936.0,
+      "action": "recycle-bin"
+    },
+    {
+      "path": "E:\\outputs\\edakit-bom-header-dist",
+      "files": 2,
+      "bytes": 53906256.0,
+      "action": "recycle-bin"
+    },
+    {
+      "path": "E:\\outputs\\edakit-bom-header-frozen-app",
+      "files": 6,
+      "bytes": 42074.0,
+      "action": "recycle-bin"
+    },
+    {
+      "path": "E:\\outputs\\edakit-bom-header-tests",
+      "files": 21,
+      "bytes": 4982.0,
+      "action": "recycle-bin"
+    },
+    {
+      "path": "E:\\outputs\\edakit-bom-header-ui-app",
+      "files": 2,
+      "bytes": 57511.0,
+      "action": "recycle-bin"
+    },
+    {
+      "path": "E:\\outputs\\edakit-bom-optional-build",
+      "files": 17,
+      "bytes": 63131104.0,
+      "action": "recycle-bin"
+    },
+    {
+      "path": "E:\\outputs\\edakit-bom-optional-dist",
+      "files": 2,
+      "bytes": 53903352.0,
+      "action": "recycle-bin"
+    },
+    {
+      "path": "E:\\outputs\\edakit-bom-optional-frozen-app",
+      "files": 6,
+      "bytes": 42074.0,
+      "action": "recycle-bin"
+    },
+    {
+      "path": "E:\\outputs\\edakit-bom-optional-tests",
+      "files": 33,
+      "bytes": 27131.0,
+      "action": "recycle-bin"
+    },
+    {
+      "path": "E:\\outputs\\edakit-bom-optional-tests2",
+      "files": 34,
+      "bytes": 29569.0,
+      "action": "recycle-bin"
+    },
+    {
+      "path": "E:\\outputs\\edakit-bom-optional-ui-app",
+      "files": 2,
+      "bytes": 3735.0,
+      "action": "recycle-bin"
+    },
+    {
+      "path": "E:\\outputs\\edakit-bom-refine-build",
+      "files": 17,
+      "bytes": 63122180.0,
+      "action": "recycle-bin"
+    },
+    {
+      "path": "E:\\outputs\\edakit-bom-refine-dist",
+      "files": 2,
+      "bytes": 53896292.0,
+      "action": "recycle-bin"
+    },
+    {
+      "path": "E:\\outputs\\edakit-bom-refine-frozen-app",
+      "files": 6,
+      "bytes": 42074.0,
+      "action": "recycle-bin"
+    },
+    {
+      "path": "E:\\outputs\\edakit-bom-refine-tests1",
+      "files": 8,
+      "bytes": 10052.0,
+      "action": "recycle-bin"
+    },
+    {
+      "path": "E:\\outputs\\edakit-bom-refine-tests2",
+      "files": 29,
+      "bytes": 17425.0,
+      "action": "recycle-bin"
+    },
+    {
+      "path": "E:\\outputs\\edakit-bom-refine-ui-app",
+      "files": 3,
+      "bytes": 3906.0,
+      "action": "recycle-bin"
+    },
+    {
+      "path": "E:\\outputs\\edakit-bom-rows-build",
+      "files": 17,
+      "bytes": 63131300.0,
+      "action": "recycle-bin"
+    },
+    {
+      "path": "E:\\outputs\\edakit-bom-rows-dist",
+      "files": 2,
+      "bytes": 53903436.0,
+      "action": "recycle-bin"
+    },
+    {
+      "path": "E:\\outputs\\edakit-bom-rows-frozen-app",
+      "files": 6,
+      "bytes": 42074.0,
+      "action": "recycle-bin"
+    },
+    {
+      "path": "E:\\outputs\\edakit-bom-rows-tests1",
+      "files": 9,
+      "bytes": 12448.0,
+      "action": "recycle-bin"
+    },
+    {
+      "path": "E:\\outputs\\edakit-bom-rows-tests2",
+      "files": 30,
+      "bytes": 19817.0,
+      "action": "recycle-bin"
+    },
+    {
+      "path": "E:\\outputs\\edakit-bom-rows-ui-app",
+      "files": 2,
+      "bytes": 3731.0,
+      "action": "recycle-bin"
+    },
+    {
+      "path": "E:\\outputs\\edakit-bom-selftest-tests",
+      "files": 1,
+      "bytes": 9.0,
+      "action": "recycle-bin"
+    },
+    {
+      "path": "E:\\outputs\\edakit-bom-test-01",
+      "files": 227,
+      "bytes": 148114.0,
+      "action": "recycle-bin"
+    },
+    {
+      "path": "E:\\outputs\\edakit-bom-test-02",
+      "files": 58,
+      "bytes": 18722.0,
+      "action": "recycle-bin"
+    },
+    {
+      "path": "E:\\outputs\\edakit-bom-ui-app",
+      "files": 3,
+      "bytes": 2599.0,
+      "action": "recycle-bin"
+    },
+    {
+      "path": "E:\\outputs\\edakit-bom-ui-app2",
+      "files": 3,
+      "bytes": 2599.0,
+      "action": "recycle-bin"
+    },
+    {
+      "path": "E:\\outputs\\edakit-bom-ui-app3",
+      "files": 5,
+      "bytes": 43890.0,
+      "action": "recycle-bin"
+    },
+    {
+      "path": "E:\\outputs\\edakit-bom-ui-app4",
+      "files": 5,
+      "bytes": 43890.0,
+      "action": "recycle-bin"
+    },
+    {
+      "path": "E:\\outputs\\edakit-workbench-build",
+      "files": 17,
+      "bytes": 63143423.0,
+      "action": "recycle-bin"
+    },
+    {
+      "path": "E:\\outputs\\edakit-workbench-dist",
+      "files": 2,
+      "bytes": 53911258.0,
+      "action": "recycle-bin"
+    },
+    {
+      "path": "E:\\outputs\\edakit-workbench-frozen-app",
+      "files": 7,
+      "bytes": 42109.0,
+      "action": "recycle-bin"
+    },
+    {
+      "path": "E:\\outputs\\edakit-workbench-full",
+      "files": 1607,
+      "bytes": 4735828.0,
+      "action": "recycle-bin"
+    },
+    {
+      "path": "E:\\outputs\\edakit-workbench-tests",
+      "files": 210,
+      "bytes": 138792.0,
+      "action": "recycle-bin"
+    },
+    {
+      "path": "E:\\outputs\\edakit-workbench-ui-app",
+      "files": 3,
+      "bytes": 2468.0,
+      "action": "recycle-bin"
+    }
+  ],
+  "directories": 55,
+  "files": 4388.0,
+  "bytes": 714735031.0,
+  "preserved": [
+    "E:/outputs/edakit/dist",
+    "E:/outputs/backups",
+    "source and tests",
+    "user libraries and configuration",
+    "original workbooks and company code data",
+    "verification logs and screenshots"
+  ]
+}

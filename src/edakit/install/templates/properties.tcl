@@ -287,8 +287,7 @@ namespace eval ::edakit::properties {
         showPanel $url $scope
     }
     proc showPanel {url scope} {
-        set target "[string trimright $url /]/properties?session=$::edakit::sessionId&scope=$scope"
-        return [::edakit::openCefDock ::edakit::properties::widget ::edakit::properties::page EdaKitProperties "EdaKit Properties" 900 $target]
+        return [::edakit::openWorkbench $url properties $scope]
     }
 }
 proc edakitProperties {args} {

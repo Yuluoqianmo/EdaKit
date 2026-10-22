@@ -64,6 +64,8 @@ set ::orPrm::failShow 0
 set ::orPrm::failDestroy 0
 proc ::edakit::ensureServer {} {return http://127.0.0.1:1234/}
 proc ::edakit::schematicActive {} {return 0}
+unset ::edakit::cefWidget
+unset ::edakit::cefPage
 set before $::orPrm::creates
 ::edakit::properties::openPanel
 set loads $::orPrm::loads
@@ -79,7 +81,7 @@ if {$::orPrm::creates != $before+2} {error "Property stale dock not recovered"}
 set ::orPrm::failShow 1
 set ::orPrm::failDestroy 1
 if {![catch {::edakit::properties::openPanel}]} {error "Property cleanup failure swallowed"}
-if {$::orPrm::creates != $before+2 || ![info exists ::edakit::properties::widget]} {error "Property dock ownership lost"}
+if {$::orPrm::creates != $before+2 || ![info exists ::edakit::cefWidget]} {error "Property dock ownership lost"}
 puts PASS
 ''', encoding="ascii")
     result = subprocess.run([TCLSH, str(driver), str(PLUGIN)], capture_output=True, text=True)
@@ -335,7 +337,8 @@ def test_plugin_sources_and_registers_menu(run_plugin):
     assert "EdaKit top-level menu registered" in res["out"]
     assert "EdaKit Mall" in res["out"]
     assert "EdaKitEnabled" in res["out"]
-    assert "MENU-COUNT=6" in res["out"]
+    assert "MENU-COUNT=7" in res["out"]
+    assert "edakitBOM" in res["out"]
     assert "CALLBACK=edakitMallLegacy:1" not in res["out"]
     assert "Diagnostics" in res["out"]
     assert "Legacy Viewer" not in res["out"]
@@ -699,9 +702,9 @@ puts PASS
     assert 'PASS' in result.stdout
 
 
-def test_properties_reopen_uses_the_same_native_path_as_mall(tmp_path, monkeypatch):
+def test_all_menus_share_one_dock_without_reloads(tmp_path, monkeypatch):
     monkeypatch.setenv('LOCALAPPDATA', str(tmp_path))
-    driver = tmp_path / 'shared-reopen.tcl'
+    driver = tmp_path / 'unified.tcl'
     driver.write_text(r'''
 proc after {args} {}
 proc RegisterAction {args} {}
@@ -712,34 +715,26 @@ proc ::edakit::schematicActive {} {return 0}
 package provide orPrmWebComp 1.0
 namespace eval ::orPrm {
  variable WDOCK_RIGHT 1;variable WDALLOW_RIGHT 2;variable WF_CEF 4
- variable next 0;variable trace {};variable visible
- proc CreateControlBar {name args} {variable next;variable trace;lappend trace create;return [incr next]}
- proc LoadResource {id page args} {variable trace;if {[llength $args]} {error "Unexpected forced reload"};lappend trace load}
- proc SetTitle {args} {variable trace;lappend trace title}
- proc ShowWidget {id show} {variable visible;variable trace;set visible($id) $show;lappend trace show}
- proc DestroyWidget {id} {variable trace;lappend trace destroy}
- proc IsContolBarVisible {id} {error "Must not use extra hidden-widget probe"}
+ variable creates 0;variable loads 0;variable shown 0
+ proc CreateControlBar {args} {variable creates;incr creates}
+ proc LoadResource {id page} {variable loads;incr loads;if {![string match */workbench?session=* $page]} {error "Not workbench"}}
+ proc SetTitle {args} {}
+ proc ShowWidget {id visible} {variable shown;incr shown}
+ proc DestroyWidget {args} {}
 }
-::edakit::openMall
-set mall $::orPrm::trace
-set ::orPrm::trace {}
-# Simulate the stale latch left by the previous release: it must not block opens.
-set ::edakit::properties::opening 1
-::edakit::properties::openPanel
-if {$::orPrm::trace ne $mall} {error "Initial native sequences differ"}
-if {$::edakit::cefWidget == $::edakit::properties::widget} {error "Separate ownership lost"}
 for {set i 0} {$i < 5} {incr i} {
- ::orPrm::ShowWidget $::edakit::cefWidget 0
- ::orPrm::ShowWidget $::edakit::properties::widget 0
- set ::orPrm::trace {}
  ::edakit::openMall
- set mall $::orPrm::trace
- set ::orPrm::trace {}
  ::edakit::properties::openPanel
- if {$::orPrm::trace ne $mall || $::orPrm::trace ne "show"} {error "Reopen native paths differ"}
- if {!$::orPrm::visible($::edakit::properties::widget)} {error "Property dock not visible"}
+ edakitBOM
 }
-if {$::orPrm::next != 2} {error "Duplicate native docks"}
+if {$::orPrm::creates != 1 || $::orPrm::loads != 1 || $::orPrm::shown != 15} {error "Menu switch recreated or reloaded dock"}
+set f [open [file join [::edakit::locateAppDir] workbench "$::edakit::sessionId.nav"] r]
+set nav [read $f];close $f
+if {![string match *tab=bom* $nav]} {error "BOM target missing"}
+::edakit::properties::openPanel selected
+set f [open [file join [::edakit::locateAppDir] workbench "$::edakit::sessionId.nav"] r]
+set nav [read $f];close $f
+if {![string match *scope=selected* $nav]} {error "Property scope missing"}
 puts PASS
 ''', encoding='ascii')
     result = subprocess.run([TCLSH, str(driver), str(PLUGIN)], capture_output=True, text=True, timeout=15)

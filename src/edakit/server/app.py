@@ -122,7 +122,8 @@ class MallHandler(BaseHTTPRequestHandler):
 
     def _read_body(self) -> dict[str, Any]:
         n = int(self.headers.get("Content-Length") or 0)
-        if n < 0 or n > 1_048_576:
+        limit = 12_000_000 if urlparse(self.path).path == '/api/bom/upload' else 1_048_576
+        if n < 0 or n > limit:
             raise ValueError("Request body size is invalid")
         if n == 0:
             return {}
@@ -154,8 +155,18 @@ class MallHandler(BaseHTTPRequestHandler):
                 return self._static("embed.html")
             if path in ("/embed", "/embed.html"):
                 return self._static("embed.html")
+            if path in ('/workbench', '/workbench.html'):
+                return self._static('workbench.html')
+            if path == '/api/workbench/navigation':
+                from ..services.workbench import navigation
+                return self._json(navigation((qs.get('session') or [''])[0]))
             if path in ("/properties", "/properties.html"):
                 return self._static("properties.html")
+            if path in ('/bom', '/bom.html'):
+                return self._static('bom.html')
+            if path == '/api/bom/settings':
+                from ..services.bom import config
+                return self._json(config())
             if path == "/api/properties/layout":
                 from ..bridge.properties import layout
                 return self._json(layout())
@@ -250,6 +261,11 @@ class MallHandler(BaseHTTPRequestHandler):
         parsed = urlparse(self.path)
         path = unquote(parsed.path)
         try:
+            if path.startswith('/api/bom/'):
+                from ..services import bom
+                action = {'preview': bom.from_request, 'settings': bom.settings, 'upload': bom.upload, 'export': bom.export}.get(path.rsplit('/', 1)[-1])
+                if action:
+                    return self._json(action(self._read_body()))
             if path == "/api/properties/request":
                 from ..bridge.properties import submit
                 return self._json(submit(self._read_body()))

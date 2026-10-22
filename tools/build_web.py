@@ -6,6 +6,14 @@ ROOT = Path(__file__).resolve().parents[1]
 def build(check=False):
     source = ROOT / "frontend"
     target = ROOT / "src/edakit/server/web"
+    for bom in sorted((source / 'bom').glob('*')) + sorted((source / 'workbench').glob('*')):
+        output = target / bom.name
+        body = bom.read_text(encoding='utf-8-sig')
+        if check:
+            if output.read_text(encoding='utf-8') != body:
+                raise SystemExit(str(output) + ' is stale')
+        else:
+            output.write_text(body, encoding='utf-8', newline='\n')
     for extension in ("js", "css"):
         properties = source / "properties" / ("properties." + extension)
         property_output = target / properties.name

@@ -831,6 +831,19 @@ namespace eval edakit {
         return [openCefDock ::edakit::cefWidget ::edakit::cefPage EdaKitWorkbench "EdaKit Workbench" 700 $page]
     }
 
+    # All menu entries raise the same stable URL. A small data file tells the
+    # live shell which tab to activate without reloading its child pages.
+    proc openWorkbench {url tab {scope design}} {
+        variable sessionId
+        if {$tab ni {mall properties bom}} { error "Invalid workbench tab" }
+        if {$scope ni {design selected page}} { error "Invalid property scope" }
+        set dir [file join [locateAppDir] workbench]
+        file mkdir $dir
+        writeKV [file join $dir "$sessionId.nav"] [list tab $tab scope $scope revision [clock clicks]]
+        set page "[string trimright $url /]/workbench?session=$sessionId"
+        return [openCefDock ::edakit::cefWidget ::edakit::cefPage EdaKitWorkbench "EdaKit Workbench" 1000 $page]
+    }
+
     # One native window lifecycle for both user-facing workbenches.
     proc openCefDock {widgetVar pageVar name title width page} {
         upvar #0 $widgetVar cefWidget $pageVar cefPage
@@ -882,7 +895,7 @@ namespace eval edakit {
             showText "EdaKit" "Embedded mall server could not be started. Check the exe path and log."
             return
         }
-        if {[catch {openCefMall "[string trimright $url /]/embed?session=$::edakit::sessionId"} err]} {
+        if {[catch {openWorkbench $url mall} err]} {
             writeDiag "CEF dock failed: $err; opening legacy viewer"
             openMallLegacy
         }
@@ -970,6 +983,7 @@ namespace eval edakit {
         InsertXMLMenu [list [list "EdaKit"] "" "" [list "popup" "EdaKit" "0"]]
         InsertXMLMenu [list [list "EdaKit" "Mall"] "" "" [list "action" "LCSC Mall" "0" "EdaKitMall" "EdaKitEnabled"]]
         InsertXMLMenu [list [list "EdaKit" "Properties"] "" "" [list "action" "Component Properties" "0" "EdaKitProperties" "EdaKitEnabled"]]
+        InsertXMLMenu [list [list "EdaKit" "BOM"] "" "" [list "action" "BOM Preview" "0" "EdaKitBOM" "EdaKitEnabled"]]
         InsertXMLMenu [list [list "EdaKit" "Diagnostics"] "" "" [list "popup" "Diagnostics" "0"]]
         foreach {id label action} {
             Probe "Capability Probe" edakitProbe
@@ -990,6 +1004,7 @@ namespace eval edakit {
             foreach {id callback} {
                 Mall edakitMall
                 Properties edakitProperties
+                BOM edakitBOM
                 Probe edakitProbe Log edakitLog
             } {
                 RegisterAction "EdaKit$id" "::edakit::menuTrue" "" $callback ""
@@ -1034,6 +1049,16 @@ proc edakitMall  {args} { edakitDispatch openMall }
 proc edakitMallLegacy {args} { edakitDispatch openMallLegacy }
 proc edakitProbe {args} { edakitDispatch showProbe }
 proc edakitLog   {args} { edakitDispatch showLog }
+proc edakitBOM {args} {
+    if {[catch {
+        set url [::edakit::ensureServer]
+        if {$url eq ""} { error "Local EdaKit server is unavailable" }
+        ::edakit::openWorkbench $url bom
+    } err]} {
+        ::edakit::writeDiag "BOM menu failed: $err"
+        ::edakit::showText "EdaKit BOM" $err
+    }
+}
 
 # Start polling
 if {[catch { ::edakit::startPolling } err]} {
