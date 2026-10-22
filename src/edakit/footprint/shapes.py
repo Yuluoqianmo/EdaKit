@@ -17,8 +17,9 @@ def shape_name(layer):
 
 def shape_scripts(footprint, folder):
     from .skill import _s, _pt, _check
+    from .coordinates import native_cartesian
     result = {}
-    for pad in native_precision(footprint).padstacks:
+    for pad in native_precision(native_cartesian(footprint)).padstacks:
         for layer in pad.layers:
             if layer.shape != 'SHAPE':
                 continue

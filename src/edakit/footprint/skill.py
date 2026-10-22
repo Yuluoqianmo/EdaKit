@@ -39,7 +39,8 @@ def _check(call, label):
 def generate_skill(fp: Footprint, *, drill_plated: bool = True, output_dir: Path | None = None,
                    refdes_prefix: str = "", manual: bool = False) -> str:
     """按本机 algroskill 手册生成脚本；在独立符号编辑器加载，拒绝覆盖输出。"""
-    fp = native_precision(fp)
+    from .coordinates import native_cartesian
+    fp = native_precision(native_cartesian(fp))
     prefix = (refdes_prefix or "U").strip().rstrip("?*")
     if not re.fullmatch(r"[A-Za-z][A-Za-z0-9_]*", prefix):
         raise UnsupportedGeometryError(f'无效的器件位号前缀: {refdes_prefix!r}')

@@ -118,6 +118,8 @@ def automation_script(result):
 
 
 def validate_outputs(component, result):
+    from .coordinates import native_cartesian
+    footprint = native_cartesian(component.footprint)
     folder = Path(result['directory'])
     if not (folder / 'native-success.txt').is_file():
         raise RuntimeError('Allegro 未完成原生构建，请查看构建日志')
@@ -132,7 +134,7 @@ def validate_outputs(component, result):
         if number in actual:
             raise RuntimeError('原生封装引脚编号重复：' + number)
         actual[number] = (float(x), float(y))
-    expected = {ps.name: (ps.x_mm, ps.y_mm) for ps in component.footprint.padstacks if not ps.mechanical}
+    expected = {ps.name: (ps.x_mm, ps.y_mm) for ps in footprint.padstacks if not ps.mechanical}
     if actual.keys() != expected.keys():
         raise RuntimeError('原生封装引脚编号与输入不一致')
     for number, xy in expected.items():
@@ -145,12 +147,12 @@ def validate_outputs(component, result):
     if not padnames or any(n.lower() not in outputs or outputs[n.lower()].stat().st_size == 0 for n in padnames):
         raise RuntimeError('原生 padstack 输出缺失')
     from .identity import pad_name
-    if any(p.drill_mm for p in component.footprint.padstacks):
+    if any(p.drill_mm for p in footprint.padstacks):
         readback = {}
         for line in (folder / 'native-padstacks.txt').read_text().splitlines():
             name,w,h,x,y,plating = line.split('|')
             readback[name.lower()] = (float(w),float(h),float(x),float(y),plating.strip('"'))
-        for p in component.footprint.padstacks:
+        for p in footprint.padstacks:
             if not p.drill_mm:
                 continue
             native = readback.get(pad_name(p).lower())
@@ -158,7 +160,7 @@ def validate_outputs(component, result):
                               p.drill_offset_x_mm,p.drill_offset_y_mm)
             if native is None or any(abs(a-b) > .0002 for a,b in zip(native[:4],expected_drill)) or native[4].upper().replace('-','_') != ('PLATED' if p.hole_plated else 'NON_PLATED'):
                 raise RuntimeError('原生钻孔尺寸、方向、偏移或镀孔属性不一致：' + p.name)
-    expected_holes = sorted((p.x_mm,p.y_mm) for p in component.footprint.padstacks if p.mechanical)
+    expected_holes = sorted((p.x_mm,p.y_mm) for p in footprint.padstacks if p.mechanical)
     if expected_holes:
         actual_holes = sorted(tuple(map(float,line.split('|'))) for line in
             (folder / 'native-mechanical.txt').read_text().splitlines())
@@ -194,6 +196,12 @@ def publish(component, result, files, library):
         previous = index['packages'].get(result['footprint'])
         if previous and previous.get('geometryDigest') != identity['geometryDigest']:
             raise RuntimeError('同名封装的完整几何摘要冲突，保留原文件')
+        if previous:
+            old_binding, new_binding = previous.get('stepBinding'), result.get('stepBinding')
+            keys = ('version', 'file', 'sha256', 'rotation', 'offset', 'source')
+            if any(json.dumps((old_binding or {}).get(k), sort_keys=True) !=
+                   json.dumps((new_binding or {}).get(k), sort_keys=True) for k in keys):
+                raise RuntimeError('同名封装的 3D 模型或映射发生变化，保留原文件；请检查模型来源后再生成')
         planned = []
         for source in files:
             target = library / source.name.lower()
@@ -216,7 +224,8 @@ def publish(component, result, files, library):
             'sourceFootprint': component.footprint.name, 'status': 'compiled',
             'pinCount': sum(not p.mechanical for p in component.footprint.padstacks),
             'mechanicalCount': sum(p.mechanical for p in component.footprint.padstacks),
-            'files': {target.name: digest for _, target, digest in planned}}
+            'files': {target.name: digest for _, target, digest in planned},
+            'stepBinding': result.get('stepBinding')}
         atomic_write(index_path, json.dumps(index, ensure_ascii=False, indent=2))
     except BaseException:
         for target, digest in created:
@@ -293,7 +302,15 @@ def build_footprint(component, config, *, stopping=None, timeout=150, launch=sub
     if component.symbol is None or component.footprint is None:
         raise ValueError('缺少原理图符号或 PCB 封装，无法校验引脚配对')
     validate_pin_mapping(component.symbol, component.footprint)
-    cached = compiled_result(component, config.footprint_lib)
+    from ..threed.assembly import prepare_model, binding_skill, validate_binding
+    binding = None
+    if component.model3d is not None:
+        phase('正在下载或校验 STP 模型，并计算与 PCB 一致的安装方向')
+        try:
+            binding = prepare_model(component, config.effective_step_lib)
+        except Exception as error:
+            raise RuntimeError('3D 模型准备失败，未发布封装；请重试：' + str(error)) from error
+    cached = compiled_result(component, config.footprint_lib, binding=binding)
     if cached is not None:
         cached['elapsedSeconds'] = round(time.perf_counter() - started, 3)
         return cached
@@ -303,6 +320,15 @@ def build_footprint(component, config, *, stopping=None, timeout=150, launch=sub
         raise ValueError('Cadence 安装缺少 package symbol 模板 smdres.dra')
     result = prepare_footprint(component, config.footprint_lib)
     folder = Path(result['directory'])
+    if binding:
+        result['stepBinding'] = binding
+        script_path = folder / 'manual_build.il'
+        script = script_path.read_text(encoding='utf-8')
+        marker = '    (unless (axlSaveDesign'
+        if marker not in script:
+            raise RuntimeError('封装脚本缺少保存步骤，不能绑定 3D')
+        script = script.replace(marker, binding_skill(binding, folder / 'native-step.txt') + marker, 1)
+        atomic_write(script_path, script)
     atomic_write(folder / 'automatic.il', automation_script(result))
     atomic_write(folder / 'automatic.scr', 'skill load("' + skill_path(folder / 'automatic.il') + '")\nexit\nfillin no\n')
     environment = os.environ.copy()
@@ -331,20 +357,28 @@ def build_footprint(component, config, *, stopping=None, timeout=150, launch=sub
     try:
         phase('正在核对原生引脚并保存封装库')
         files = validate_outputs(component, result)
+        if binding:
+            validate_binding(binding, folder / 'native-step.txt')
         publish(component, result, files, config.footprint_lib)
     except Exception as error:
         raise RuntimeError(str(error) + '；日志目录：' + str(folder)) from error
     notes = manufacturing_notes(component)
+    if not binding:
+        notes.append('该器件没有 3D 模型，已仅生成 PCB 封装。')
     result.update(status='compiled', nativeBuildVerified=True, directory=config.footprint_lib,
                   drawing=str(Path(config.footprint_lib) / (result['footprint'].lower() + '.dra')),
                   command='', message='PCB 封装已自动生成并保存到封装库' + ('；' + ' '.join(notes) if notes else ''),
                   warnings=notes, logDirectory=str(folder),
                   backend='allegro-nograph', templateReused=template_reused,
                   elapsedSeconds=round(time.perf_counter() - started, 3))
+    result.update(modelStatus='bound' if binding else 'unavailable',
+                  stepPath=binding['path'] if binding else '')
+    if binding:
+        result['message'] += '；STP 已下载并与封装绑定（旋转、偏移已回读校验）'
     return result
 
 
-def compiled_result(component, library):
+def compiled_result(component, library, *, binding=None):
     folder = Path(library)
     path = folder / 'edakit-library.json'
     identity = library_names(component)
@@ -353,6 +387,11 @@ def compiled_result(component, library):
         if record['geometryDigest'] != identity['geometryDigest'] or record['status'] != 'compiled':
             return None
         files = record['files']
+        if binding is not None:
+            saved = record.get('stepBinding')
+            keys = ('version', 'file', 'sha256', 'rotation', 'offset', 'source')
+            if not saved or any(json.dumps(saved.get(k), sort_keys=True) != json.dumps(binding[k], sort_keys=True) for k in keys):
+                return None
         required = {identity['footprint'].lower() + ext for ext in ('.dra', '.psm')}
         if (record.get('pinCount') != sum(not p.mechanical for p in component.footprint.padstacks)
                 or record.get('mechanicalCount', 0) != sum(p.mechanical for p in component.footprint.padstacks)
@@ -364,9 +403,11 @@ def compiled_result(component, library):
         return None
     notes = manufacturing_notes(component)
     return {'status': 'compiled', 'nativeBuildVerified': True, 'reused': True,
+            'stepBinding': binding, 'modelStatus': 'bound' if binding else 'unavailable',
+            'stepPath': binding['path'] if binding else '',
             'directory': str(folder), 'footprint': identity['footprint'],
             'drawing': str(folder / (identity['footprint'].lower() + '.dra')),
-            'command': '', 'message': '已复用封装库中校验通过的原生文件' + ('；' + ' '.join(notes) if notes else ''),
+            'command': '', 'message': '已复用封装库中校验通过的原生文件' + ('；STP 模型绑定已校验' if binding else '；该器件没有 3D 模型') + ('；' + ' '.join(notes) if notes else ''),
             'warnings': notes}
 
 

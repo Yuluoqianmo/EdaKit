@@ -82,7 +82,7 @@ def test_skill_already_closed_region_has_no_duplicate_edges():
     comp = _comp()
     comp.footprint.solid_regions[0].geom['points_mm'] = [0, 0, 1, 0, 1, 1, 0, 0, 0, 0]
     il = generate_skill(comp.footprint)
-    assert '(list 0.0000:0.0000 1.0000:0.0000 1.0000:1.0000 0.0000:0.0000)' in il
+    assert '(list 0.0000:0.0000 1.0000:0.0000 1.0000:-1.0000 0.0000:0.0000)' in il
 
 
 @pytest.mark.parametrize('points', [

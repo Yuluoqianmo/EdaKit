@@ -375,6 +375,11 @@ def _parse_svgnode(raw: str) -> dict[str, Any]:
     for key in ("c_width", "c_height"):
         if key in attrs:
             out[key + "_units"] = _f(attrs[key])
+    points = []
+    for child in j.get('childNodes', []):
+        points.extend(_points(child.get('attrs', {}).get('points', '')))
+    if points:
+        out['outline_center_units'] = [(min(p[i] for p in points) + max(p[i] for p in points))/2 for i in (0, 1)]
     return out
 
 
@@ -550,6 +555,7 @@ def parse_model3d(payload: dict[str, Any], footprint: Footprint | None) -> Model
                 rotation_deg=(rot[0], rot[1], rot[2]) if len(rot) == 3 else (0.0, 0.0, 0.0),
                 width_mm=_f(g.get("c_width_units", 0.0)) * units.FOOTPRINT_UNIT_TO_MM,
                 height_mm=_f(g.get("c_height_units", 0.0)) * units.FOOTPRINT_UNIT_TO_MM,
+                outline_center_mm=tuple((g['outline_center_units'][i] - (ox, oy)[i]) * units.FOOTPRINT_UNIT_TO_MM for i in (0, 1)) if 'outline_center_units' in g else None,
             )
     return None
 

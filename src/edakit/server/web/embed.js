@@ -352,7 +352,7 @@
   var pcbBusy = false;
   function showPcbResult(d) {
     var elapsed = typeof d.elapsedSeconds === "number" ? " · " + d.elapsedSeconds.toFixed(2) + " 秒" : "";
-    notice("PCB 封装生成完成" + elapsed + "\n" + d.footprint + "\n封装库：" + d.directory + "\n" + d.message + "\n文件：" + d.footprint.toLowerCase() + ".dra / " + d.footprint.toLowerCase() + ".psm");
+    notice("PCB 封装生成完成" + elapsed + "\n" + d.footprint + "\n封装库：" + d.directory + (d.stepPath ? "\nSTP 模型：" + d.stepPath : "") + "\n" + d.message + "\n文件：" + d.footprint.toLowerCase() + ".dra / " + d.footprint.toLowerCase() + ".psm");
   }
   function pcbButton() {
     el("btnpcb").disabled = pcbBusy || !state.selection.detail || !state.selection.detail.hasFootprint || !state.selection.detail.hasSymbol;
@@ -425,6 +425,7 @@
     el("librarysave").disabled = true; text(el("librarymessage"), "正在读取…");
     jsonp("/api/es/library/settings", {}, function (d) {
       el("symbolpath").value = d.symbol_lib; el("footprintpath").value = d.footprint_lib; el("cadencepath").value = d.cadence_root;
+      el("steppath").value = d.step_lib || "";
       el("librarysave").disabled = false; text(el("librarymessage"), d.cadence_detected ? "已检测到有效的 Cadence 安装目录" : "未检测到有效的 Cadence 安装目录，请选择安装根目录"); el("symbolpath").focus();
     }, function (message) { text(el("librarymessage"), message); });
   });
@@ -432,7 +433,7 @@
   bind("librarysave", "click", function () {
     if (librarySaving || directoryPicking) { return; }
     librarySaving = true; el("librarysave").disabled = true; text(el("librarymessage"), "正在保存…");
-    jsonp("/api/es/library/settings/save", { symbol_lib: el("symbolpath").value, footprint_lib: el("footprintpath").value, cadence_root: el("cadencepath").value }, function (d) {
+    jsonp("/api/es/library/settings/save", { symbol_lib: el("symbolpath").value, footprint_lib: el("footprintpath").value, step_lib: el("steppath").value, cadence_root: el("cadencepath").value }, function (d) {
       librarySaving = false; el("librarysave").disabled = false; text(el("librarymessage"), d.message);
     }, function (message) { librarySaving = false; el("librarysave").disabled = false; text(el("librarymessage"), message); });
   });
@@ -449,7 +450,7 @@
 
   var directoryPicking = false;
   function pickerControls(busy, active) {
-    var ids = ["symbolpathbrowse", "footprintpathbrowse", "cadencepathbrowse", "librarysave", "libraryclose"], i;
+    var ids = ["symbolpathbrowse", "footprintpathbrowse", "steppathbrowse", "cadencepathbrowse", "librarysave", "libraryclose"], i;
     for (i = 0; i < ids.length; i++) { el(ids[i]).disabled = busy; }
     if (active) { text(el(active + "browse"), busy ? "选择中…" : "选择目录…"); }
   }
@@ -473,6 +474,7 @@
   }
   bind("symbolpathbrowse", "click", function () { browseLibraryPath("symbolpath"); });
   bind("footprintpathbrowse", "click", function () { browseLibraryPath("footprintpath"); });
+  bind("steppathbrowse", "click", function () { browseLibraryPath("steppath"); });
   bind("cadencepathbrowse", "click", function () { browseLibraryPath("cadencepath"); });
 
 /* source: 10-events.js */
@@ -509,8 +511,9 @@
   bind("btnplace", "click", place); bind("tabsymbol", "click", function () { state.preview.kind = "symbol"; renderPreview(true); }); bind("tabfootprint", "click", function () { state.preview.kind = "footprint"; renderPreview(true); });
   bind("tab3d", "click", function () { state.preview.kind = "model3d"; renderPreview(true); });
   function rotate(yaw, pitch) { state.preview.yaw = (state.preview.yaw + yaw + 360) % 360; state.preview.pitch = Math.max(-85, Math.min(85, state.preview.pitch + pitch)); renderPreview(false); }
-  bind("rotateleft", "click", function () { rotate(-30, 0); }); bind("rotateright", "click", function () { rotate(30, 0); }); bind("rotatetop", "click", function () { rotate(0, state.preview.pitch >= 75 ? -60 : 20); });
-  bind("largeleft", "click", function () { rotate(-30, 0); }); bind("largeright", "click", function () { rotate(30, 0); }); bind("largetop", "click", function () { rotate(0, state.preview.pitch >= 75 ? -60 : 20); });
+  function topAligned() { state.preview.yaw = 0; state.preview.pitch = 0; renderPreview(false); }
+  bind("rotateleft", "click", function () { rotate(-30, 0); }); bind("rotateright", "click", function () { rotate(30, 0); }); bind("rotatetop", "click", topAligned);
+  bind("largeleft", "click", function () { rotate(-30, 0); }); bind("largeright", "click", function () { rotate(30, 0); }); bind("largetop", "click", topAligned);
   bind("zoomin", "click", function () { zoom(1.4); }); bind("zoomout", "click", function () { zoom(1 / 1.4); }); bind("zoomfit", "click", function () { renderPreview(true); }); bind("zoomfull", "click", function () { full(true); });
   bind("largein", "click", function () { zoom(1.4); }); bind("largeout", "click", function () { zoom(1 / 1.4); }); bind("largefit", "click", function () { renderPreview(true); }); bind("largeclose", "click", function () { full(false); });
   bind("previewport", "dblclick", function () { full(true); }); bind(document, "keydown", function (ev) { ev = ev || window.event; if (ev.keyCode === 27 && state.preview.full) { full(false); } });

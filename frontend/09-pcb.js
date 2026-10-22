@@ -1,7 +1,7 @@
   var pcbBusy = false;
   function showPcbResult(d) {
     var elapsed = typeof d.elapsedSeconds === "number" ? " · " + d.elapsedSeconds.toFixed(2) + " 秒" : "";
-    notice("PCB 封装生成完成" + elapsed + "\n" + d.footprint + "\n封装库：" + d.directory + "\n" + d.message + "\n文件：" + d.footprint.toLowerCase() + ".dra / " + d.footprint.toLowerCase() + ".psm");
+    notice("PCB 封装生成完成" + elapsed + "\n" + d.footprint + "\n封装库：" + d.directory + (d.stepPath ? "\nSTP 模型：" + d.stepPath : "") + "\n" + d.message + "\n文件：" + d.footprint.toLowerCase() + ".dra / " + d.footprint.toLowerCase() + ".psm");
   }
   function pcbButton() {
     el("btnpcb").disabled = pcbBusy || !state.selection.detail || !state.selection.detail.hasFootprint || !state.selection.detail.hasSymbol;

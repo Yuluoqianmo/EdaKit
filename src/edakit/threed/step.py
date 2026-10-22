@@ -33,9 +33,12 @@ class StepFetcher:
         return r.content
 
     def download_step(self, uuid: str, out_path: str | Path) -> Path:
-        data = self._get(STEP_URL.format(uuid=uuid))
+        data = self.download_step_bytes(uuid)
         Path(out_path).write_bytes(data)
         return Path(out_path)
+
+    def download_step_bytes(self, uuid: str) -> bytes:
+        return self._get(STEP_URL.format(uuid=uuid))
 
     def download_obj(self, uuid: str, out_path: str | Path) -> Path:
         data = self._get(OBJ_URL.format(uuid=uuid))

@@ -20,7 +20,7 @@ def test_real_through_hole_capacitor_preserves_rectangle_and_drills():
     assert rect.geom['x2_mm'] - rect.geom['x_mm'] == pytest.approx(12.065)
     assert rect.geom['width_mm'] == pytest.approx(.254)
     script = generate_skill(fp)
-    assert '(list -5.9690:-3.6830 6.0960:-3.6830 6.0960:3.6830 -5.9690:3.6830 -5.9690:-3.6830) 0.2540' in script
+    assert '(list -5.9690:3.6830 6.0960:3.6830 6.0960:-3.6830 -5.9690:-3.6830 -5.9690:3.6830) 0.2540' in script
     assert script.count('(axlDBCreatePin ') == 2
     assert '?drillDiameter 0.9144' in script
     assert "?plating 'PLATED" in script

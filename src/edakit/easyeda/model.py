@@ -211,6 +211,7 @@ class Model3D:
     # 校准后的平移/旋转 (由 threed.mapping 计算)
     offset_mm: tuple[float, float, float] = (0.0, 0.0, 0.0)
     calibrated_rotation_deg: tuple[float, float, float] = (0.0, 0.0, 0.0)
+    outline_center_mm: tuple[float, float] | None = None
 
 
 @dataclass

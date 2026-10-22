@@ -34,5 +34,7 @@ class PreviewService:
         if kind == "model3d":
             if component.model3d is None:
                 raise PreviewMissing("no_model3d")
-            return render_model_png(self.model_loader(component.model3d.uuid), size, yaw, pitch)
+            from ..threed.assembly import placement
+            data = self.model_loader(component.model3d.uuid)
+            return render_model_png(data, size, yaw, pitch, placement(component.model3d, data))
         return render_png(self.svg(component, kind), size)

@@ -184,7 +184,9 @@ def stage_component(comp: Component, cfg: Config, *, download_step: bool = True,
         model = calibrate(comp.model3d, mode=cfg.calib)
         if download_step:
             try:
-                target = lib / f"{_safe(fp_name)}.step"
+                step_folder = lib if output_dir is not None else Path(cfg.effective_step_lib)
+                step_folder.mkdir(parents=True, exist_ok=True)
+                target = step_folder / f"{_safe(fp_name)}.step"
                 StepFetcher().download_step(model.uuid, target)
                 model.step_path = target.name
                 out.step = target
@@ -240,7 +242,7 @@ def _readme(comp: Component, st: Staged) -> str:
     ]
     if st.step:
         lines += [
-            f"  STEP 已放到封装库目录: {st.step.name}",
+            f"  STEP 模型文件: {st.step}",
             "  使用前请核实 Allegro 的 steppath / step_mapping_path 包含该目录。",
             f"  映射文件: {st.map_xml.name if st.map_xml else '(无)'}",
         ]

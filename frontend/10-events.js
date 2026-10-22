@@ -31,8 +31,9 @@
   bind("btnplace", "click", place); bind("tabsymbol", "click", function () { state.preview.kind = "symbol"; renderPreview(true); }); bind("tabfootprint", "click", function () { state.preview.kind = "footprint"; renderPreview(true); });
   bind("tab3d", "click", function () { state.preview.kind = "model3d"; renderPreview(true); });
   function rotate(yaw, pitch) { state.preview.yaw = (state.preview.yaw + yaw + 360) % 360; state.preview.pitch = Math.max(-85, Math.min(85, state.preview.pitch + pitch)); renderPreview(false); }
-  bind("rotateleft", "click", function () { rotate(-30, 0); }); bind("rotateright", "click", function () { rotate(30, 0); }); bind("rotatetop", "click", function () { rotate(0, state.preview.pitch >= 75 ? -60 : 20); });
-  bind("largeleft", "click", function () { rotate(-30, 0); }); bind("largeright", "click", function () { rotate(30, 0); }); bind("largetop", "click", function () { rotate(0, state.preview.pitch >= 75 ? -60 : 20); });
+  function topAligned() { state.preview.yaw = 0; state.preview.pitch = 0; renderPreview(false); }
+  bind("rotateleft", "click", function () { rotate(-30, 0); }); bind("rotateright", "click", function () { rotate(30, 0); }); bind("rotatetop", "click", topAligned);
+  bind("largeleft", "click", function () { rotate(-30, 0); }); bind("largeright", "click", function () { rotate(30, 0); }); bind("largetop", "click", topAligned);
   bind("zoomin", "click", function () { zoom(1.4); }); bind("zoomout", "click", function () { zoom(1 / 1.4); }); bind("zoomfit", "click", function () { renderPreview(true); }); bind("zoomfull", "click", function () { full(true); });
   bind("largein", "click", function () { zoom(1.4); }); bind("largeout", "click", function () { zoom(1 / 1.4); }); bind("largefit", "click", function () { renderPreview(true); }); bind("largeclose", "click", function () { full(false); });
   bind("previewport", "dblclick", function () { full(true); }); bind(document, "keydown", function (ev) { ev = ev || window.event; if (ev.keyCode === 27 && state.preview.full) { full(false); } });

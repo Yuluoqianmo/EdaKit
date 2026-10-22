@@ -52,8 +52,12 @@ def library_names(component):
         cid = 'X' + hashlib.sha256(cid.encode('utf-8')).hexdigest()[:10].upper()
     label = package_label(component)
     prefix = (component.symbol.prefix if component.symbol else '').strip().rstrip('?*') or 'U'
-    pcb = digest({'format': 2, 'footprint': geometry(component.footprint),
-                  'prefix': prefix, 'packageClass': label})
+    pcb_data = {'format': 3, 'coordinates': 'source-y-down-to-native-y-up', 'footprint': geometry(component.footprint),
+                'prefix': prefix, 'packageClass': label}
+    if component.model3d is not None:
+        from .threed.assembly import identity
+        pcb_data['model3d'] = identity(component.model3d)
+    pcb = digest(pcb_data)
     symbol = digest({'format': 10, 'symbol': asdict(component.symbol) if component.symbol else None,
                      'pcb': pcb})
     return {'symbol': f'EK_{cid}_S_{symbol[:8]}_P10',

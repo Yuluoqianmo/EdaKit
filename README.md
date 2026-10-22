@@ -34,3 +34,5 @@ python -m PyInstaller --noconfirm edakit.spec
 ```
 
 本机 Python：`C:/Users/32657/lcsc2cadence-build/.venv/Scripts/python.exe`。新电脑先创建虚拟环境并安装 `requirements.txt`、pytest、pyinstaller，构建前更新前端资源：`python tools/build_web.py`。功能限制及原生验收记录见项目交接。用户库和配置不提交 GitHub。
+
+最新功能：[STP 自动绑定与方向验证](docs/STP自动绑定与方向验证-20261022.md)。生成 PCB 时自动下载并绑定模型，库设置支持独立 STP 目录，3D 预览支持与 PCB 一致的俯视方向。

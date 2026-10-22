@@ -5,12 +5,13 @@ import tempfile
 import time
 
 
-def atomic_write(path: Path, content: str):
+def atomic_write(path: Path, content: str | bytes):
     path = Path(path)
     path.parent.mkdir(parents=True, exist_ok=True)
     fd, name = tempfile.mkstemp(prefix=path.name + ".", suffix=".tmp", dir=path.parent)
     try:
-        with os.fdopen(fd, "w", encoding="utf-8", newline="\n") as stream:
+        options = {} if isinstance(content, bytes) else {'encoding': 'utf-8', 'newline': '\n'}
+        with os.fdopen(fd, "wb" if isinstance(content, bytes) else "w", **options) as stream:
             stream.write(content)
             stream.flush()
             os.fsync(stream.fileno())

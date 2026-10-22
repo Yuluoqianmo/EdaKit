@@ -20,8 +20,11 @@ from edakit.services.footprint import prepare_footprint
 
 @pytest.fixture
 def component():
-    return parse_component('C25804', json.loads(
+    comp = parse_component('C25804', json.loads(
         (Path(__file__).parent / 'data/C25804.json').read_text(encoding='utf-8')))
+    # These tests isolate native geometry; STEP integration has separate coverage.
+    comp.model3d = None
+    return comp
 
 
 def test_names_pair_and_change_with_geometry(component, tmp_path):
@@ -70,7 +73,7 @@ def native_files(component, tmp_path):
     folder = Path(result['directory'])
     (folder / 'native-success.txt').write_text('COMPILED')
     (folder / 'native-pins.txt').write_text(''.join(
-        f'{p.name}|{p.x_mm:.4f}|{p.y_mm:.4f}\n' for p in component.footprint.padstacks))
+        f'{p.name}|{p.x_mm:.4f}|{-p.y_mm:.4f}\n' for p in component.footprint.padstacks))
     for extension in ('.dra', '.psm'):
         (folder / (result['footprint'] + extension)).write_bytes(b'native')
     import re

@@ -122,7 +122,7 @@ def _write_env(path: Path, text: str) -> None:
     path.write_text(text, encoding="utf-8", newline="\n")
 
 
-def build_block(lib_dir: str) -> str:
+def build_block(lib_dir: str, step_dir: str | None = None) -> str:
     """生成要写进 env 的配置块。
 
     用 ``$var`` 形式**追加**而不是覆盖 —— 保留用户已有的库路径。
@@ -133,23 +133,28 @@ def build_block(lib_dir: str) -> str:
         raise DeployError('封装库路径含 Allegro 环境文件不支持的字符')
     if any(c.isspace() for c in lib):
         lib = '"' + lib + '"'
+    step = (step_dir or lib_dir).replace('\\', '/')
+    if any(c in step for c in '\r\n\x00"$'):
+        raise DeployError('STP 库路径含 Allegro 环境文件不支持的字符')
+    if any(c.isspace() for c in step):
+        step = '"' + step + '"'
     lines = [BEGIN]
     lines.append("# 由 lcsc2cadence 自动生成，请勿手改；卸载/重新配置会覆盖本块。")
     lines.append(f"padpath = {lib} $padpath")
     lines.append(f"psmpath = {lib} $psmpath")
-    lines.append(f"steppath = {lib} $steppath")
+    lines.append(f"steppath = {step} $steppath")
     lines.append(f"step_mapping_path = {lib} $step_mapping_path")
     lines.append(END)
     return "\n".join(lines) + "\n"
 
 
 def configure(lib_dir: str, *, pcbenv: Path | None = None, dry_run: bool = False,
-              cadence_root: str | None = None) -> Path:
+              cadence_root: str | None = None, step_dir: str | None = None) -> Path:
     """把封装库目录写进用户 env。返回被修改的 env 文件路径。"""
     target = (pcbenv or find_pcbenv(cadence_root)) / "env"
     text = _read_env(target)
     text = _BLOCK_RE.sub("", text)          # 先清掉旧块 (幂等)
-    block = build_block(lib_dir)
+    block = build_block(lib_dir, step_dir)
 
     if text and not text.endswith("\n"):
         text += "\n"

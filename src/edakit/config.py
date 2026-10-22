@@ -25,7 +25,8 @@ def app_dir() -> Path:
 class Config:
     """用户配置。"""
 
-    footprint_lib: str = ""      # 全局封装库目录 (.dra/.psm/.pad/.step)
+    footprint_lib: str = ""      # 全局封装库目录 (.dra/.psm/.pad)
+    step_lib: str = ""           # STEP models; legacy settings use a sibling STEP directory.
     symbol_lib: str = ""         # Explicit Capture library directory; empty preserves legacy project_olb.
     project_olb: str = ""        # Capture 累积工程库
     cadence_root: str = ""       # SPB 安装根，留空自动探测
@@ -65,6 +66,7 @@ class Config:
         cfg = cls()
         cfg.symbol_lib = str(DEFAULT_LIBRARY_ROOT / "Symbols")
         cfg.footprint_lib = str(DEFAULT_LIBRARY_ROOT / "Footprints")
+        cfg.step_lib = str(DEFAULT_LIBRARY_ROOT / "STEP")
         cfg.project_olb = str(Path(cfg.symbol_lib) / "EdaKit.olb")
         return cfg
 
@@ -88,7 +90,7 @@ class Config:
         return cfg
 
     def validate(self):
-        for name in ("footprint_lib", "symbol_lib", "project_olb", "cadence_root", "calib", "schema_profile", "place_mode"):
+        for name in ("footprint_lib", "step_lib", "symbol_lib", "project_olb", "cadence_root", "calib", "schema_profile", "place_mode"):
             if not isinstance(getattr(self, name), str):
                 raise ValueError("Invalid configuration field: " + name)
         for name in ("auto_config_allegro", "switch_to_capture"):
@@ -116,8 +118,13 @@ class Config:
             self.project_olb = str(Path(self.symbol_lib) / 'EdaKit.olb')
         if self.footprint_lib:
             Path(self.footprint_lib).mkdir(parents=True, exist_ok=True)
+            Path(self.effective_step_lib).mkdir(parents=True, exist_ok=True)
         if self.project_olb:
             Path(self.project_olb).parent.mkdir(parents=True, exist_ok=True)
         (app_dir() / "queue").mkdir(parents=True, exist_ok=True)
+
+    @property
+    def effective_step_lib(self) -> str:
+        return self.step_lib or str(Path(self.footprint_lib).parent / 'STEP')
 
 

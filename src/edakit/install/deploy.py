@@ -179,6 +179,7 @@ def deploy(
             spb = spb_root_from_tcl(tcl_root)
             allegro_env.configure(
                 cfg.footprint_lib, dry_run=dry_run,
+                step_dir=cfg.effective_step_lib,
                 cadence_root=str(spb) if spb else None,
             )
         except DeployError as e:

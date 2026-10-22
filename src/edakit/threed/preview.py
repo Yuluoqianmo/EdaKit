@@ -56,10 +56,21 @@ def parse_obj(data: bytes) -> Mesh:
     return Mesh(tuple(vertices), tuple((f, materials.get(m, (0.32, 0.37, 0.42))) for f, m in faces))
 
 
+@lru_cache(maxsize=8)
+def placed_vertices(data, transform):
+    from .assembly import rotate
+    mesh = parse_obj(data)
+    if transform is None:
+        return mesh.vertices
+    angles, offset = transform
+    return tuple(tuple(a+b for a,b in zip(rotate(point, angles), offset)) for point in mesh.vertices)
+
+
 @coalesced
 @lru_cache(maxsize=12)
 @bounded_render
-def render_model_png(data: bytes, size: int = 1024, yaw: int = 35, pitch: int = 55) -> bytes:
+def render_model_png(data: bytes, size: int = 1024, yaw: int = 35, pitch: int = 55,
+                     transform: tuple | None = None) -> bytes:
     """Depth-buffer rasterization prevents holes from overlapping OBJ triangles.
 
     Limit 3D bitmaps to 1024px for responsive CPU rendering in the legacy host.
@@ -70,8 +81,9 @@ def render_model_png(data: bytes, size: int = 1024, yaw: int = 35, pitch: int = 
     cy, sy = math.cos(math.radians(yaw)), math.sin(math.radians(yaw))
     cp, sp = math.cos(math.radians(pitch)), math.sin(math.radians(pitch))
     points = []
-    for x, y, z in mesh.vertices:
+    for x, y, z in placed_vertices(data, transform):
         rx, ry = x*cy-y*sy, x*sy+y*cy
+        # Native CAD uses Y up; SVG uses Y down. Camera never changes mapping.
         points.append((rx, -(ry*cp+z*sp), z*cp-ry*sp))
     minx, maxx = min(p[0] for p in points), max(p[0] for p in points)
     miny, maxy = min(p[1] for p in points), max(p[1] for p in points)

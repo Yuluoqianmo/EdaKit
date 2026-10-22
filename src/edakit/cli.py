@@ -192,6 +192,7 @@ def cmd_place_status(args: argparse.Namespace) -> int:
 # --------------------------------------------------------------------------- #
 def cmd_allegro_env(args: argparse.Namespace) -> int:
     from .install import allegro_env
+    from .config import Config
 
     if args.show:
         allegro_env.show()
@@ -207,7 +208,7 @@ def cmd_allegro_env(args: argparse.Namespace) -> int:
     if not lib:
         print("需要 --lib <封装库目录>（或先在配置里设好 footprint_lib）。", file=sys.stderr)
         return 2
-    allegro_env.configure(lib, dry_run=args.dry_run)
+    allegro_env.configure(lib, dry_run=args.dry_run, step_dir=Config.load().effective_step_lib)
     return 0
 
 
