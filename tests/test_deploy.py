@@ -28,6 +28,8 @@ def test_cli_deploy_records_windowed_executable(tmp_path, monkeypatch):
 @pytest.fixture(autouse=True)
 def _isolate(tmp_path, monkeypatch):
     monkeypatch.setenv("LOCALAPPDATA", str(tmp_path))
+    monkeypatch.setenv("HOME", str(tmp_path / 'home'))
+    monkeypatch.setenv("APPDATA", str(tmp_path / 'roaming'))
     monkeypatch.delenv("CDSROOT", raising=False)
     monkeypatch.delenv("CDS_INST_DIR", raising=False)
 

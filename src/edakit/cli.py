@@ -63,6 +63,15 @@ def cmd_mall(args: argparse.Namespace) -> int:
     from .runtime import configure_logging
     configure_logging()
     directory = app_dir()
+    from .config import Config
+    from .install import capture_ini
+    cfg = Config.load()
+    if cfg.footprint_lib:
+        try:
+            capture_ini.configure(cfg.footprint_lib, cadence_root=cfg.cadence_root)
+        except (OSError, ValueError) as error:
+            import logging
+            logging.getLogger(__name__).warning('Capture footprint search path sync failed: %s', error)
     managed = bool(getattr(args, "capture_pid", 0))
     with managed_server_lock(directory) if managed else nullcontext(True) as acquired:
         if not acquired:

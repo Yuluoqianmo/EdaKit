@@ -50,4 +50,10 @@ def save_settings(values):
         if cfg.auto_config_allegro:
             env_path = str(allegro_env.configure(cfg.footprint_lib, step_dir=cfg.effective_step_lib, cadence_root=cfg.cadence_root or None))
         cfg.save()
-        return {**read_settings(), 'message': '库路径已保存', 'allegro_env': env_path}
+        from ..install import capture_ini
+        message, capture_path = '库路径已保存', ''
+        try:
+            capture_path = str(capture_ini.configure(cfg.footprint_lib, cadence_root=cfg.cadence_root) or '')
+        except (OSError, ValueError) as error:
+            message += '；Capture 封装查看路径同步失败：' + str(error)
+        return {**read_settings(), 'message': message, 'allegro_env': env_path, 'capture_ini': capture_path}

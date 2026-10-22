@@ -153,6 +153,10 @@ namespace eval edakit {
         set dir [file join [locateAppDir] capture_hosts]
         file mkdir $dir
         writeKV [file join $dir "[pid].owner"] [list pid [pid] ts [clock seconds] session $sessionId]
+        # Capture's footprint viewer reads this profile, not Allegro's env.
+        if {[llength [info commands GetIniPath]]} {
+            catch { writeKV [file join [locateAppDir] capture_ini_path.txt] [list path [GetIniPath]] }
+        }
     }
 
     # ----------------------------------------------------------- polling --

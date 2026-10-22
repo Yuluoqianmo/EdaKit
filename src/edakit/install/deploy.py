@@ -172,6 +172,11 @@ def deploy(
     # 封装库 / 工程库目录
     print(f"封装库目录:         {cfg.footprint_lib}")
     print(f"累积工程库:         {cfg.project_olb}")
+    from . import capture_ini
+    try:
+        capture_ini.configure(cfg.footprint_lib, cadence_root=str(spb_root_from_tcl(tcl_root) or ''), dry_run=dry_run)
+    except (OSError, ValueError) as error:
+        print(f"警告: Capture 封装查看路径同步失败: {error}")
 
     do_allegro = cfg.auto_config_allegro if config_allegro is None else config_allegro
     if do_allegro:
