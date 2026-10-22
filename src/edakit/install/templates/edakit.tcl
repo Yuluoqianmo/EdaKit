@@ -828,8 +828,12 @@ namespace eval edakit {
 
     # Owned CEF dock. Same URL only raises the panel: never reset query state.
     proc openCefMall {page} {
-        variable cefWidget
-        variable cefPage
+        return [openCefDock ::edakit::cefWidget ::edakit::cefPage EdaKitWorkbench "EdaKit Workbench" 700 $page]
+    }
+
+    # One native window lifecycle for both user-facing workbenches.
+    proc openCefDock {widgetVar pageVar name title width page} {
+        upvar #0 $widgetVar cefWidget $pageVar cefPage
         package require orPrmWebComp
         foreach cmd {CreateControlBar LoadResource SetTitle ShowWidget DestroyWidget} {
             if {![llength [info commands ::orPrm::$cmd]]} { error "Missing orPrm::$cmd" }
@@ -845,7 +849,7 @@ namespace eval edakit {
                 }
                 ::orPrm::ShowWidget $cefWidget 1
             } err]} {
-                writeDiag "CEF dock reused id=$cefWidget"
+                writeDiag "CEF dock reused id=$cefWidget name=$name"
                 return $cefWidget
             }
             # Keep ownership if cleanup fails; do not pile up duplicate docks.
@@ -853,13 +857,13 @@ namespace eval edakit {
             unset cefWidget
             unset -nocomplain cefPage
         }
-        set id [::orPrm::CreateControlBar EdaKitWorkbench $::orPrm::WDOCK_RIGHT $::orPrm::WDALLOW_RIGHT 700 $::orPrm::WF_CEF [list]]
+        set id [::orPrm::CreateControlBar $name $::orPrm::WDOCK_RIGHT $::orPrm::WDALLOW_RIGHT $width $::orPrm::WF_CEF [list]]
         if {$id eq ""} { error "CEF returned an empty widget id" }
         set cefWidget $id
         if {[catch {
             ::orPrm::LoadResource $id $page
             set cefPage $page
-            ::orPrm::SetTitle $id "EdaKit Workbench"
+            ::orPrm::SetTitle $id $title
             ::orPrm::ShowWidget $id 1
         } err]} {
             if {![catch {::orPrm::DestroyWidget $id}]} {
@@ -868,7 +872,7 @@ namespace eval edakit {
             }
             error $err
         }
-        writeDiag "CEF dock created id=$id page=$page"
+        writeDiag "CEF dock created id=$id name=$name page=$page"
         return $id
     }
 

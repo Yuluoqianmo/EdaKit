@@ -62,7 +62,7 @@ if {![catch {::edakit::openCefMall http://127.0.0.1:2000/embed}]} { error "clean
 if {$::orPrm::creates != 2 || ![info exists ::edakit::cefWidget]} { error "ownership lost" }
 set ::orPrm::failShow 0
 set ::orPrm::failDestroy 0
-proc ::edakit::properties::serverUrl {} {return http://127.0.0.1:1234/}
+proc ::edakit::ensureServer {} {return http://127.0.0.1:1234/}
 proc ::edakit::schematicActive {} {return 0}
 set before $::orPrm::creates
 ::edakit::properties::openPanel
@@ -71,7 +71,7 @@ set loads $::orPrm::loads
 if {$::orPrm::creates != $before+1 || $::orPrm::loads != $loads} {error "Property dock lost state"}
 set ::hidden 1
 ::edakit::properties::openPanel
-if {$::orPrm::loads != $loads+1} {error "Hidden CEF not reloaded on reopen"}
+if {$::orPrm::loads != $loads} {error "Hidden CEF must use mall raise-only path"}
 set ::hidden 0
 set ::orPrm::failShow 1
 ::edakit::properties::openPanel
@@ -699,34 +699,47 @@ puts PASS
     assert 'PASS' in result.stdout
 
 
-def test_property_startup_is_async_and_deduplicated(tmp_path, monkeypatch):
+def test_properties_reopen_uses_the_same_native_path_as_mall(tmp_path, monkeypatch):
     monkeypatch.setenv('LOCALAPPDATA', str(tmp_path))
-    driver = tmp_path / 'async-open.tcl'
+    driver = tmp_path / 'shared-reopen.tcl'
     driver.write_text(r'''
-proc after {args} {if {[llength $args] == 1} {error "Blocking UI sleep"};lappend ::callbacks $args}
+proc after {args} {}
 proc RegisterAction {args} {}
 proc InsertXMLMenu {args} {}
 source [lindex $argv 0]
-set ::callbacks {};set ::launches 0;set ::shown 0;set ::ready "";set ::messages 0
+proc ::edakit::ensureServer {} {return http://127.0.0.1:1234/}
 proc ::edakit::schematicActive {} {return 0}
-proc ::edakit::locateExe {} {return dummy.exe}
-proc ::edakit::properties::serverUrl {} {return $::ready}
-proc ::edakit::properties::showPanel {url scope} {incr ::shown}
-proc ::edakit::showText {args} {incr ::messages}
-rename exec originalExec
-proc exec {args} {incr ::launches}
+package provide orPrmWebComp 1.0
+namespace eval ::orPrm {
+ variable WDOCK_RIGHT 1;variable WDALLOW_RIGHT 2;variable WF_CEF 4
+ variable next 0;variable trace {};variable visible
+ proc CreateControlBar {name args} {variable next;variable trace;lappend trace create;return [incr next]}
+ proc LoadResource {id page args} {variable trace;if {[llength $args]} {error "Unexpected forced reload"};lappend trace load}
+ proc SetTitle {args} {variable trace;lappend trace title}
+ proc ShowWidget {id show} {variable visible;variable trace;set visible($id) $show;lappend trace show}
+ proc DestroyWidget {id} {variable trace;lappend trace destroy}
+ proc IsContolBarVisible {id} {error "Must not use extra hidden-widget probe"}
+}
+::edakit::openMall
+set mall $::orPrm::trace
+set ::orPrm::trace {}
+# Simulate the stale latch left by the previous release: it must not block opens.
+set ::edakit::properties::opening 1
 ::edakit::properties::openPanel
-::edakit::properties::openPanel
-if {$::launches != 1 || [llength $::callbacks] != 1} {error "Repeated click launched duplicate"}
-::edakit::properties::waitForServer design
-if {[llength $::callbacks] != 2} {error "No async retry"}
-set ::ready http://127.0.0.1:1234/
-::edakit::properties::waitForServer design
-::edakit::properties::openPanel
-if {$::shown != 2 || $::launches != 1} {error "Ready service not reused"}
-set ::ready ""; set ::edakit::properties::opening 1;set ::edakit::properties::openDeadline 0
-::edakit::properties::waitForServer design
-if {$::edakit::properties::opening || $::messages != 1} {error "Timeout did not release retry guard"}
+if {$::orPrm::trace ne $mall} {error "Initial native sequences differ"}
+if {$::edakit::cefWidget == $::edakit::properties::widget} {error "Separate ownership lost"}
+for {set i 0} {$i < 5} {incr i} {
+ ::orPrm::ShowWidget $::edakit::cefWidget 0
+ ::orPrm::ShowWidget $::edakit::properties::widget 0
+ set ::orPrm::trace {}
+ ::edakit::openMall
+ set mall $::orPrm::trace
+ set ::orPrm::trace {}
+ ::edakit::properties::openPanel
+ if {$::orPrm::trace ne $mall || $::orPrm::trace ne "show"} {error "Reopen native paths differ"}
+ if {!$::orPrm::visible($::edakit::properties::widget)} {error "Property dock not visible"}
+}
+if {$::orPrm::next != 2} {error "Duplicate native docks"}
 puts PASS
 ''', encoding='ascii')
     result = subprocess.run([TCLSH, str(driver), str(PLUGIN)], capture_output=True, text=True, timeout=15)
