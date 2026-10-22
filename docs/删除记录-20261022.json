@@ -1,0 +1,108 @@
+{
+  "date": "2026-10-22",
+  "status": "recycled",
+  "files": 446.0,
+  "bytes": 488849704.0,
+  "targets": [
+    {
+      "path": "E:\\outputs\\edakit\\.pytest_cache",
+      "files": 5,
+      "bytes": 44403.0
+    },
+    {
+      "path": "E:\\outputs\\edakit\\src\\edakit\\__pycache__",
+      "files": 11,
+      "bytes": 102843.0
+    },
+    {
+      "path": "E:\\outputs\\edakit\\src\\edakit\\bridge\\__pycache__",
+      "files": 3,
+      "bytes": 17123.0
+    },
+    {
+      "path": "E:\\outputs\\edakit\\src\\edakit\\catalog\\__pycache__",
+      "files": 8,
+      "bytes": 106211.0
+    },
+    {
+      "path": "E:\\outputs\\edakit\\src\\edakit\\easyeda\\__pycache__",
+      "files": 5,
+      "bytes": 50826.0
+    },
+    {
+      "path": "E:\\outputs\\edakit\\src\\edakit\\footprint\\__pycache__",
+      "files": 9,
+      "bytes": 105868.0
+    },
+    {
+      "path": "E:\\outputs\\edakit\\src\\edakit\\install\\__pycache__",
+      "files": 3,
+      "bytes": 20700.0
+    },
+    {
+      "path": "E:\\outputs\\edakit\\src\\edakit\\render\\__pycache__",
+      "files": 4,
+      "bytes": 25073.0
+    },
+    {
+      "path": "E:\\outputs\\edakit\\src\\edakit\\server\\__pycache__",
+      "files": 3,
+      "bytes": 53771.0
+    },
+    {
+      "path": "E:\\outputs\\edakit\\src\\edakit\\services\\__pycache__",
+      "files": 12,
+      "bytes": 44646.0
+    },
+    {
+      "path": "E:\\outputs\\edakit\\src\\edakit\\symbol\\__pycache__",
+      "files": 7,
+      "bytes": 76929.0
+    },
+    {
+      "path": "E:\\outputs\\edakit\\src\\edakit\\threed\\__pycache__",
+      "files": 4,
+      "bytes": 20654.0
+    },
+    {
+      "path": "E:\\outputs\\edakit\\tests\\__pycache__",
+      "files": 42,
+      "bytes": 1120215.0
+    },
+    {
+      "path": "E:\\outputs\\edakit\\tools\\diag\\__pycache__",
+      "files": 2,
+      "bytes": 10431.0
+    },
+    {
+      "path": "E:\\outputs\\edakit\\samples\\C2040",
+      "files": 3,
+      "bytes": 84854.0
+    },
+    {
+      "path": "E:\\outputs\\待清理\\edakit-20261022",
+      "files": 315,
+      "bytes": 378166903.0
+    },
+    {
+      "path": "E:\\outputs\\待清理\\edakit-before-extended-20261022",
+      "files": 3,
+      "bytes": 27204179.0
+    },
+    {
+      "path": "E:\\outputs\\待清理\\edakit-before-multipart-20261022",
+      "files": 2,
+      "bytes": 27195564.0
+    },
+    {
+      "path": "E:\\outputs\\待清理\\edakit-before-regions-20261022",
+      "files": 3,
+      "bytes": 27201293.0
+    },
+    {
+      "path": "E:\\outputs\\待清理\\edakit-before-ui-20261022",
+      "files": 2,
+      "bytes": 27197218.0
+    }
+  ]
+}
