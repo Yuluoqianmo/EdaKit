@@ -58,3 +58,17 @@ def test_cleanup_preserves_url_written_by_another_service(tmp_path):
     assert path.exists()
     remove_owned_url(path, "http://127.0.0.1:2000/")
     assert not path.exists()
+
+def test_managed_service_repairs_missing_or_overwritten_discovery(tmp_path):
+    from edakit.server.lifecycle import publish_owned_url
+    path = tmp_path / 'url.txt'
+    publish_owned_url(tmp_path, 'http://127.0.0.1:1234/')
+    stamp = path.stat().st_mtime_ns
+    publish_owned_url(tmp_path, 'http://127.0.0.1:1234/')
+    assert path.stat().st_mtime_ns == stamp
+    path.unlink()
+    publish_owned_url(tmp_path, 'http://127.0.0.1:1234/')
+    assert path.read_text().strip() == 'http://127.0.0.1:1234/'
+    path.write_text('http://127.0.0.1:dead/')
+    publish_owned_url(tmp_path, 'http://127.0.0.1:1234/')
+    assert path.read_text().strip() == 'http://127.0.0.1:1234/'

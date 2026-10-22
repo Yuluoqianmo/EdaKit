@@ -277,10 +277,47 @@ namespace eval ::edakit::properties {
         if {$failed} { catch {::edakit::writeDiag "Property queue: $message"} }
         set running 0
     }
+    proc serverUrl {} {
+        set path [::edakit::urlFile]
+        set url ""
+        if {[file exists $path]} {
+            catch {set f [::open $path r]; set url [string trim [read $f]]; close $f}
+        }
+        if {$url ne "" && [::edakit::serverAlive $url]} { return $url }
+        return ""
+    }
     proc openPanel {{scope design}} {
+        variable opening
+        if {[info exists opening] && $opening} { return }
         if {[::edakit::schematicActive]} { catch {captureContext} }
-        set url [::edakit::ensureServer]
-        if {$url eq ""} { error "Local EdaKit server is unavailable" }
+        ::edakit::registerHost
+        set url [serverUrl]
+        if {$url ne ""} { showPanel $url $scope; return }
+        set exe [::edakit::locateExe]
+        if {$exe eq ""} { error "EdaKit executable is unavailable" }
+        set opening 1
+        variable openDeadline [expr {[clock milliseconds]+45000}]
+        # Do not delete discovery or block Capture's UI while the service starts.
+        if {[catch {exec $exe serve --capture-pid [pid] &} message]} {
+            set opening 0
+            error $message
+        }
+        ::edakit::writeDiag "Property server starting asynchronously"
+        after 250 [list ::edakit::properties::waitForServer $scope]
+    }
+    proc waitForServer {scope} {
+        variable opening
+        variable openDeadline
+        if {[catch {set url [serverUrl]} message]} { set opening 0; ::edakit::writeDiag $message; return }
+        if {$url ne ""} {
+            set opening 0
+            if {[catch {showPanel $url $scope} message]} { ::edakit::writeDiag "Property dock: $message" }
+        } elseif {[clock milliseconds] >= $openDeadline} {
+            set opening 0
+            ::edakit::showText "EdaKit Properties" "The local service did not start. Check edakit.log and retry."
+        } else { after 250 [list ::edakit::properties::waitForServer $scope] }
+    }
+    proc showPanel {url scope} {
         # Separate dock ownership, retaining drafts when switching to the mall.
         variable widget
         variable page
@@ -288,8 +325,12 @@ namespace eval ::edakit::properties {
         package require orPrmWebComp
         if {[info exists widget]} {
             if {![catch {
-                if {![info exists page] || $page ne $target} {
-                    ::orPrm::LoadResource $widget $target
+                set hidden 0
+                if {[llength [info commands ::orPrm::IsContolBarVisible]]} {
+                    set hidden [expr {![::orPrm::IsContolBarVisible $widget]}]
+                }
+                if {$hidden || ![info exists page] || $page ne $target} {
+                    ::orPrm::LoadResource $widget $target 1
                     set page $target
                 }
                 ::orPrm::ShowWidget $widget 1
@@ -316,4 +357,3 @@ namespace eval ::edakit::properties {
     }
 }
 proc edakitProperties {args} { if {[catch {::edakit::properties::openPanel} e]} { ::edakit::writeDiag $e } }
-proc edakitSelectedProperties {args} { if {[catch {::edakit::properties::openPanel selected} e]} { ::edakit::writeDiag $e } }

@@ -8,7 +8,7 @@
 2. 设置中选择库目录并保存。默认原理图库 `D:/EdaKit/Libraries/Symbols`，PCB/焊盘库 `D:/EdaKit/Libraries/Footprints`，独立 STP 库 `D:/EdaKit/Libraries/STEP`，原理图累积库为 Symbols/EdaKit.olb。安装目录自动检测，也可手动选择。
 3. 搜索并选中器件，点击“放置到原理图”，在图纸上落位。
 4. 点击“生成 PCB 封装”，等待自动编译和发布，不需要输入 SKILL 指令。
-5. EdaKit → Component Properties 打开工程器件属性表；Selected Component Properties 读取当前选择。配置原生字段、编辑或批量粘贴后，点击“同步到 Capture”。详见 [器件属性编辑器](docs/器件属性编辑器-20261022.md)。
+5. EdaKit → Component Properties 打开工程器件属性表，在页面内按范围和搜索条件查询器件。配置原生字段、编辑或批量粘贴后，点击“同步到 Capture”。详见 [器件属性编辑器](docs/器件属性编辑器-20261022.md)。
 6. 更新程序后保存工程，退出所有 Capture，再重新打开；Allegro 库搜索路径在重新启动 Allegro 后生效。
 
 ## 项目文件
@@ -38,6 +38,6 @@ python -m PyInstaller --noconfirm edakit.spec
 
 最新功能：[STP 自动绑定与方向验证](docs/STP自动绑定与方向验证-20261022.md)。生成 PCB 时自动下载并绑定模型，库设置支持独立 STP 目录，3D 预览支持与 PCB 一致的俯视方向。
 
-当前验收（2026-10-22）：C165948 器件测试正常，Capture 右键 Show Footprint 修复也已由用户确认正常。本轮属性编辑器自动回归 568 passed / 2 skipped，冻结自检通过；后续进度以项目交接为准。
+当前验收（2026-10-22）：C165948 器件测试正常，Capture 右键 Show Footprint 修复也已由用户确认正常。本轮属性编辑器自动回归 571 passed / 2 skipped，冻结自检通过；后续进度以项目交接为准。
 
-器件属性编辑器已实现并部署；原生队列读写和界面交互分别验证，Capture 实时内嵌操作闭环及用户工程验收仍待完成，范围见上方功能文档。
+器件属性编辑器已实现并部署；用户已确认首次打开后属性编辑可同步到 Capture；关闭重开修复与保存重开、层级工程仍待实际验收，范围见上方功能文档。

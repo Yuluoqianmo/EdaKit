@@ -124,3 +124,15 @@ def remove_owned_url(path: Path, url: str):
             path.unlink()
     except FileNotFoundError:
         pass
+
+
+def publish_owned_url(directory: Path, url: str):
+    """The managed mutex owner repairs discovery after deletion or stale writes."""
+    from ..storage import atomic_write
+    path = directory / "url.txt"
+    try:
+        if path.read_text(encoding="utf-8").strip() == url.strip():
+            return
+    except (OSError, UnicodeError):
+        pass
+    atomic_write(path, url.strip() + "\n")

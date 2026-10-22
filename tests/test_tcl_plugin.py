@@ -43,6 +43,7 @@ namespace eval ::orPrm {
     proc CreateControlBar {args} { variable creates; incr creates }
     proc LoadResource {args} { variable loads; incr loads }
     proc SetTitle {args} {}
+    proc IsContolBarVisible {id} {return [expr {![info exists ::hidden] || !$::hidden}]}
     proc ShowWidget {args} { variable failShow; if {$failShow} { set failShow 0; error stale } }
     proc DestroyWidget {args} { variable failDestroy; if {$failDestroy} { error cleanup } }
 }
@@ -61,13 +62,17 @@ if {![catch {::edakit::openCefMall http://127.0.0.1:2000/embed}]} { error "clean
 if {$::orPrm::creates != 2 || ![info exists ::edakit::cefWidget]} { error "ownership lost" }
 set ::orPrm::failShow 0
 set ::orPrm::failDestroy 0
-proc ::edakit::ensureServer {} {return http://127.0.0.1:1234/}
+proc ::edakit::properties::serverUrl {} {return http://127.0.0.1:1234/}
 proc ::edakit::schematicActive {} {return 0}
 set before $::orPrm::creates
 ::edakit::properties::openPanel
 set loads $::orPrm::loads
 ::edakit::properties::openPanel
 if {$::orPrm::creates != $before+1 || $::orPrm::loads != $loads} {error "Property dock lost state"}
+set ::hidden 1
+::edakit::properties::openPanel
+if {$::orPrm::loads != $loads+1} {error "Hidden CEF not reloaded on reopen"}
+set ::hidden 0
 set ::orPrm::failShow 1
 ::edakit::properties::openPanel
 if {$::orPrm::creates != $before+2} {error "Property stale dock not recovered"}
@@ -330,7 +335,7 @@ def test_plugin_sources_and_registers_menu(run_plugin):
     assert "EdaKit top-level menu registered" in res["out"]
     assert "EdaKit Mall" in res["out"]
     assert "EdaKitEnabled" in res["out"]
-    assert "MENU-COUNT=7" in res["out"]
+    assert "MENU-COUNT=6" in res["out"]
     assert "CALLBACK=edakitMallLegacy:1" not in res["out"]
     assert "Diagnostics" in res["out"]
     assert "Legacy Viewer" not in res["out"]
@@ -662,3 +667,68 @@ def test_cursor_placement_chain_is_independent_of_storefront():
     assert 'MallBrowser' not in source
     assert 'cursor CALL PlaceNew' in source
     assert 'OpenURL $page "EdaKit Mall"' in source
+
+
+def test_live_service_is_reused_without_deleting_discovery(tmp_path, monkeypatch):
+    monkeypatch.setenv('LOCALAPPDATA', str(tmp_path))
+    driver = tmp_path / 'live-server.tcl'
+    driver.write_text(r'''
+proc after {args} {}
+proc RegisterAction {args} {}
+proc InsertXMLMenu {args} {}
+source [lindex $argv 0]
+proc accepted {args} {}
+set listener [socket -server accepted -myaddr 127.0.0.1 0]
+set port [lindex [fconfigure $listener -sockname] 2]
+set url "http://127.0.0.1:$port/"
+set f [open [::edakit::urlFile] w]; puts $f $url; close $f
+proc ::edakit::locateExe {} {return dummy.exe}
+rename exec originalExec
+proc exec {args} {error "Unexpected service relaunch"}
+if {![::edakit::serverAlive $url]} {error "Live socket misidentified as dead"}
+if {[::edakit::ensureServer] ne $url} {error "First reuse failed"}
+if {[::edakit::ensureServer] ne $url} {error "Reopen reuse failed"}
+if {![file exists [::edakit::urlFile]]} {error "Live discovery deleted"}
+close $listener
+if {[::edakit::serverAlive $url]} {error "Closed socket reported live"}
+if {[llength [info commands edakitSelectedProperties]]} {error "Removed entry remains"}
+puts PASS
+''', encoding='ascii')
+    result = subprocess.run([TCLSH, str(driver), str(PLUGIN)], capture_output=True, text=True, timeout=20)
+    assert result.returncode == 0, result.stdout + result.stderr
+    assert 'PASS' in result.stdout
+
+
+def test_property_startup_is_async_and_deduplicated(tmp_path, monkeypatch):
+    monkeypatch.setenv('LOCALAPPDATA', str(tmp_path))
+    driver = tmp_path / 'async-open.tcl'
+    driver.write_text(r'''
+proc after {args} {if {[llength $args] == 1} {error "Blocking UI sleep"};lappend ::callbacks $args}
+proc RegisterAction {args} {}
+proc InsertXMLMenu {args} {}
+source [lindex $argv 0]
+set ::callbacks {};set ::launches 0;set ::shown 0;set ::ready "";set ::messages 0
+proc ::edakit::schematicActive {} {return 0}
+proc ::edakit::locateExe {} {return dummy.exe}
+proc ::edakit::properties::serverUrl {} {return $::ready}
+proc ::edakit::properties::showPanel {url scope} {incr ::shown}
+proc ::edakit::showText {args} {incr ::messages}
+rename exec originalExec
+proc exec {args} {incr ::launches}
+::edakit::properties::openPanel
+::edakit::properties::openPanel
+if {$::launches != 1 || [llength $::callbacks] != 1} {error "Repeated click launched duplicate"}
+::edakit::properties::waitForServer design
+if {[llength $::callbacks] != 2} {error "No async retry"}
+set ::ready http://127.0.0.1:1234/
+::edakit::properties::waitForServer design
+::edakit::properties::openPanel
+if {$::shown != 2 || $::launches != 1} {error "Ready service not reused"}
+set ::ready ""; set ::edakit::properties::opening 1;set ::edakit::properties::openDeadline 0
+::edakit::properties::waitForServer design
+if {$::edakit::properties::opening || $::messages != 1} {error "Timeout did not release retry guard"}
+puts PASS
+''', encoding='ascii')
+    result = subprocess.run([TCLSH, str(driver), str(PLUGIN)], capture_output=True, text=True, timeout=15)
+    assert result.returncode == 0, result.stdout + result.stderr
+    assert 'PASS' in result.stdout

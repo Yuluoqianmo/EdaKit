@@ -55,7 +55,7 @@ def _write(path: Path, content: str | bytes) -> None:
 # --------------------------------------------------------------------------- #
 def cmd_mall(args: argparse.Namespace) -> int:
     from .server.app import serve_forever
-    from .server.lifecycle import CaptureSessions, managed_server_lock, remove_owned_url
+    from .server.lifecycle import CaptureSessions, managed_server_lock, remove_owned_url, publish_owned_url
     from .bridge.queue import app_dir
     from contextlib import nullcontext
     import time
@@ -88,6 +88,12 @@ def cmd_mall(args: argparse.Namespace) -> int:
                 while not sessions or not sessions.should_stop():
                     from .bridge.sessions import maintain_queue
                     maintain_queue()
+                    if managed:
+                        try:
+                            publish_owned_url(directory, url)
+                        except OSError:
+                            import logging
+                            logging.getLogger(__name__).warning("Service discovery could not be repaired; retrying", exc_info=True)
                     time.sleep(1)
                 print("All registered Capture processes exited; service stopping.")
             except KeyboardInterrupt:
