@@ -774,11 +774,18 @@ namespace eval edakit {
         }
         if {$url ne ""} { return $url }
         catch { file delete -force $uf }
-        # `serve` = local server, no external browser.
-        if {[catch { exec $exe serve --capture-pid [pid] & }]} {
-            catch { exec {*}[list cmd /c start "" $exe serve --capture-pid [pid]] }
+        # `serve` = local server, no external browser. PyInstaller's first
+        # launch can take 15-20 seconds while Windows Defender scans the exe.
+        # Keep the host marker alive and allow a bounded 45-second startup
+        # window so the menu does not report a false failure.
+        writeDiag "starting mall server: $exe (host=[pid])"
+        if {[catch { exec $exe serve --capture-pid [pid] & } err]} {
+            writeDiag "direct server launch failed: $err"
+            if {[catch { exec {*}[list cmd /c start "" $exe serve --capture-pid [pid]] } err2]} {
+                writeDiag "fallback server launch failed: $err2"
+            }
         }
-        for {set i 0} {$i < 40} {incr i} {
+        for {set i 0} {$i < 180} {incr i} {
             after 250
             if {[file exists $uf]} {
                 catch {
@@ -789,6 +796,7 @@ namespace eval edakit {
                 if {$url ne ""} { return $url }
             }
         }
+        writeDiag "mall server startup timed out after 45s (exe=$exe)"
         return ""
     }
 
