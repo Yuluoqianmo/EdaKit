@@ -87,6 +87,53 @@ def test_undeploy_removes_plugin_dir(tmp_path):
     assert not (target.parent / "edakitInit.tcl").exists()
 
 
+def test_undeploy_preserves_user_files(tmp_path):
+    spb = tmp_path / "SPB_17.4"
+    _fake_spb(spb)
+    target = deploy_mod.deploy(str(spb), config_allegro=False)
+    custom = target / 'user-notes.txt'
+    custom.write_text('keep', encoding='utf-8')
+    deploy_mod.undeploy(str(spb))
+    assert custom.read_text(encoding='utf-8') == 'keep'
+    assert not (target / 'edakit.tcl').exists()
+
+
+def test_strict_deployment_reports_partial_failure(tmp_path, monkeypatch):
+    from edakit.errors import DeployError
+    spb = tmp_path / 'SPB_17.4'
+    _fake_spb(spb)
+    def denied(*args, **kwargs):
+        raise OSError('permission denied')
+    monkeypatch.setattr(deploy_mod.allegro_env, 'configure', denied)
+    with pytest.raises(DeployError, match='Allegro 配置失败'):
+        deploy_mod.deploy(str(spb), config_allegro=True, strict=True)
+
+
+def test_cli_strict_forces_allegro_configuration(tmp_path, monkeypatch):
+    from edakit.cli import cmd_deploy
+    calls = []
+    monkeypatch.setattr(deploy_mod, 'deploy', lambda **kwargs: calls.append(kwargs))
+    assert cmd_deploy(argparse.Namespace(cadence_root='SPB', dry_run=True,
+                                        no_allegro=False, strict=True)) == 0
+    assert calls[0]['strict'] is True
+    assert calls[0]['config_allegro'] is True
+
+
+def test_installer_log_captures_failure_in_utf8(tmp_path, monkeypatch):
+    from edakit.cli import cmd_deploy
+    from edakit.errors import DeployError
+    def failed(**kwargs):
+        print('部署开始')
+        raise DeployError('目录不可写')
+    monkeypatch.setattr(deploy_mod, 'deploy', failed)
+    log = tmp_path / 'deployment.log'
+    with pytest.raises(DeployError, match='目录不可写'):
+        cmd_deploy(argparse.Namespace(cadence_root='SPB', dry_run=True,
+            no_allegro=False, strict=True, deployment_log=str(log)))
+    text = log.read_text(encoding='utf-8')
+    assert '部署开始' in text and '目录不可写' in text
+
+
 def test_tcl_template_exposes_menu_and_polling():
     tcl = (
         Path(deploy_mod.__file__).parent / "templates" / "edakit.tcl"

@@ -1,0 +1,132 @@
+{
+  "date": "2026-10-23T14:41:58.6345825+08:00",
+  "preserved": [
+    "source",
+    "tests",
+    "frontend",
+    "licenses",
+    "latest-release",
+    "installer-toolchain",
+    "acceptance-evidence",
+    "backups",
+    "user-libraries-and-settings"
+  ],
+  "items": [
+    {
+      "path": "E:\\outputs\\edakit\\src\\edakit\\__pycache__",
+      "kind": "regenerable-cache-or-build",
+      "action": "recycle"
+    },
+    {
+      "path": "E:\\outputs\\edakit\\src\\edakit\\bridge\\__pycache__",
+      "kind": "regenerable-cache-or-build",
+      "action": "recycle"
+    },
+    {
+      "path": "E:\\outputs\\edakit\\src\\edakit\\catalog\\__pycache__",
+      "kind": "regenerable-cache-or-build",
+      "action": "recycle"
+    },
+    {
+      "path": "E:\\outputs\\edakit\\src\\edakit\\easyeda\\__pycache__",
+      "kind": "regenerable-cache-or-build",
+      "action": "recycle"
+    },
+    {
+      "path": "E:\\outputs\\edakit\\src\\edakit\\footprint\\__pycache__",
+      "kind": "regenerable-cache-or-build",
+      "action": "recycle"
+    },
+    {
+      "path": "E:\\outputs\\edakit\\src\\edakit\\ibom\\__pycache__",
+      "kind": "regenerable-cache-or-build",
+      "action": "recycle"
+    },
+    {
+      "path": "E:\\outputs\\edakit\\src\\edakit\\install\\__pycache__",
+      "kind": "regenerable-cache-or-build",
+      "action": "recycle"
+    },
+    {
+      "path": "E:\\outputs\\edakit\\src\\edakit\\render\\__pycache__",
+      "kind": "regenerable-cache-or-build",
+      "action": "recycle"
+    },
+    {
+      "path": "E:\\outputs\\edakit\\src\\edakit\\server\\__pycache__",
+      "kind": "regenerable-cache-or-build",
+      "action": "recycle"
+    },
+    {
+      "path": "E:\\outputs\\edakit\\src\\edakit\\services\\__pycache__",
+      "kind": "regenerable-cache-or-build",
+      "action": "recycle"
+    },
+    {
+      "path": "E:\\outputs\\edakit\\src\\edakit\\symbol\\__pycache__",
+      "kind": "regenerable-cache-or-build",
+      "action": "recycle"
+    },
+    {
+      "path": "E:\\outputs\\edakit\\src\\edakit\\threed\\__pycache__",
+      "kind": "regenerable-cache-or-build",
+      "action": "recycle"
+    },
+    {
+      "path": "E:\\outputs\\edakit\\tests\\__pycache__",
+      "kind": "regenerable-cache-or-build",
+      "action": "recycle"
+    },
+    {
+      "path": "E:\\outputs\\edakit\\.pytest_cache",
+      "kind": "regenerable-cache-or-build",
+      "action": "recycle"
+    },
+    {
+      "path": "E:\\outputs\\edakit\\build",
+      "kind": "regenerable-cache-or-build",
+      "action": "recycle"
+    },
+    {
+      "path": "E:\\outputs\\installer-build",
+      "kind": "regenerable-cache-or-build",
+      "action": "recycle"
+    },
+    {
+      "path": "E:\\outputs\\installer-full-tests",
+      "kind": "regenerable-cache-or-build",
+      "action": "recycle"
+    },
+    {
+      "path": "E:\\outputs\\installer-full-tests-tcl",
+      "kind": "regenerable-cache-or-build",
+      "action": "recycle"
+    },
+    {
+      "path": "E:\\outputs\\installer-final-tests",
+      "kind": "regenerable-cache-or-build",
+      "action": "recycle"
+    },
+    {
+      "path": "E:\\outputs\\installer-log-tests",
+      "kind": "regenerable-cache-or-build",
+      "action": "recycle"
+    },
+    {
+      "path": "E:\\outputs\\installer-qa-tests",
+      "kind": "regenerable-cache-or-build",
+      "action": "recycle"
+    },
+    {
+      "path": "E:\\outputs\\installer-release",
+      "kind": "regenerable-cache-or-build",
+      "action": "recycle"
+    },
+    {
+      "path": "E:\\outputs\\edakit\\installer\\Output\\EdaKit-0.1.0-Setup-r2.exe",
+      "kind": "superseded-installer",
+      "action": "recycle"
+    }
+  ],
+  "release": "v0.1.0"
+}

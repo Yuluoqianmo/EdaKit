@@ -12,3 +12,5 @@ htmlcov/
 .ruff_cache/
 *.spec.bak
 *.log
+
+installer/Output/

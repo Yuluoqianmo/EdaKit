@@ -128,6 +128,7 @@ def deploy(
     *,
     dry_run: bool = False,
     config_allegro: bool | None = None,
+    strict: bool = False,
 ) -> Path:
     """装插件 + (可选) 配 Allegro env。返回插件目录。"""
     cfg = Config.load()
@@ -177,6 +178,8 @@ def deploy(
     try:
         capture_ini.configure(cfg.footprint_lib, cadence_root=str(spb_root_from_tcl(tcl_root) or ''), dry_run=dry_run)
     except (OSError, ValueError) as error:
+        if strict:
+            raise DeployError(f"Capture 封装查看路径同步失败: {error}") from error
         print(f"警告: Capture 封装查看路径同步失败: {error}")
 
     do_allegro = cfg.auto_config_allegro if config_allegro is None else config_allegro
@@ -193,6 +196,8 @@ def deploy(
                 result = deploy_ibom(str(spb))
                 print(f"Allegro iBOM 菜单已安装: {result['skill']}")
         except (DeployError, ValueError, OSError) as e:
+            if strict:
+                raise DeployError(f"Allegro 配置失败: {e}") from e
             print(f"  警告: 未能完成 Allegro 配置 ({e})")
             print("        可以稍后手动跑: edakit allegro-env --lib <目录>")
 
@@ -211,7 +216,12 @@ def undeploy(cadence_root: str | None = None, *, remove_allegro: bool = False) -
             init.unlink()
             print(f"已移除 {init}")
         if t.exists():
-            shutil.rmtree(t)
+            # The plugin directory may also contain user files. Remove only
+            # templates owned by this installer, never the directory tree.
+            for name in TEMPLATES:
+                (t / name).unlink(missing_ok=True)
+            if not any(t.iterdir()):
+                t.rmdir()
             print(f"已移除 {t}")
     except DeployError as e:
         print(f"跳过 TCL 插件移除: {e}")

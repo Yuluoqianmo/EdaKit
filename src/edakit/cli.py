@@ -489,6 +489,19 @@ foreach c {XMATIC_XML2OLB XMATIC_OLB2XML capCreatePartsFromData PlacePart \\
 def cmd_deploy(args: argparse.Namespace) -> int:
     import sys
 
+    log_path = getattr(args, 'deployment_log', None)
+    if log_path:
+        from contextlib import redirect_stdout, redirect_stderr
+        import traceback
+        args.deployment_log = None
+        with open(log_path, 'w', encoding='utf-8') as log:
+            with redirect_stdout(log), redirect_stderr(log):
+                try:
+                    return cmd_deploy(args)
+                except Exception:
+                    traceback.print_exc()
+                    raise
+
     from .bridge.queue import app_dir
     from .install.deploy import deploy
 
@@ -501,7 +514,9 @@ def cmd_deploy(args: argparse.Namespace) -> int:
     deploy(
         cadence_root=args.cadence_root,
         dry_run=args.dry_run,
-        config_allegro=(False if args.no_allegro else None),
+        config_allegro=(not args.no_allegro if getattr(args, "strict", False)
+                        else (False if args.no_allegro else None)),
+        **({"strict": True} if getattr(args, "strict", False) else {}),
     )
 
     # TCL 插件调商城窗口时需要 exe 的路径；Cadence 进程里没有我们的环境变量，
@@ -924,6 +939,8 @@ def build_parser() -> argparse.ArgumentParser:
     d = sub.add_parser("deploy", help="部署插件到 Cadence")
     d.add_argument("--cadence-root")
     d.add_argument("--dry-run", action="store_true")
+    d.add_argument("--strict", action="store_true", help="安装包使用：部署不完整时返回失败")
+    d.add_argument("--deployment-log", help="将部署结果写入 UTF-8 日志")
     d.add_argument("--no-allegro", action="store_true", help="不自动配 Allegro env")
     d.set_defaults(func=cmd_deploy)
 
