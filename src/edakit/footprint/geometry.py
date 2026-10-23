@@ -68,10 +68,10 @@ def path_polygons(path, transform):
                 continue
             if segment.start is None:
                 raise ValueError('路径缺少起点')
-            def at(t):
+            def at(t, segment=segment):
                 p = segment.point(t)
                 return transform.pt((p.x, p.y))
-            def subdivide(t0, a, t1, b, depth=0):
+            def subdivide(t0, a, t1, b, depth=0, at=at, points=points):
                 samples = [at(t0 + (t1-t0)*fraction) for fraction in (.25, .5, .75)]
                 dx, dy = b[0]-a[0], b[1]-a[1]
                 length = math.hypot(dx, dy)
@@ -152,7 +152,7 @@ def graphic_regions(footprint):
     result = [(layer, geom.difference(unary_union(cutouts[layer])) if layer in cutouts else geom)
               for layer,geom in regions]
     from .padstack import is_aperture
-    from shapely.geometry import box, Point, LineString
+    from shapely.geometry import box
     from shapely.affinity import rotate, translate
     for pad in footprint.pads:
         if not is_aperture(pad):

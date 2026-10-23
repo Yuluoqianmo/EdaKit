@@ -268,6 +268,8 @@ puts "DONE"
 
 @pytest.fixture
 def run_plugin(tmp_path):
+    if TCLSH is None:
+        pytest.skip("tclsh is not installed")
     """把插件 source 一遍。req 里可用 @PART_XML@ / @PROJECT_OLB@ 占位真实路径。"""
 
     def _run(req_lines: str, *, with_xmatic: bool = True, mode: str = "") -> dict:

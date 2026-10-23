@@ -62,7 +62,7 @@ def native_bom(ipc: Path):
         if name in ignored or values.get('bom_ignore', '').casefold() in ('true', 'yes', '1'):
             ignored.add(name)
             continue
-        def get(*names):
+        def get(*names, values=values):
             return next((values[n] for n in names if values.get(n)), '')
         rows.append(dict(zip(HEADERS, [get('description', 'desc'), get('value', 'comp_value'), get('物料编码', 'material_code', 'part_number') or part, name, component.get('packageRef', ''), 1, get('manufacturer'), get('manufacturer_pn')])))
     # Consolidate identical physical materials, not schematic symbol units.

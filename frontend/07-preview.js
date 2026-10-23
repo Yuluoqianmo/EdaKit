@@ -38,7 +38,7 @@
     var pixels = size * Math.min(2, window.devicePixelRatio || 1);
     var resolution = pixels > 2048 ? 4096 : pixels > 1024 ? 2048 : pixels > 512 ? 1024 : 512;
     if (is3d) { resolution = Math.min(1024, resolution); }
-    var url = "/api/png/" + state.preview.kind + "/" + encodeURIComponent(state.selection.sel.cid) + ".png?size=" + resolution;
+    var url = "/api/png/" + state.preview.kind + "/" + encodeURIComponent(state.selection.sel.cid) + ".png?token=" + encodeURIComponent(window.__edakitToken || "") + "&size=" + resolution;
     if (is3d) { url += "&yaw=" + state.preview.yaw + "&pitch=" + state.preview.pitch; }
     var img = el(state.preview.full ? "largeimg" : "previewimg"), canvas = el(state.preview.full ? "largecanvas" : "previewcanvas");
     var cw = Math.max(port.clientWidth - 2, size + 30), ch = Math.max(port.clientHeight - 2, size + 30);

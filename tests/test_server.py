@@ -92,12 +92,16 @@ def _isolate(tmp_path, monkeypatch):
 
     t = threading.Thread(target=httpd.serve_forever, daemon=True)
     t.start()
-    yield f"http://127.0.0.1:{httpd.server_address[1]}"
+    yield f"http://127.0.0.1:{httpd.server_address[1]}/auth/{httpd.access_token}"
     httpd.shutdown()
     httpd.server_close()
 
 
 def _get(base, path):
+    if path.startswith("/api/es/place?"):
+        from urllib.parse import parse_qs, urlsplit
+        params = {k: v[0] for k, v in parse_qs(urlsplit(path).query).items()}
+        return _post(base, "/api/es/place", params)
     with urllib.request.urlopen(base + path, timeout=30) as r:
         return r.status, r.read()
 
@@ -300,8 +304,8 @@ def test_embedded_assets_replace_external_storefront():
 # ---------------------------------------------------------------------------
 
 def _get_str(base, path):
-    with urllib.request.urlopen(base + path, timeout=30) as r:
-        return r.status, r.read().decode("utf-8")
+    status, body = _get(base, path)
+    return status, body.decode("utf-8")
 
 
 def test_embed_page_served_and_ie7_meta(_isolate):

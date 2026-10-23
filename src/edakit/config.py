@@ -1,11 +1,17 @@
 """Versioned application settings; library paths are preserved during migration."""
 import json
+from functools import lru_cache
 import math
 import os
 from dataclasses import asdict, dataclass, field
 from pathlib import Path
 from typing import Any
 from .storage import atomic_write
+
+@lru_cache(maxsize=16)
+def _configuration_text(path, stamp, size):
+    return Path(path).read_text(encoding="utf-8")
+
 
 APP_DIR_NAME = "edakit"
 DEFAULT_LIBRARY_ROOT = Path("D:/EdaKit/Libraries")
@@ -59,7 +65,8 @@ class Config:
                     pass
         if path.exists():
             try:
-                data = json.loads(path.read_text(encoding="utf-8"))
+                stat = path.stat()
+                data = json.loads(_configuration_text(str(path), stat.st_mtime_ns, stat.st_size))
                 return cls.from_dict(data)
             except (json.JSONDecodeError, TypeError) as exc:
                 raise ValueError("Invalid configuration file; preserve it for repair") from exc
@@ -110,6 +117,7 @@ class Config:
 
     def save(self) -> None:
         self.validate()
+        _configuration_text.cache_clear()
         atomic_write(app_dir() / "config.json", json.dumps(asdict(self), ensure_ascii=False, indent=2))
 
     def ensure_dirs(self) -> None:

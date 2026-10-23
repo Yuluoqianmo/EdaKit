@@ -5,7 +5,6 @@ The build manifest includes every dependency so publication cannot lose it.
 """
 import hashlib
 import json
-import math
 from .identity import native_precision, normalized
 from .geometry import polygon
 

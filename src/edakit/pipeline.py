@@ -118,7 +118,9 @@ def stage_component(comp: Component, cfg: Config, *, download_step: bool = True,
         if cfg.schema_profile:
             prof_path = Path(cfg.schema_profile)
             for cand in (prof_path.parent / "capture_defaults.xml", prof_path):
-                if cand.is_file():
+                if cand.is_file() and cand.suffix.lower() in (".xml", ".json"):
+                    if cand.stat().st_size > 5_000_000:
+                        raise ValueError("Schema profile exceeds 5 MB")
                     txt = cand.read_text(encoding="utf-8", errors="replace")
                     found = extract_default_values(txt)
                     if found:
@@ -194,16 +196,11 @@ def stage_component(comp: Component, cfg: Config, *, download_step: bool = True,
                 out.warnings.append(f"3D 模型下载失败: {e}")
         if out.step is not None:
             map_path = lib / f"{_safe(fp_name)}.map.xml"
-            map_path.write_text(
-                build_map_xml(model, package_name=fp_name), encoding="utf-8", newline="\n"
-            )
+            atomic_write(map_path, build_map_xml(model, package_name=fp_name))
             out.map_xml = map_path
             # 顺带出一份 3D Canvas 用的批量导入 XML (新机制)
-            (lib / f"{_safe(fp_name)}.3dmap.xml").write_text(
-                build_3dcanvas_mapping_xml(model, package_name=fp_name),
-                encoding="utf-8",
-                newline="\n",
-            )
+            atomic_write(lib / f"{_safe(fp_name)}.3dmap.xml",
+                         build_3dcanvas_mapping_xml(model, package_name=fp_name))
     else:
         out.warnings.append("该元件没有 3D 模型")
 

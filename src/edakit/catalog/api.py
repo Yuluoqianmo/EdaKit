@@ -82,7 +82,7 @@ class MallClient:
                 raise FetchError(f"HTTP {r.status_code}: {path}")
             try:
                 payload = r.json()
-            except ValueError as e:
+            except ValueError:
                 last = UpstreamChangedError(f"返回非 JSON (可能端点已变): {path}")
                 time.sleep(0.6 * (attempt + 1))
                 continue

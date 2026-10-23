@@ -10,6 +10,8 @@ import time
 
 class WindowsProcess:
     def __init__(self, pid: int):
+        if os.name != "nt":
+            raise OSError("Native Capture process monitoring requires Windows")
         self.api = ctypes.WinDLL("kernel32", use_last_error=True)
         self.api.OpenProcess.argtypes = [wintypes.DWORD, wintypes.BOOL, wintypes.DWORD]
         self.api.OpenProcess.restype = wintypes.HANDLE

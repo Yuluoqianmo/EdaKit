@@ -82,6 +82,8 @@
   var sessionMatch = /(?:[?&])session=([^&]*)/.exec(window.location.search);
   var hostSession = sessionMatch ? decodeURIComponent(sessionMatch[1]) : "";
   function jsonp(path, params, ok, fail) {
+    if (path === "/api/es/place" && (!window.JSON || !window.JSON.parse || !window.JSON.stringify)) { if (fail) { fail("当前旧版浏览器不支持安全放置，请使用 EdaKit CEF 工作台"); } return; }
+    params.token = window.__edakitToken || "";
     if (hostSession) { params.session = hostSession; }
     var name = "edakitCb" + (++sequence), parts = [], k, values, i, finished = false;
     var script = document.createElement("script"), timer;
@@ -90,9 +92,11 @@
     function reject() { if (finished) { return; } finished = true; clean(true); if (fail) { fail("请求失败或等待超时，请检查网络与服务后重试"); } }
     for (k in params) { if (params.hasOwnProperty(k)) { values = typeof params[k] === "object" ? params[k] : [params[k]]; for (i = 0; i < values.length; i++) { parts.push(encodeURIComponent(k) + "=" + encodeURIComponent(values[i])); } } }
     // CEF supports XHR+JSON; retain JSONP for the legacy OpenURL host.
-    if (!document.documentMode && window.XMLHttpRequest && window.JSON && window.JSON.parse) {
+    if (path === "/api/es/place" || (!document.documentMode && window.XMLHttpRequest && window.JSON && window.JSON.parse)) {
       var xhr = new XMLHttpRequest();
-      xhr.open("GET", path + "?" + parts.join("&"), true);
+      var placing = path === "/api/es/place";
+      xhr.open(placing ? "POST" : "GET", path + "?" + parts.join("&"), true);
+      if (placing) { xhr.setRequestHeader("Content-Type", "application/json"); }
       timer = window.setTimeout(function () { xhr.abort(); reject(); }, 25000);
       xhr.onreadystatechange = function () {
         if (xhr.readyState !== 4 || finished) { return; }
@@ -102,7 +106,7 @@
         finished = true; clean();
         if (data.error) { if (fail) { fail(data.message || data.error); } } else { ok(data); }
       };
-      xhr.send(null);
+      xhr.send(placing ? JSON.stringify(params) : null);
       return { abort: function () { if (!finished) { finished = true; clean(); xhr.abort(); } } };
     }
     window[name] = function (data) { if (finished) { return; } finished = true; clean(); if (data.error) { if (fail) { fail(data.message || data.error); } return; } ok(data); };
@@ -256,7 +260,7 @@
     var pixels = size * Math.min(2, window.devicePixelRatio || 1);
     var resolution = pixels > 2048 ? 4096 : pixels > 1024 ? 2048 : pixels > 512 ? 1024 : 512;
     if (is3d) { resolution = Math.min(1024, resolution); }
-    var url = "/api/png/" + state.preview.kind + "/" + encodeURIComponent(state.selection.sel.cid) + ".png?size=" + resolution;
+    var url = "/api/png/" + state.preview.kind + "/" + encodeURIComponent(state.selection.sel.cid) + ".png?token=" + encodeURIComponent(window.__edakitToken || "") + "&size=" + resolution;
     if (is3d) { url += "&yaw=" + state.preview.yaw + "&pitch=" + state.preview.pitch; }
     var img = el(state.preview.full ? "largeimg" : "previewimg"), canvas = el(state.preview.full ? "largecanvas" : "previewcanvas");
     var cw = Math.max(port.clientWidth - 2, size + 30), ch = Math.max(port.clientHeight - 2, size + 30);

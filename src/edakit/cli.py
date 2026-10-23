@@ -35,11 +35,6 @@ from .easyeda.parse import parse_component
 from .errors import LcscError
 from .fetch import Fetcher
 from .footprint.skill import generate_skill
-from .symbol.olb_xml import generate_olb_xml, load_schema_profile
-from .symbol.tcl import generate_capture_run_tcl, generate_place_tcl
-from .threed.mapping import build_map_xml, calibrate
-from .threed.step import StepFetcher
-from .symbol.naming import capture_part_name
 
 
 def _write(path: Path, content: str | bytes) -> None:
@@ -82,7 +77,7 @@ def cmd_mall(args: argparse.Namespace) -> int:
             if sessions and not (directory / "capture_hosts" / f"{args.capture_pid}.owner").is_file():
                 raise RuntimeError("Capture host registration missing; cannot start owned service")
             httpd, url = serve_forever(port=args.port, verbose=args.verbose)
-            print(f"内嵌商城服务已启动: {url}embed")
+            print("内嵌商城服务已启动，请从 Capture 菜单打开" if managed else f"内嵌商城服务已启动: {url}embed")
             print("Capture-managed service" if managed else "Manual service: Ctrl+C to stop")
             try:
                 while not sessions or not sessions.should_stop():
@@ -399,7 +394,6 @@ def cmd_learn_schema(args: argparse.Namespace) -> int:
     from .symbol.capture_lib import (
         extract_default_values,
         is_capture_lib_dialect,
-        generate_lib_xml,
     )
 
     is_real = is_capture_lib_dialect(text)

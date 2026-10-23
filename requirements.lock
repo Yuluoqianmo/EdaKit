@@ -1,0 +1,10 @@
+# Resolved from the verified Windows Python 3.13 build environment.
+certifi==2026.7.22
+charset-normalizer==3.5.2
+idna==3.20
+numpy==2.5.4
+requests==2.34.2
+resvg-py==0.5.0
+shapely==2.2.0
+svgelements==1.9.6
+urllib3==2.8.0

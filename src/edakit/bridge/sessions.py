@@ -81,6 +81,8 @@ def maintain_queue():
                         continue
                 except ProcessLookupError:
                     pass
+                except OSError:
+                    continue  # Do not claim a host exited when it cannot be inspected.
                 finally:
                     if process:
                         process.close()

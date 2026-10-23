@@ -101,7 +101,7 @@ def merge_olb_xml(base_xml: str, part_xml: str, *, replace_same_name: bool = Tru
             name = m.group(2) if m else ""
 
             if replace_same_name and name:
-                def _drop(pkg: re.Match[str]) -> str:
+                def _drop(pkg: re.Match[str], name=name) -> str:
                     mm = _PKG_NAME_RE.search(pkg.group(0))
                     return "" if (mm and mm.group(2) == name) else pkg.group(0)
 
@@ -122,7 +122,7 @@ def merge_olb_xml(base_xml: str, part_xml: str, *, replace_same_name: bool = Tru
         if m:
             name = m.group(2)
         if replace_same_name and name:
-            def _drop(mt: re.Match[str]) -> str:
+            def _drop(mt: re.Match[str], name=name) -> str:
                 mm = re.search(r'\bName\s*=\s*(["\'])(.*?)\1', mt.group(0), re.DOTALL)
                 return "" if (mm and mm.group(2) == name) else mt.group(0)
 

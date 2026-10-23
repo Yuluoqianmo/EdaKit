@@ -3,7 +3,6 @@ import json
 import re
 import time
 import uuid
-from pathlib import Path
 from .queue import app_dir, _load_kv
 from .sessions import resolve_target
 from ..storage import atomic_write
@@ -111,7 +110,6 @@ def status(job, session):
     response = directory() / (job + '.resp')
     if not response.exists():
         # Never replay an interrupted write. Its outcome must be inspected in Capture.
-        req = directory() / (job + '.req')
         if time.time() - owner.stat().st_mtime > 125:
             return {'state': 'error', 'message': 'Capture did not finish the request; refresh and verify before retrying'}
         return {'state': 'pending'}

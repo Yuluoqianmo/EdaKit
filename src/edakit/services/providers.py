@@ -1,5 +1,5 @@
 """Structural contracts; adapters remain ordinary Python classes."""
-from typing import Any, Protocol, Callable
+from typing import Any, Protocol
 from ..catalog.models import Part, SearchResult, CategoryNode
 
 

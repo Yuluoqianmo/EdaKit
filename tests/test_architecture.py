@@ -170,6 +170,7 @@ def test_target_requires_live_session(monkeypatch):
         sessions.resolve_target("10-old")
 
 
+@pytest.mark.skipif(__import__("os").name != "nt", reason="native Windows process probe")
 def test_maintenance_fails_interrupted_claim_without_replaying(tmp_path, monkeypatch):
     from edakit.bridge.sessions import maintain_queue
     monkeypatch.setenv("LOCALAPPDATA", str(tmp_path))
@@ -184,6 +185,7 @@ def test_maintenance_fails_interrupted_claim_without_replaying(tmp_path, monkeyp
     assert queue.read_response(request.seq)["stage"] == "interrupted"
 
 
+@pytest.mark.skipif(__import__("os").name != "nt", reason="native Windows process probe")
 def test_dead_library_lock_is_released(tmp_path, monkeypatch):
     from edakit.bridge.sessions import maintain_queue
     monkeypatch.setenv("LOCALAPPDATA", str(tmp_path))

@@ -1,4 +1,4 @@
-requests>=2.28
+requests>=2.28,<3
 resvg_py==0.5.0
 shapely>=2.2,<3
 svgelements==1.9.6

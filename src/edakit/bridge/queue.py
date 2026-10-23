@@ -25,7 +25,7 @@ from dataclasses import asdict, dataclass, field
 from pathlib import Path
 from typing import Any
 
-from ..config import Config, app_dir  # compatibility exports
+from ..config import Config as Config, app_dir as app_dir  # compatibility exports
 from ..storage import atomic_write
 
 # --------------------------------------------------------------------------- #
@@ -91,6 +91,10 @@ class PlaceRequest:
         if not self.created:
             self.created = time.time()
         validate_seq(self.seq)
+        stamp = generated_seq_time(self.seq)
+        if stamp is not None and stamp < time.time() - RECEIPT_RETENTION:
+            raise ValueError("Request identifier is outside the replay protection window")
+        compact_receipts()
         if self.target_session and not re.fullmatch(r"[0-9]+(?:--?[0-9]+)?", self.target_session):
             raise ValueError("Invalid target session")
         if not self.expires:
@@ -181,3 +185,47 @@ def clear_queue() -> int:
 def validate_seq(seq):
     if not isinstance(seq, str) or not re.fullmatch(r"[A-Za-z0-9_-]{1,100}", seq):
         raise ValueError("Invalid request identifier")
+
+
+RECEIPT_RETENTION = 30 * 86400
+_last_compaction = 0.0
+
+
+def generated_seq_time(seq):
+    """Custom identifiers retain permanent receipts; generated IDs encode time."""
+    if not re.fullmatch(r"[0-9]{14}-[0-9a-f]{6}", seq):
+        return None
+    try:
+        return time.mktime(time.strptime(seq[:14], "%Y%m%d%H%M%S"))
+    except ValueError:
+        return None
+
+
+def compact_receipts(*, force=False):
+    """Remove only old auto-ID receipts with no active request/claim.
+
+    submit rejects these aged IDs even after deletion, preserving replay safety.
+    Custom caller IDs cannot encode age and therefore retain their tombstones.
+    """
+    global _last_compaction
+    now = time.time()
+    if not force and now - _last_compaction < 300:
+        return 0
+    _last_compaction = now
+    removed = 0
+    directory = queue_dir()
+    for receipt in directory.glob("req_*.submitted"):
+        seq = receipt.stem[4:]
+        stamp = generated_seq_time(seq)
+        if stamp is None or stamp >= now - RECEIPT_RETENTION:
+            continue
+        request = receipt.with_suffix(".req")
+        if request.exists() or list(directory.glob(request.name + ".*")):
+            continue
+        try:
+            (directory / ("resp_" + seq + ".resp")).unlink(missing_ok=True)
+            receipt.unlink(missing_ok=True)
+            removed += 1
+        except OSError:
+            continue  # A concurrent reader/host may briefly hold a file open.
+    return removed

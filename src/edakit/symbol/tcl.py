@@ -12,12 +12,11 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-from ..easyeda.model import Symbol
 
 
 def _tcl_str(s: str) -> str:
     """TCL 双引号字符串转义。"""
-    return s.replace("\\", "\\\\").replace('"', '\\"').replace("$", "\\$").replace("[", "\\[")
+    return s.replace("\\", "\\\\").replace('"', '\\"').replace("$", "\\$").replace("[", "\\[").replace("{", "\\{").replace("}", "\\}").replace("\n", "\\n").replace("\r", "\\r")
 
 
 def generate_capture_run_tcl(
@@ -71,16 +70,15 @@ def generate_place_tcl(
     lines.append(f'    set lStatus [DboState]')
     lines.append(f'    PlacePart {x_mm:.4f} {y_mm:.4f} "{olb}" "{part}" "{sub}" FALSE')
     lines.append('    puts "EDAKIT_PLACE_OK"')
-    lines.append("} err] {")
+    lines.append("} err]} {")
     lines.append('    puts "EDAKIT_PLACE_FAIL: $err"')
     lines.append("}")
     if props:
         lines.append("")
         lines.append("# 实例属性 (需先拿到刚放置的 instance; 由上层指针传入或按需遍历)")
-        lines.append("set lProps {")
+        lines.append("set lProps [list]")
         for k, v in props.items():
-            lines.append(f'    {{{_tcl_str(k)}}} {{{_tcl_str(v)}}}')
-        lines.append("}")
+            lines.append(f'lappend lProps "{_tcl_str(k)}" "{_tcl_str(v)}"')
         lines.append("foreach {pname pval} $lProps {")
         lines.append('    catch {$lPlacedInst SetEffectivePropStringValue $pname $pval} __e')
         lines.append("}")

@@ -52,7 +52,7 @@ def test_entry_runs_as_toplevel_script():
     """直接以脚本方式执行 entry.py —— 这正是 PyInstaller 的方式。"""
     r = _run_as_script(ENTRY, "--version")
     assert r.returncode == 0, f"stdout={r.stdout!r} stderr={r.stderr!r}"
-    assert r.stdout.strip() == "0.1.0"
+    assert r.stdout.strip() == __import__("edakit").__version__
 
 
 def test_entry_subcommand_works_as_script():
@@ -71,7 +71,7 @@ def test_package_main_still_works_with_dash_m():
         capture_output=True, text=True, timeout=180, env=env, cwd=str(ROOT),
     )
     assert r.returncode == 0, f"stdout={r.stdout!r} stderr={r.stderr!r}"
-    assert r.stdout.strip() == "0.1.0"
+    assert r.stdout.strip() == __import__("edakit").__version__
 
 
 def _analysis_call_args() -> list[object]:

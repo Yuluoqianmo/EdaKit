@@ -22,6 +22,8 @@
 from __future__ import annotations
 
 import json
+import secrets
+from .security import authorize, bootstrap, CALLBACK
 import uuid
 import logging
 import os
@@ -77,7 +79,7 @@ class MallHandler(BaseHTTPRequestHandler):
     # ---- 基础 ---- #
     def log_message(self, fmt: str, *args: Any) -> None:  # 安静点
         if self.server.verbose:  # type: ignore[attr-defined]
-            super().log_message(fmt, *args)
+            super().log_message(fmt, *(str(a).replace(self.server.access_token, "[redacted]") for a in args))
 
     def _send(self, code: int, body: bytes, ctype: str, *, cache: bool = False) -> None:
         try:
@@ -90,6 +92,9 @@ class MallHandler(BaseHTTPRequestHandler):
                 return
             self.send_response(code)
             self.send_header("X-Request-ID", self.request_id)
+            self.send_header("X-Content-Type-Options", "nosniff")
+            self.send_header("Referrer-Policy", "no-referrer")
+            self.send_header("X-Frame-Options", "SAMEORIGIN")
             self.send_header("Content-Type", ctype)
             self.send_header("Content-Length", str(len(body)))
             self.send_header("Cache-Control", "private, max-age=0, must-revalidate" if cache else "no-store")
@@ -108,6 +113,9 @@ class MallHandler(BaseHTTPRequestHandler):
         cb = (qs.get("cb") or [""])[0].strip()
         if not cb:
             return False
+        if len(cb) > 64 or not CALLBACK.fullmatch(cb):
+            self._json({"error": "invalid_callback"}, 400)
+            return True
         body = "/*lcsc*/" + cb + "(" + json.dumps(obj, ensure_ascii=False) + ");"
         self._send(200, body.encode("utf-8"), "application/javascript; charset=utf-8")
         return True
@@ -147,6 +155,8 @@ class MallHandler(BaseHTTPRequestHandler):
 
     # ---- 路由 ---- #
     def do_GET(self) -> None:  # noqa: N802
+        if not authorize(self):
+            return self._json({"error": "forbidden"}, 403)
         parsed = urlparse(self.path)
         path = unquote(parsed.path)
         qs = parse_qs(parsed.query)
@@ -205,7 +215,7 @@ class MallHandler(BaseHTTPRequestHandler):
                     {"capture_online": self._capture_online(qs)}
                 )
             if path == "/api/es/place":
-                return self._place_from_qs(qs)
+                return self._json({"error": "post_required"}, 405)
             if path == "/api/es/footprint":
                 result = self.server.services.footprints.submit(self._component((qs.get('cid') or [''])[0]), Config.load())
                 return self._jsonp(qs, result) or self._json(result)
@@ -258,9 +268,15 @@ class MallHandler(BaseHTTPRequestHandler):
             self._error(e, 500)
 
     def do_POST(self) -> None:  # noqa: N802
+        if not authorize(self):
+            return self._json({"error": "forbidden"}, 403)
+        if self.headers.get("Content-Type", "").split(";", 1)[0].strip().lower() != "application/json":
+            return self._json({"error": "json_required"}, 415)
         parsed = urlparse(self.path)
         path = unquote(parsed.path)
         try:
+            if path == "/api/es/place":
+                return self._do_place(self._read_body(), embedded=True)
             if path.startswith('/api/bom/'):
                 from ..services import bom
                 action = {'preview': bom.from_request, 'settings': bom.settings, 'upload': bom.upload, 'export': bom.export}.get(path.rsplit('/', 1)[-1])
@@ -299,7 +315,10 @@ class MallHandler(BaseHTTPRequestHandler):
             ".png": "image/png",
             ".json": "application/json; charset=utf-8",
         }.get(target.suffix, "application/octet-stream")
-        self._send(200, target.read_bytes(), ctype, cache=target.suffix in (".css", ".js"))
+        content = target.read_bytes()
+        if target.suffix == ".html":
+            content = content.replace(b"<head>", ("<head>" + bootstrap(self.server.access_token)).encode("utf-8"), 1)
+        self._send(200, content, ctype, cache=target.suffix in (".css", ".js"))
 
     # ---- API ---- #
     def _search(self, qs: dict[str, list[str]]) -> None:
@@ -533,6 +552,8 @@ class MallHandler(BaseHTTPRequestHandler):
     def _save_config(self) -> None:
         body = self._read_body()
         data = asdict(Config.load())
+        if "schema_profile" in body and body["schema_profile"] != data["schema_profile"]:
+            raise ValueError("Schema profile can only be changed through local configuration")
         data.update(body)
         cfg = Config.from_dict(data)
         cfg.ensure_dirs()
@@ -614,6 +635,7 @@ class ApplicationServer(ThreadingHTTPServer):
 
 def make_server(port: int = 0, verbose: bool = True, *, services=None) -> ThreadingHTTPServer:
     httpd = ApplicationServer(("127.0.0.1", port), MallHandler)
+    httpd.access_token = secrets.token_urlsafe(32)
     httpd.services = services if services is not None else ApplicationServices()
     httpd.verbose = verbose  # type: ignore[attr-defined]
     httpd.daemon_threads = True
@@ -624,7 +646,7 @@ def serve_forever(port: int = 0, verbose: bool = True) -> tuple[ThreadingHTTPSer
     """启动服务并返回 (server, url)。调用方负责 shutdown。"""
     httpd = make_server(port, verbose)
     actual = httpd.server_address[1]
-    url = f"http://127.0.0.1:{actual}/"
+    url = f"http://127.0.0.1:{actual}/auth/{httpd.access_token}/"
     # Capture 的内嵌页签（OpenURL）需要知道当前端口 —— 写进 url.txt 供 TCL 读取。
     try:
         from ..config import app_dir

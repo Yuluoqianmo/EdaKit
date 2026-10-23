@@ -8,6 +8,8 @@ from __future__ import annotations
 
 from typing import Any
 
+import re
+import time
 import requests
 
 from .errors import FetchError, UpstreamChangedError
@@ -26,7 +28,9 @@ class Fetcher:
 
     def _get_json(self, url: str) -> dict[str, Any]:
         last: Exception | None = None
-        for _ in range(self.retries):
+        for attempt in range(max(1, self.retries)):
+            if attempt:
+                time.sleep(min(.2 * 2 ** (attempt - 1), 2.0))
             try:
                 r = self.session.get(url, timeout=self.timeout)
             except requests.RequestException as e:
@@ -34,6 +38,8 @@ class Fetcher:
                 continue
             if r.status_code != 200:
                 last = FetchError(f"HTTP {r.status_code}: {url}")
+                if r.status_code not in (408, 429) and r.status_code < 500:
+                    break
                 continue
             try:
                 return r.json()
@@ -48,6 +54,8 @@ class Fetcher:
         cid = cid.strip().upper()
         if not cid.startswith("C"):
             cid = "C" + cid
+        if not re.fullmatch(r"C[0-9]+", cid):
+            raise ValueError("Invalid component identifier")
         payload = self._get_json(COMPONENT_URL.format(cid=cid))
         if not payload.get("success"):
             raise UpstreamChangedError(
@@ -60,5 +68,8 @@ class Fetcher:
         return result
 
     def get_preview_svg(self, cid: str) -> str:
-        payload = self._get_json(SVG_URL.format(cid=cid.strip().upper()))
+        cid = cid.strip().upper()
+        if not re.fullmatch(r"C[0-9]+", cid):
+            raise ValueError("Invalid component identifier")
+        payload = self._get_json(SVG_URL.format(cid=cid))
         return payload.get("result", "") or ""

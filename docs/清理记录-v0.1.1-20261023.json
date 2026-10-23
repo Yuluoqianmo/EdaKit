@@ -1,0 +1,151 @@
+{
+  "items": [
+    {
+      "backup": "E:\\outputs\\backups\\edakit-0.1.1rc1-tested-20261023\\EdaKit-0.1.1rc1-Setup.exe",
+      "path": "E:\\outputs\\edakit\\installer\\Output\\EdaKit-0.1.1rc1-Setup.exe",
+      "kind": "superseded-tested-candidate",
+      "action": "recycle"
+    },
+    {
+      "backup": "E:\\outputs\\backups\\edakit-0.1.1rc1-tested-20261023\\EdaKit-0.1.1rc1-sha256.json",
+      "path": "E:\\outputs\\edakit\\installer\\Output\\EdaKit-0.1.1rc1-sha256.json",
+      "kind": "superseded-tested-candidate",
+      "action": "recycle"
+    },
+    {
+      "backup": "E:\\outputs\\backups\\edakit-0.1.1rc1-tested-20261023\\EdaKit-0.1.1rc1-SHA256SUMS.txt",
+      "path": "E:\\outputs\\edakit\\installer\\Output\\EdaKit-0.1.1rc1-SHA256SUMS.txt",
+      "kind": "superseded-tested-candidate",
+      "action": "recycle"
+    },
+    {
+      "backup": "E:\\outputs\\release-v0.1.0\\assets\\EdaKit-0.1.0-Setup.exe",
+      "path": "E:\\outputs\\edakit\\installer\\Output\\EdaKit-0.1.0-Setup.exe",
+      "kind": "superseded-installer",
+      "action": "recycle"
+    },
+    {
+      "path": "E:\\outputs\\edakit\\src\\edakit\\__pycache__",
+      "kind": "regenerable-cache-or-duplicate-test",
+      "action": "recycle"
+    },
+    {
+      "path": "E:\\outputs\\edakit\\src\\edakit\\bridge\\__pycache__",
+      "kind": "regenerable-cache-or-duplicate-test",
+      "action": "recycle"
+    },
+    {
+      "path": "E:\\outputs\\edakit\\src\\edakit\\catalog\\__pycache__",
+      "kind": "regenerable-cache-or-duplicate-test",
+      "action": "recycle"
+    },
+    {
+      "path": "E:\\outputs\\edakit\\src\\edakit\\easyeda\\__pycache__",
+      "kind": "regenerable-cache-or-duplicate-test",
+      "action": "recycle"
+    },
+    {
+      "path": "E:\\outputs\\edakit\\src\\edakit\\footprint\\__pycache__",
+      "kind": "regenerable-cache-or-duplicate-test",
+      "action": "recycle"
+    },
+    {
+      "path": "E:\\outputs\\edakit\\src\\edakit\\ibom\\__pycache__",
+      "kind": "regenerable-cache-or-duplicate-test",
+      "action": "recycle"
+    },
+    {
+      "path": "E:\\outputs\\edakit\\src\\edakit\\install\\__pycache__",
+      "kind": "regenerable-cache-or-duplicate-test",
+      "action": "recycle"
+    },
+    {
+      "path": "E:\\outputs\\edakit\\src\\edakit\\render\\__pycache__",
+      "kind": "regenerable-cache-or-duplicate-test",
+      "action": "recycle"
+    },
+    {
+      "path": "E:\\outputs\\edakit\\src\\edakit\\server\\__pycache__",
+      "kind": "regenerable-cache-or-duplicate-test",
+      "action": "recycle"
+    },
+    {
+      "path": "E:\\outputs\\edakit\\src\\edakit\\services\\__pycache__",
+      "kind": "regenerable-cache-or-duplicate-test",
+      "action": "recycle"
+    },
+    {
+      "path": "E:\\outputs\\edakit\\src\\edakit\\symbol\\__pycache__",
+      "kind": "regenerable-cache-or-duplicate-test",
+      "action": "recycle"
+    },
+    {
+      "path": "E:\\outputs\\edakit\\src\\edakit\\threed\\__pycache__",
+      "kind": "regenerable-cache-or-duplicate-test",
+      "action": "recycle"
+    },
+    {
+      "path": "E:\\outputs\\edakit\\tests\\__pycache__",
+      "kind": "regenerable-cache-or-duplicate-test",
+      "action": "recycle"
+    },
+    {
+      "path": "E:\\outputs\\edakit\\.pytest_cache",
+      "kind": "regenerable-cache-or-duplicate-test",
+      "action": "recycle"
+    },
+    {
+      "path": "E:\\outputs\\edakit\\.ruff_cache",
+      "kind": "regenerable-cache-or-duplicate-test",
+      "action": "recycle"
+    },
+    {
+      "path": "E:\\outputs\\edakit\\build",
+      "kind": "regenerable-cache-or-duplicate-test",
+      "action": "recycle"
+    },
+    {
+      "path": "E:\\outputs\\security-target-tests",
+      "kind": "regenerable-cache-or-duplicate-test",
+      "action": "recycle"
+    },
+    {
+      "path": "E:\\outputs\\security-full-tests",
+      "kind": "regenerable-cache-or-duplicate-test",
+      "action": "recycle"
+    },
+    {
+      "path": "E:\\outputs\\security-full-tests2",
+      "kind": "regenerable-cache-or-duplicate-test",
+      "action": "recycle"
+    },
+    {
+      "path": "E:\\outputs\\security-final-tests",
+      "kind": "regenerable-cache-or-duplicate-test",
+      "action": "recycle"
+    },
+    {
+      "path": "E:\\outputs\\security-extra-tests",
+      "kind": "regenerable-cache-or-duplicate-test",
+      "action": "recycle"
+    },
+    {
+      "path": "E:\\outputs\\release-v0.1.1\\tests",
+      "kind": "regenerable-cache-or-duplicate-test",
+      "action": "recycle"
+    }
+  ],
+  "preserved": [
+    "source",
+    "tests",
+    "licenses",
+    "CI-and-lockfiles",
+    "latest-release-binaries",
+    "manual-tested-candidate-backup",
+    "acceptance-logs-and-screenshots",
+    "installed-program",
+    "user-libraries-settings-and-exports"
+  ],
+  "date": "2026-10-23T15:43:34.6073984+08:00",
+  "version": "0.1.1"
+}

@@ -9,4 +9,4 @@
     install     部署到 Cadence 安装树
 """
 
-__version__ = "0.1.0"
+__version__ = "0.1.1"

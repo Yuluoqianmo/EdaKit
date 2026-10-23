@@ -19,7 +19,7 @@ import json
 import re
 from pathlib import Path
 from typing import Any
-from xml.sax.saxutils import escape, quoteattr
+from xml.sax.saxutils import quoteattr
 
 from ..easyeda.model import Symbol
 

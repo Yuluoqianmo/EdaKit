@@ -744,7 +744,7 @@ namespace eval edakit {
     }
 
     proc portOf {url} {
-        if {[regexp {:([0-9]+)/?$} $url -> p]} { return $p }
+        if {[regexp {^http://127[.]0[.]0[.]1:([0-9]+)(?:/auth/[A-Za-z0-9_-]+)?/?$} $url -> p]} { return $p }
         return ""
     }
 
@@ -909,6 +909,7 @@ namespace eval edakit {
     }
 
     proc writeDiag {msg} {
+        regsub -all {/auth/[A-Za-z0-9_-]+} $msg {/auth/<redacted>} msg
         catch {
             set fp [open [diagFile] a]
             fconfigure $fp -encoding utf-8 -translation lf
