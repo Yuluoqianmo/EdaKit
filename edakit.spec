@@ -18,6 +18,10 @@ a = Analysis(
         ("licenses/*.txt", "licenses"),
         # Capture TCL 模板 (deploy 时拷进 Cadence 安装树)
         ("src/edakit/install/templates/*.tcl", "edakit/install/templates"),
+        ("src/edakit/install/templates/*.il", "edakit/install/templates"),
+        ("src/edakit/ibom/UPSTREAM.md", "edakit/ibom"),
+        ("src/edakit/ibom/view3d.js", "edakit/ibom"),
+        ("src/edakit/ibom/vendor/*", "edakit/ibom/vendor"),
         # 商城网页界面 —— 必须打进包，运行时 server/app.py 按 __file__ 相对定位
         ("src/edakit/server/web/*.html", "edakit/server/web"),
         ("src/edakit/server/web/*.css", "edakit/server/web"),
@@ -32,7 +36,6 @@ a = Analysis(
     hookspath=[],
     runtime_hooks=[],
     excludes=[
-        "tkinter",
         "pytest",
         # requests 会**可选**地用 pyOpenSSL/cryptography 做 SSL 后端；我们只用 stdlib 的 ssl，
         # 这条可选路径会把 cryptography 的 rust 动态库（4 MB+，上千个文件）整个拖进包里。

@@ -188,8 +188,12 @@ def deploy(
                 step_dir=cfg.effective_step_lib,
                 cadence_root=str(spb) if spb else None,
             )
-        except DeployError as e:
-            print(f"  警告: 未能自动配置 Allegro env ({e})")
+            if spb and not dry_run:
+                from .ibom import deploy as deploy_ibom
+                result = deploy_ibom(str(spb))
+                print(f"Allegro iBOM 菜单已安装: {result['skill']}")
+        except (DeployError, ValueError, OSError) as e:
+            print(f"  警告: 未能完成 Allegro 配置 ({e})")
             print("        可以稍后手动跑: edakit allegro-env --lib <目录>")
 
     print()
@@ -214,5 +218,7 @@ def undeploy(cadence_root: str | None = None, *, remove_allegro: bool = False) -
     if remove_allegro:
         try:
             allegro_env.unconfigure(cadence_root=cadence_root)
+            from .ibom import undeploy as undeploy_ibom
+            undeploy_ibom(cadence_root)
         except DeployError as e:
             print(f"跳过 Allegro env 清理: {e}")

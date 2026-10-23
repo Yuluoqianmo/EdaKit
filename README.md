@@ -4,6 +4,8 @@
 
 ## 使用
 
+Allegro PCB 端新增 `EdaKit → Interactive BOM...`：自动取当前板快照并生成带二维板图与真实模型三维预览的离线交互式 HTML。可直接使用 PCB 属性，或为当前板选择最终 BOM，详见 [Allegro 交互式 BOM](docs/Allegro交互式BOM-20261023.md)。
+
 商城、器件属性和 BOM 现在共用一个 EdaKit 工作台，顶部标签切换，页面状态保留；原有菜单入口会选中对应标签。更新后完整重启 Capture，详见 [统一工作台](docs/统一工作台-20261022.md)。
 
 1. Capture 菜单 EdaKit → LCSC Mall 打开工作台。

@@ -1,0 +1,395 @@
+{
+  "date": "2026-10-23",
+  "status": "recycled",
+  "method": "Windows Recycle Bin",
+  "scope": "Python/pytest caches, IPC log, reproducible iBOM build/dist/test sandboxes; keep project dist, backups, native/browser evidence and user files",
+  "files": 18770.0,
+  "bytes": 1838677110.0,
+  "targets": [
+    {
+      "path": "E:\\outputs\\edakit\\src\\edakit\\__pycache__",
+      "files": 11,
+      "bytes": 107397.0
+    },
+    {
+      "path": "E:\\outputs\\edakit\\src\\edakit\\bridge\\__pycache__",
+      "files": 4,
+      "bytes": 31672.0
+    },
+    {
+      "path": "E:\\outputs\\edakit\\src\\edakit\\catalog\\__pycache__",
+      "files": 8,
+      "bytes": 106211.0
+    },
+    {
+      "path": "E:\\outputs\\edakit\\src\\edakit\\easyeda\\__pycache__",
+      "files": 5,
+      "bytes": 52292.0
+    },
+    {
+      "path": "E:\\outputs\\edakit\\src\\edakit\\footprint\\__pycache__",
+      "files": 10,
+      "bytes": 112443.0
+    },
+    {
+      "path": "E:\\outputs\\edakit\\src\\edakit\\ibom\\__pycache__",
+      "files": 6,
+      "bytes": 222312.0
+    },
+    {
+      "path": "E:\\outputs\\edakit\\src\\edakit\\install\\__pycache__",
+      "files": 5,
+      "bytes": 35567.0
+    },
+    {
+      "path": "E:\\outputs\\edakit\\src\\edakit\\render\\__pycache__",
+      "files": 4,
+      "bytes": 25073.0
+    },
+    {
+      "path": "E:\\outputs\\edakit\\src\\edakit\\server\\__pycache__",
+      "files": 3,
+      "bytes": 56788.0
+    },
+    {
+      "path": "E:\\outputs\\edakit\\src\\edakit\\services\\__pycache__",
+      "files": 14,
+      "bytes": 90580.0
+    },
+    {
+      "path": "E:\\outputs\\edakit\\src\\edakit\\symbol\\__pycache__",
+      "files": 7,
+      "bytes": 76929.0
+    },
+    {
+      "path": "E:\\outputs\\edakit\\src\\edakit\\threed\\__pycache__",
+      "files": 5,
+      "bytes": 33946.0
+    },
+    {
+      "path": "E:\\outputs\\edakit\\tests\\__pycache__",
+      "files": 49,
+      "bytes": 1403374.0
+    },
+    {
+      "path": "E:\\outputs\\edakit\\tools\\diag\\__pycache__",
+      "files": 2,
+      "bytes": 10431.0
+    },
+    {
+      "path": "E:\\outputs\\edakit\\.pytest_cache",
+      "files": 5,
+      "bytes": 56174.0
+    },
+    {
+      "path": "E:\\outputs\\edakit\\ipc2581_out.log",
+      "files": 1,
+      "bytes": 3051.0
+    },
+    {
+      "path": "E:\\outputs\\edakit-ibom-3d-build",
+      "files": 17,
+      "bytes": 77147818.0
+    },
+    {
+      "path": "E:\\outputs\\edakit-ibom-3d-dist",
+      "files": 2,
+      "bytes": 66917758.0
+    },
+    {
+      "path": "E:\\outputs\\edakit-ibom-3d-full",
+      "files": 1724,
+      "bytes": 8427440.0
+    },
+    {
+      "path": "E:\\outputs\\edakit-ibom-3d-tests",
+      "files": 58,
+      "bytes": 2210951.0
+    },
+    {
+      "path": "E:\\outputs\\edakit-ibom-3d-tests-final",
+      "files": 117,
+      "bytes": 3699102.0
+    },
+    {
+      "path": "E:\\outputs\\edakit-ibom-3d-tests-release",
+      "files": 119,
+      "bytes": 3699240.0
+    },
+    {
+      "path": "E:\\outputs\\edakit-ibom-3d-tests2",
+      "files": 108,
+      "bytes": 3689680.0
+    },
+    {
+      "path": "E:\\outputs\\edakit-ibom-3d-tests3",
+      "files": 117,
+      "bytes": 3692467.0
+    },
+    {
+      "path": "E:\\outputs\\edakit-ibom-appearance-build",
+      "files": 17,
+      "bytes": 77182505.0
+    },
+    {
+      "path": "E:\\outputs\\edakit-ibom-appearance-dist",
+      "files": 2,
+      "bytes": 66940444.0
+    },
+    {
+      "path": "E:\\outputs\\edakit-ibom-appearance-full",
+      "files": 1751,
+      "bytes": 8467227.0
+    },
+    {
+      "path": "E:\\outputs\\edakit-ibom-appearance-tests",
+      "files": 143,
+      "bytes": 3724006.0
+    },
+    {
+      "path": "E:\\outputs\\edakit-ibom-appearance-tests2",
+      "files": 9,
+      "bytes": 2615.0
+    },
+    {
+      "path": "E:\\outputs\\edakit-ibom-body-build",
+      "files": 17,
+      "bytes": 70516352.0
+    },
+    {
+      "path": "E:\\outputs\\edakit-ibom-body-dist",
+      "files": 2,
+      "bytes": 60302906.0
+    },
+    {
+      "path": "E:\\outputs\\edakit-ibom-body-tests",
+      "files": 90,
+      "bytes": 300700.0
+    },
+    {
+      "path": "E:\\outputs\\edakit-ibom-build",
+      "files": 17,
+      "bytes": 63409183.0
+    },
+    {
+      "path": "E:\\outputs\\edakit-ibom-build-final",
+      "files": 17,
+      "bytes": 63418566.0
+    },
+    {
+      "path": "E:\\outputs\\edakit-ibom-case-tests",
+      "files": 51,
+      "bytes": 151162.0
+    },
+    {
+      "path": "E:\\outputs\\edakit-ibom-dist",
+      "files": 2,
+      "bytes": 54081526.0
+    },
+    {
+      "path": "E:\\outputs\\edakit-ibom-dist-final",
+      "files": 2,
+      "bytes": 54088618.0
+    },
+    {
+      "path": "E:\\outputs\\edakit-ibom-facet-build",
+      "files": 17,
+      "bytes": 77171422.0
+    },
+    {
+      "path": "E:\\outputs\\edakit-ibom-facet-dist",
+      "files": 2,
+      "bytes": 66933296.0
+    },
+    {
+      "path": "E:\\outputs\\edakit-ibom-facet-full",
+      "files": 703,
+      "bytes": 7940515.0
+    },
+    {
+      "path": "E:\\outputs\\edakit-ibom-facet-full-native",
+      "files": 1750,
+      "bytes": 8457642.0
+    },
+    {
+      "path": "E:\\outputs\\edakit-ibom-facet-tests",
+      "files": 135,
+      "bytes": 3714892.0
+    },
+    {
+      "path": "E:\\outputs\\edakit-ibom-facet-tests2",
+      "files": 143,
+      "bytes": 3717102.0
+    },
+    {
+      "path": "E:\\outputs\\edakit-ibom-full",
+      "files": 1658,
+      "bytes": 4884338.0
+    },
+    {
+      "path": "E:\\outputs\\edakit-ibom-full-final8",
+      "files": 1671,
+      "bytes": 4959279.0
+    },
+    {
+      "path": "E:\\outputs\\edakit-ibom-label-build",
+      "files": 17,
+      "bytes": 70520392.0
+    },
+    {
+      "path": "E:\\outputs\\edakit-ibom-label-dist",
+      "files": 2,
+      "bytes": 60304608.0
+    },
+    {
+      "path": "E:\\outputs\\edakit-ibom-label-full",
+      "files": 1715,
+      "bytes": 5116041.0
+    },
+    {
+      "path": "E:\\outputs\\edakit-ibom-label-tests",
+      "files": 90,
+      "bytes": 305739.0
+    },
+    {
+      "path": "E:\\outputs\\edakit-ibom-library-build",
+      "files": 17,
+      "bytes": 77146649.0
+    },
+    {
+      "path": "E:\\outputs\\edakit-ibom-library-dist",
+      "files": 2,
+      "bytes": 66916714.0
+    },
+    {
+      "path": "E:\\outputs\\edakit-ibom-origin-arc-tests",
+      "files": 90,
+      "bytes": 300934.0
+    },
+    {
+      "path": "E:\\outputs\\edakit-ibom-original-pad-tests",
+      "files": 90,
+      "bytes": 298972.0
+    },
+    {
+      "path": "E:\\outputs\\edakit-ibom-pad-build",
+      "files": 17,
+      "bytes": 70513520.0
+    },
+    {
+      "path": "E:\\outputs\\edakit-ibom-pad-dist",
+      "files": 2,
+      "bytes": 60300276.0
+    },
+    {
+      "path": "E:\\outputs\\edakit-ibom-path-tests",
+      "files": 119,
+      "bytes": 3698080.0
+    },
+    {
+      "path": "E:\\outputs\\edakit-ibom-path-tests2",
+      "files": 130,
+      "bytes": 3700896.0
+    },
+    {
+      "path": "E:\\outputs\\edakit-ibom-picker-build",
+      "files": 17,
+      "bytes": 63417547.0
+    },
+    {
+      "path": "E:\\outputs\\edakit-ibom-picker-dist",
+      "files": 2,
+      "bytes": 54086938.0
+    },
+    {
+      "path": "E:\\outputs\\edakit-ibom-picker-fix-tests",
+      "files": 71,
+      "bytes": 224982.0
+    },
+    {
+      "path": "E:\\outputs\\edakit-ibom-picker-regression2",
+      "files": 72,
+      "bytes": 225042.0
+    },
+    {
+      "path": "E:\\outputs\\edakit-ibom-picker-regression3",
+      "files": 72,
+      "bytes": 225042.0
+    },
+    {
+      "path": "E:\\outputs\\edakit-ibom-position-build",
+      "files": 17,
+      "bytes": 70518941.0
+    },
+    {
+      "path": "E:\\outputs\\edakit-ibom-position-dist",
+      "files": 2,
+      "bytes": 60304700.0
+    },
+    {
+      "path": "E:\\outputs\\edakit-ibom-position-full",
+      "files": 1697,
+      "bytes": 5038831.0
+    },
+    {
+      "path": "E:\\outputs\\edakit-ibom-targeted",
+      "files": 57,
+      "bytes": 272465.0
+    },
+    {
+      "path": "E:\\outputs\\edakit-ibom-tests",
+      "files": 45,
+      "bytes": 149925.0
+    },
+    {
+      "path": "E:\\outputs\\edakit-ibom-tests-final8",
+      "files": 64,
+      "bytes": 222352.0
+    },
+    {
+      "path": "E:\\outputs\\edakit-ibom-visual-build",
+      "files": 17,
+      "bytes": 77144560.0
+    },
+    {
+      "path": "E:\\outputs\\edakit-ibom-visual-dist",
+      "files": 2,
+      "bytes": 66914116.0
+    },
+    {
+      "path": "E:\\outputs\\edakit-ibom-visual-fix-tests",
+      "files": 130,
+      "bytes": 3711366.0
+    },
+    {
+      "path": "E:\\outputs\\edakit-ibom-visual-full",
+      "files": 1737,
+      "bytes": 8449406.0
+    },
+    {
+      "path": "E:\\outputs\\edakit-ibom-window-build",
+      "files": 17,
+      "bytes": 70516589.0
+    },
+    {
+      "path": "E:\\outputs\\edakit-ibom-window-dist",
+      "files": 2,
+      "bytes": 60303282.0
+    },
+    {
+      "path": "E:\\outputs\\edakit-ibom-window-full",
+      "files": 1697,
+      "bytes": 5034127.0
+    },
+    {
+      "path": "E:\\outputs\\edakit-ibom-window-tests",
+      "files": 71,
+      "bytes": 223809.0
+    },
+    {
+      "path": "E:\\outputs\\edakit-ibom-window-tests2",
+      "files": 90,
+      "bytes": 297277.0
+    }
+  ]
+}

@@ -573,7 +573,7 @@ def cmd_selftest(args: argparse.Namespace) -> int:
     # ---- 2. TCL 模板（deploy 靠它们）----
     def check_templates() -> str:
         d = Path(install_pkg.__file__).parent / "templates"
-        need = ["edakit.tcl", "edakitInit.tcl", "properties.tcl", "probe.tcl", "diag_olb2xml.tcl"]
+        need = ["edakit.tcl", "edakitInit.tcl", "properties.tcl", "probe.tcl", "diag_olb2xml.tcl", "ibom.il"]
         missing = [n for n in need if not (d / n).is_file()]
         if missing:
             raise FileNotFoundError(f"缺 {missing}（在 {d}）")
@@ -799,10 +799,43 @@ def cmd_status(args: argparse.Namespace) -> int:
 # --------------------------------------------------------------------------- #
 # argparse
 # --------------------------------------------------------------------------- #
+def cmd_ibom_deploy(args):
+    from .install.ibom import deploy
+    result = deploy(args.cadence_root, executable=args.executable)
+    print(json.dumps(result, ensure_ascii=False))
+    return 0
+
+
 def build_parser() -> argparse.ArgumentParser:
     p = argparse.ArgumentParser(prog="edakit", description="EdaKit / EDA 工具箱")
     p.add_argument("--version", action="version", version=__version__)
     sub = p.add_subparsers(dest="cmd", required=True)
+
+    from .ibom.exporter import command as ibom_command
+    ib = sub.add_parser('ibom-export', help='从 Allegro PCB 快照一键导出离线交互式 BOM')
+    ib.add_argument('--board', required=True)
+    ib.add_argument('--source')
+    ib.add_argument('--output')
+    ib.add_argument('--bom')
+    ib.add_argument('--cadence-root')
+    ib.add_argument('--open', action='store_true')
+    ib.add_argument('--notify', action='store_true')
+    ib.add_argument('--dialog', action='store_true')
+    ib.add_argument('--labels', help=argparse.SUPPRESS)
+    ib.add_argument('--dialog-worker', action='store_true', help=argparse.SUPPRESS)
+    ib.set_defaults(func=ibom_command)
+    ibs = sub.add_parser('ibom-settings', help='设置 iBOM 输出目录或当前 PCB 的最终 BOM')
+    ibs.add_argument('--source', required=True)
+    ibs.add_argument('--pick-folder', action='store_true')
+    ibs.add_argument('--detach', action='store_true', help=argparse.SUPPRESS)
+    ibs.add_argument('--choose-bom', action='store_true')
+    ibs.add_argument('--clear-bom', action='store_true')
+    ibs.add_argument('--notify', action='store_true')
+    ibs.set_defaults(func=ibom_command)
+    ibd = sub.add_parser('ibom-deploy', help='安装 Allegro iBOM 菜单与启动入口')
+    ibd.add_argument('--cadence-root', required=True)
+    ibd.add_argument('--executable')
+    ibd.set_defaults(func=cmd_ibom_deploy)
 
     m = sub.add_parser("mall", help="旧命令兼容：仅启动内嵌商城服务")
     m.add_argument("--port", type=int, default=0, help="0 = 自动选端口")

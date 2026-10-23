@@ -24,6 +24,10 @@ where = ["src"]
 [tool.setuptools.package-data]
 edakit = [
     "install/templates/*.tcl",
+    "install/templates/*.il",
+    "ibom/UPSTREAM.md",
+    "ibom/view3d.js",
+    "ibom/vendor/*",
     "server/web/*.html",
     "server/web/*.css",
     "server/web/*.js",
