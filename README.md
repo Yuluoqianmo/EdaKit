@@ -6,6 +6,8 @@ EdaKit 将立创器件检索、原理图器件放置、PCB 封装生成、器件
 
 当前正式版本：**v0.1.1** · 主要验证环境：**Windows 64 位 / Cadence 17.2**
 
+**Linux 环境尚未进行项目整体测试。** 当前安装包及 Cadence 集成功能面向 Windows；Linux CI 仅用于部分自动化兼容性检查，不代表已验证 Linux 下的安装、Capture / Allegro 集成或完整使用流程。
+
 [下载安装包](https://github.com/Yuluoqianmo/EdaKit/releases/latest) · [v0.1.1 发布说明](https://github.com/Yuluoqianmo/EdaKit/releases/tag/v0.1.1) · [稳定版源码](https://github.com/Yuluoqianmo/EdaKit/tree/v0.1.1)
 
 本轮更新：[0.1.1 审核修复说明](docs/发布说明-v0.1.1.md)。默认分支 `main` 同步完整发布代码。
