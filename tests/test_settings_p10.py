@@ -1,3 +1,4 @@
+import os
 import base64
 from types import SimpleNamespace
 
@@ -43,6 +44,7 @@ def test_settings_detect_real_path_and_preserve_explicit_choice(tmp_path, monkey
     assert not library_settings.read_settings()['cadence_detected']
 
 
+@pytest.mark.skipif(os.name != 'nt', reason='Windows directory picker')
 @pytest.mark.parametrize('output,error', [('E:/中文库', False), ('', False), ('', True)])
 def test_directory_picker_result_and_literal_initial(monkeypatch, output, error):
     class ImmediateThread:
@@ -66,6 +68,7 @@ def test_directory_picker_result_and_literal_initial(monkeypatch, output, error)
         assert result['cancelled'] == (not bool(output))
 
 
+@pytest.mark.skipif(os.name != 'nt', reason='Windows directory picker')
 def test_directory_picker_repeated_request_joins_pending_window(monkeypatch):
     pending = []
     class DeferredThread:

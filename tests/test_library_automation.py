@@ -51,7 +51,7 @@ def test_settings_persist_and_preserve_options(tmp_path, monkeypatch):
     cfg.extra = {'custom': 'keep'}
     cfg.save()
     result = library_settings.save_settings({'symbol_lib': str(tmp_path / 'symbol space'),
-        'footprint_lib': str(tmp_path / 'pcb space'), 'cadence_root': ''})
+        'footprint_lib': str(tmp_path / 'pcb space'), 'step_lib': str(tmp_path / 'step space'), 'cadence_root': ''})
     saved = Config.load()
     assert Path(saved.project_olb) == tmp_path / 'symbol space/EdaKit.olb'
     assert saved.place_x_mil == 700 and saved.extra == {'custom': 'keep'}
