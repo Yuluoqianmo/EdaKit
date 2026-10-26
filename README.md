@@ -4,19 +4,9 @@
 
 EdaKit 将立创器件检索、原理图器件放置、PCB 封装生成、器件属性维护、BOM 导出和交互式焊接辅助整合到 Cadence 工作流程中，减少在不同工具之间复制和整理数据的操作。
 
-当前稳定版本：**v0.1.2rc4** · 主要验证环境：**Windows 64 位 / Cadence 17.2**
+**稳定版：v0.1.2** · Windows 64 位 · 主要验证环境：Cadence 17.2
 
-**Linux 环境尚未进行项目整体测试。** 当前安装包及 Cadence 集成功能面向 Windows；Linux CI 仅用于部分自动化兼容性检查，不代表已验证 Linux 下的安装、Capture / Allegro 集成或完整使用流程。
-
-[下载安装包](https://github.com/Yuluoqianmo/EdaKit/releases/latest) · [v0.1.2rc4 发布说明](https://github.com/Yuluoqianmo/EdaKit/releases/tag/v0.1.2rc4) · [稳定版源码](https://github.com/Yuluoqianmo/EdaKit/tree/v0.1.2rc4)
-
-最新稳定版本：**0.1.2rc4**，包含复审修复、OLB 成品校验、属性表冻结表头及性能与兼容性优化；自动回归 **710 通过、2 跳过**。[下载 rc4 安装包](https://github.com/Yuluoqianmo/EdaKit/releases/download/v0.1.2rc4/EdaKit-0.1.2rc4-Setup.exe)，详见 [rc4 改动与实机验收说明](docs/优化实施与验收-0.1.2rc4.md)。已通过用户在 Capture / Allegro 中的实机测试。
-
-v0.1.2rc4 已作为稳定版发布，默认分支 `main` 同步最新代码。历史修复记录见 [0.1.1 审核修复说明](docs/发布说明-v0.1.1.md)。
-
-## 更新与维护说明
-
-本项目由个人利用业余时间开发和维护。受本职工作及可用时间影响，无法保证更新、问题响应和修复进度，也不承诺具体完成时间。欢迎通过 [Issues](https://github.com/Yuluoqianmo/EdaKit/issues) 反馈问题，请尽量提供软件版本、复现步骤和相关日志，便于排查。
+[下载安装包](https://github.com/Yuluoqianmo/EdaKit/releases/latest) · [发布说明](https://github.com/Yuluoqianmo/EdaKit/releases/tag/v0.1.2) · [使用文档](docs/README.md) · [问题反馈](https://github.com/Yuluoqianmo/EdaKit/issues)
 
 ## 功能介绍
 
@@ -39,7 +29,7 @@ Capture 中的商城、器件属性和 BOM 共用内嵌工作台，可通过顶�
 
 ## 下载与安装
 
-1. 打开 [Releases](https://github.com/Yuluoqianmo/EdaKit/releases/latest)，下载 `EdaKit-0.1.1-Setup.exe`。可使用同页的 `SHA256SUMS.txt` 校验文件完整性。
+1. 打开 [Releases](https://github.com/Yuluoqianmo/EdaKit/releases/latest)，下载 `EdaKit-0.1.2-Setup.exe`。可使用同页的 `SHA256SUMS.txt` 校验文件完整性。
 2. 保存工程并退出 Capture、Allegro。
 3. 使用实际运行 Cadence 的同一 Windows 账号启动安装包，选择 EdaKit 安装目录和 **Cadence SPB 根目录**，例如 `D:\Cadence\SPB_17.2`。
 4. 等待插件部署完成，重新打开 Capture 或 Allegro，检查菜单栏中的 **EdaKit**。
@@ -104,23 +94,22 @@ Capture 中的商城、器件属性和 BOM 共用内嵌工作台，可通过顶�
 
 可以，HTML 内嵌所需查看资源，可离线打开。焊接进度保存在当前浏览器本地，不会自动同步到其他电脑或浏览器。
 
-## 当前验证与限制
+## 支持范围与限制
 
-- v0.1.1 全量回归：**674 项通过、2 项跳过**；冻结程序 **12 项自检通过**。
-- 已验证安装器初始化、完整安装、重复安装、卸载、配置块去重及保留用户文件；用户已确认审核修复版主要功能手动测试正常。
-- 本地服务校验访问来源并使用每次启动生成的随机凭证；放置请求使用 POST。旧服务地址不可复用，请通过 Capture 菜单重新打开。
+- Windows / Cadence 17.2 已完成实机验证；其他 Cadence 版本需要实际测试。
+- **Linux 尚未进行项目整体测试**。Linux CI 仅验证部分自动化用例，不代表安装及 Cadence 集成功能可用。
 - 缺少 JSON 能力的旧版 IE 只支持只读查询，安全放置请使用 CEF 工作台。
 - 不同 Cadence 版本、新电脑及跨管理员账号安装仍需进一步验证。
 - iBOM 板厚默认为 **1.6 mm 示意**，尚未覆盖完整铜走线、过孔、槽孔和全部丝印图层。
 
 ## 文档
 
-- [安装、升级、卸载与构建](https://github.com/Yuluoqianmo/EdaKit/blob/v0.1.1/docs/安装包开发-20261023.md)
-- [器件属性编辑器](https://github.com/Yuluoqianmo/EdaKit/blob/v0.1.1/docs/器件属性编辑器-20261022.md)
-- [BOM 预览与导出](https://github.com/Yuluoqianmo/EdaKit/blob/v0.1.1/docs/BOM预览与导出-20261022.md)
-- [Allegro 交互式 BOM](https://github.com/Yuluoqianmo/EdaKit/blob/v0.1.1/docs/Allegro交互式BOM-20261023.md)
-- [STEP 模型绑定与方向](https://github.com/Yuluoqianmo/EdaKit/blob/v0.1.1/docs/STP自动绑定与方向验证-20261022.md)
-- [完整文档索引](https://github.com/Yuluoqianmo/EdaKit/blob/v0.1.1/docs/README.md)
+- [安装、升级、卸载与构建](docs/安装包开发-20261023.md)
+- [器件属性编辑器](docs/器件属性编辑器-20261022.md)
+- [BOM 预览与导出](docs/BOM预览与导出-20261022.md)
+- [Allegro 交互式 BOM](docs/Allegro交互式BOM-20261023.md)
+- [STEP 模型绑定与方向](docs/STP自动绑定与方向验证-20261022.md)
+- [完整文档索引](docs/README.md)
 
 ## 开发与构建
 
@@ -129,7 +118,7 @@ Capture 中的商城、器件属性和 BOM 共用内嵌工作台，可通过顶�
 ```powershell
 git clone https://github.com/Yuluoqianmo/EdaKit.git
 cd EdaKit
-git checkout v0.1.1
+git checkout v0.1.2
 python -m venv .venv
 .\.venv\Scripts\Activate.ps1
 python -m pip install -r requirements-build.lock
@@ -160,4 +149,4 @@ python -m PyInstaller --noconfirm edakit.spec
 
 欢迎通过 [Issues](https://github.com/Yuluoqianmo/EdaKit/issues) 反馈问题。请附上 EdaKit 版本、Cadence 版本、复现步骤和相关日志，提交前移除工程中的敏感信息。
 
-第三方组件及许可说明见 [v0.1.1 NOTICE](https://github.com/Yuluoqianmo/EdaKit/blob/v0.1.1/NOTICE) 和 [licenses](https://github.com/Yuluoqianmo/EdaKit/tree/v0.1.2rc4/licenses)。EdaKit 为独立开发的辅助工具，与 Cadence、立创及其产品不存在官方隶属关系。
+第三方组件及许可说明见 [NOTICE](NOTICE) 和 [licenses](licenses)。EdaKit 为独立开发的辅助工具，与 Cadence、立创及其产品不存在官方隶属关系。
