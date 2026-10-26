@@ -1,3 +1,4 @@
+import os
 import json
 import shutil
 from pathlib import Path
@@ -37,7 +38,7 @@ def test_window_launcher_owns_copy_of_temporary_board(setup, monkeypatch):
     from edakit.ibom import window
     folder, board, _, _, _ = setup
     calls = []
-    monkeypatch.setattr(window.subprocess, 'Popen', lambda command, **kw: calls.append((command, kw)))
+    monkeypatch.setattr(window.subprocess, 'Popen', lambda command, **kw: (calls.append((command, kw)) or SimpleNamespace(pid=os.getpid())))
     labels = folder / 'labels.tsv'
     labels.write_text('native text data', encoding='utf-8')
     Path(str(labels)+'.models.tsv').write_text('native STEP mappings',encoding='utf-8')

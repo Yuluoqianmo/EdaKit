@@ -96,15 +96,24 @@ proc XMATIC_OLB2XML {olb xml} {
     set f [open $xml w]; fconfigure $f -encoding utf-8 -translation lf
     puts -nonewline $f $body; close $f
 }
+rename exec nativeExec
 proc exec {args} {
     incr ::calls
     array set opts [lrange $args 2 end]
+    if {[lindex $args 1] eq "olb-verify"} {
+        if {![file exists $opts(--actual)]} {error "missing readback"}
+        return [nativeExec $::env(EDAKIT_TEST_PYTHON) $::env(EDAKIT_TEST_ENTRY) olb-verify --expected $opts(--expected) --actual $opts(--actual)]
+    }
     file copy -force $opts(--part) $opts(--out)
 }
 source [lindex $argv 0]
 set key [string repeat a 64]
 set keyB [string repeat b 64]
 if {$scenario eq "no-readback"} { set ::badReadback 1 }
+if {$scenario eq "no-readback"} {
+    if {![catch {::edakit::buildOlb C2040 $input $project RP2040 $key}]} {error "unverified library accepted"}
+    puts PASS; exit 0
+}
 if {$scenario ne "hot-restart"} {
     set active [::edakit::buildOlb C2040 $input $project RP2040 $key]
     if {$::calls == 0} { error "cold build did not execute" }

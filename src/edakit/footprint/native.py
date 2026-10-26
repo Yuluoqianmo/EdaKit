@@ -249,7 +249,7 @@ def run_owned(args, folder, environment, options, log_name, stopping, timeout, l
                     raise RuntimeError('Allegro 构建已取消或超时；请确认许可证和安装配置。日志目录：' + str(folder))
                 time.sleep(.2)
             if process.returncode:
-                raise RuntimeError('Allegro 构建失败；日志：' + str(folder / log_name))
+                raise RuntimeError('Allegro 构建失败（退出码 %s）；请检查许可证、Cadence 版本及启动脚本；日志：' % process.returncode + str(folder / log_name))
         finally:
             if process.poll() is None:
                 process.terminate()
@@ -335,6 +335,15 @@ def build_footprint(component, config, *, stopping=None, timeout=150, launch=sub
     environment['PATH'] = str(root / 'tools/bin') + os.pathsep + environment.get('PATH', '')
     for variable in ('CDSROOT', 'CDS_INST_DIR', 'PCB_INST_DIR'):
         environment[variable] = str(root)
+    # Isolate only the child process from a known optional startup plugin.
+    # Do not change the user's ilinit or the interactive editor environment.
+    if environment.get('EDA365_SKILL'):
+        environment['EDA365_SKILL'] = str(folder / '__edakit_no_eda365__') + os.sep
+    atomic_write(folder / 'build-environment.json', json.dumps({
+        'cadenceRoot': str(root), 'executable': str(root / 'tools/bin/allegro.exe'),
+        'thirdPartyStartupIsolated': bool(os.environ.get('EDA365_SKILL')),
+        'mode': 'nograph-safe',
+    }, ensure_ascii=False, indent=2))
     # Use the user's actual license/product setup, isolated from open designs.
     args = [str(root / 'tools/bin/allegro.exe'), '-nograph', '-safe', '-noopengl',
             '-product', 'Allegro_performance', '-p', str(folder),

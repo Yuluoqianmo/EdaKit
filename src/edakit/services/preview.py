@@ -21,20 +21,28 @@ class PreviewService:
     def __init__(self, model_loader=model_bytes):
         self.model_loader = model_loader
 
-    def svg(self, component, kind):
+    def svg(self, component, kind, layers="all"):
         geometry = component.symbol if kind == "symbol" else component.footprint
         if geometry is None:
             raise PreviewMissing("no_" + kind)
         if kind == "symbol":
             from ..symbol.capture_lib import normalize_capture_symbol
             return render_symbol_svg(normalize_capture_symbol(geometry))
-        return render_footprint_svg(geometry)
+        from ..render.layers import filtered
+        if layers == 'all':
+            return render_footprint_svg(geometry)
+        # Keep the same framing while switching layers.
+        import re
+        complete = render_footprint_svg(geometry)
+        selected = render_footprint_svg(filtered(geometry, layers))
+        box = re.search(r'viewBox="[^"]*"', complete).group(0)
+        return re.sub(r'viewBox="[^"]*"', lambda match: box, selected, count=1)
 
-    def png(self, component, kind, size, yaw=35, pitch=55):
+    def png(self, component, kind, size, yaw=35, pitch=55, layers="all"):
         if kind == "model3d":
             if component.model3d is None:
                 raise PreviewMissing("no_model3d")
             from ..threed.assembly import placement
             data = self.model_loader(component.model3d.uuid)
             return render_model_png(data, size, yaw, pitch, placement(component.model3d, data))
-        return render_png(self.svg(component, kind), size)
+        return render_png(self.svg(component, kind, layers), size)

@@ -10,7 +10,9 @@ EdaKit 将立创器件检索、原理图器件放置、PCB 封装生成、器件
 
 [下载安装包](https://github.com/Yuluoqianmo/EdaKit/releases/latest) · [v0.1.1 发布说明](https://github.com/Yuluoqianmo/EdaKit/releases/tag/v0.1.1) · [稳定版源码](https://github.com/Yuluoqianmo/EdaKit/tree/v0.1.1)
 
-本轮更新：[0.1.1 审核修复说明](docs/发布说明-v0.1.1.md)。默认分支 `main` 同步完整发布代码。
+当前开发进度：**0.1.2rc4 候选版**，包含复审修复、OLB 成品校验、属性表冻结表头及性能与兼容性优化；自动回归 **710 通过、2 跳过**。详见 [rc4 改动与实机验收说明](docs/优化实施与验收-0.1.2rc4.md)。实际 Capture / Allegro 验收仍待完成，rc5 UI 重设计尚未实施。
+
+正式发布仍为 v0.1.1，见 [0.1.1 审核修复说明](docs/发布说明-v0.1.1.md)；默认分支 `main` 包含最新候选版代码。
 
 ## 更新与维护说明
 

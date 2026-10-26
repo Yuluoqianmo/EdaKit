@@ -95,6 +95,8 @@ def generate(board, *, source=None, output=None, bom=None, cadence_root=None, op
     def stage(message):
         if progress:
             progress(message)
+    from .retention import cleanup
+    cleanup(app_dir() / 'ibom')
     stage('正在检查 PCB 快照与输出目录')
     board = Path(board).resolve()
     if not board.is_file():
@@ -113,6 +115,7 @@ def generate(board, *, source=None, output=None, bom=None, cadence_root=None, op
     token = datetime.datetime.now().strftime('%Y%m%d_%H%M%S') + '_' + uuid.uuid4().hex[:8]
     job = app_dir() / 'ibom' / 'jobs' / token
     job.mkdir(parents=True)
+    atomic_write(job / 'owner.json', json.dumps({'pid': os.getpid()}))
     ipc, attrs = job / 'board.xml', job / 'attributes.txt'
     attrs.write_text(''.join('Component/' + key + '\n' for key in sorted({name.upper() for name in ATTRIBUTES})), encoding='ascii')
     command = [str(exe), '-b', '-p', '-t', '-c', '-d', '-D', '-O', '-k', '-f', '1.03', '-u', 'MILLIMETER', '-g', str(attrs), '-o', str(ipc), str(board)]
@@ -189,6 +192,8 @@ def generate(board, *, source=None, output=None, bom=None, cadence_root=None, op
     except Exception as error:
         atomic_write(job / 'error.txt', str(error))
         raise
+    finally:
+        (job / 'owner.json').unlink(missing_ok=True)
 
 
 def choose_bom():

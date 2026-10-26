@@ -4,6 +4,12 @@ namespace eval ::edakit::properties {
     variable loaded 1
     variable running 0
     variable snapshots [dict create]
+    variable fingerprint 1
+    variable fingerprintScanMs 0
+    variable contextKey ""
+    variable contextReadAt 0
+    variable scanKey ""
+    variable scanAt 0
     proc directory {} {
         set d [file join [::edakit::locateAppDir] properties]
         file mkdir $d
@@ -88,7 +94,17 @@ namespace eval ::edakit::properties {
         catch {$state -delete}
         return [list $root $out]
     }
+    proc diagContext {scope count scan convert} {
+        if {![info exists ::env(EDAKIT_DIAG)] || $::env(EDAKIT_DIAG) ne "1"} {return}
+        catch {
+            set dir [file join [::edakit::locateAppDir] diag]; file mkdir $dir
+            set f [open [file join $dir context-timing.log] a]
+            puts $f "[clock seconds] scope=$scope count=$count scan_us=$scan occurrence_us=$convert"
+            close $f
+        }
+    }
     proc readContextIds {scope} {
+        set timingStart [clock microseconds]
         set state [DboState]; set out [list]
         set parent [GetInstanceOccurrence]
         if {$parent eq "NULL"} { error "Activate a schematic page first" }
@@ -102,16 +118,49 @@ namespace eval ::edakit::properties {
             while {$part ne "NULL"} { lappend parts $part; set part [$iter NextPartInst $state] }
             delete_DboPagePartInstsIter $iter
         }
+        set scanDone [clock microseconds]
         foreach part $parts {
             if {[$part GetObjectType] != $::DboBaseObject_PLACED_INSTANCE} { continue }
             set occ [$part GetObjectOccurrence $parent]
             if {$occ ne "NULL"} { lappend out [DboOccurrenceToDboInstOccurrence $occ] }
         }
         catch {$state -delete}
+        diagContext $scope [llength $parts] [expr {$scanDone-$timingStart}] [expr {[clock microseconds]-$scanDone}]
         return $out
     }
     # A CEF dock can take focus away from the schematic. Cache selection while
     # the schematic is active; compare pointer strings only against fresh rows.
+    proc pageFingerprint {} {
+        variable scanKey; variable scanAt; variable fingerprintScanMs;variable scanIdentity
+        set page [GetActivePage]; set parent [GetInstanceOccurrence]
+        if {$page eq "NULL" || $parent eq "NULL"} {error "No active context"}
+        set state [DboState]
+        set iter ""
+        set failed [catch {
+            # The live occurrence pointer disambiguates repeated hierarchy; its
+            # native ID and design/page names protect pointer reuse across designs.
+            set identity [list [active] [stringCall [active] GetName] $parent [$parent GetId $state] $page [stringCall $page GetName]]
+            set now [clock milliseconds]
+            if {$fingerprintScanMs > 0 && [info exists scanIdentity] && $scanIdentity eq $identity && $now-$scanAt < $fingerprintScanMs} {
+                set key $scanKey
+            } else {
+                set began [clock microseconds]
+                set parts [list]
+                set iter [$page NewPartInstsIter $state]
+                set part [$iter NextPartInst $state]
+                while {$part ne "NULL"} {lappend parts $part;set part [$iter NextPartInst $state]}
+                delete_DboPagePartInstsIter $iter;set iter ""
+                set key [list $identity [lsort $parts]]
+                set scanKey $key;set scanAt $now
+                variable scanIdentity;set scanIdentity $identity
+                diagContext fingerprint [llength $parts] [expr {[clock microseconds]-$began}] 0
+            }
+        } reason]
+        if {$iter ne ""} {catch {delete_DboPagePartInstsIter $iter}}
+        catch {$state -delete}
+        if {$failed} {error $reason}
+        return $key
+    }
     proc captureContext {} {
         variable contextDesign
         variable contextSelected
@@ -119,7 +168,15 @@ namespace eval ::edakit::properties {
         variable contextParent
         set design [active]
         set selected [readContextIds selected]
-        set page [readContextIds page]
+        variable fingerprint;variable contextKey;variable contextReadAt
+        set now [clock milliseconds]
+        set key ""
+        set fallback [catch {set key [pageFingerprint]}]
+        if {!$fingerprint || $fallback || ![info exists contextPage] || $key ne $contextKey || $now-$contextReadAt >= 5000} {
+            set contextPage [readContextIds page]
+            set contextKey $key;set contextReadAt $now
+        }
+        set page $contextPage
         set contextSelected $selected
         set contextPage $page
         set contextParent [GetInstanceOccurrence]

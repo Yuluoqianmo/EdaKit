@@ -1,5 +1,6 @@
 """Independent export window; owns a persistent copy of Allegro's temporary snapshot."""
 import os
+import json
 import queue
 import shutil
 import subprocess
@@ -12,29 +13,52 @@ from . import exporter
 
 
 def launch(args):
+    from .retention import cleanup
+    cleanup(app_dir() / 'ibom')
     folder = app_dir() / 'ibom' / 'snapshots'
     folder.mkdir(parents=True, exist_ok=True)
     snapshot = folder / (uuid.uuid4().hex + '.brd')
-    shutil.copy2(args.board, snapshot)
-    labels = getattr(args, 'labels', None)
-    if labels:
-        shutil.copy2(labels, snapshot.with_suffix('.tsv'))
-        models = Path(str(labels) + '.models.tsv')
-        if models.is_file():
-            shutil.copy2(models, Path(str(snapshot.with_suffix('.tsv')) + '.models.tsv'))
-    command = [sys.executable]
-    if not getattr(sys, 'frozen', False):
-        command += ['-m', 'edakit']
-    command += ['ibom-export', '--dialog-worker', '--board', str(snapshot), '--source', str(args.source), '--cadence-root', str(args.cadence_root or '')]
-    if labels:
-        command += ['--labels', str(snapshot.with_suffix('.tsv'))]
+    from ..storage import atomic_write
+    process = None
     try:
-        subprocess.Popen(command, env=dict(os.environ, PYINSTALLER_RESET_ENVIRONMENT='1'),
+        atomic_write(snapshot.with_suffix('.owner.json'), json.dumps({'pid': os.getpid()}))
+        shutil.copy2(args.board, snapshot)
+        labels = getattr(args, 'labels', None)
+        if labels:
+            shutil.copy2(labels, snapshot.with_suffix('.tsv'))
+            models = Path(str(labels) + '.models.tsv')
+            if models.is_file():
+                shutil.copy2(models, Path(str(snapshot.with_suffix('.tsv')) + '.models.tsv'))
+        command = [sys.executable]
+        if not getattr(sys, 'frozen', False):
+            command += ['-m', 'edakit']
+        command += ['ibom-export', '--dialog-worker', '--board', str(snapshot), '--source', str(args.source), '--cadence-root', str(args.cadence_root or '')]
+        if labels:
+            command += ['--labels', str(snapshot.with_suffix('.tsv'))]
+        process = subprocess.Popen(command, env=dict(os.environ, PYINSTALLER_RESET_ENVIRONMENT='1'),
                          creationflags=(subprocess.DETACHED_PROCESS | subprocess.CREATE_NEW_PROCESS_GROUP) if os.name == 'nt' else 0,
                          close_fds=True, stdin=subprocess.DEVNULL, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
     except Exception:
-        snapshot.unlink(missing_ok=True)
+        # No child owns these files unless Popen has returned successfully.
+        for path in (snapshot.with_suffix('.owner.json'), snapshot,
+                     snapshot.with_suffix('.tsv'), Path(str(snapshot.with_suffix('.tsv')) + '.models.tsv')):
+            try:
+                path.unlink(missing_ok=True)
+            except OSError:
+                pass
         raise
+    try:
+        atomic_write(snapshot.with_suffix('.owner.json'), json.dumps({'pid': process.pid}))
+    except OSError:
+        # A running worker must retain its inputs. An unreadable lease prevents
+        # retention cleanup until the worker closes and removes its snapshot.
+        try:
+            snapshot.with_suffix('.owner.json').write_text('{}', encoding='utf-8')
+        except OSError:
+            try:
+                os.utime(snapshot, None)
+            except OSError:
+                pass
     return 0
 
 
@@ -174,6 +198,7 @@ def show(args):
         if busy:
             messagebox.showinfo('正在导出', '请等待当前导出完成后关闭窗口。', parent=root)
             return
+        Path(args.board).with_suffix('.owner.json').unlink(missing_ok=True)
         Path(args.board).unlink(missing_ok=True)
         Path(args.board).with_suffix('.tsv').unlink(missing_ok=True)
         Path(str(Path(args.board).with_suffix('.tsv')) + '.models.tsv').unlink(missing_ok=True)

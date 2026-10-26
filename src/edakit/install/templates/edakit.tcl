@@ -516,7 +516,7 @@ namespace eval edakit {
         set meta [file join $dir ready.meta]
         if {![file exists $meta]} { return "" }
         array set entry [readKV $meta]
-        if {[kvGet entry version] ne "2" || [kvGet entry part_name] ne $partName ||
+        if {[kvGet entry version] ne "3" || [kvGet entry part_name] ne $partName ||
             [kvGet entry project_olb] ne $projectOlb} { return "" }
         set cached [placementCacheFile $key]
         if {![sameBinaryFile $partXml [file join $dir source.xml]] ||
@@ -537,7 +537,7 @@ namespace eval edakit {
         file copy -force $partXml [file join $dir source.xml]
         file copy -force $olb [placementCacheFile $key]
         file copy -force $olb [file join $dir verified.olb]
-        writeKV $meta [list version 2 part_name $partName project_olb $projectOlb]
+        writeKV $meta [list version 3 part_name $partName project_olb $projectOlb]
         # Best-effort disk cache bound; loaded libraries may be held open by Capture.
         set entries {}
         foreach entry [glob -nocomplain -directory $root -types d *] {
@@ -554,6 +554,18 @@ namespace eval edakit {
             }
             catch {file delete $oldDir}
         }
+    }
+
+    proc verifyOlbContent {exe expected olb} {
+        if {$exe eq ""} { error "OLB content verification requires the EdaKit executable" }
+        set rt "${olb}.verify.xml"
+        catch {file delete -force $rt}
+        XMATIC_OLB2XML $olb $rt
+        if {![file exists $rt] || [file size $rt] == 0} { error "Capture did not export OLB verification XML" }
+        if {[catch {exec $exe olb-verify --expected $expected --actual $rt} reason]} {
+            error "OLB content verification failed: $reason (readback: $rt)"
+        }
+        file delete -force $rt
     }
 
     proc buildOlb {cid partXml projectOlb {partName ""} {symbolDigest ""}} {
@@ -620,11 +632,19 @@ namespace eval edakit {
             }
         }
 
+        # Keep a recoverable original before updating the shared library.
+        if {[file isfile $projectOlb]} {
+            file copy $projectOlb "${projectOlb}.[clock seconds]_[clock clicks].bak"
+        }
         # 3) accumulate into the project library (best effort -- used for later
         #    merges and for the user's own Place Part dialog).
         catch {
             if {[writeOlb $mergedXml $projectOlb] && ![olbHasPart $projectOlb $partName]} {
                 log "WARN: $projectOlb did not keep part '$partName' (file likely locked by Capture)"
+            }
+            if {[catch {verifyOlbContent $exe $partXml $projectOlb} verifyReason]} {
+                log "WARN: shared project library content verification failed: $verifyReason"
+                writeDiag "Project OLB verify: $verifyReason"
             }
         }
 
@@ -639,6 +659,8 @@ namespace eval edakit {
         if {![olbHasPart $placeOlb $partName]} {
             error "Capture did not keep part '$partName' in $placeOlb -- run menu 'LCSC -> Probe' for details"
         }
+        if {!$normalized} { error "Capture OLB normalization failed" }
+        verifyOlbContent $exe $partXml $placeOlb
         if {$normalized && [olbHasPart $placeOlb $partName 1]} {
             if {[catch {rememberPlacementOlb $symbolDigest $partXml $projectOlb $partName $placeOlb} err]} {
                 writeDiag "OLB cache store skipped: $err"

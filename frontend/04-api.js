@@ -21,6 +21,7 @@
         if (xhr.readyState !== 4 || finished) { return; }
         var data;
         try { data = window.JSON.parse(xhr.responseText); } catch (error) { reject(); return; }
+        if (!data || typeof data !== 'object' || Object.prototype.toString.call(data) === '[object Array]') { reject(); return; }
         if ((xhr.status < 200 || xhr.status >= 300) && !data.error) { reject(); return; }
         finished = true; clean();
         if (data.error) { if (fail) { fail(data.message || data.error); } } else { ok(data); }
@@ -28,7 +29,7 @@
       xhr.send(placing ? JSON.stringify(params) : null);
       return { abort: function () { if (!finished) { finished = true; clean(); xhr.abort(); } } };
     }
-    window[name] = function (data) { if (finished) { return; } finished = true; clean(); if (data.error) { if (fail) { fail(data.message || data.error); } return; } ok(data); };
+    window[name] = function (data) { if (finished) { return; } if (!data || typeof data !== 'object') { reject(); return; } finished = true; clean(); if (data.error) { if (fail) { fail(data.message || data.error); } return; } ok(data); };
     script.onerror = reject; script.src = path + "?" + parts.join("&") + "&cb=" + name + "&t=" + new Date().getTime(); timer = window.setTimeout(reject, 25000); document.body.appendChild(script);
     return { abort: function () { if (!finished) { finished = true; clean(true); } } };
   }

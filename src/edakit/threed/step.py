@@ -25,6 +25,9 @@ class StepFetcher:
         self.session = requests.Session()
         self.session.headers.update({"User-Agent": UA, "Referer": "https://easyeda.com/"})
 
+    def close(self):
+        self.session.close()
+
     def _get(self, url: str) -> bytes:
         try:
             with self.session.get(url, timeout=self.timeout, stream=True) as response:

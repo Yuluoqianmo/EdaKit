@@ -4,16 +4,16 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "edakit"
-version = "0.1.1"
+version = "0.1.2rc4"
 description = "立创(EasyEDA/LCSC) 元件库 → Cadence 一键放置工具"
 readme = "README.md"
 requires-python = ">=3.10"
 license = { text = "MIT" }
 authors = [{ name = "edakit" }]
-dependencies = ["requests>=2.28,<3", "resvg_py==0.5.0", "shapely>=2.2,<3", "svgelements==1.9.6"]
+dependencies = ["defusedxml==0.7.1", "requests>=2.28,<3", "resvg_py==0.5.0", "shapely>=2.2,<3", "svgelements==1.9.6"]
 
 [project.optional-dependencies]
-dev = ["pytest>=7", "pyinstaller>=6"]
+dev = ["pytest>=7", "pyinstaller>=6", "esprima==4.0.1"]
 
 [project.scripts]
 edakit = "edakit.cli:main"

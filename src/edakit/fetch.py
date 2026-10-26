@@ -20,13 +20,20 @@ UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) edakit"
 
 
 class Fetcher:
-    def __init__(self, timeout: float = 30.0, retries: int = 3) -> None:
+    def __init__(self, timeout: float = 30.0, retries: int = 3, budget=None) -> None:
+        self.budget = budget
         self.timeout = timeout
         self.retries = retries
         self.session = requests.Session()
         self.session.headers.update({"User-Agent": UA, "Referer": "https://easyeda.com/"})
 
+    def close(self):
+        self.session.close()
+
     def _get_json(self, url: str) -> dict[str, Any]:
+        if self.budget is not None:
+            from .services.network import request_json
+            return request_json(self.session, 'get', url, budget=self.budget, retries=self.retries)
         last: Exception | None = None
         for attempt in range(max(1, self.retries)):
             if attempt:

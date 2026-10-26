@@ -46,7 +46,8 @@ UA = (
 
 
 class MallClient:
-    def __init__(self, timeout: float = 20.0, retries: int = 4) -> None:
+    def __init__(self, timeout: float = 20.0, retries: int = 4, budget=None) -> None:
+        self.budget = budget
         self.timeout = timeout
         self.retries = retries
         self.session = requests.Session()
@@ -63,8 +64,14 @@ class MallClient:
     # ------------------------------------------------------------------ #
     # 低层
     # ------------------------------------------------------------------ #
+    def close(self):
+        self.session.close()
+
     def _post(self, path: str, body: dict[str, Any]) -> dict[str, Any]:
         url = BASE + path
+        if self.budget is not None:
+            from ..services.network import request_json
+            return request_json(self.session, 'post', url, budget=self.budget, retries=self.retries, mall=True, payload=body)
         last: Exception | None = None
         for attempt in range(self.retries):
             try:

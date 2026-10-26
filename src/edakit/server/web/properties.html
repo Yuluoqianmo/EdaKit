@@ -6,8 +6,9 @@
 <div class="hint">点击表头切换升序 / 降序，默认按 Reference 自然排序。直接编辑单元格；支持从 Excel 粘贴矩形区域。黄色为待同步修改。同一层级的多单元器件按位号合并，编辑时同步各单元。Reference 与内部标识只读。</div>
 <div id="status" role="status" aria-live="polite">请从 Capture 的 EdaKit → Component Properties 打开此页。</div>
 <div class="tablewrap"><table id="grid"><thead></thead><tbody></tbody></table><div id="empty">正在读取器件…</div></div>
-<footer><span id="draftcount">0 项待同步</span><div><button id="prev">上一页</button><span id="pageinfo"></span><button id="next">下一页</button></div></footer>
-<details id="results"><summary>同步结果</summary><div id="resultlist"></div></details>
 </main>
+<div id="bottom"><details id="results"><summary>同步结果</summary><div id="resultlist"></div></details>
+<footer><span id="draftcount">0 项待同步</span><div><button id="prev">上一页</button><span id="pageinfo"></span><button id="next">下一页</button></div></footer></div>
+
 <div id="settings" class="shade" hidden><section class="dialog" role="dialog" aria-modal="true" aria-labelledby="settingstitle"><div class="dialoghead"><h2 id="settingstitle">显示字段</h2><button id="closefields" aria-label="关闭字段设置">×</button></div><p>使用器件原生属性名称。勾选显示字段，可调整顺序及列宽。</p><div class="template"><select id="templates" aria-label="字段模板"></select><button id="loadtemplate">使用模板</button><button id="deletetemplate">删除模板</button></div><div id="fieldlist"></div><div class="newfield"><input id="newname" placeholder="新属性名称，例如 Manufacturer" aria-label="新属性名称"><button id="addfield">新增字段</button></div><p class="hint">新字段在填写并同步后，才会写入对应器件。</p><div class="template"><input id="templatename" placeholder="模板名称" aria-label="模板名称"><button id="savetemplate">保存为模板</button></div><div class="dialogfoot"><button id="savefields" class="primary">保存字段设置</button></div></section></div>
 <script src="/static/properties.js"></script></body></html>

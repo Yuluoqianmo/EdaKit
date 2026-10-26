@@ -102,6 +102,7 @@
         if (xhr.readyState !== 4 || finished) { return; }
         var data;
         try { data = window.JSON.parse(xhr.responseText); } catch (error) { reject(); return; }
+        if (!data || typeof data !== 'object' || Object.prototype.toString.call(data) === '[object Array]') { reject(); return; }
         if ((xhr.status < 200 || xhr.status >= 300) && !data.error) { reject(); return; }
         finished = true; clean();
         if (data.error) { if (fail) { fail(data.message || data.error); } } else { ok(data); }
@@ -109,7 +110,7 @@
       xhr.send(placing ? JSON.stringify(params) : null);
       return { abort: function () { if (!finished) { finished = true; clean(); xhr.abort(); } } };
     }
-    window[name] = function (data) { if (finished) { return; } finished = true; clean(); if (data.error) { if (fail) { fail(data.message || data.error); } return; } ok(data); };
+    window[name] = function (data) { if (finished) { return; } if (!data || typeof data !== 'object') { reject(); return; } finished = true; clean(); if (data.error) { if (fail) { fail(data.message || data.error); } return; } ok(data); };
     script.onerror = reject; script.src = path + "?" + parts.join("&") + "&cb=" + name + "&t=" + new Date().getTime(); timer = window.setTimeout(reject, 25000); document.body.appendChild(script);
     return { abort: function () { if (!finished) { finished = true; clean(true); } } };
   }
@@ -246,9 +247,23 @@
     request.timer = window.setTimeout(function () { finish(false, "预览等待超时，请点击“适应窗口”重试"); }, 45000);
     img.src = url + "&lane=" + encodeURIComponent(previewLane + ":" + id) + "&revision=" + (++previewRevision);
   }
+  function layerControl() {
+    var select = el("previewlayers");
+    if (!select) {
+      select = document.createElement("select"); select.id = "previewlayers";
+      select.title = "封装预览图层（不修改导出内容）"; select.style.fontSize = "11px";
+      var values = ["all", "pads", "silk", "assembly"], labels = ["全部图层", "焊盘与钻孔", "丝印", "装配外形"];
+      for (var i = 0; i < values.length; i++) { var option = document.createElement("option"); option.value = values[i]; text(option, labels[i]); select.appendChild(option); }
+      select.onchange = function () { renderPreview(false); };
+      el("zoomtools").appendChild(select);
+    }
+    select.style.display = state.preview.kind === "footprint" ? "" : "none";
+    return select.value || "all";
+  }
   function renderPreview(reset) {
     if (!state.selection.detail) { return; }
     el("tabfootprint").className = "tab" + (state.preview.kind === "footprint" ? " active" : ""); el("tabsymbol").className = "tab" + (state.preview.kind === "symbol" ? " active" : ""); el("tab3d").className = "tab" + (state.preview.kind === "model3d" ? " active" : "");
+    var layers = layerControl();
     var is3d = state.preview.kind === "model3d", has = is3d ? state.selection.detail.model3d : state.preview.kind === "footprint" ? state.selection.detail.hasFootprint : state.selection.detail.hasSymbol;
     el("orbittools").style.display = el("largeorbit").style.display = is3d ? "" : "none";
     text(el("previewhint"), is3d ? "拖动后更新旋转视角 · 滚轮缩放 · 双击打开大图" : "滚轮缩放 · 按住鼠标拖动 · 双击预览打开大图");
@@ -261,6 +276,7 @@
     var resolution = pixels > 2048 ? 4096 : pixels > 1024 ? 2048 : pixels > 512 ? 1024 : 512;
     if (is3d) { resolution = Math.min(1024, resolution); }
     var url = "/api/png/" + state.preview.kind + "/" + encodeURIComponent(state.selection.sel.cid) + ".png?token=" + encodeURIComponent(window.__edakitToken || "") + "&size=" + resolution;
+    if (state.preview.kind === "footprint") { url += "&layers=" + encodeURIComponent(layers); }
     if (is3d) { url += "&yaw=" + state.preview.yaw + "&pitch=" + state.preview.pitch; }
     var img = el(state.preview.full ? "largeimg" : "previewimg"), canvas = el(state.preview.full ? "largecanvas" : "previewcanvas");
     var cw = Math.max(port.clientWidth - 2, size + 30), ch = Math.max(port.clientHeight - 2, size + 30);

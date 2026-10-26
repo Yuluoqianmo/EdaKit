@@ -96,6 +96,7 @@ def test_config_defaults_and_save(tmp_path):
     assert cfg2.place_mode == "cursor"
     assert cfg2.footprint_lib == str(tmp_path / "lib")
     cfg2.symbol_lib = str(tmp_path / "symbols")
+    cfg2.step_lib = str(tmp_path / "step")
     cfg2.ensure_dirs()
     assert (tmp_path / "lib").is_dir()
 

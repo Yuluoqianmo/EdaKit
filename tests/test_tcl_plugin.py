@@ -129,6 +129,10 @@ if {$::withXmatic} {
     proc RegisterAction {args} { lappend ::registeredActions $args }
     proc InsertXMLMenu {args} { lappend ::insertedMenus $args }
     proc XMATIC_OLB2XML {olb xml} {
+        if {[info exists ::written($olb)]} {
+            set f [open $xml w]; fconfigure $f -encoding utf-8; puts $f $::written($olb); close $f
+            return "_0_p_DboState"
+        }
         # 模拟真实行为：XML2OLB 桩把「生成它的 XML 路径」写进 .olb；
         # 回读时把那几份 XML 原样拷回来（并集），这样插件里的
         # olbHasPart 零件名核对才能被真实地执行到。
@@ -156,12 +160,19 @@ if {$::withXmatic} {
         "_0_p_DboState"
     }
     proc XMATIC_XML2OLB {xml olb} {
+        set f [open $xml r]; fconfigure $f -encoding utf-8; set ::written($olb) [read $f]; close $f
         set fp [open $olb w]; fconfigure $fp -encoding utf-8
         puts $fp "OLB-GENERATED-FROM $xml"
         close $fp
     }
     # 模拟 `exe olb-merge --base X --part Y --out Z`: 记下调用, 并把内容粘到 Z
-    proc exec {args} {
+    rename exec nativeExec
+proc exec {args} {
+        if {[lindex $args 1] eq "olb-verify"} {
+            array set opts [lrange $args 2 end]
+            if {![file exists $opts(--actual)]} {error "missing readback"}
+            return [nativeExec $::env(EDAKIT_TEST_PYTHON) $::env(EDAKIT_TEST_ENTRY) olb-verify --expected $opts(--expected) --actual $opts(--actual)]
+        }
         set base ""; set part ""; set out ""
         for {set i 0} {$i < [llength $args]} {incr i} {
             set a [lindex $args $i]

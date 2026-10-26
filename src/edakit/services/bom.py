@@ -16,6 +16,8 @@ import zipfile
 from collections import defaultdict
 from pathlib import Path
 from xml.etree import ElementTree as ET
+from defusedxml import ElementTree as SafeET
+from defusedxml.common import DefusedXmlException
 
 from ..bridge.queue import app_dir
 from ..bridge.properties import status
@@ -49,9 +51,10 @@ def normalized(value):
 
 
 def xml(data):
-    if b'<!DOCTYPE' in data.upper() or b'<!ENTITY' in data.upper():
-        raise ValueError('不支持包含 XML 实体的工作簿')
-    return ET.fromstring(data)
+    try:
+        return SafeET.fromstring(data, forbid_dtd=True, forbid_entities=True, forbid_external=True)
+    except DefusedXmlException as exc:
+        raise ValueError('不支持包含 XML 实体的工作簿') from exc
 
 
 def workbook(data):

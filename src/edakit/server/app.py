@@ -58,8 +58,17 @@ WEB_DIR = Path(__file__).parent / "web"
 
 class ApplicationServices:
     def __init__(self):
-        self.catalog = CatalogService(lambda: MallClient(), _part_dict)
-        self.components = ComponentService(lambda: Fetcher(), parse_component)
+        from ..services.clients import ClientPool
+        budgets = Config.load().extra.get('networkBudgets', {})
+        def budget(name, default):
+            value = float(budgets.get(name, default))
+            if not 0 < value <= 120: raise ValueError('网络预算必须在 0 到 120 秒之间')
+            return value
+        catalog_budget, component_budget = budget('catalog', 10), budget('component', 15)
+        self.catalog_pool = ClientPool(lambda: MallClient(budget=catalog_budget))
+        self.component_pool = ClientPool(lambda: Fetcher(budget=component_budget))
+        self.catalog = CatalogService(self.catalog_pool.lease, _part_dict)
+        self.components = ComponentService(self.component_pool.lease, parse_component)
         self.tasks = TaskCoordinator()
         self.preview = PreviewService()
         self.placement = PlacementService(lambda *a, **kw: stage_component(*a, **kw))
@@ -82,6 +91,10 @@ class MallHandler(BaseHTTPRequestHandler):
             super().log_message(fmt, *(str(a).replace(self.server.access_token, "[redacted]") for a in args))
 
     def _send(self, code: int, body: bytes, ctype: str, *, cache: bool = False) -> None:
+        if os.environ.get('EDAKIT_DIAG') == '1':
+            logging.getLogger(__name__).info('perf route=%s status=%s elapsed_ms=%.2f',
+                urlparse(self.path).path.split('/auth/')[-1].split('/', 1)[-1], code,
+                (time.perf_counter() - self.started_at) * 1000)
         try:
             etag = '"' + hashlib.sha256(body).hexdigest() + '"' if cache else None
             if etag and self.headers.get("If-None-Match") == etag:
@@ -509,7 +522,15 @@ class MallHandler(BaseHTTPRequestHandler):
         yaw = int((qs.get("yaw") or ["35"])[0]) % 360
         pitch = max(-85, min(85, int((qs.get("pitch") or ["55"])[0])))
         try:
-            body = self.server.services.preview.png(comp, kind, size, yaw, pitch)
+            layers = (qs.get('layers') or ['all'])[0]
+            from ..render.layers import MODES
+            if layers not in MODES:
+                self._error(ValueError('未知预览图层'), 400)
+                return
+            if kind == 'footprint' and layers != 'all':
+                body = self.server.services.preview.png(comp, kind, size, yaw, pitch, layers=layers)
+            else:
+                body = self.server.services.preview.png(comp, kind, size, yaw, pitch)
         except PreviewMissing as exc:
             self._json({"error": str(exc)}, 404)
             return
@@ -627,6 +648,9 @@ class ApplicationServer(ThreadingHTTPServer):
 
     def server_close(self):
         if hasattr(self, "services"):
+            for name in ('catalog_pool', 'component_pool'):
+                pool = getattr(self.services, name, None)
+                if pool is not None: pool.close()
             self.services.tasks.close()
             if hasattr(self.services, 'footprints'):
                 self.services.footprints.close()

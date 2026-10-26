@@ -815,6 +815,12 @@ def cmd_ibom_deploy(args):
     return 0
 
 
+def cmd_olb_verify(args):
+    from .symbol.verification import verify
+    print(json.dumps({'verified': verify(args.expected, args.actual)}, ensure_ascii=False))
+    return 0
+
+
 def build_parser() -> argparse.ArgumentParser:
     p = argparse.ArgumentParser(prog="edakit", description="EdaKit / EDA 工具箱")
     p.add_argument("--version", action="version", version=__version__)
@@ -891,6 +897,12 @@ def build_parser() -> argparse.ArgumentParser:
     om.add_argument("--part", required=True)
     om.add_argument("--out", required=True)
     om.set_defaults(func=cmd_olb_merge)
+
+    ov = sub.add_parser('olb-verify', help='校验 OLB 回读内容与输入一致')
+    ov.add_argument('--expected', required=True)
+    ov.add_argument('--actual', required=True)
+    ov.set_defaults(func=cmd_olb_verify)
+
 
     ae = sub.add_parser("allegro-env", help="配置/查看/移除 Allegro 环境变量")
     ae.add_argument("--lib", help="封装库目录")

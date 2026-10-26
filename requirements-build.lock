@@ -13,3 +13,4 @@ pytest==9.1.1
 pywin32-ctypes==0.2.3 ; sys_platform == "win32"
 setuptools==84.0.0
 ruff==0.17.2
+esprima==4.0.1

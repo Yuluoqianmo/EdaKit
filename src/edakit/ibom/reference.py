@@ -2314,7 +2314,7 @@ HTML_TEMPLATE = r"""<!DOCTYPE html>
         }}
       }}
       ((data.report && data.report.warnings) || []).forEach((message) => {{
-        entries.push(`<div class="report-item warn">警告：${message}</div>`);
+        entries.push(`<div class="report-item warn">警告：${escapeHtml(message)}</div>`);
       }});
       if (!entries.length) {{
         entries.push(`<div class="report-item ok">导入检查通过，未发现明显问题。</div>`);
@@ -3244,7 +3244,7 @@ HTML_TEMPLATE = r"""<!DOCTYPE html>
         selectionMeta.textContent = String(error && error.message ? error.message : error);
       }}
       if (bomList) {{
-        bomList.innerHTML = `<div class="empty"><strong>页面脚本异常</strong>${{String(error && error.message ? error.message : error)}}</div>`;
+        bomList.innerHTML = `<div class="empty"><strong>页面脚本异常</strong>${{escapeHtml(String(error && error.message ? error.message : error))}}</div>`;
       }}
       console.error(error);
     }}
