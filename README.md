@@ -4,15 +4,15 @@
 
 EdaKit 将立创器件检索、原理图器件放置、PCB 封装生成、器件属性维护、BOM 导出和交互式焊接辅助整合到 Cadence 工作流程中，减少在不同工具之间复制和整理数据的操作。
 
-当前正式版本：**v0.1.1** · 主要验证环境：**Windows 64 位 / Cadence 17.2**
+当前稳定版本：**v0.1.2rc4** · 主要验证环境：**Windows 64 位 / Cadence 17.2**
 
 **Linux 环境尚未进行项目整体测试。** 当前安装包及 Cadence 集成功能面向 Windows；Linux CI 仅用于部分自动化兼容性检查，不代表已验证 Linux 下的安装、Capture / Allegro 集成或完整使用流程。
 
-[下载安装包](https://github.com/Yuluoqianmo/EdaKit/releases/latest) · [v0.1.1 发布说明](https://github.com/Yuluoqianmo/EdaKit/releases/tag/v0.1.1) · [稳定版源码](https://github.com/Yuluoqianmo/EdaKit/tree/v0.1.1)
+[下载安装包](https://github.com/Yuluoqianmo/EdaKit/releases/latest) · [v0.1.2rc4 发布说明](https://github.com/Yuluoqianmo/EdaKit/releases/tag/v0.1.2rc4) · [稳定版源码](https://github.com/Yuluoqianmo/EdaKit/tree/v0.1.2rc4)
 
-最新测试版本：**0.1.2rc4**，包含复审修复、OLB 成品校验、属性表冻结表头及性能与兼容性优化；自动回归 **710 通过、2 跳过**。[下载 rc4 安装包](https://github.com/Yuluoqianmo/EdaKit/releases/download/v0.1.2rc4/EdaKit-0.1.2rc4-Setup.exe)，详见 [rc4 改动与实机验收说明](docs/优化实施与验收-0.1.2rc4.md)。已通过用户在 Capture / Allegro 中的实机测试。
+最新稳定版本：**0.1.2rc4**，包含复审修复、OLB 成品校验、属性表冻结表头及性能与兼容性优化；自动回归 **710 通过、2 跳过**。[下载 rc4 安装包](https://github.com/Yuluoqianmo/EdaKit/releases/download/v0.1.2rc4/EdaKit-0.1.2rc4-Setup.exe)，详见 [rc4 改动与实机验收说明](docs/优化实施与验收-0.1.2rc4.md)。已通过用户在 Capture / Allegro 中的实机测试。
 
-正式发布仍为 v0.1.1，见 [0.1.1 审核修复说明](docs/发布说明-v0.1.1.md)；默认分支 `main` 包含最新候选版代码。
+v0.1.2rc4 已作为稳定版发布，默认分支 `main` 同步最新代码。历史修复记录见 [0.1.1 审核修复说明](docs/发布说明-v0.1.1.md)。
 
 ## 更新与维护说明
 
@@ -160,4 +160,4 @@ python -m PyInstaller --noconfirm edakit.spec
 
 欢迎通过 [Issues](https://github.com/Yuluoqianmo/EdaKit/issues) 反馈问题。请附上 EdaKit 版本、Cadence 版本、复现步骤和相关日志，提交前移除工程中的敏感信息。
 
-第三方组件及许可说明见 [v0.1.1 NOTICE](https://github.com/Yuluoqianmo/EdaKit/blob/v0.1.1/NOTICE) 和 [licenses](https://github.com/Yuluoqianmo/EdaKit/tree/v0.1.1/licenses)。EdaKit 为独立开发的辅助工具，与 Cadence、立创及其产品不存在官方隶属关系。
+第三方组件及许可说明见 [v0.1.1 NOTICE](https://github.com/Yuluoqianmo/EdaKit/blob/v0.1.1/NOTICE) 和 [licenses](https://github.com/Yuluoqianmo/EdaKit/tree/v0.1.2rc4/licenses)。EdaKit 为独立开发的辅助工具，与 Cadence、立创及其产品不存在官方隶属关系。
