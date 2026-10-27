@@ -15,3 +15,5 @@ EdaKit — Capture / Allegro 插件
 
 Capture 的 EdaKit → About EdaKit 可查看版本、检查更新、运行环境诊断并打开日志目录。
 日志默认位于 %LOCALAPPDATA%\edakit。自动更新的真实跨版本覆盖安装尚待实机验收。
+
+交互式 BOM 支持手机横竖屏、触屏缩放和平移。更新后请重新导出 HTML；旧文件不会自动更新。

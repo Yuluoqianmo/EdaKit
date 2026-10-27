@@ -2132,11 +2132,8 @@ HTML_TEMPLATE = r"""<!DOCTYPE html>
     const toggleCurrentOnlyButton = document.getElementById("toggleCurrentOnly");
     const clearDoneButton = document.getElementById("clearDone");
     const resetViewButton = document.getElementById("resetView");
-    const viewBox = {{ x: 0, y: 0, width: 1000, height: 700 }};
     const zoomConfig = {{ minScale: 1, maxScale: 12, step: 1.2 }};
     const viewport = {{ scale: 1, tx: 0, ty: 0 }};
-    const dragState = {{ active: false, startX: 0, startY: 0, originTx: 0, originTy: 0 }};
-    let suppressDrag = false;
 
     function getShortPathLabel(kind, fullPath) {{
       if (!fullPath) {{
@@ -2880,7 +2877,7 @@ HTML_TEMPLATE = r"""<!DOCTYPE html>
 
       bomList.querySelectorAll("[data-bom-id]").forEach((element) => {{
         element.addEventListener("click", (event) => {{
-          if (event.target instanceof HTMLInputElement) return;
+          if (event.target.closest("input,label")) return;
           selectRow(Number(element.dataset.bomId));
         }});
       }});
@@ -2943,13 +2940,11 @@ HTML_TEMPLATE = r"""<!DOCTYPE html>
     }}
 
     function getSvgPoint(event) {{
-      const rect = svg.getBoundingClientRect();
-      const clientX = event.clientX !== undefined ? event.clientX : 0;
-      const clientY = event.clientY !== undefined ? event.clientY : 0;
-      return {{
-        x: ((clientX - rect.left) / rect.width) * viewBox.width,
-        y: ((clientY - rect.top) / rect.height) * viewBox.height,
-      }};
+      const matrix = svg.getScreenCTM();
+      if (!matrix) return {{x: 0, y: 0}};
+      const point = svg.createSVGPoint();
+      point.x = event.clientX; point.y = event.clientY;
+      return point.matrixTransform(matrix.inverse());
     }}
 
     function zoomAtPoint(anchorX, anchorY, factor) {{
@@ -2971,53 +2966,85 @@ HTML_TEMPLATE = r"""<!DOCTYPE html>
       zoomAtPoint(point.x, point.y, factor);
     }}, {{ passive: false }});
 
+    const boardPointers = new Map();
+    let boardGesture = null;
+    let suppressClickUntil = 0;
+    let boardGestureMoved = false;
+    function gestureBasis() {{
+      const points = Array.from(boardPointers.values());
+      if (!points.length) {{ boardGesture = null; svg.classList.remove("dragging"); return; }}
+      const a = getSvgPoint(points[0]);
+      const b = points.length > 1 ? getSvgPoint(points[1]) : a;
+      boardGesture = {{x: (a.x+b.x)/2, y: (a.y+b.y)/2,
+        distance: Math.max(1, Math.hypot(a.x-b.x,a.y-b.y)),
+        scale: viewport.scale, tx: viewport.tx, ty: viewport.ty}};
+    }}
     svg.addEventListener("pointerdown", (event) => {{
-      if (suppressDrag) {{
-        suppressDrag = false;
-        return;
-      }}
-      dragState.active = true;
-      dragState.startX = event.clientX;
-      dragState.startY = event.clientY;
-      dragState.originTx = viewport.tx;
-      dragState.originTy = viewport.ty;
+      if (event.pointerType === "mouse" && event.button !== 0) return;
+      if (event.pointerType !== "mouse") event.preventDefault();
+      if (!boardPointers.size) boardGestureMoved=false;
+      boardPointers.set(event.pointerId, {{clientX:event.clientX,clientY:event.clientY}});
+      if (boardPointers.size > 1) {{boardGestureMoved=true;suppressClickUntil = performance.now()+500;}}
+      gestureBasis();
       svg.classList.add("dragging");
-      if (svg.setPointerCapture) {{
-        svg.setPointerCapture(event.pointerId);
-      }}
+      // Touch capture preserves a gesture outside the SVG. Mouse clicks retain their component target.
+      if (event.pointerType !== "mouse") svg.setPointerCapture(event.pointerId);
     }});
-
     svg.addEventListener("pointermove", (event) => {{
-      if (!dragState.active) {{
-        return;
-      }}
-      const rect = svg.getBoundingClientRect();
-      const dx = ((event.clientX - dragState.startX) / rect.width) * viewBox.width;
-      const dy = ((event.clientY - dragState.startY) / rect.height) * viewBox.height;
-      viewport.tx = dragState.originTx + dx;
-      viewport.ty = dragState.originTy + dy;
+      if (!boardPointers.has(event.pointerId) || !boardGesture) return;
+      boardPointers.set(event.pointerId, {{clientX:event.clientX,clientY:event.clientY}});
+      const points = Array.from(boardPointers.values());
+      const a = getSvgPoint(points[0]), b = points.length > 1 ? getSvgPoint(points[1]) : a;
+      const x=(a.x+b.x)/2, y=(a.y+b.y)/2;
+      if (Math.hypot(x-boardGesture.x,y-boardGesture.y)*Math.abs(svg.getScreenCTM().a)>6 || points.length>1) {{boardGestureMoved=true;suppressClickUntil=performance.now()+500;}}
+      const ratio=points.length>1 ? Math.hypot(a.x-b.x,a.y-b.y)/boardGesture.distance : 1;
+      viewport.scale=clamp(boardGesture.scale*ratio,zoomConfig.minScale,zoomConfig.maxScale);
+      const factor=viewport.scale/boardGesture.scale;
+      viewport.tx=x-(boardGesture.x-boardGesture.tx)*factor;
+      viewport.ty=y-(boardGesture.y-boardGesture.ty)*factor;
       updateSceneTransform();
     }});
-
     function stopDragging(event) {{
-      if (!dragState.active) {{
-        return;
+      if (boardGestureMoved) suppressClickUntil=performance.now()+500;
+      if (event.type === "pointerup" && event.pointerType !== "mouse" && !boardGestureMoved && boardPointers.size === 1 && performance.now() >= suppressClickUntil) {{
+        const hit = document.elementFromPoint(event.clientX,event.clientY);
+        const component = hit && hit.closest(".component");
+        if(component) {{ selectRow(Number(component.dataset.bomId)); showNotice("已从视图定位到 BOM"); suppressClickUntil=performance.now()+500; }}
       }}
-      dragState.active = false;
-      svg.classList.remove("dragging");
-      if (event && svg.releasePointerCapture) {{
-        try {{
-          svg.releasePointerCapture(event.pointerId);
-        }} catch (error) {{
-        }}
-      }}
+      boardPointers.delete(event.pointerId);
+      gestureBasis();
+    }}
+    svg.addEventListener("pointerup", stopDragging);
+    svg.addEventListener("pointercancel", stopDragging);
+    svg.addEventListener("lostpointercapture", (event) => {{ boardPointers.delete(event.pointerId); gestureBasis(); }});
+    svg.addEventListener("pointerleave", (event) => {{ if(event.pointerType === "mouse") stopDragging(event); }});
+    window.addEventListener("blur", () => {{ boardPointers.clear(); gestureBasis(); }});
+
+    function fitViewBox() {{
+      const rect=svg.getBoundingClientRect();
+      if(!rect.width||!rect.height)return;
+      const board=getBoardRect(),aspect=rect.width/rect.height;
+      const width=Math.max(board.width+80,(board.height+80)*aspect),height=width/aspect;
+      svg.setAttribute("viewBox",`${500-width/2} ${350-height/2} ${width} ${height}`);
     }}
 
-    svg.addEventListener("pointerup", stopDragging);
-    svg.addEventListener("pointerleave", stopDragging);
-    svg.addEventListener("pointercancel", stopDragging);
+    function focusSelected() {{
+      const selected = Array.from(componentLayer.querySelectorAll(".component")).filter(el => Number(el.dataset.bomId) === state.selectedBomId);
+      if (!selected.length) return;
+      const boxes=selected.map(el=>el.getBBox());
+      const minX=Math.min(...boxes.map(b=>b.x)),minY=Math.min(...boxes.map(b=>b.y));
+      const maxX=Math.max(...boxes.map(b=>b.x+b.width)),maxY=Math.max(...boxes.map(b=>b.y+b.height));
+      const rect=svg.getBoundingClientRect(),matrix=svg.getScreenCTM();
+      if(!matrix||!rect.width||!rect.height)return;
+      const center=getSvgPoint({{clientX:rect.left+rect.width/2,clientY:rect.top+rect.height/2}});
+      viewport.scale=clamp(Math.min(rect.width/Math.abs(matrix.a)*.65/Math.max(1,maxX-minX),rect.height/Math.abs(matrix.d)*.55/Math.max(1,maxY-minY)),1,12);
+      viewport.tx=center.x-(minX+maxX)/2*viewport.scale;
+      viewport.ty=center.y-(minY+maxY)/2*viewport.scale;
+      updateSceneTransform();
+    }}
 
     function renderBoard() {{
+      if (window.edakitMobile) window.edakitMobile.sync();
       if (window.edakitIBOM3D) window.edakitIBOM3D.sync();
       const board = data.board;
       const width = board.maxX - board.minX || 100;
@@ -3182,10 +3209,6 @@ HTML_TEMPLATE = r"""<!DOCTYPE html>
 
       componentLayer.querySelectorAll(".component").forEach((element) => {{
         element.style.cursor = "pointer";
-        element.addEventListener("pointerdown", (event) => {{
-          suppressDrag = true;
-          event.stopPropagation();
-        }});
         const item = comps.find((entry) => String(entry.bomId) === String(element.dataset.bomId) && entry.refdes === element.dataset.refdes);
         if (item) {{
           element.addEventListener("pointerenter", (event) => {{
@@ -3199,6 +3222,7 @@ HTML_TEMPLATE = r"""<!DOCTYPE html>
           }});
         }}
         element.addEventListener("click", () => {{
+          if (performance.now() < suppressClickUntil) return;
           hideHoverTip();
           selectRow(Number(element.dataset.bomId));
           showNotice("已从视图定位到 BOM");
@@ -3232,7 +3256,7 @@ HTML_TEMPLATE = r"""<!DOCTYPE html>
     if (data.bomRows.length) {{
       selectRow(data.bomRows[0].id);
     }}
-    window.__ibom3d = {{data, selectRow, readState: () => state, visible: () => getVisibleRows().map(row => row.id)}};
+    window.__ibom3d = {{data, selectRow, toggleDone, focusSelected, fitViewBox, zoom: (factor) => zoomAtPoint(500,350,factor), readState: () => state, visible: () => getVisibleRows().map(row => row.id)}};
     }} catch (error) {{
       const bomList = document.getElementById("bomList");
       const selectionTitle = document.getElementById("selectionTitle");
@@ -3281,6 +3305,9 @@ def render_html(payload: dict) -> str:
     page = page.replace("__STATS__", render_initial_stats(payload))
     page = page.replace("__BOM_LIST__", render_initial_bom_list(payload))
     page = page.replace("__PAYLOAD__", payload_json)
+    folder = Path(__file__).parent
+    page = page.replace("</head>", "<style>" + (folder / "mobile.css").read_text(encoding="utf-8") + "</style></head>")
+    page = page.replace("</body>", "<script>" + (folder / "mobile.js").read_text(encoding="utf-8") + "</script></body>")
     from .preview3d import embed
     return embed(page, payload)
 

@@ -23,6 +23,8 @@ a = Analysis(
         ("src/edakit/install/templates/*.il", "edakit/install/templates"),
         ("src/edakit/ibom/UPSTREAM.md", "edakit/ibom"),
         ("src/edakit/ibom/view3d.js", "edakit/ibom"),
+        ("src/edakit/ibom/mobile.js", "edakit/ibom"),
+        ("src/edakit/ibom/mobile.css", "edakit/ibom"),
         ("src/edakit/ibom/vendor/*", "edakit/ibom/vendor"),
         # 商城网页界面 —— 必须打进包，运行时 server/app.py 按 __file__ 相对定位
         ("src/edakit/server/web/*.html", "edakit/server/web"),

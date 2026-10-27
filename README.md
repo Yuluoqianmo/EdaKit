@@ -4,9 +4,9 @@
 
 EdaKit 将立创器件检索、原理图器件放置、PCB 封装生成、器件属性维护、BOM 导出和交互式焊接辅助整合到 Cadence 工作流程中，减少在不同工具之间复制和整理数据的操作。
 
-**稳定版：v0.1.6** · Windows 64 位 · 主要验证环境：Cadence 17.2
+**稳定版：v0.1.7** · Windows 64 位 · 主要验证环境：Cadence 17.2
 
-[下载安装包](https://github.com/Yuluoqianmo/EdaKit/releases/latest) · [发布说明](https://github.com/Yuluoqianmo/EdaKit/releases/tag/v0.1.6) · [使用文档](docs/README.md) · [问题反馈](https://github.com/Yuluoqianmo/EdaKit/issues)
+[下载安装包](https://github.com/Yuluoqianmo/EdaKit/releases/latest) · [发布说明](https://github.com/Yuluoqianmo/EdaKit/releases/tag/v0.1.7) · [使用文档](docs/README.md) · [问题反馈](https://github.com/Yuluoqianmo/EdaKit/issues)
 
 ## 功能介绍
 
@@ -15,7 +15,7 @@ EdaKit 将立创器件检索、原理图器件放置、PCB 封装生成、器件
 | 器件商城与建库 | 在 Capture 内搜索立创器件，预览符号、PCB 封装和 3D 模型，查看数据手册，并放置原理图器件；自动生成 PCB 封装，下载并绑定 STEP 模型。 |
 | 工程器件属性 | 以表格查看工程器件，自定义显示字段，排序、搜索、批量编辑、拖拽向下填充和双击位号定位，并将修改同步到 Capture；字段保留 `Manufacturer` 等原生属性名称。 |
 | BOM 预览与导出 | 使用 Excel 模板生成中文 BOM，编辑名称、制表人和日期，按 `Manufacturer_PN` 匹配公司物料编码，手工补充编码、增加物料或排除无需导出的项目。 |
-| Allegro 交互式 BOM | 从当前 PCB 生成可离线打开的 HTML，支持二维板图、真实模型三维预览、BOM 与器件双向定位、搜索筛选、焊接完成标记和本地进度保存。 |
+| Allegro 交互式 BOM | 从当前 PCB 生成可离线打开的 HTML，支持二维板图、真实模型三维预览、BOM 与器件双向定位、搜索筛选、焊接完成标记和本地进度保存，支持手机横竖屏及触屏操作。 |
 
 Capture 中的商城、器件属性和 BOM 共用内嵌工作台，可通过顶部标签切换。
 
@@ -29,7 +29,7 @@ Capture 中的商城、器件属性和 BOM 共用内嵌工作台，可通过顶�
 
 ## 下载与安装
 
-1. 打开 [Releases](https://github.com/Yuluoqianmo/EdaKit/releases/latest)，下载 `EdaKit-0.1.6-Setup.exe`。可使用同页的 `SHA256SUMS.txt` 校验文件完整性。
+1. 打开 [Releases](https://github.com/Yuluoqianmo/EdaKit/releases/latest)，下载 `EdaKit-0.1.7-Setup.exe`。可使用同页的 `SHA256SUMS.txt` 校验文件完整性。
 2. 保存工程并退出 Capture、Allegro。
 3. 使用实际运行 Cadence 的同一 Windows 账号启动安装包，选择 EdaKit 安装目录和 **Cadence SPB 根目录**，例如 `D:\Cadence\SPB_17.2`。
 4. 等待插件部署完成，重新打开 Capture 或 Allegro，检查菜单栏中的 **EdaKit**。
@@ -79,6 +79,8 @@ Capture 中的商城、器件属性和 BOM 共用内嵌工作台，可通过顶�
 3. 点击导出，查看实际处理进度，完成后用浏览器打开生成的 HTML。
 4. 在 BOM 与板图之间点击定位，切换顶底面或 3D 预览，逐项标记焊接完成状态。
 
+将生成的 HTML 传到手机后，在支持 JavaScript 的浏览器中打开。竖屏通过“物料 / 板图”切换，点击物料可聚焦器件；二维支持单指平移、双指缩放，三维支持单指旋转、双指缩放和平移。横屏使用右侧导航、两列物料列表及适配比例的板图。更新插件后需重新导出，旧 HTML 不会自动更新。详见 [移动端使用说明](docs/交互式BOM移动端.md)。
+
 三维预览优先使用板上绑定的 STEP 模型或 Allegro 真实网格缓存。缺少模型时本体留空，仅保留焊盘与封装丝印；丝印位号只显示当前选中的器件，以减少观察干扰。
 
 ### 5. 查看版本、检查更新与诊断
@@ -117,7 +119,7 @@ Capture 中的商城、器件属性和 BOM 共用内嵌工作台，可通过顶�
 - [器件属性编辑器](docs/器件属性编辑器-20261022.md) · [定位与拖拽填充](docs/器件属性定位与填充.md)
 - [关于、更新与诊断](docs/关于更新与诊断.md)
 - [BOM 预览与导出](docs/BOM预览与导出-20261022.md)
-- [Allegro 交互式 BOM](docs/Allegro交互式BOM-20261023.md)
+- [Allegro 交互式 BOM](docs/Allegro交互式BOM-20261023.md) · [手机横竖屏操作](docs/交互式BOM移动端.md)
 - [STEP 模型绑定与方向](docs/STP自动绑定与方向验证-20261022.md)
 - [当前项目交接](docs/项目交接.md) · [完整文档索引](docs/README.md)
 
@@ -128,7 +130,7 @@ Capture 中的商城、器件属性和 BOM 共用内嵌工作台，可通过顶�
 ```powershell
 git clone https://github.com/Yuluoqianmo/EdaKit.git
 cd EdaKit
-git checkout v0.1.6
+git checkout v0.1.7
 python -m venv .venv
 .\.venv\Scripts\Activate.ps1
 python -m pip install -r requirements-build.lock

@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "edakit"
-version = "0.1.6"
+version = "0.1.7"
 description = "立创(EasyEDA/LCSC) 元件库 → Cadence 一键放置工具"
 readme = "README.md"
 requires-python = ">=3.10"
@@ -27,6 +27,8 @@ edakit = [
     "install/templates/*.il",
     "ibom/UPSTREAM.md",
     "ibom/view3d.js",
+    "ibom/mobile.js",
+    "ibom/mobile.css",
     "ibom/vendor/*",
     "server/web/*.html",
     "server/web/*.css",
