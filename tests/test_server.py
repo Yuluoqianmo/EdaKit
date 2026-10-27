@@ -523,3 +523,77 @@ def test_properties_request_routes_are_session_bound(_isolate, monkeypatch):
     with pytest.raises(urllib.error.HTTPError) as exc:
         _get(_isolate, '/api/properties/status?session=other-capture&job=' + job)
     assert exc.value.code == 400
+
+
+def test_about_version_and_fixed_links(_isolate, monkeypatch):
+    from edakit import __version__
+    from edakit.services import about
+    _, body = _get(_isolate, '/about')
+    assert ('v' + __version__).encode() in body
+    assert b'{{EDAKIT_VERSION}}' not in body
+    calls = []
+    monkeypatch.setattr(about.webbrowser, 'open', lambda url, new: calls.append((url, new)) or True)
+    for key, url in about.LINKS.items():
+        status, raw = _post(_isolate, '/api/about/open', {'link': key})
+        assert status == 200 and json.loads(raw)['url'] == url
+    assert calls == [(url, 2) for url in about.LINKS.values()]
+    for bad in ('https://example.com', 'file:///C:/test', [], None):
+        with pytest.raises(urllib.error.HTTPError) as caught:
+            _post(_isolate, '/api/about/open', {'link': bad})
+        assert caught.value.code == 400
+    assert len(calls) == 3
+    import edakit
+    monkeypatch.setattr(edakit, '__version__', '9.8.7+qa')
+    _, changed = _get(_isolate, '/about')
+    assert b'v9.8.7+qa' in changed
+    monkeypatch.setattr(about.webbrowser, 'open', lambda *args, **kwargs: False)
+    with pytest.raises(urllib.error.HTTPError) as caught:
+        _post(_isolate, '/api/about/open', {'link': 'github'})
+    assert caught.value.code == 400
+
+
+def test_update_routes_are_async_and_validate_actions(_isolate, monkeypatch, tmp_path):
+    from edakit.services import updates
+    updater = updates.Updater(tmp_path / 'update-test')
+    monkeypatch.setattr(updates, '_manager', updater)
+    _, body = _get(_isolate, '/api/updates/status')
+    assert json.loads(body)['phase'] == 'idle'
+    _, body = _post(_isolate, '/api/updates/action', {'action': 'settings', 'autoCheck': False})
+    assert json.loads(body)['autoCheck'] is False
+    for action in ('download', 'install', 'unknown'):
+        with pytest.raises(urllib.error.HTTPError) as caught:
+            _post(_isolate, '/api/updates/action', {'action': action, 'path': 'C:/arbitrary.exe'})
+        assert caught.value.code == 400
+
+
+def test_open_logs_uses_only_application_directory(_isolate, monkeypatch):
+    from edakit.services import about
+    from edakit.config import app_dir
+    calls = []
+    monkeypatch.setattr(about.os, 'startfile', lambda path: calls.append(path), raising=False)
+    _, body = _get(_isolate, '/about')
+    assert b'openLogs' in body
+    _, raw = _post(_isolate, '/api/about/logs', {'path': 'C:/arbitrary'})
+    assert json.loads(raw)['opened'] is True
+    assert calls == [str(app_dir())]
+    monkeypatch.setattr(about.os, 'startfile', lambda path: (_ for _ in ()).throw(OSError('unavailable')), raising=False)
+    with pytest.raises(urllib.error.HTTPError) as caught:
+        _post(_isolate, '/api/about/logs', {})
+    assert caught.value.code == 400
+
+
+def test_about_probe_binds_session_and_ignores_action_override(_isolate, monkeypatch):
+    from edakit.bridge import properties
+    monkeypatch.setattr(properties, 'resolve_target', lambda value: value if value == 'diag-a' else '')
+    _, raw = _post(_isolate, '/api/about/probe', {'session': 'diag-a', 'action': 'apply'})
+    job = json.loads(raw)['job']
+    request = properties.decode(properties.directory() / (job + '.req'))
+    assert request['action'] == 'probe' and request['session'] == 'diag-a'
+    (properties.directory() / (job + '.resp')).write_text(properties.encode({
+        'ok': 1, 'action': 'probe', 'count': 1, '0.id': '', '0.state': 'done',
+        '0.message': 'XMATIC_XML2OLB OK'}), encoding='ascii')
+    _, raw = _get(_isolate, '/api/properties/status?session=diag-a&job=' + job)
+    assert json.loads(raw)['results'][0]['message'] == 'XMATIC_XML2OLB OK'
+    with pytest.raises(urllib.error.HTTPError) as caught:
+        _get(_isolate, '/api/properties/status?session=wrong&job=' + job)
+    assert caught.value.code == 400

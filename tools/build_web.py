@@ -6,7 +6,7 @@ ROOT = Path(__file__).resolve().parents[1]
 def build(check=False):
     source = ROOT / "frontend"
     target = ROOT / "src/edakit/server/web"
-    for bom in sorted((source / 'bom').glob('*')) + sorted((source / 'workbench').glob('*')):
+    for bom in sorted((source / 'bom').glob('*')) + sorted((source / 'workbench').glob('*')) + sorted((source / 'about').glob('*')):
         output = target / bom.name
         body = bom.read_text(encoding='utf-8-sig')
         if check:

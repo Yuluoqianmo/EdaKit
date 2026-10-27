@@ -136,3 +136,99 @@ puts PASS
     assert 'PASS' in result.stdout
     assert p.decode(Path(str(wire) + '.out'))['value'] == '厂商\n[exec bad]; = 😀'
     assert template.read_bytes().isascii()
+
+def test_locate_uses_snapshot_identity():
+    job = snapshot()
+    target = p.submit({'session': 'host-a', 'action': 'locate', 'snapshot': job, 'id': '0/1'})['job']
+    req = p.decode(p.directory() / (target + '.req'))
+    assert req['0.id'] == '0/1'
+    assert req['0.reference'] == 'U1'
+    assert req['design'] == 'design-1'
+    with pytest.raises(ValueError, match='Unknown component'):
+        p.submit({'session': 'host-a', 'action': 'locate', 'snapshot': job, 'id': 'missing'})
+
+
+def test_native_locate_verifies_occurrence_and_selection(tmp_path):
+    tcl = shutil.which('tclsh') or shutil.which('tclsh8.6')
+    if not tcl:
+        pytest.skip('No Tcl runtime')
+    template = Path(__file__).parents[1] / 'src/edakit/install/templates/properties.tcl'
+    driver = tmp_path / 'locate.tcl'
+    driver.write_text(r'''
+source [lindex $argv 0]
+set ::calls {}
+set ::selected {}
+set ::parent wrong
+proc DboState {} {return state}
+proc state {args} {lappend ::calls delete}
+proc occ {method args} {return 123}
+proc part {method args} {if {$method eq "GetId"} {return 77};return $::parent}
+proc selectedPart {method args} {return 77}
+proc DboOccurrenceToDboInstOccurrence {x} {return $x}
+proc GetInstanceOccurrence {} {return $::parent}
+proc GetSelectedObjects {} {return $::selected}
+proc ZoomSelection {} {lappend ::calls zoom}
+proc ::edakit::properties::stringCall {args} {return {test design.dsn}}
+proc ::edakit::properties::captureContext {} {error {Unexpected page traversal}}
+proc SelectObjectByOccId {name id update probe} {
+    if {$name ne {test design.dsn} || $id != 123 || $probe != 0} {error {Wrong native identity}}
+    lappend ::calls native
+    set ::parent occ
+    set ::selected selectedPart
+}
+::edakit::properties::locate design occ part
+if {$::calls ne {native zoom delete}} {error "Unexpected calls $::calls"}
+rename SelectObjectByOccId {}
+proc SelectObjectByOccId {args} {set ::parent wrong}
+set ::calls {}
+if {![catch {::edakit::properties::locate design occ part} err]} {error {Wrong hierarchy accepted}}
+if {[lsearch $::calls zoom]>=0 || [lindex $::calls end] ne {delete}} {error {Bad failure cleanup}}
+rename SelectObjectByOccId {}
+proc SelectObjectByOccId {args} {set ::parent occ;set ::selected {}}
+if {![catch {::edakit::properties::locate design occ part}]} {error {Missing selection accepted}}
+rename SelectObjectByOccId {}
+set ::parent occ
+proc UnSelectAll {} {set ::selected {}}
+proc SelectObjectById {id probe} {set ::selected selectedPart;lappend ::calls instance}
+set ::calls {}
+::edakit::properties::locate design occ part
+if {$::calls ne {instance zoom delete}} {error "Fallback failed: $::calls"}
+set ::parent wrong
+set ::calls {}
+if {![catch {::edakit::properties::locate design occ part}]} {error {Wrong fallback hierarchy accepted}}
+if {[lsearch $::calls instance]>=0} {error {Selected in wrong hierarchy}}
+puts PASS
+''', encoding='ascii')
+    result = subprocess.run([tcl, str(driver), str(template)], capture_output=True, text=True)
+    assert result.returncode == 0, result.stdout + result.stderr
+    assert 'PASS' in result.stdout
+
+
+def test_probe_request_does_not_require_property_snapshot():
+    job = p.submit({'session': 'host-a', 'action': 'probe'})['job']
+    req = p.decode(p.directory() / (job + '.req'))
+    assert req['action'] == 'probe' and req['session'] == 'host-a'
+    assert 'snapshot' not in req and 'design' not in req
+
+
+def test_native_probe_does_not_require_open_design(tmp_path):
+    tcl = shutil.which('tclsh') or shutil.which('tclsh8.6')
+    if not tcl:
+        pytest.skip('No Tcl runtime')
+    template = Path(__file__).parents[1] / 'src/edakit/install/templates/properties.tcl'
+    script = tmp_path / 'probe.tcl'
+    script.write_text(r'''
+source [lindex $argv 0]
+namespace eval ::edakit {
+ proc probeReport {} {return {XMATIC_XML2OLB OK}}
+ proc writeDiag {text} {set ::report $text}
+}
+proc ::edakit::properties::active {} {error {Unexpected design lookup}}
+set result [::edakit::properties::handle [dict create action probe] job]
+if {[dict get $result 0.state] ne "done" || [dict get $result 0.message] ne {XMATIC_XML2OLB OK}} {error {Probe result missing}}
+if {![string match *XMATIC_XML2OLB* $::report]} {error {Report not logged}}
+puts PASS
+''', encoding='ascii')
+    result = subprocess.run([tcl, str(script), str(template)], capture_output=True, text=True, timeout=20)
+    assert result.returncode == 0, result.stdout + result.stderr
+    assert 'PASS' in result.stdout

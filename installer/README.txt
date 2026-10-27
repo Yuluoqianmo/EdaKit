@@ -9,3 +9,9 @@ EdaKit — Capture / Allegro 插件
 
 安装部署失败时，查看安装目录 deployment.log。修正后重新运行安装包。
 更新程序后重新导出交互式 BOM，旧 HTML 不会自动更新。
+
+器件属性：双击 Reference 定位原理图器件；拖拽单元格右下角填充柄向下复制属性。
+编辑只修改草稿，点击“同步到 Capture”后才写入工程。
+
+Capture 的 EdaKit → About EdaKit 可查看版本、检查更新、运行环境诊断并打开日志目录。
+日志默认位于 %LOCALAPPDATA%\edakit。自动更新的真实跨版本覆盖安装尚待实机验收。

@@ -4,16 +4,16 @@
 
 EdaKit 将立创器件检索、原理图器件放置、PCB 封装生成、器件属性维护、BOM 导出和交互式焊接辅助整合到 Cadence 工作流程中，减少在不同工具之间复制和整理数据的操作。
 
-**稳定版：v0.1.2** · Windows 64 位 · 主要验证环境：Cadence 17.2
+**稳定版：v0.1.6** · Windows 64 位 · 主要验证环境：Cadence 17.2
 
-[下载安装包](https://github.com/Yuluoqianmo/EdaKit/releases/latest) · [发布说明](https://github.com/Yuluoqianmo/EdaKit/releases/tag/v0.1.2) · [使用文档](docs/README.md) · [问题反馈](https://github.com/Yuluoqianmo/EdaKit/issues)
+[下载安装包](https://github.com/Yuluoqianmo/EdaKit/releases/latest) · [发布说明](https://github.com/Yuluoqianmo/EdaKit/releases/tag/v0.1.6) · [使用文档](docs/README.md) · [问题反馈](https://github.com/Yuluoqianmo/EdaKit/issues)
 
 ## 功能介绍
 
 | 功能 | 说明 |
 | --- | --- |
 | 器件商城与建库 | 在 Capture 内搜索立创器件，预览符号、PCB 封装和 3D 模型，查看数据手册，并放置原理图器件；自动生成 PCB 封装，下载并绑定 STEP 模型。 |
-| 工程器件属性 | 以表格查看工程器件，自定义显示字段，排序、搜索、批量编辑，并将修改同步到 Capture；字段保留 `Manufacturer` 等原生属性名称。 |
+| 工程器件属性 | 以表格查看工程器件，自定义显示字段，排序、搜索、批量编辑、拖拽向下填充和双击位号定位，并将修改同步到 Capture；字段保留 `Manufacturer` 等原生属性名称。 |
 | BOM 预览与导出 | 使用 Excel 模板生成中文 BOM，编辑名称、制表人和日期，按 `Manufacturer_PN` 匹配公司物料编码，手工补充编码、增加物料或排除无需导出的项目。 |
 | Allegro 交互式 BOM | 从当前 PCB 生成可离线打开的 HTML，支持二维板图、真实模型三维预览、BOM 与器件双向定位、搜索筛选、焊接完成标记和本地进度保存。 |
 
@@ -29,7 +29,7 @@ Capture 中的商城、器件属性和 BOM 共用内嵌工作台，可通过顶�
 
 ## 下载与安装
 
-1. 打开 [Releases](https://github.com/Yuluoqianmo/EdaKit/releases/latest)，下载 `EdaKit-0.1.2-Setup.exe`。可使用同页的 `SHA256SUMS.txt` 校验文件完整性。
+1. 打开 [Releases](https://github.com/Yuluoqianmo/EdaKit/releases/latest)，下载 `EdaKit-0.1.6-Setup.exe`。可使用同页的 `SHA256SUMS.txt` 校验文件完整性。
 2. 保存工程并退出 Capture、Allegro。
 3. 使用实际运行 Cadence 的同一 Windows 账号启动安装包，选择 EdaKit 安装目录和 **Cadence SPB 根目录**，例如 `D:\Cadence\SPB_17.2`。
 4. 等待插件部署完成，重新打开 Capture 或 Allegro，检查菜单栏中的 **EdaKit**。
@@ -60,8 +60,9 @@ Capture 中的商城、器件属性和 BOM 共用内嵌工作台，可通过顶�
 
 1. 选择 **EdaKit → Component Properties**，读取工程器件。
 2. 在字段设置中选择需要显示的原生属性，通过搜索和排序定位器件。
-3. 直接编辑单元格、批量填写，或从 Excel 粘贴数据。
-4. 点击“同步到 Capture”，将修改写回工程器件。
+3. 双击 `Reference` 单元格定位原理图中的对应器件；多单元器件先选择具体单元。
+4. 直接编辑单元格、批量填写，或从 Excel 粘贴数据。选中可编辑单元格后，拖动右下角黑色填充柄，向下复制该值；按当前页筛选、排序后的显示顺序填充，可撤销本次填充。
+5. 点击“同步到 Capture”，将修改写回工程器件。编辑和拖拽只修改草稿，不会立即写入工程。
 
 ### 3. 生成 Excel BOM
 
@@ -79,6 +80,14 @@ Capture 中的商城、器件属性和 BOM 共用内嵌工作台，可通过顶�
 4. 在 BOM 与板图之间点击定位，切换顶底面或 3D 预览，逐项标记焊接完成状态。
 
 三维预览优先使用板上绑定的 STEP 模型或 Allegro 真实网格缓存。缺少模型时本体留空，仅保留焊盘与封装丝印；丝印位号只显示当前选中的器件，以减少观察干扰。
+
+### 5. 查看版本、检查更新与诊断
+
+选择 **EdaKit → About EdaKit**，查看版本、GitHub 仓库及发布说明。可手动检查新版本，也可设置启动时自动检查（每天最多一次）。发现更高正式版后，可下载安装包并校验完整性；点击安装前先保存工程，更新助手会等待 Capture、Allegro 和旧服务退出，再打开安装向导。
+
+“关于”页面还提供 **环境诊断** 和 **打开日志文件夹**。诊断仅在点击时执行，结果显示在页面并写入日志。日志目录为 `%LOCALAPPDATA%\edakit`，反馈问题可附 `edakit.log`、`service.log`。
+
+自动更新的真实跨版本覆盖安装尚未完成实机验收，也可直接从 Releases 下载并手动安装。
 
 ## 常见问题
 
@@ -105,7 +114,8 @@ Capture 中的商城、器件属性和 BOM 共用内嵌工作台，可通过顶�
 ## 文档
 
 - [安装、升级、卸载与构建](docs/安装包开发-20261023.md)
-- [器件属性编辑器](docs/器件属性编辑器-20261022.md)
+- [器件属性编辑器](docs/器件属性编辑器-20261022.md) · [定位与拖拽填充](docs/器件属性定位与填充.md)
+- [关于、更新与诊断](docs/关于更新与诊断.md)
 - [BOM 预览与导出](docs/BOM预览与导出-20261022.md)
 - [Allegro 交互式 BOM](docs/Allegro交互式BOM-20261023.md)
 - [STEP 模型绑定与方向](docs/STP自动绑定与方向验证-20261022.md)
@@ -118,7 +128,7 @@ Capture 中的商城、器件属性和 BOM 共用内嵌工作台，可通过顶�
 ```powershell
 git clone https://github.com/Yuluoqianmo/EdaKit.git
 cd EdaKit
-git checkout v0.1.2
+git checkout v0.1.6
 python -m venv .venv
 .\.venv\Scripts\Activate.ps1
 python -m pip install -r requirements-build.lock

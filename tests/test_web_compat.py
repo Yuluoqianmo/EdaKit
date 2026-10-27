@@ -4,7 +4,7 @@ import esprima
 import pytest
 
 WEB = Path(__file__).resolve().parents[1] / 'src/edakit/server/web'
-FILES = ['embed', 'workbench', 'properties', 'bom']
+FILES = ['embed', 'workbench', 'properties', 'bom', 'about']
 NODES = set('Program Identifier Literal ExpressionStatement BlockStatement EmptyStatement DebuggerStatement WithStatement ReturnStatement LabeledStatement BreakStatement ContinueStatement IfStatement SwitchStatement SwitchCase ThrowStatement TryStatement CatchClause WhileStatement DoWhileStatement ForStatement ForInStatement FunctionDeclaration FunctionExpression VariableDeclaration VariableDeclarator ThisExpression ArrayExpression ObjectExpression Property SequenceExpression UnaryExpression BinaryExpression AssignmentExpression UpdateExpression LogicalExpression ConditionalExpression NewExpression CallExpression MemberExpression'.split())
 
 

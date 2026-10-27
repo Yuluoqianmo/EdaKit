@@ -248,7 +248,6 @@ source [file join $tmpl "edakit.tcl"]
 
 # 菜单动作要能调用而不炸 (showProbe 会去调 tk_messageBox, 已打桩)
 catch { ::edakit::showProbe }
-catch { ::edakit::showLog }
 
 # 可选：模拟「先切到原理图，再遇上下一次轮询」（须在 armClickPlace 回放之前）
 if {[lindex $argv 5] eq "defer" || [lindex $argv 5] eq "defer-error"} {
@@ -350,14 +349,17 @@ def test_plugin_sources_and_registers_menu(run_plugin):
     assert "EdaKit top-level menu registered" in res["out"]
     assert "EdaKit Mall" in res["out"]
     assert "EdaKitEnabled" in res["out"]
-    assert "MENU-COUNT=7" in res["out"]
+    assert "MENU-COUNT=5" in res["out"]
+    assert "EdaKitProbe" not in res["out"]
+    assert "EdaKitLog" not in res["out"]
     assert "edakitBOM" in res["out"]
     assert "CALLBACK=edakitMallLegacy:1" not in res["out"]
-    assert "Diagnostics" in res["out"]
+    assert "Diagnostics" not in res["out"]
     assert "Legacy Viewer" not in res["out"]
     assert "ENABLED=true" in res["out"]
     assert "CALLBACK=edakitMall:1" in res["out"]
-    assert "CALLBACK=edakitProbe:1" in res["out"]
+    assert "CALLBACK=edakitProbe:1" not in res["out"]
+    assert "CALLBACK=edakitAbout:1" in res["out"]
     assert "started, polling queue" in res["out"]
 
 
@@ -751,5 +753,44 @@ if {![string match *scope=selected* $nav]} {error "Property scope missing"}
 puts PASS
 ''', encoding='ascii')
     result = subprocess.run([TCLSH, str(driver), str(PLUGIN)], capture_output=True, text=True, timeout=15)
+    assert result.returncode == 0, result.stdout + result.stderr
+    assert 'PASS' in result.stdout
+
+
+def test_about_menu_reuses_own_dock_without_reloading_workbench(tmp_path, monkeypatch):
+    monkeypatch.setenv('LOCALAPPDATA', str(tmp_path))
+    driver = tmp_path / 'about.tcl'
+    driver.write_text(r'''
+set actions {};set menus {}
+proc after {args} {}
+proc RegisterAction {args} {lappend ::actions [lindex $args 0]}
+proc InsertXMLMenu {args} {lappend ::menus [lindex $args 0]}
+source [lindex $argv 0]
+proc ::edakit::ensureServer {} {return http://127.0.0.1:1234/auth/token/}
+package provide orPrmWebComp 1.0
+namespace eval ::orPrm {
+ variable WDOCK_RIGHT 1;variable WDALLOW_RIGHT 2;variable WF_CEF 4
+ variable creates 0;variable loads {};variable fail 0
+ proc CreateControlBar {args} {variable creates;incr creates}
+ proc LoadResource {id page} {variable loads;lappend loads [list $id $page]}
+ proc SetTitle {args} {}
+ proc ShowWidget {id visible} {variable fail;if {$fail && $id==2} {set fail 0;error closed}}
+ proc DestroyWidget {args} {}
+}
+::edakit::openMall
+set main $::edakit::cefWidget
+for {set i 0} {$i<5} {incr i} {edakitAbout ignoredArgs}
+if {[lsearch -exact $actions EdaKitAbout]<0} {error {About action missing}}
+if {![string match *EdaKitAbout* $menus]} {error {About menu missing}}
+if {$::orPrm::creates!=2 || [llength $::orPrm::loads]!=2} {error {About was not reused}}
+if {[lindex [lindex $::orPrm::loads 1] 1] ne "http://127.0.0.1:1234/auth/token/about?session=$::edakit::sessionId"} {error {Wrong about URL}}
+set ::orPrm::fail 1
+edakitAbout
+if {$::orPrm::creates!=3 || $::edakit::cefWidget!=$main} {error {About recovery disturbed workbench}}
+::edakit::openMall
+if {[llength $::orPrm::loads]!=3} {error {Workbench reloaded}}
+puts PASS
+''', encoding='ascii')
+    result = subprocess.run([TCLSH, str(driver), str(PLUGIN)], capture_output=True, text=True, timeout=20)
     assert result.returncode == 0, result.stdout + result.stderr
     assert 'PASS' in result.stdout

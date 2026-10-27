@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "edakit"
-version = "0.1.2"
+version = "0.1.6"
 description = "立创(EasyEDA/LCSC) 元件库 → Cadence 一键放置工具"
 readme = "README.md"
 requires-python = ">=3.10"

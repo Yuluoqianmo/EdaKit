@@ -79,6 +79,13 @@ def cmd_mall(args: argparse.Namespace) -> int:
             httpd, url = serve_forever(port=args.port, verbose=args.verbose)
             print("内嵌商城服务已启动，请从 Capture 菜单打开" if managed else f"内嵌商城服务已启动: {url}embed")
             print("Capture-managed service" if managed else "Manual service: Ctrl+C to stop")
+            if managed:
+                from .services.updates import manager
+                try:
+                    manager().auto()
+                except (OSError, ValueError):
+                    import logging
+                    logging.getLogger(__name__).exception('Automatic update check could not start')
             try:
                 while not sessions or not sessions.should_stop():
                     from .bridge.sessions import maintain_queue
@@ -825,6 +832,13 @@ def build_parser() -> argparse.ArgumentParser:
     p = argparse.ArgumentParser(prog="edakit", description="EdaKit / EDA 工具箱")
     p.add_argument("--version", action="version", version=__version__)
     sub = p.add_subparsers(dest="cmd", required=True)
+
+    def update_install(args):
+        from .services.update_install import run
+        return run(args.plan)
+    ui = sub.add_parser('update-install', help=argparse.SUPPRESS)
+    ui.add_argument('--plan', required=True)
+    ui.set_defaults(func=update_install)
 
     from .ibom.exporter import command as ibom_command
     ib = sub.add_parser('ibom-export', help='从 Allegro PCB 快照一键导出离线交互式 BOM')

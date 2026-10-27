@@ -51,12 +51,12 @@ def submit(body):
     if not session:
         raise ValueError('Capture is not connected; open Properties from EdaKit in Capture')
     action = body.get('action', 'snapshot')
-    if action not in ('snapshot', 'apply', 'locate'):
+    if action not in ('snapshot', 'apply', 'locate', 'probe'):
         raise ValueError('Invalid property action')
     data = {'session': session, 'action': action, 'expires': int(time.time()) + 120, 'scope': body.get('scope', 'design')}
     if data['scope'] not in ('design', 'selected', 'page'):
         raise ValueError('Invalid scope')
-    if action != 'snapshot':
+    if action in ('apply', 'locate'):
         old = status(body.get('snapshot', ''), session)
         if old.get('state') != 'done' or not old.get('snapshot'):
             raise ValueError('Refresh the component table first')

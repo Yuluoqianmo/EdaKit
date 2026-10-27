@@ -178,6 +178,11 @@ class MallHandler(BaseHTTPRequestHandler):
                 return self._static("embed.html")
             if path in ("/embed", "/embed.html"):
                 return self._static("embed.html")
+            if path == '/api/updates/status':
+                from ..services.updates import manager
+                return self._json(manager().snapshot())
+            if path in ('/about', '/about.html'):
+                return self._static('about.html')
             if path in ('/workbench', '/workbench.html'):
                 return self._static('workbench.html')
             if path == '/api/workbench/navigation':
@@ -288,6 +293,19 @@ class MallHandler(BaseHTTPRequestHandler):
         parsed = urlparse(self.path)
         path = unquote(parsed.path)
         try:
+            if path == '/api/updates/action':
+                from ..services.updates import manager
+                return self._json(manager().command(self._read_body()))
+            if path == '/api/about/probe':
+                from ..bridge.properties import submit
+                return self._json(submit({'action': 'probe', 'session': self._read_body().get('session', '')}))
+            if path == '/api/about/logs':
+                self._read_body()
+                from ..services.about import open_logs
+                return self._json(open_logs())
+            if path == '/api/about/open':
+                from ..services.about import open_link
+                return self._json(open_link(self._read_body()))
             if path == "/api/es/place":
                 return self._do_place(self._read_body(), embedded=True)
             if path.startswith('/api/bom/'):
@@ -330,6 +348,10 @@ class MallHandler(BaseHTTPRequestHandler):
         }.get(target.suffix, "application/octet-stream")
         content = target.read_bytes()
         if target.suffix == ".html":
+            if target.name == 'about.html':
+                from .. import __version__
+                from html import escape
+                content = content.replace(b'{{EDAKIT_VERSION}}', escape(__version__).encode('utf-8'))
             content = content.replace(b"<head>", ("<head>" + bootstrap(self.server.access_token)).encode("utf-8"), 1)
         self._send(200, content, ctype, cache=target.suffix in (".css", ".js"))
 

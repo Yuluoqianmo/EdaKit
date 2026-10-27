@@ -3,7 +3,7 @@
 <main><section class="toolbar"><select id="scope" aria-label="器件范围"><option value="design">整个工程</option><option value="selected">当前选中器件</option><option value="page">当前页面</option></select><button id="refresh">读取 / 刷新</button><input id="search" type="search" placeholder="搜索位号、属性值" aria-label="搜索器件"><button id="sync" class="primary">同步到 Capture</button></section>
 <div class="context"><span id="design">等待连接 Capture…</span><span id="count"></span></div>
 <section class="bulk"><label><input type="checkbox" id="all"> 选择筛选结果</label><select id="bulkfield" aria-label="批量属性"></select><input id="bulkvalue" placeholder="批量填写的属性值" aria-label="批量属性值"><button id="bulkapply">应用到所选行</button><button id="discard">撤销草稿</button><button id="restore">恢复上次同步值</button></section>
-<div class="hint">点击表头切换升序 / 降序，默认按 Reference 自然排序。直接编辑单元格；支持从 Excel 粘贴矩形区域。黄色为待同步修改。同一层级的多单元器件按位号合并，编辑时同步各单元。Reference 与内部标识只读。</div>
+<div class="hint">点击表头切换升序 / 降序，默认按 Reference 自然排序。直接编辑单元格；支持从 Excel 粘贴矩形区域。黄色为待同步修改。选中可编辑单元格后，拖动右下角黑色填充柄可向下复制当前页同列，Esc 取消。同一层级的多单元器件按位号合并，编辑时同步各单元。Reference 与内部标识只读；双击 Reference 定位原理图，多单元器件可选择单元。</div>
 <div id="status" role="status" aria-live="polite">请从 Capture 的 EdaKit → Component Properties 打开此页。</div>
 <div class="tablewrap"><table id="grid"><thead></thead><tbody></tbody></table><div id="empty">正在读取器件…</div></div>
 </main>

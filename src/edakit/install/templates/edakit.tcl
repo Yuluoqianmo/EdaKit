@@ -911,6 +911,14 @@ namespace eval edakit {
         return $id
     }
 
+    proc openAbout {args} {
+        variable sessionId
+        set url [ensureServer]
+        if {$url eq ""} {error "Local EdaKit server is unavailable"}
+        set page "[string trimright $url /]/about?session=$sessionId"
+        return [openCefDock ::edakit::aboutWidget ::edakit::aboutPage EdaKitAbout "About EdaKit" 520 $page]
+    }
+
     proc openMall {args} {
         set url [ensureServer]
         if {$url eq ""} {
@@ -978,7 +986,7 @@ namespace eval edakit {
         }
     }
 
-    proc showProbe {args} {
+    proc probeReport {} {
         set out ""
         # Try loading first -- otherwise some installs report a false MISSING.
         catch { ensureXmatic }
@@ -990,12 +998,11 @@ namespace eval edakit {
         lappend out ""
         lappend out "exe:   [expr {$exe ne "" ? $exe : "(not found)"}]"
         lappend out "queue: [locateQueueDir]"
-        showText "edakit capability probe" [join $out "\n"]
+        return [join $out "\n"]
     }
 
-    proc showLog {args} {
-        variable logLines
-        showText "edakit log" [join $logLines "\n"]
+    proc showProbe {args} {
+        showText "edakit capability probe" [probeReport]
     }
 
     # Dynamic top-level menu; Cadence capAutoLoad examples use the same
@@ -1007,14 +1014,8 @@ namespace eval edakit {
         InsertXMLMenu [list [list "EdaKit" "Mall"] "" "" [list "action" "LCSC Mall" "0" "EdaKitMall" "EdaKitEnabled"]]
         InsertXMLMenu [list [list "EdaKit" "Properties"] "" "" [list "action" "Component Properties" "0" "EdaKitProperties" "EdaKitEnabled"]]
         InsertXMLMenu [list [list "EdaKit" "BOM"] "" "" [list "action" "BOM Preview" "0" "EdaKitBOM" "EdaKitEnabled"]]
-        InsertXMLMenu [list [list "EdaKit" "Diagnostics"] "" "" [list "popup" "Diagnostics" "0"]]
-        foreach {id label action} {
-            Probe "Capability Probe" edakitProbe
-            Log "Log" edakitLog
-        } {
-            InsertXMLMenu [list [list "EdaKit" "Diagnostics" $id] "" "" \
-                [list "action" $label "0" "EdaKit$id" "EdaKitEnabled"]]
-        }
+        InsertXMLMenu [list [list "EdaKit" "About"] "" "" [list "action" "About EdaKit" "0" "EdaKitAbout" "EdaKitEnabled"]]
+
     }
 
     proc registerMenu {} {
@@ -1028,7 +1029,7 @@ namespace eval edakit {
                 Mall edakitMall
                 Properties edakitProperties
                 BOM edakitBOM
-                Probe edakitProbe Log edakitLog
+                About edakitAbout
             } {
                 RegisterAction "EdaKit$id" "::edakit::menuTrue" "" $callback ""
             }
@@ -1071,7 +1072,7 @@ proc edakitDispatch {what} {
 proc edakitMall  {args} { edakitDispatch openMall }
 proc edakitMallLegacy {args} { edakitDispatch openMallLegacy }
 proc edakitProbe {args} { edakitDispatch showProbe }
-proc edakitLog   {args} { edakitDispatch showLog }
+proc edakitAbout {args} { edakitDispatch openAbout }
 proc edakitBOM {args} {
     if {[catch {
         set url [::edakit::ensureServer]

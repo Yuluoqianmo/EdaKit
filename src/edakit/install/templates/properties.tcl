@@ -196,7 +196,43 @@ namespace eval ::edakit::properties {
         if {[regexp {^[^?]+[0-9]+$} $reference]} { return [list [lrange [split $id /] 0 end-1] $reference] }
         return [list $id]
     }
+    proc locate {design occ part} {
+        set state [DboState]
+        catch {::edakit::writeDiag "Property locate-v3 begin"}
+        set failed [catch {
+            if {[llength [info commands SelectObjectByOccId]]} {
+                SelectObjectByOccId [stringCall $design GetName] [$occ GetId $state] 1 0
+            } else {
+                set parent [GetInstanceOccurrence]
+                if {$parent eq "NULL" || [DboOccurrenceToDboInstOccurrence [$part GetObjectOccurrence $parent]] ne $occ} {
+                    error "This Capture version requires opening the target hierarchy first"
+                }
+                UnSelectAll
+                SelectObjectById [$part GetId $state] 0
+            }
+            set parent [GetInstanceOccurrence]
+            if {$parent eq "NULL" || [DboOccurrenceToDboInstOccurrence [$part GetObjectOccurrence $parent]] ne $occ} {
+                error "Capture did not activate the requested hierarchy; refresh and retry"
+            }
+            set found 0;set partId [$part GetId $state]
+            foreach selected [GetSelectedObjects] {
+                if {![catch {$selected GetId $state} selectedId] && $selectedId eq $partId} {set found 1}
+            }
+            if {!$found} {error "Capture did not select the requested component; refresh and retry"}
+            catch {::edakit::writeDiag "Property locate-v3 selected"}
+            ZoomSelection
+        } reason]
+        catch {$state -delete}
+        # No context traversal, focus switch, timer or background state changes.
+        if {$failed} {catch {::edakit::writeDiag "Property locate-v3 error: $reason"};error $reason}
+        catch {::edakit::writeDiag "Property locate-v3 done"}
+    }
     proc handle {req job} {
+        if {[dict get $req action] eq "probe"} {
+            set report [::edakit::probeReport]
+            ::edakit::writeDiag "Capability probe:\n$report"
+            return [dict create ok 1 action probe count 1 0.id "" 0.state done 0.message $report]
+        }
         variable snapshots
         set design [active]
         set designName [stringCall $design GetName]
@@ -260,13 +296,8 @@ namespace eval ::edakit::properties {
                 lassign [dict get $objects $id] occ part reference
                 if {$reference ne [dict get $req $i.reference]} { error "Reference changed; refresh" }
                 if {$action eq "locate"} {
-                    # Selection is valid only in the currently active hierarchy.
-                    set state [DboState]
-                    set current [GetInstanceOccurrence]
-                    if {$current eq "NULL" && [info exists ::edakit::properties::contextParent]} { set current $::edakit::properties::contextParent }
-                    if {$current eq "NULL" || [DboOccurrenceToDboInstOccurrence [$part GetObjectOccurrence $current]] ne $occ} { catch {$state -delete}; error "Open this component's schematic hierarchy before locating" }
-                    SelectObjectById [$part GetId $state]
-                    catch {$state -delete}
+                    if {![dict exists $originalRows $id]} {error "Unknown snapshot component"}
+                    locate $design $occ $part
                 } elseif {$action eq "apply"} {
                     set name [dict get $req $i.name]
                     dict set out $i.name $name
