@@ -119,7 +119,7 @@ Capture 中的商城、器件属性和 BOM 共用内嵌工作台，可通过顶�
 - [BOM 预览与导出](docs/BOM预览与导出-20261022.md)
 - [Allegro 交互式 BOM](docs/Allegro交互式BOM-20261023.md)
 - [STEP 模型绑定与方向](docs/STP自动绑定与方向验证-20261022.md)
-- [完整文档索引](docs/README.md)
+- [当前项目交接](docs/项目交接.md) · [完整文档索引](docs/README.md)
 
 ## 开发与构建
 
@@ -155,8 +155,8 @@ python -m PyInstaller --noconfirm edakit.spec
 | `docs/` | 使用说明、技术文档和版本记录 |
 | `licenses/`、`NOTICE` | 第三方许可与归属说明 |
 
-## 反馈与第三方许可
+## 许可与反馈
 
 欢迎通过 [Issues](https://github.com/Yuluoqianmo/EdaKit/issues) 反馈问题。请附上 EdaKit 版本、Cadence 版本、复现步骤和相关日志，提交前移除工程中的敏感信息。
 
-第三方组件及许可说明见 [NOTICE](NOTICE) 和 [licenses](licenses)。EdaKit 为独立开发的辅助工具，与 Cadence、立创及其产品不存在官方隶属关系。
+EdaKit 原创代码采用 [MIT License](LICENSE)，允许按许可条款使用、修改和再分发。第三方组件及模型、器件数据不因项目许可而改变各自权利；第三方许可与归属见 [NOTICE](NOTICE) 和 [licenses](licenses)。EdaKit 为独立开发的辅助工具，与 Cadence、立创及其产品不存在官方隶属关系。

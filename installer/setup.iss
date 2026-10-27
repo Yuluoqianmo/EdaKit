@@ -31,6 +31,7 @@ Name: "chinesesimplified"; MessagesFile: "ChineseSimplified.isl"
 [Files]
 Source: "{#ReleaseDir}\edakit.exe"; DestDir: "{app}"; Flags: ignoreversion
 Source: "{#ReleaseDir}\edakit-cli.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\LICENSE"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\NOTICE"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\licenses\*"; DestDir: "{app}\licenses"; Flags: ignoreversion recursesubdirs createallsubdirs
 Source: "..\src\edakit\ibom\vendor\*.LICENSE"; DestDir: "{app}\licenses"; Flags: ignoreversion

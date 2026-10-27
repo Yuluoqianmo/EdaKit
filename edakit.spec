@@ -15,6 +15,8 @@ a = Analysis(
     pathex=["src"],
     binaries=[],
     datas=[
+        ("LICENSE", "."),
+        ("NOTICE", "."),
         ("licenses/*.txt", "licenses"),
         # Capture TCL 模板 (deploy 时拷进 Cadence 安装树)
         ("src/edakit/install/templates/*.tcl", "edakit/install/templates"),

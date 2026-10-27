@@ -1,6 +1,9 @@
 edakit
 ============
 
+EdaKit 原创代码采用 MIT License，全文见项目根目录 LICENSE。
+该许可不替代下述第三方组件许可，也不授予第三方模型、器件数据或商标的权利。
+
 本项目的解析器与生成器均为净室实现 (clean-room)，只依据 EasyEDA 格式与 Cadence
 API 的行为，未逐行翻译任何 AGPL 项目源码。EasyEDA 的几何格式本身不受版权保护，
 可自由按格式重写。
