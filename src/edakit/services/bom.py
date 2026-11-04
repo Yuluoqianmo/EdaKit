@@ -305,7 +305,11 @@ def from_request(body):
     result = status(body.get('snapshot', ''), body.get('session', ''))
     if result.get('state') != 'done' or 'snapshot' not in result:
         raise ValueError('请先读取整个工程的器件')
-    projected = preview(result['snapshot'], overrides=body.get('types', {}), manual_codes=body.get('codes', {}))
+    web_codes = None
+    if body.get('webMatch'):
+        from .webmatch import manager
+        web_codes = manager().result(body.get('session', ''), body['webMatch'], body.get('snapshot', ''))
+    projected = preview(result['snapshot'], codes=web_codes, overrides=body.get('types', {}), manual_codes=body.get('codes', {}))
     return adjustments(projected, body)
 
 

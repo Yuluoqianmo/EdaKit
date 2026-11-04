@@ -48,3 +48,6 @@ and https://github.com/kovacsv/occt-import-js (npm release 0.0.23).
 Full notices are distributed in licenses/three-MIT.txt and
 licenses/occt-import-js-LGPL-2.1.txt and alongside the vendor modules.
 Models and board designs retain their respective owners' rights.
+
+Experimental visible-browser matching uses websocket-client 1.9.0 (Apache-2.0).
+Full license: licenses/websocket-client-Apache-2.0.txt.

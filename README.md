@@ -4,9 +4,9 @@
 
 EdaKit 将立创器件检索、原理图器件放置、PCB 封装生成、器件属性维护、BOM 导出和交互式焊接辅助整合到 Cadence 工作流程中，减少在不同工具之间复制和整理数据的操作。
 
-**稳定版：v0.1.7** · Windows 64 位 · 主要验证环境：Cadence 17.2
+**稳定版：v0.1.8** · Windows 64 位 · 主要验证环境：Cadence 17.2
 
-[下载安装包](https://github.com/Yuluoqianmo/EdaKit/releases/latest) · [发布说明](https://github.com/Yuluoqianmo/EdaKit/releases/tag/v0.1.7) · [使用文档](docs/README.md) · [问题反馈](https://github.com/Yuluoqianmo/EdaKit/issues)
+[下载安装包](https://github.com/Yuluoqianmo/EdaKit/releases/latest) · [发布说明](https://github.com/Yuluoqianmo/EdaKit/releases/tag/v0.1.8) · [使用文档](docs/README.md) · [问题反馈](https://github.com/Yuluoqianmo/EdaKit/issues)
 
 ## 功能介绍
 
@@ -29,7 +29,7 @@ Capture 中的商城、器件属性和 BOM 共用内嵌工作台，可通过顶�
 
 ## 下载与安装
 
-1. 打开 [Releases](https://github.com/Yuluoqianmo/EdaKit/releases/latest)，下载 `EdaKit-0.1.7-Setup.exe`。可使用同页的 `SHA256SUMS.txt` 校验文件完整性。
+1. 打开 [Releases](https://github.com/Yuluoqianmo/EdaKit/releases/latest)，下载 `EdaKit-0.1.8-Setup.exe`。可使用同页的 `SHA256SUMS.txt` 校验文件完整性。
 2. 保存工程并退出 Capture、Allegro。
 3. 使用实际运行 Cadence 的同一 Windows 账号启动安装包，选择 EdaKit 安装目录和 **Cadence SPB 根目录**，例如 `D:\Cadence\SPB_17.2`。
 4. 等待插件部署完成，重新打开 Capture 或 Allegro，检查菜单栏中的 **EdaKit**。
@@ -68,7 +68,7 @@ Capture 中的商城、器件属性和 BOM 共用内嵌工作台，可通过顶�
 
 1. 选择 **EdaKit → BOM Preview**，读取整个工程。
 2. 选择 BOM 模板，填写 BOM 名称、制表人、日期等信息。
-3. 如需公司物料编码，导入编码表并配置列匹配；厂家型号使用 `Manufacturer_PN`。
+3. 如需公司物料编码，可导入编码表并配置列匹配，或填写钉钉物料总表链接并点击“登录并自动匹配”。在系统默认浏览器登录后，后台自动读取并回填当前 BOM；厂家型号使用 `Manufacturer_PN`。
 4. 检查分类及匹配结果，按需补填编码、增加手工物料或取消导出部分物料。
 5. 点击“导出 Excel”。字段不完整也允许导出，可在 Excel 中继续修改。
 
@@ -78,6 +78,7 @@ Capture 中的商城、器件属性和 BOM 共用内嵌工作台，可通过顶�
 2. 设置输出目录。默认使用板内器件信息；需要最终物料编码时，可改为关联外部 BOM。
 3. 点击导出，查看实际处理进度，完成后用浏览器打开生成的 HTML。
 4. 在 BOM 与板图之间点击定位，切换顶底面或 3D 预览，逐项标记焊接完成状态。
+
 
 将生成的 HTML 传到手机后，在支持 JavaScript 的浏览器中打开。竖屏通过“物料 / 板图”切换，点击物料可聚焦器件；二维支持单指平移、双指缩放，三维支持单指旋转、双指缩放和平移。横屏使用右侧导航、两列物料列表及适配比例的板图。更新插件后需重新导出，旧 HTML 不会自动更新。详见 [移动端使用说明](docs/交互式BOM移动端.md)。
 
@@ -130,7 +131,7 @@ Capture 中的商城、器件属性和 BOM 共用内嵌工作台，可通过顶�
 ```powershell
 git clone https://github.com/Yuluoqianmo/EdaKit.git
 cd EdaKit
-git checkout v0.1.7
+git checkout v0.1.8
 python -m venv .venv
 .\.venv\Scripts\Activate.ps1
 python -m pip install -r requirements-build.lock

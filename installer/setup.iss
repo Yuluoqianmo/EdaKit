@@ -3,7 +3,10 @@
   #define ReleaseDir "..\dist"
 #endif
 #ifndef MyAppVersion
-  #define MyAppVersion "0.1.7"
+  #define MyAppVersion "0.1.8"
+#endif
+#ifndef SetupBaseName
+  #define SetupBaseName "EdaKit-" + MyAppVersion + "-Setup"
 #endif
 [Setup]
 AppId={{8B3F2C1A-4E7D-4A9B-9C22-LCSC2CADENCE01}
@@ -13,7 +16,7 @@ DefaultDirName={autopf}\EdaKit
 DefaultGroupName=EdaKit
 DisableProgramGroupPage=yes
 OutputDir=Output
-OutputBaseFilename=EdaKit-{#MyAppVersion}-Setup
+OutputBaseFilename={#SetupBaseName}
 Compression=lzma2
 SolidCompression=yes
 ArchitecturesAllowed=x64compatible
@@ -37,6 +40,7 @@ Source: "..\licenses\*"; DestDir: "{app}\licenses"; Flags: ignoreversion recurse
 Source: "..\src\edakit\ibom\vendor\*.LICENSE"; DestDir: "{app}\licenses"; Flags: ignoreversion
 Source: "..\src\edakit\ibom\UPSTREAM.md"; DestDir: "{app}\licenses"; Flags: ignoreversion
 Source: "README.txt"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\docs\钉钉网页匹配测试.md"; DestDir: "{app}"; Flags: ignoreversion
 [Icons]
 Name: "{group}\使用说明"; Filename: "{app}\README.txt"
 Name: "{group}\卸载 EdaKit"; Filename: "{uninstallexe}"

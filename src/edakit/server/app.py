@@ -309,6 +309,20 @@ class MallHandler(BaseHTTPRequestHandler):
             if path == "/api/es/place":
                 return self._do_place(self._read_body(), embedded=True)
             if path.startswith('/api/bom/'):
+                if path == '/api/bom/webtest':
+                    from ..services.webmatch import manager
+                    from ..bridge.sessions import resolve_target
+                    body = self._read_body()
+                    if body.get('action') not in ('status', 'report', 'cancel', 'close'):
+                        if not resolve_target(body.get('session', '')):
+                            raise ValueError('请从 Capture 的 BOM 页面打开测试功能')
+                    if body.get('action') in ('start', 'auto'):
+                        from ..services.bom import from_request
+                        projection = from_request({k: v for k, v in body.items() if k != 'webMatch'})
+                        body['_models'] = list(dict.fromkeys(
+                            r['厂家型号'] for r in projection['rows']
+                            if r.get('included', True) and not r.get('manual') and r.get('厂家型号', '').strip()))
+                    return self._json(manager().command(body))
                 from ..services import bom
                 action = {'preview': bom.from_request, 'settings': bom.settings, 'upload': bom.upload, 'export': bom.export}.get(path.rsplit('/', 1)[-1])
                 if action:
@@ -349,9 +363,9 @@ class MallHandler(BaseHTTPRequestHandler):
         content = target.read_bytes()
         if target.suffix == ".html":
             if target.name == 'about.html':
-                from .. import __version__
+                from .. import __version__, __build__
                 from html import escape
-                content = content.replace(b'{{EDAKIT_VERSION}}', escape(__version__).encode('utf-8'))
+                content = content.replace(b'{{EDAKIT_VERSION}}', escape(__version__ + ' · ' + __build__).encode('utf-8'))
             content = content.replace(b"<head>", ("<head>" + bootstrap(self.server.access_token)).encode("utf-8"), 1)
         self._send(200, content, ctype, cache=target.suffix in (".css", ".js"))
 
@@ -669,6 +683,8 @@ class ApplicationServer(ThreadingHTTPServer):
             self.request_slots.release()
 
     def server_close(self):
+        from ..services.webmatch import shutdown
+        shutdown()
         if hasattr(self, "services"):
             for name in ('catalog_pool', 'component_pool'):
                 pool = getattr(self.services, name, None)
