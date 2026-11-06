@@ -26,6 +26,31 @@ def skip_desktop_without_display(monkeypatch):
 
 
 @pytest.fixture(autouse=True)
+def retry_transient_windows_tk_loader(monkeypatch):
+    """Repeated Tk interpreter setup can transiently fail on hosted Windows.
+
+    Only loader errors are retried, never widget assertions or callback errors.
+    An actually broken installation still fails after three attempts.
+    """
+    import os
+    if os.name != 'nt':
+        return
+    import gc
+    import tkinter
+    original = tkinter.Tk.__init__
+    def initialize(self, *args, **kwargs):
+        for attempt in range(3):
+            try:
+                return original(self, *args, **kwargs)
+            except tkinter.TclError as error:
+                if attempt == 2 or not any(text in str(error) for text in
+                        ('usable init.tcl', 'usable tk.tcl', 'invalid command name "tcl_findLibrary"')):
+                    raise
+                gc.collect()
+    monkeypatch.setattr(tkinter.Tk, '__init__', initialize)
+
+
+@pytest.fixture(autouse=True)
 def isolated_test_storage(tmp_path, monkeypatch, request):
     """Keep app state and generated libraries away from real user data on every OS."""
     from edakit import config
