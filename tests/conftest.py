@@ -15,6 +15,17 @@ import pytest
 
 
 @pytest.fixture(autouse=True)
+def skip_desktop_without_display(monkeypatch):
+    """Pure tests still run on Linux CI; native Tk widgets need a display."""
+    import os
+    if os.name != 'nt' and not os.environ.get('DISPLAY'):
+        import tkinter
+        def unavailable(self, *args, **kwargs):
+            pytest.skip('Native Tk UI requires a desktop display')
+        monkeypatch.setattr(tkinter.Tk, '__init__', unavailable)
+
+
+@pytest.fixture(autouse=True)
 def isolated_test_storage(tmp_path, monkeypatch, request):
     """Keep app state and generated libraries away from real user data on every OS."""
     from edakit import config

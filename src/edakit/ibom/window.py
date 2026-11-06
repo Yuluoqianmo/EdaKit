@@ -29,10 +29,21 @@ def launch(args):
             models = Path(str(labels) + '.models.tsv')
             if models.is_file():
                 shutil.copy2(models, Path(str(snapshot.with_suffix('.tsv')) + '.models.tsv'))
+            films = Path(str(labels) + '.films.tsv')
+            if films.is_file():
+                shutil.copy2(films, Path(str(snapshot.with_suffix('.tsv')) + '.films.tsv'))
         command = [sys.executable]
         if not getattr(sys, 'frozen', False):
             command += ['-m', 'edakit']
         command += ['ibom-export', '--dialog-worker', '--board', str(snapshot), '--source', str(args.source), '--cadence-root', str(args.cadence_root or '')]
+        if getattr(args, 'delivery', False):
+            command += ['--delivery']
+        if getattr(args, 'ibom_only', False):
+            command += ['--ibom-only']
+        if getattr(args, 'film_session', None):
+            from .film_bridge import register
+            register(args.film_session, args.source)
+            command += ['--film-session', str(args.film_session)]
         if labels:
             command += ['--labels', str(snapshot.with_suffix('.tsv'))]
         process = subprocess.Popen(command, env=dict(os.environ, PYINSTALLER_RESET_ENVIRONMENT='1'),
@@ -41,7 +52,8 @@ def launch(args):
     except Exception:
         # No child owns these files unless Popen has returned successfully.
         for path in (snapshot.with_suffix('.owner.json'), snapshot,
-                     snapshot.with_suffix('.tsv'), Path(str(snapshot.with_suffix('.tsv')) + '.models.tsv')):
+                     snapshot.with_suffix('.tsv'), Path(str(snapshot.with_suffix('.tsv')) + '.models.tsv'),
+                     Path(str(snapshot.with_suffix('.tsv')) + '.films.tsv')):
             try:
                 path.unlink(missing_ok=True)
             except OSError:

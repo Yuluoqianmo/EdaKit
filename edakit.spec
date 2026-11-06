@@ -22,6 +22,7 @@ a = Analysis(
         ("src/edakit/install/templates/*.tcl", "edakit/install/templates"),
         ("src/edakit/install/templates/*.il", "edakit/install/templates"),
         ("src/edakit/ibom/UPSTREAM.md", "edakit/ibom"),
+        ("src/edakit/ibom/templates/*.xlsx", "edakit/ibom/templates"),
         ("src/edakit/ibom/view3d.js", "edakit/ibom"),
         ("src/edakit/ibom/mobile.js", "edakit/ibom"),
         ("src/edakit/ibom/mobile.css", "edakit/ibom"),

@@ -226,7 +226,10 @@ def command(args):
             from .window import launch
             return launch(args)
         if args.cmd == 'ibom-export' and getattr(args, 'dialog_worker', False):
-            from .window import show
+            if getattr(args, 'delivery', False):
+                from .delivery_window import show
+            else:
+                from .window import show
             return show(args)
         if args.cmd == 'ibom-settings' and getattr(args, 'detach', False):
             # The batch launcher must exit before any modal UI is displayed.
@@ -246,6 +249,8 @@ def command(args):
                              env=child_env,
                              stdin=subprocess.DEVNULL, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
             return 0
+        if args.cmd == 'ibom-export' and getattr(args, 'delivery', False):
+            raise ValueError('生产交付需要使用 --dialog 打开配置窗口')
         if args.cmd == 'ibom-export':
             result = generate(args.board, source=args.source, output=args.output, bom=args.bom, cadence_root=args.cadence_root, open_result=args.open, labels=getattr(args, 'labels', None))
             print(json.dumps(result, ensure_ascii=False))

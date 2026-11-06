@@ -1,3 +1,5 @@
+> v0.1.9：Allegro 当前入口为 EdaKit → Production Delivery...；iBOM 已整合进生产交付窗口。详见[生产交付](生产交付.md)。下文保留早期实现记录。
+
 # Allegro 交互式 BOM
 
 更新：2026-10-23。用户已确认当前显示效果可用，并要求清理项目及同步 Git。

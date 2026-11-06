@@ -101,14 +101,14 @@ def test_export_standalone_strings_numeric_counts_and_template_styles():
     original = bom.export_bytes(result, {'title': 'OLD PRIVATE', 'date': '2020-01-01'})
     data = bom.export_bytes(result, meta, original)
     with bom.workbook(data) as z:
-        rows = bom.cells(z, 'xl/worksheets/sheet1.xml')
+        rows = bom.cells(z, 'xl/worksheets/sheet2.xml')
         assert rows[0]['A'] == '新 BOM'
         assert rows[2]['J'] == '0001'
         assert rows[2]['E'] == '=HYPERLINK("x")'
         assert rows[2]['G'] == '1'
-        assert not any('external' in n or 'sharedStrings' in n for n in z.namelist())
+        assert not any('external' in n for n in z.namelist())
         assert not any(b'OLD PRIVATE' in z.read(n) for n in z.namelist())
-        sheet = ET.fromstring(z.read('xl/worksheets/sheet1.xml'))
+        sheet = ET.fromstring(z.read('xl/worksheets/sheet2.xml'))
         assert not sheet.findall('.//' + bom.tag('f'))
         assert sheet.find('.//' + bom.tag('c') + '[@r="E3"]').get('t') == 'inlineStr'
 
@@ -210,7 +210,7 @@ def test_manual_codes_used_by_export_without_capture_write(tmp_path, monkeypatch
     exported = bom.export({'codes': {first['editId']: '00123'}, 'folder': str(tmp_path), 'metadata': {'title': 'BOM', 'date': '2026-10-22'}})
     from pathlib import Path
     with bom.workbook(Path(exported['path']).read_bytes()) as z:
-        assert bom.cells(z, 'xl/worksheets/sheet1.xml')[2]['J'] == '00123'
+        assert bom.cells(z, 'xl/worksheets/sheet2.xml')[2]['J'] == '00123'
     assert '物料编码' not in snap['rows'][0]['props']
 
 
@@ -228,7 +228,7 @@ def test_bom_add_exclude_and_export_resequence(tmp_path, monkeypatch):
     exported = bom.export(dict(body, folder=str(tmp_path), metadata={'title': 'manual BOM', 'date': '2026-10-22'}))
     from pathlib import Path
     with bom.workbook(Path(exported['path']).read_bytes()) as z:
-        cells = bom.cells(z, 'xl/worksheets/sheet1.xml')
+        cells = bom.cells(z, 'xl/worksheets/sheet2.xml')
     assert len(cells) == 3
     assert cells[2]['C'] == 'M3 螺钉'
     assert cells[2]['G'] == '4'
@@ -252,7 +252,7 @@ def test_optional_fields_conflicts_and_blank_manual_quantity_export(tmp_path, mo
     from pathlib import Path
     assert Path(exported['path']).name.startswith('BOM_')
     with bom.workbook(Path(exported['path']).read_bytes()) as z:
-        rows = bom.cells(z, 'xl/worksheets/sheet1.xml')
+        rows = bom.cells(z, 'xl/worksheets/sheet2.xml')
     assert len(rows) == 4
     assert rows[0]['A'] == ''
     assert rows[3]['G'] == ''

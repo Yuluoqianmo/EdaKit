@@ -42,6 +42,7 @@ def test_window_launcher_owns_copy_of_temporary_board(setup, monkeypatch):
     labels = folder / 'labels.tsv'
     labels.write_text('native text data', encoding='utf-8')
     Path(str(labels)+'.models.tsv').write_text('native STEP mappings',encoding='utf-8')
+    Path(str(labels)+'.films.tsv').write_text('EDAKIT_FILMS\t1\nEND\t0\n',encoding='utf-8')
     args = SimpleNamespace(board=str(board), source=str(folder / 'actual.brd'), cadence_root='D:/Cadence', labels=str(labels))
     assert window.launch(args) == 0
     command, options = calls[0]
@@ -51,6 +52,7 @@ def test_window_launcher_owns_copy_of_temporary_board(setup, monkeypatch):
     assert options['env']['PYINSTALLER_RESET_ENVIRONMENT'] == '1'
     assert Path(command[command.index('--labels') + 1]).read_text(encoding='utf-8') == 'native text data'
     assert Path(command[command.index('--labels') + 1]+'.models.tsv').read_text(encoding='utf-8') == 'native STEP mappings'
+    assert Path(command[command.index('--labels') + 1]+'.films.tsv').read_text(encoding='utf-8') == 'EDAKIT_FILMS\t1\nEND\t0\n'
 
 
 def test_native_labels_keep_board_position_rotation_and_size(setup):

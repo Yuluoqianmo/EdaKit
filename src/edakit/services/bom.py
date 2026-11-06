@@ -115,6 +115,10 @@ def table(data, name, sheet=''):
     with workbook(data) as z:
         available = sheets(z)
         selected = [s for s in available if s[0] == sheet] if sheet else available[:1]
+        if not sheet and len(available) == 2:
+            candidate = cells(z, available[1][1])
+            if len(candidate) >= 2 and [candidate[1].get(chr(65+i), '') for i in range(10)] == HEADERS:
+                selected = available[1:2]
         if not selected:
             raise ValueError('找不到所选工作表')
         return cells(z, selected[0][1])
@@ -162,11 +166,11 @@ def _upload(body):
     if kind == 'template':
         with workbook(data) as z:
             available = sheets(z)
-            if len(available) != 1:
+            if len(available) not in (1, 2):
                 raise ValueError('模板须为单工作表，第二行须包含十列中文表头')
             if 'xl/styles.xml' not in z.namelist():
                 raise ValueError('模板缺少单元格样式，请在 Excel 中重新保存')
-            rows = cells(z, available[0][1])
+            rows = cells(z, available[-1][1])
             if len(rows) < 3 or [rows[1].get(chr(65 + i), '') for i in range(10)] != HEADERS:
                 raise ValueError('模板第二行须依次为：' + '、'.join(HEADERS))
         atomic_write(directory() / 'template.xlsx', data)
@@ -367,6 +371,23 @@ def cell(ref, value, style='0', numeric=False):
 
 def export_bytes(result, metadata, template=None):
     """Build a standalone .xlsx; template style IDs remain valid and unchanged."""
+    if template is not None:
+        with workbook(template) as z:
+            two_sheets = len(sheets(z)) == 2
+        if not two_sheets:
+            # Older installations persist a single-sheet template. Migrate the
+            # export layout so an upgrade always includes the report cover.
+            from . import report_template
+            template = report_template.path('bom').read_bytes()
+            two_sheets = True
+        if two_sheets:
+            from . import report_template
+            return report_template.fill(template, [[r[name] for name in HEADERS] for r in result['rows']], dict(metadata, kind='单板BOM'), numeric=(0, 6))
+    if template is None:
+        from . import report_template
+        return report_template.fill(report_template.path('bom').read_bytes(),
+            [[r[name] for name in HEADERS] for r in result['rows']],
+            dict(metadata, kind='单板BOM'), numeric=(0, 6))
     root = ET.Element(tag('worksheet'))
     styles = b'<?xml version="1.0" encoding="UTF-8"?><styleSheet xmlns="' + NS.encode() + b'"><fonts count="1"><font><sz val="11"/><name val="Microsoft YaHei"/></font></fonts><fills count="2"><fill><patternFill patternType="none"/></fill><fill><patternFill patternType="gray125"/></fill></fills><borders count="1"><border/></borders><cellStyleXfs count="1"><xf/></cellStyleXfs><cellXfs count="1"><xf fontId="0" fillId="0" borderId="0" numFmtId="0" applyAlignment="1"><alignment wrapText="1" vertical="center"/></xf></cellXfs></styleSheet>'
     theme = None
@@ -432,9 +453,10 @@ def export(body):
     if not result['rows']:
         raise ValueError('没有可导出的器件')
     meta = body.get('metadata', {})
-    if not isinstance(meta, dict) or not all(isinstance(meta.get(k, ''), str) and len(meta.get(k, '')) <= 300 for k in ('title', 'author', 'date')):
+    if not isinstance(meta, dict) or not all(isinstance(meta.get(k, ''), str) and len(meta.get(k, '')) <= 300 for k in ('title', 'author', 'date', 'coverTitle', 'version', 'reviewer', 'approver', 'changes', 'documentNumber', 'documentStatus')):
         raise ValueError('BOM 抬头字段无效')
-    meta = {k: meta.get(k, '') for k in ('title', 'author', 'date')}
+    meta = {k: meta.get(k, '') for k in ('title', 'author', 'date', 'coverTitle', 'version', 'reviewer', 'approver', 'changes', 'documentNumber', 'documentStatus')}
+    meta['documentStatus'] = meta['documentStatus'] or '正式'
     if meta['date']:
         try:
             datetime.date.fromisoformat(meta['date'].replace('.', '-'))

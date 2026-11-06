@@ -16,7 +16,7 @@ import uuid
 
 from .webmatch_browser import BrowserReader, WebMatchError, document_url
 
-BUILD = '0.1.8'
+BUILD = '0.1.9'
 
 
 def column_name(number):

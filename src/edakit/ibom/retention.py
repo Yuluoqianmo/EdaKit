@@ -62,7 +62,8 @@ def cleanup(root, *, now=None, days=30):
                 if category == 'jobs':
                     shutil.rmtree(item)
                 else:
-                    for path in (item, item.with_suffix('.tsv'), Path(str(item.with_suffix('.tsv')) + '.models.tsv'), owner):
+                    for path in (item, item.with_suffix('.tsv'), Path(str(item.with_suffix('.tsv')) + '.models.tsv'),
+                                 Path(str(item.with_suffix('.tsv')) + '.films.tsv'), owner):
                         path.unlink(missing_ok=True)
             except OSError:
                 continue  # locked by Cadence or another cleanup; retry next export

@@ -9,5 +9,5 @@
     install     部署到 Cadence 安装树
 """
 
-__version__ = "0.1.8"
+__version__ = "0.1.9"
 __build__ = "正式版"
