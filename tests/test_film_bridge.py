@@ -50,7 +50,7 @@ def test_roundtrip_add_rename_delete_layers_and_selected_output(session):
     files.append(dict(id='manual', name='NEW_FILE', layers=[OUTLINE], negative=False, mirror=True))
     def sender(host, nonce):
         assert host['pid'] == 987
-        request = Path(str(base)+'.request').read_text(encoding='mbcs')
+        request = Path(str(base)+'.request').read_text(encoding='mbcs' if b.os.name == 'nt' else 'utf-8')
         assert f'F\tMY_TOP\t0\t0\t{baseline[1]["name"]}\tETCH/TOP' in request
         assert f'F\t{deleted["name"]}\t' not in request
         assert 'F\tNEW_FILE\t0\t1\t*\t'+OUTLINE in request
