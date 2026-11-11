@@ -261,7 +261,7 @@ class DeliveryWindow:
             options = list(field['choices'])
             if variable.get() and variable.get() not in options:
                 options.append(variable.get())
-            widget = ttk.Combobox(block, textvariable=variable, values=('',)+tuple(options), state='readonly')
+            widget = ttk.Combobox(block, textvariable=variable, values=('',)+tuple(options), state='normal' if label == '板框层' else 'readonly')
         else:
             widget = ttk.Entry(block, textvariable=variable)
         widget.grid(row=1, column=1, sticky='ew')
@@ -299,7 +299,7 @@ class DeliveryWindow:
             ('instructions', '加工说明 Excel', 'PCB 制板要求与钢网说明'),
             ('ibom', '交互式 iBOM', '离线查看元件与装配位置')):
             ttk.Separator(heading).pack(fill='x')
-            card = OutputCard(heading, title, description, self.selected_outputs[key], 'Gerber /' if key == 'gerber' else '输出目录')
+            card = OutputCard(heading, title, description, self.selected_outputs[key], self.source.stem+'_art /' if key == 'gerber' else '输出目录')
             card.pack(fill='x')
             self.controls.append(card)
             if key == 'coordinates':
@@ -596,8 +596,9 @@ class DeliveryWindow:
         from tkinter import ttk
         self.canvases['PCB 参数'].finish_edit()
         self.busy = busy
+        outline_widget = next((w for f, _, w in self.entries if f['label'] == '板框层'), None)
         for widget in self.controls+[w for _, _, w in self.entries]:
-            widget.configure(state='disabled' if busy else 'readonly' if isinstance(widget, ttk.Combobox) else 'normal')
+            widget.configure(state='disabled' if busy else 'readonly' if isinstance(widget, ttk.Combobox) and widget is not outline_widget else 'normal')
         self.update_bom_source()
         self.gerber.set_busy(busy)
         self.update_output_selection()
@@ -717,13 +718,13 @@ class DeliveryWindow:
         count, prior_auto = 0, self.previous.get('autoValues', {})
         for field, variable, widget in self.entries:
             key = field['sheet']+'!'+field['ref']
-            choices = metadata.get('choices', {}).get(field['label'])
+            choices = list(self.gerber.outline_entry.cget('values')) if field['label'] == '板框层' else metadata.get('choices', {}).get(field['label'])
             if choices is not None and isinstance(widget, ttk.Combobox):
                 options = list(choices)
                 if variable.get() and variable.get() not in options:
                     options.append(variable.get())
                 widget.configure(values=('',)+tuple(options))
-                self.sources[key].configure(text='已识别候选层，请选择。' if options else '未发现板框候选层。')
+                self.sources[key].configure(text='可从 PCB 层中选择或手动输入 Class/Subclass；请核对实际外板框。')
             found = metadata['values'].get(field['label'])
             if found is not None and field['sheet'] == 'PCB说明' and field['label'] in manufacturing.REFERENCE_ONLY:
                 self.references[field['label']] = found

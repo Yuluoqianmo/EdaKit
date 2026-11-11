@@ -14,6 +14,16 @@ def test_bom_mode_shortcut_and_settings_roundtrip(tmp_path, monkeypatch):
     try:
         root.update()
         assert not {'设计人员电话', '其他'}.intersection(f['label'] for f, _, _ in view.entries)
+        view.apply_metadata({'values': {}, 'choices': {'板框层': ['BOARD GEOMETRY/CUTOUT']},
+                             'film_layers': ['BOARD GEOMETRY/OUTLINE', 'BOARD GEOMETRY/DESIGN_OUTLINE', 'BOARD GEOMETRY/CUTOUT']})
+        outline_field = next(widget for f, _, widget in view.entries if f['label'] == '板框层')
+        assert 'BOARD GEOMETRY/OUTLINE' in outline_field.cget('values')
+        outline_field.set('BOARD GEOMETRY/OUTLINE')
+        assert view.gerber.outline.get() == 'BOARD GEOMETRY/OUTLINE'
+        view.gerber.outline_entry.set('BOARD GEOMETRY/DESIGN_OUTLINE')
+        assert outline_field.get() == 'BOARD GEOMETRY/DESIGN_OUTLINE'
+        view.set_busy(True); view.set_busy(False)
+        assert not outline_field.instate(['disabled', 'readonly'])
         button, body = view.collapsibles['coordinate-cover']
         assert not body.winfo_manager()
         wrapper = button.master

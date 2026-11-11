@@ -13,6 +13,24 @@ from ..config import app_dir
 ROLES = {'outline': '板框', 'copper': '铜层', 'mask': '阻焊', 'silk': '丝印', 'paste': '锡膏', 'custom': '自定义'}
 
 
+def outline_choices(candidates=(), known=(), records=()):
+    """Offer native board layers even when geometry heuristics miss them."""
+    layers = set(candidates)
+    layers.update(known)
+    layers.update(layer for record in records for layer in record.get('layers', []))
+    layers = {s for s in layers if '/' in s and s.split('/', 1)[0] in ('BOARD GEOMETRY', 'MANUFACTURING') and s.rsplit('/', 1)[-1].upper() != 'CUTOUT'}
+    return sorted(layers, key=lambda s: (s != 'BOARD GEOMETRY/OUTLINE', s != 'BOARD GEOMETRY/DESIGN_OUTLINE', s))
+
+
+def preferred_outline(layers):
+    """Prefer standard outer-board names; leave custom layers to the user."""
+    for subclass in ('OUTLINE', 'DESIGN_OUTLINE'):
+        matches = [s for s in layers if '/' in s and s.rsplit('/', 1)[-1].upper().replace(' ', '_') == subclass]
+        if matches:
+            return min(matches, key=lambda s: (not s.startswith('BOARD GEOMETRY/'), s))
+    return ''
+
+
 def film_changes(baseline, current):
     """Compare by stable native ID so a rename remains one modification."""
     before = {file['id']: file for file in baseline}

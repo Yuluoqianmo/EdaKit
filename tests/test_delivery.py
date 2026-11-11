@@ -169,8 +169,8 @@ def test_film_selection_is_passed_to_artwork_and_validated_against_board(job, tm
         return original(cmd, cwd=cwd, **kwargs)
     result = d.run(**dict(job, runner=runner), outputs=['gerber'], film_names=['BOTTOM'], output=tmp_path/'subset')
     assert result['files'] == 2
-    assert (tmp_path/'subset/Gerber/BOTTOM.art').is_file()
-    assert not (tmp_path/'subset/Gerber/TOP.art').exists()
+    assert (tmp_path/'subset/design_art/BOTTOM.art').is_file()
+    assert not (tmp_path/'subset/design_art/TOP.art').exists()
     for invalid in ([], ['MISSING'], ['TOP', 'TOP']):
         with pytest.raises(ValueError, match='Film'):
             d.run(**dict(job, runner=runner), outputs=['gerber'], film_names=invalid, output=tmp_path/'invalid')
@@ -223,8 +223,9 @@ def test_complete_export_reuses_directory_and_preserves_other_files(job):
     assert result['folder'] == str(dest) and result['components'] == 1
     assert result['files'] == 6 and result['warnings']
     assert 'no routing required' in Path(result['log']).read_text()
-    assert (dest/'Gerber/design-1-2.drl').is_file()
+    assert (dest/'design_art/design-1-2.drl').is_file()
     assert (dest/'keep.txt').read_text() == 'keep'
+
     assert job['board'].read_bytes() == b'original board'
     (dest/'design-iBOM.html').write_text('previous')
     with pytest.raises(ValueError, match='同名'):
@@ -233,6 +234,16 @@ def test_complete_export_reuses_directory_and_preserves_other_files(job):
     d.run(**job, overwrite=True)
     assert (dest/'design-iBOM.html').read_text() == 'offline ibom'
     assert (dest/'keep.txt').read_text() == 'keep'
+
+
+def test_gerber_folder_uses_original_board_name_without_zip(job):
+    job['source'] = job['source'].with_name('BZ_Convert_PWR.brd')
+    result = d.run(**job, outputs=['gerber'])
+    destination = Path(result['folder'])
+    assert (destination/'BZ_Convert_PWR_art/TOP.art').is_file()
+    assert (destination/'BZ_Convert_PWR_art/BZ_Convert_PWR-1-2.drl').is_file()
+    assert not (destination/'Gerber').exists()
+    assert not list(destination.glob('*.zip'))
 
 
 def test_manufacturing_error_does_not_publish_partial_outputs(job):
@@ -253,7 +264,7 @@ def test_publication_failure_rolls_back_existing_files(job, monkeypatch):
     (dest/'design-iBOM.html').write_text('old')
     copy = d.shutil.copy2
     def fail(src, target, *args, **kwargs):
-        if Path(target) == dest/'Gerber/TOP.art':
+        if Path(target) == dest/'design_art/TOP.art':
             raise OSError('disk full')
         return copy(src, target, *args, **kwargs)
     monkeypatch.setattr(d.shutil, 'copy2', fail)
@@ -273,7 +284,7 @@ def test_custom_output_uses_builtin_template_and_automatically_finds_project_par
     destination = job['source'].parent/'custom destination'
     result = d.run(**job, output=destination)
     assert result['folder'] == str(destination)
-    assert (destination/'Gerber/design-1-2.drl').is_file()
+    assert (destination/'design_art/design-1-2.drl').is_file()
     assert (destination/'design-iBOM.html').is_file()
     assert (destination/'design-坐标文件.xlsx').is_file()
     fields = d.template_fields((destination/'design-加工说明.xlsx').read_bytes())
@@ -331,7 +342,7 @@ def test_selected_outputs_only_run_requested_steps(job, monkeypatch, mask):
         job['fields'] += [dict(sheet='PCB说明', label='PCB层数', value='6'), dict(sheet='PCB说明', label='表面处理', value='有铅喷锡')]
     result = d.run(**job, outputs=selected)
     destination = Path(result['folder'])
-    assert (destination/'Gerber').exists() == ('gerber' in selected)
+    assert (destination/'design_art').exists() == ('gerber' in selected)
     for key, suffix in [('coordinates', '-坐标文件.xlsx'), ('instructions', '-加工说明.xlsx'), ('ibom', '-iBOM.html')]:
         assert (destination/('design'+suffix)).exists() == (key in selected)
     assert ('artwork.exe' in commands) == ('gerber' in selected)

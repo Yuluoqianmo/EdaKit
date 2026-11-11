@@ -35,8 +35,9 @@ class GerberEditor(ttk.Frame):
         config = ttk.LabelFrame(self, text='按 PCB 配置', padding=(10, 8))
         config.grid(row=2, column=0, sticky='ew'); config.columnconfigure(1, weight=1)
         ttk.Label(config, text='板框层').grid(row=0, column=0, padx=(0, 10))
-        self.outline_entry = ttk.Combobox(config, textvariable=self.outline, state='readonly')
+        self.outline_entry = ttk.Combobox(config, textvariable=self.outline, state='normal')
         self.outline_entry.grid(row=0, column=1, sticky='ew')
+        ttk.Label(config, text='支持手动输入 Class/Subclass；请选择实际外板框，CUTOUT 仅为内切口。', style='ED.Muted.TLabel', wraplength=650).grid(row=3, column=0, columnspan=2, sticky='w', pady=(6, 0))
         actions = ttk.Frame(config); actions.grid(row=1, column=0, columnspan=2, sticky='ew', pady=(8, 0))
         ttk.Button(actions, text='一键设置…', command=self.configure_plan).pack(side='left')
         ttk.Button(actions, text='写入 PCB', command=self.write_pcb).pack(side='left', padx=7)
@@ -202,10 +203,11 @@ class GerberEditor(ttk.Frame):
                 self.restore_pending = False
             self.records = copy.deepcopy(metadata['film_records'])
         self.stack_text.set('PCB 实际叠层：'+str(len(self.copper))+' 层  ·  '+' → '.join(c['name'] for c in self.copper) if self.copper else 'PCB 实际叠层尚未读取，不能一键配置。')
-        candidates = metadata.get('choices', {}).get('板框层', [])
+        detected = gerber.outline_choices(metadata.get('choices', {}).get('板框层', []))
+        candidates = gerber.outline_choices(detected, self.known, self.records or [])
         self.outline_entry.configure(values=candidates)
-        if not self.outline.get() and len(candidates) == 1:
-            self.outline.set(candidates[0])
+        if not self.outline.get() or self.outline.get().upper().endswith('/CUTOUT'):
+            self.outline.set(gerber.preferred_outline(detected) or gerber.preferred_outline(candidates))
         if 'films' in metadata:
             self.existing = sorted(metadata['films'], key=gerber.film_sort_key)
             if self.enabled_existing is None:
@@ -519,6 +521,6 @@ class GerberEditor(ttk.Frame):
                 if isinstance(widget, (ttk.Button, ttk.Radiobutton)):
                     widget.configure(state='disabled' if busy else 'normal')
                 elif isinstance(widget, ttk.Combobox):
-                    widget.configure(state='disabled' if busy else 'readonly')
+                    widget.configure(state='disabled' if busy else 'normal' if widget is self.outline_entry else 'readonly')
                 update(widget)
         update(self); self.refresh()

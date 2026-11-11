@@ -4,9 +4,9 @@
 
 EdaKit 将立创器件检索、原理图器件放置、PCB 封装生成、器件属性维护、BOM 导出、生产交付和交互式焊接辅助整合到 Cadence 工作流程中，减少在不同工具之间复制和整理数据的操作。
 
-**稳定版：v0.1.9** · Windows 64 位 · 主要验证环境：Cadence 17.2
+**稳定版：v0.1.10** · Windows 64 位 · 主要验证环境：Cadence 17.2
 
-[下载安装包](https://github.com/Yuluoqianmo/EdaKit/releases/latest) · [发布说明](https://github.com/Yuluoqianmo/EdaKit/releases/tag/v0.1.9) · [使用文档](docs/README.md) · [问题反馈](https://github.com/Yuluoqianmo/EdaKit/issues)
+[下载安装包](https://github.com/Yuluoqianmo/EdaKit/releases/latest) · [发布说明](https://github.com/Yuluoqianmo/EdaKit/releases/tag/v0.1.10) · [使用文档](docs/README.md) · [问题反馈](https://github.com/Yuluoqianmo/EdaKit/issues)
 
 ## 功能介绍
 
@@ -30,7 +30,7 @@ Capture 中的商城、器件属性和 BOM 共用内嵌工作台，可通过顶�
 
 ## 下载与安装
 
-1. 打开 [Releases](https://github.com/Yuluoqianmo/EdaKit/releases/latest)，下载 `EdaKit-0.1.9-Setup.exe`。可使用同页的 `SHA256SUMS.txt` 校验文件完整性。
+1. 打开 [Releases](https://github.com/Yuluoqianmo/EdaKit/releases/latest)，下载 `EdaKit-0.1.10-Setup.exe`。可使用同页的 `SHA256SUMS.txt` 校验文件完整性。
 2. 保存工程并退出 Capture、Allegro。
 3. 使用实际运行 Cadence 的同一 Windows 账号启动安装包，选择 EdaKit 安装目录和 **Cadence SPB 根目录**，例如 `D:\Cadence\SPB_17.2`。
 4. 等待插件部署完成，重新打开 Capture 或 Allegro，检查菜单栏中的 **EdaKit**。
@@ -77,12 +77,12 @@ Capture 中的商城、器件属性和 BOM 共用内嵌工作台，可通过顶�
 
 1. 在 Allegro 中打开 PCB，选择 **EdaKit → Production Delivery...**。
 2. 在“输出文件”页勾选本次需要的 Gerber、器件坐标、加工说明或 iBOM。默认使用 PCB 旁的 `Output files`，已有目录直接复用，也可另选目录。
-3. 在 PCB 参数、钢网和 Gerber 页核对制造要求、层与 Film；需要写入 Film 时按界面提示确认。PCB 读取结果作为设计参考，制造要求需自行确认。
+3. 在 PCB 参数、钢网和 Gerber 页核对制造要求、层与 Film；板框优先识别实际图形中的 `OUTLINE`、`DESIGN_OUTLINE`，也可手动选择或输入 `Class/Subclass`；需要写入 Film 时按界面提示确认。PCB 读取结果作为设计参考，制造要求需自行确认。
 4. 坐标封面信息在“器件坐标 Excel”卡片下方，点击展开填写。日期默认取本机当天；编号与状态、版本与日期、编制/审核/批准采用紧凑布局。
 5. iBOM 默认使用板内器件信息；需要最终物料编码时，在 iBOM 页关联外部 BOM。点击生成，查看进度和制造日志；存在阻断错误时不会发布不完整交付文件。
 6. 在生成的 iBOM 中点击 BOM 或板图定位器件，切换顶底面与 3D 预览，标记焊接完成状态。
 
-Gerber 和钻孔/槽铣文件放在 `Gerber` 子目录，Excel 与 HTML 放在输出目录。坐标包含器件类型、值、公差、封装、毫米 XY、原始角度及 T/B 板面。导出前仍需核对封装原点是否符合贴装中心要求。详情见 [生产交付使用说明](docs/生产交付.md)。
+Gerber 和钻孔/槽铣文件放在 `板名_art` 子目录，Excel 与 HTML 放在输出目录。坐标包含器件类型、值、公差、封装、毫米 XY、原始角度及 T/B 板面。导出前仍需核对封装原点是否符合贴装中心要求。详情见 [生产交付使用说明](docs/生产交付.md)。
 
 
 将生成的 HTML 传到手机后，在支持 JavaScript 的浏览器中打开。竖屏通过“物料 / 板图”切换，点击物料可聚焦器件；二维支持单指平移、双指缩放，三维支持单指旋转、双指缩放和平移。横屏使用右侧导航、两列物料列表及适配比例的板图。更新插件后需重新导出，旧 HTML 不会自动更新。详见 [移动端使用说明](docs/交互式BOM移动端.md)。
@@ -137,7 +137,7 @@ Gerber 和钻孔/槽铣文件放在 `Gerber` 子目录，Excel 与 HTML 放在�
 ```powershell
 git clone https://github.com/Yuluoqianmo/EdaKit.git
 cd EdaKit
-git checkout v0.1.9
+git checkout v0.1.10
 python -m venv .venv
 .\.venv\Scripts\Activate.ps1
 python -m pip install -r requirements-build.lock

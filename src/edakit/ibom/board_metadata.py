@@ -171,7 +171,8 @@ def parse_geometry(text):
             continue
         class_, layer = row.get('CLASS', ''), row.get('SUBCLASS', '')
         if class_ in ('BOARD GEOMETRY', 'MANUFACTURING') and any(token in layer.upper() for token in ('OUTLINE', 'DESIGN_OUTLINE', 'ROUTE', 'BOARD', 'PROFILE', 'CUT', '边', '框')):
-            outlines.add(class_+'/'+layer)
+            if layer.upper() != 'CUTOUT':
+                outlines.add(class_+'/'+layer)
         if class_ == 'ETCH' and row.get('GRAPHIC_DATA_10') == 'CONNECT':
             value = float(row['GRAPHIC_DATA_5' if kind == 'LINE' else 'GRAPHIC_DATA_8'])*scale
             if math.isfinite(value) and value > 0:

@@ -3,7 +3,7 @@
   #define ReleaseDir "..\dist"
 #endif
 #ifndef MyAppVersion
-  #define MyAppVersion "0.1.9"
+  #define MyAppVersion "0.1.10"
 #endif
 #ifndef SetupBaseName
   #define SetupBaseName "EdaKit-" + MyAppVersion + "-Setup"

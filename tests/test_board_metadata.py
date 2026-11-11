@@ -17,7 +17,7 @@ def test_geometry_uses_actual_line_and_arc_widths_and_existing_outline_layers():
             'S!BOARD GEOMETRY!SILKSCREEN_TOP!LINE!1!!NOTCONNECT!\n')
     result = m.parse_geometry(text)
     assert result['width'] == 8
-    assert result['outline_layers'] == ['BOARD GEOMETRY/OUTLINE', 'BOARD GEOMETRY/CUTOUT']
+    assert result['outline_layers'] == ['BOARD GEOMETRY/OUTLINE']
     assert m.parse_geometry(text.replace('mils', 'millimeters'))['width'] == pytest.approx(8/.0254)
     with pytest.raises(ValueError, match='单位'):
         m.parse_geometry(text.replace('mils', 'unknown'))

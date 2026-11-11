@@ -321,10 +321,11 @@ def run(board, source, cadence_root, parameters=None, template=None, fields=None
             raise ValueError('Gerber 输出与工程 Film 定义不完整对应')
         if not gerbers or not drills or any(p.stat().st_size == 0 for p in gerbers+drills+routes):
             raise ValueError('Gerber 或钻孔文件缺失、为空')
-        (stage/'Gerber').mkdir()
+        gerber_folder = stage/(source.stem+'_art')
+        gerber_folder.mkdir()
         for p in gerbers+drills+routes:
             name = source.stem+p.name[len('board'):] if p.suffix == '.drl' and p.stem.split('-')[0] == 'board' else source.stem+p.name[len('route'):] if p.suffix == '.rou' and p.name.startswith('route') else p.name
-            shutil.copy2(p, stage/'Gerber'/name)
+            shutil.copy2(p, gerber_folder/name)
     if 'coordinates' in selected:
         progress('正在读取器件坐标并生成 Excel')
         command = work/'coordinates.txt'

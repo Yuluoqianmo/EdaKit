@@ -11,6 +11,47 @@ def copper():
     return [dict(name=name, kind='CONDUCTOR') for name in ('TOP', 'SIGNAL_3', 'SIGNAL_7', 'BOTTOM')]
 
 
+@pytest.mark.parametrize('layers,expected', [
+    (['BOARD GEOMETRY/DESIGN_OUTLINE', 'BOARD GEOMETRY/OUTLINE'], 'BOARD GEOMETRY/OUTLINE'),
+    (['BOARD GEOMETRY/DESIGN_OUTLINE'], 'BOARD GEOMETRY/DESIGN_OUTLINE'),
+    (['BOARD GEOMETRY/CUTOUT', 'MANUFACTURING/CUSTOM_PROFILE'], ''),
+])
+def test_standard_outline_auto_priority(layers, expected):
+    assert g.preferred_outline(layers) == expected
+
+
+def test_manual_outline_choices_survive_incomplete_geometry_and_readback():
+    import tkinter as tk
+    from edakit.ibom.gerber_window import GerberEditor
+    layers = ['BOARD GEOMETRY/CUTOUT', 'BOARD GEOMETRY/DESIGN_OUTLINE',
+              'BOARD GEOMETRY/OUTLINE', 'MANUFACTURING/CUSTOM_PROFILE', 'ETCH/TOP', 'ETCH/BOTTOM']
+    root = tk.Tk()
+    try:
+        editor = GerberEditor(root, {}, lambda message: None)
+        editor.apply_metadata({'choices': {'板框层': ['BOARD GEOMETRY/CUTOUT']},
+                               'film_layers': layers, 'film_records': [], 'copper_layers': copper()[::3]})
+        choices = list(editor.outline_entry.cget('values'))
+        assert choices[:2] == ['BOARD GEOMETRY/OUTLINE', 'BOARD GEOMETRY/DESIGN_OUTLINE']
+        assert 'BOARD GEOMETRY/CUTOUT' not in choices
+        assert editor.outline.get() == 'BOARD GEOMETRY/OUTLINE'
+        editor.outline_entry.set('MANUFACTURING/CUSTOM_PROFILE')
+        assert editor.outline.get() == 'MANUFACTURING/CUSTOM_PROFILE'
+        assert g.recommended(editor.copper, editor.outline.get(), layers)[0]['layers'] == ['MANUFACTURING/CUSTOM_PROFILE']
+        editor.set_busy(True)
+        assert editor.outline_entry.instate(['disabled'])
+        editor.set_busy(False)
+        assert not editor.outline_entry.instate(['disabled', 'readonly'])
+        editor.apply_metadata({'film_layers': layers, 'film_records': []})
+        assert editor.outline.get() == 'MANUFACTURING/CUSTOM_PROFILE'
+        assert 'BOARD GEOMETRY/OUTLINE' in editor.outline_entry.cget('values')
+        with pytest.raises(ValueError):
+            g.recommended(editor.copper, 'MANUFACTURING/DOES_NOT_EXIST', layers)
+        with pytest.raises(ValueError):
+            g.recommended(editor.copper, 'BOARD GEOMETRY/CUTOUT', layers)
+    finally:
+        root.destroy()
+
+
 def test_film_order_is_natural_ascending_in_reader_and_tree(tmp_path, monkeypatch):
     import tkinter as tk
     from edakit.ibom.gerber_window import GerberEditor
